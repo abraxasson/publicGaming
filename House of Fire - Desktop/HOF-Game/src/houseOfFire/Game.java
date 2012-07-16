@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 public class Game extends ApplicationAdapter {
 
+	 
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
