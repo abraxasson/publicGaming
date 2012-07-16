@@ -1,4 +1,4 @@
-package houseOfFire;
+package hof.core;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
