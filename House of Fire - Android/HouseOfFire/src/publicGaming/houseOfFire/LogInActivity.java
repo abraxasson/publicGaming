@@ -1,5 +1,6 @@
-package com.example.prototype;
+package publicGaming.houseOfFire;
 
+import publicGaming.housOfFire.R;
 import userMessages.PlayerInfoMessage;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,8 +36,7 @@ public class LogInActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		
-		udpClient =  new UdpClientThread();
-		udpClient.start();
+		udpClient =  UdpClientThread.getInstance();
 	}
 
 
@@ -60,7 +60,7 @@ public class LogInActivity extends Activity {
 		
 		//udpClient.sendMessage(name);
 		udpClient.sendObject(new PlayerInfoMessage(name));
-		startActivity(new Intent(this, Prototype.class));
+		startActivity(new Intent(this, control.class));
 		}
 	}
 

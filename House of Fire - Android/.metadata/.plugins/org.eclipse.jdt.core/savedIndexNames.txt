@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+C:\Users\p_marcel\Documents\GitHub\publicGaming\House of Fire - Android\.metadata\.plugins\org.eclipse.jdt.core
-52108211.index
-2121418407.index
-230625794.index
