@@ -1,4 +1,4 @@
-package houseOfFire;
+package hof.core;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
