@@ -1,4 +1,4 @@
-'House on Fire'
+'House of Fire'
 ===============
 
 ##### Multiplayer Spiel für öffentliche Installationen
