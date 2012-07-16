@@ -19,4 +19,5 @@ Musikdateien können eine beliebige Größe haben.
 ##### 3. Laden
 Verwendung eines Singleton AssetManagers
 
-
+##### 4. Sampling
+WAV files müssen 16-bit signed PCM sein.
