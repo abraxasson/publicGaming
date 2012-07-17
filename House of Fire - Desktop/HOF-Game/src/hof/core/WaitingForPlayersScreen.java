@@ -1,16 +1,15 @@
 package hof.core;
 
+import hof.core.utils.GameScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class WaitingForPlayersScreen implements Screen {
-
-	private HouseOfFireGame game;
+public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
-		this.game = game;
+		super(game);
 	}
 
 	@Override
@@ -22,41 +21,4 @@ public class WaitingForPlayersScreen implements Screen {
 			game.setScreen(game.mainMenuScreen);
 		}
 	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

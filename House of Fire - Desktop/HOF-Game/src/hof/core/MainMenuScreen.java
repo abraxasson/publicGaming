@@ -1,31 +1,17 @@
 package hof.core;
 
+import hof.core.utils.GameScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 
-	HouseOfFireGame game;
-	
 	public MainMenuScreen(HouseOfFireGame game) {
-		this.game = game;
+		super(game);
 	}
 	
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -40,30 +26,5 @@ public class MainMenuScreen implements Screen {
 		}
 
 	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
-	}	
-	
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
 }
  
