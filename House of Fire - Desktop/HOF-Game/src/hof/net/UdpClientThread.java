@@ -1,5 +1,7 @@
 package hof.net;
 
+import hof.net.userMessages.AbstractMessage;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -74,7 +76,7 @@ public class UdpClientThread extends Thread {
 		notify();
 	}
 	
-	public synchronized void sendObject(Object e)
+	public synchronized void sendObject(AbstractMessage e)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
