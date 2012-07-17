@@ -16,6 +16,6 @@ public class Main {
 		cfg.height = d.height;
 		cfg.fullscreen = true;
 		cfg.resizable = false;
-		new LwjglApplication(new Game(), cfg);	
+		new LwjglApplication(new HouseOfFireGame(), cfg);	
 	}
 }
