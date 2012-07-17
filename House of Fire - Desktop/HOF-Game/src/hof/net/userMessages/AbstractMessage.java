@@ -8,8 +8,7 @@ public abstract class AbstractMessage implements Serializable {
 
 	private Type type;
 
-	public AbstractMessage(Type type) { // 0 fuer PlayerInfo 1 fuer InputInfo 2 fuer
-									// LogoutInfo
+	public AbstractMessage(Type type) { 
 		this.type = type;
 	}
 
@@ -23,6 +22,6 @@ public abstract class AbstractMessage implements Serializable {
 	}
 
 	public enum Type {
-		PlayerInfo, InputInfo, LogoutInfo, ValidationInfo;
+		PlayerInfo, InputInfo, LogoutInfo, ValidationInfo, LevelFinished, Achievement, GameFinished, Retry, WaterPressure;
 	}
 }

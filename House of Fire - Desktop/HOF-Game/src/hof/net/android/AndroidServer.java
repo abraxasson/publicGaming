@@ -1,6 +1,5 @@
 package hof.net.android;
 
-import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.ValidationInfoMessage;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 
 public class AndroidServer extends Thread {
 	private DatagramSocket socket;
@@ -18,12 +16,10 @@ public class AndroidServer extends Thread {
 	private ObjectInputStream ois;
 	private AbstractMessage message;
 	private boolean isActive;
-	private MessageProcessing processing;
 
 	public AndroidServer(int port) {
 		super();
 		isActive = true;
-		processing = MessageProcessing.getInstance();
 		try {
 			this.socket = new DatagramSocket(port);
 		} catch (IOException e) {
@@ -38,7 +34,6 @@ public class AndroidServer extends Thread {
 		while (isActive) {
 			try {
 				socket.receive(packet);
-				InetAddress address = packet.getAddress();
 				byte[] data = packet.getData();
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				message = (AbstractMessage) ois.readObject();
@@ -65,12 +60,21 @@ public class AndroidServer extends Thread {
 		this.isActive = isActive;
 	}
 
-	private void messageProcessing(AbstractMessage e) {
-		switch (e.getType()) {
+	private void messageProcessing(AbstractMessage message) {
+		switch (message.getType()) {
 		case ValidationInfo:
 			UdpClientThread c = UdpClientThread.getInstance();
 			c.sendObject(new ValidationInfoMessage());
-			System.out.println("Validatio succeded");
+			System.out.println(message.toString());
+			break;
+		case LevelFinished:
+			System.out.println(message.toString());
+			break;
+		case Achievement:
+			System.out.println(message.toString());
+			break;
+		case GameFinished:
+			System.out.println(message.toString());
 			break;
 		default:
 			System.out.println("Kein passender Input");

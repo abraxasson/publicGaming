@@ -61,6 +61,12 @@ public class MessageProcessing {
 			activePlayers.add(player);
 			newPlayers.remove(player);
 			break;
+		case Retry:
+			System.out.println(message.toString());
+			break;
+		case WaterPressure:
+			System.out.println(message.toString());
+			break;
 		default:
 			break;
 		}
