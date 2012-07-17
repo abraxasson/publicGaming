@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 
-public class control extends Activity implements SensorEventListener {
+public class ControllerActivity extends Activity implements SensorEventListener {
 	private static final String TAG = "Prototype";
 	
 	private SensorManager mSensorManager;
@@ -35,7 +35,7 @@ public class control extends Activity implements SensorEventListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_control);
+        setContentView(R.layout.activity_controller);
         
         pfeil_links = (ImageButton) findViewById(R.id.pfeil_links);
         pfeil_rechts = (ImageButton) findViewById(R.id.pfeil_rechts);

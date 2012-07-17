@@ -60,7 +60,7 @@ public class LogInActivity extends Activity {
 		
 		//udpClient.sendMessage(name);
 		udpClient.sendObject(new PlayerInfoMessage(name));
-		startActivity(new Intent(this, control.class));
+		startActivity(new Intent(this, ControllerActivity.class));
 		}
 	}
 

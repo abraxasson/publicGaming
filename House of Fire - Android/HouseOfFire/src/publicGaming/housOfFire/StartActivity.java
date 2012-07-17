@@ -1,4 +1,4 @@
-package publicGaming.houseOfFire;
+package publicGaming.housOfFire;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -6,17 +6,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 
-public class HouseOfFire extends Activity {
+public class StartActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_house_of_fire);
+        setContentView(R.layout.activity_start);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_house_of_fire, menu);
+        getMenuInflater().inflate(R.menu.activity_start, menu);
         return true;
     }
 
