@@ -1,6 +1,8 @@
 package hof.core;
 
+import hof.net.UdpClientThread;
 import hof.net.UdpServerThread;
+import hof.net.userMessages.ValidationInfoMessage;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -12,8 +14,10 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create() {
 		super.create();
-		udpServer = new UdpServerThread(4711);
-		udpServer.start();
+		//udpServer = new UdpServerThread(4711);
+		//udpServer.start();
+		UdpClientThread x = UdpClientThread.getInstance();
+		x.sendObject(new ValidationInfoMessage());
 	}
 
 	@Override
