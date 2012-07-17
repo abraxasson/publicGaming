@@ -1,0 +1,11 @@
+pack01.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+8x8
+  rotate: false
+  xy: 0, 0
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
