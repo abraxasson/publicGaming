@@ -9,12 +9,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize(); 
 		cfg.title = "HouseOfFire";
 		cfg.useGL20 = true;
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		cfg.width = d.width;
 		cfg.height = d.height;
-		cfg.setFromDisplayMode(new FullScreen(d.width,d.height,10,10));
-		new LwjglApplication(new Game(), cfg);		
+		cfg.fullscreen = true;
+		cfg.resizable = false;
+		new LwjglApplication(new Game(), cfg);	
 	}
 }
