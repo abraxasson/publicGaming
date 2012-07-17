@@ -13,6 +13,8 @@ import java.net.InetAddress;
 
 
 public class UdpServerThread extends Thread {
+	private static final int PORT = 4711;
+	
 	private DatagramSocket socket;
 	private DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 	
@@ -21,13 +23,23 @@ public class UdpServerThread extends Thread {
 	private boolean isActive;
 	
 	private MessageProcessing processing;
+	
+	private static UdpServerThread instance;
 
-	public UdpServerThread(int port) {
+	public static UdpServerThread getInstance() {
+		if (instance == null || instance.getState() == Thread.State.TERMINATED) {
+			instance = new UdpServerThread();
+			instance.start();
+		}		
+		return instance;
+	}
+	
+	private UdpServerThread() {
 		super();
 		isActive = true;
 		processing = MessageProcessing.getInstance();
 		try {
-			this.socket = new DatagramSocket(port);
+			this.socket = new DatagramSocket(PORT);
 		} catch (IOException e) {
 			System.out.println("Server funktioniert nicht!");
 			System.out.println(e.getMessage());
