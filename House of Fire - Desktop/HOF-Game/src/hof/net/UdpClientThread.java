@@ -13,9 +13,6 @@ import java.net.UnknownHostException;
 import java.util.LinkedList;
 
 public class UdpClientThread extends Thread {
-	
-	private static final String TAG = "UdpClientThread";
-	
 	private InetAddress ia = null;
 	private static int port = 4711;
 	private DatagramPacket packet;
