@@ -12,7 +12,8 @@
     <string name="test">Bitte versuchen Sie es erneut!</string>
     <string name="back">zurueck</string>
     <string name="water">Wasserfuellstand</string>
-    
+    <color name="myColor">#d3d3d3</color>
+    <string name="play">Spielen</string>
     
 
 </resources>
