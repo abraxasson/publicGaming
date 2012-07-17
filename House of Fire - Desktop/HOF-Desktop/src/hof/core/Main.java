@@ -14,7 +14,7 @@ public class Main {
 		cfg.useGL20 = true;
 		cfg.width = d.width;
 		cfg.height = d.height;
-		cfg.setFromDisplayMode(new FullScreen(d.width,d.height,10,10));
+		cfg.setFromDisplayMode(new FullScreen(d.width,d.height,60,32));
 		new LwjglApplication(new Game(), cfg);		
 	}
 }
