@@ -1,15 +1,19 @@
 package hof.core;
 
+import hof.net.UdpServerThread;
+
 import com.badlogic.gdx.ApplicationAdapter;
 
 
 public class Game extends ApplicationAdapter {
 
-	 
+	private UdpServerThread udpServer; 
+	
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
 		super.create();
+		udpServer = new UdpServerThread(4711);
+		udpServer.start();
 	}
 
 	@Override
