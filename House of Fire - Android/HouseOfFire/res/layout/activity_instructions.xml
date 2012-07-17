@@ -9,20 +9,19 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="vertical" >
-
+            
             <TextView
-                android:id="@+id/textView_instructions"
+                android:id="@+id/output_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/instructions"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
             <TextView
-                android:id="@+id/text_instructions"
+                android:id="@+id/output_instructions"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:text="TextView" />
+                android:layout_height="170dp" />
 
             <Button
                 android:id="@+id/button_next"

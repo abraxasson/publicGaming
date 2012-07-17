@@ -10,8 +10,8 @@
     <string name="wait">Bitte warten ...</string>
     <string name="error">Es ist ein Fehler aufgetreten!</string>
     <string name="test">Bitte versuchen Sie es erneut!</string>
-    <string name="back">zurueck</string>
-    <string name="water">Wasserfuellstand</string>
+    <string name="back">zurück</string>
+    <string name="water">Wasserfüllstand</string>
     <color name="myColor">#d3d3d3</color>
     <string name="play">Spielen</string>
     
