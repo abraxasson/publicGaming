@@ -2,15 +2,15 @@ package hof.net.userMessages;
 
 public class GameFinishedInfoMessage extends AbstractMessage{
 	private static final long serialVersionUID = 37295872L;
-	private String result;		//gewonnen oder verloren
+	private boolean won;
 	
-	public GameFinishedInfoMessage(String result) {
+	public GameFinishedInfoMessage(boolean won) {
 		super(Type.GameFinished);
-		this.result = result;
+		this.won = won;
 	}
 
-	public String getResult() {
-		return result;
+	public boolean hasWon() {
+		return won;
 	}
 	
 }
