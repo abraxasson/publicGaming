@@ -55,4 +55,9 @@ public class Player {
 	public boolean getAlive() {
 		return isAlive;
 	}
+
+	public void setAlive(boolean alive) {
+		isAlive = alive;
+		
+	}
 }

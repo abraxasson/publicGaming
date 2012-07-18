@@ -8,6 +8,7 @@ import java.util.List;
 
 import hof.player.PlayerInput;
 import hof.player.Player;
+import hof.core.utils.ColorList;
 import hof.net.userMessages.*;
 import hof.net.userMessages.AbstractMessage.Type;
 
@@ -17,6 +18,9 @@ public class MessageProcessing {
 	private ArrayList<Player> newPlayers;
 	private LinkedList<PlayerInput> queue;
 	private static MessageProcessing instance;
+	private ColorList colorList;
+	
+	private UdpClientThread udpClient;
 
 	public static MessageProcessing getInstance() {
 		if (instance == null) {
@@ -27,7 +31,11 @@ public class MessageProcessing {
 
 	private MessageProcessing() {
 		activePlayers = new ArrayList<Player>();
+		newPlayers = new ArrayList<Player>();
 		queue = new LinkedList<PlayerInput>();
+		colorList = new ColorList();
+		
+		udpClient = UdpClientThread.getInstance();
 	}
 
 	/**
@@ -57,9 +65,7 @@ public class MessageProcessing {
 			processPlayerMessage(playerMessage, address);
 			break;
 		case ValidationInfo:
-			Player player = getPlayer(address, newPlayers);
-			activePlayers.add(player);
-			newPlayers.remove(player);
+			processValidationMessage(address);
 			break;
 		case Retry:
 			System.out.println(message.toString());
@@ -71,6 +77,32 @@ public class MessageProcessing {
 			break;
 		}
 	}
+	
+	/**
+	 * Checks the PlayerInfoMessage for the name and creates a new Player with
+	 * this name and the given InetAddress. The player is added to the list of
+	 * players.
+	 * 
+	 * @param message
+	 * @param address
+	 */
+	private void processPlayerMessage(PlayerInfoMessage message,
+			InetAddress address) {
+		Player player = new Player(message.getName(), address, colorList.getNextColor());
+		if (!checkPlayer(address)) {
+			newPlayers.add(player);
+			
+			System.out.println("New Player online");
+		} else {
+			System.out.println("Spieler existiert bereits");
+		}
+	}
+
+	private void processValidationMessage(InetAddress address) {
+		Player player = getPlayer(address, newPlayers);
+		activePlayers.add(player);
+		newPlayers.remove(player);		
+	}
 
 	/**
 	 * Receives the InputInfoMessage and notifies the game about this.
@@ -81,7 +113,9 @@ public class MessageProcessing {
 	private void processInputMessage(InputInfoMessage inputMessage,
 			InetAddress address) {
 		if (checkPlayer(address)) {
-			getPlayer(address, activePlayers).incScore();
+			Player player = getPlayer(address, activePlayers);
+			player.incScore();
+			player.setAlive(true);
 			queue.add(new PlayerInput());
 		}
 	}
@@ -111,25 +145,6 @@ public class MessageProcessing {
 						+ " hat sich ausgeloggt");
 				iter.remove();
 			}
-		}
-	}
-
-	/**
-	 * Checks the PlayerInfoMessage for the name and creates a new Player with
-	 * this name and the given InetAddress. The player is added to the list of
-	 * players.
-	 * 
-	 * @param message
-	 * @param address
-	 */
-	private void processPlayerMessage(PlayerInfoMessage message,
-			InetAddress address) {
-		Player player = new Player(message.getName(), address);
-		if (!checkPlayer(address)) {
-			newPlayers.add(player);
-			System.out.println("New Player online");
-		} else {
-			System.out.println("Spieler existiert bereits");
 		}
 	}
 
