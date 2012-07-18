@@ -15,11 +15,6 @@ public class Assets {
 	
 	public static Sound buttonSound;
 	
-	public static ParticleEffect waterParticleEffect;
-	public static ParticleEffect[] fireParticleEffect;
-	
-	private static final int FIRES = 6;
-	
 	public static BitmapFont defaultFont;
 	
 	public static void load() {
@@ -30,19 +25,19 @@ public class Assets {
 		createAnimations();
 		loadSounds();
 		loadFonts();
-		loadParticles();
+
 	}
 	
-	private static void loadParticles() {
-		waterParticleEffect = new ParticleEffect();
+	public static ParticleEffect loadWaterParticles() {
+		ParticleEffect waterParticleEffect = new ParticleEffect();
 		waterParticleEffect.load(Gdx.files.internal("particles/waterjet.p"), Gdx.files.internal("particles"));
-		
-		fireParticleEffect = new ParticleEffect[FIRES];
-		for (int i = 0; i < fireParticleEffect.length; i++) {
-			fireParticleEffect[i] = new ParticleEffect();
-			fireParticleEffect[i].load(Gdx.files.internal("particles/fire.p"), Gdx.files.internal("particles"));
-		}
-		
+		return waterParticleEffect;
+	}
+	
+	public static ParticleEffect loadFireParticles() {
+		ParticleEffect fireParticleEffect = new ParticleEffect();
+		fireParticleEffect.load(Gdx.files.internal("particles/fire.p"), Gdx.files.internal("particles"));
+		return fireParticleEffect;
 	}
 
 	private static void createAnimations() {
