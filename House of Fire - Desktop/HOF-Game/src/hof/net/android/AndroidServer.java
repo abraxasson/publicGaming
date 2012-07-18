@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class AndroidServer extends Thread {
 	private DatagramSocket socket;
@@ -16,6 +17,7 @@ public class AndroidServer extends Thread {
 	private ObjectInputStream ois;
 	private AbstractMessage message;
 	private boolean isActive;
+	private InetAddress ia;
 
 	public AndroidServer(int port) {
 		super();
@@ -37,6 +39,7 @@ public class AndroidServer extends Thread {
 				byte[] data = packet.getData();
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				message = (AbstractMessage) ois.readObject();
+				ia = packet.getAddress();
 				messageProcessing(message);
 				ois.close();
 				System.out.println(message);
@@ -63,7 +66,7 @@ public class AndroidServer extends Thread {
 	private void messageProcessing(AbstractMessage message) {
 		switch (message.getType()) {
 		case ValidationInfo:
-			UdpClientThread c = UdpClientThread.getInstance();
+			UdpClientThread c = UdpClientThread.getInstance(ia);
 			c.sendObject(new ValidationInfoMessage());
 			System.out.println(message.toString());
 			break;
@@ -75,6 +78,10 @@ public class AndroidServer extends Thread {
 			break;
 		case GameFinished:
 			System.out.println(message.toString());
+			break;
+		case PlayerInfo:
+			System.out.println(message.toString());
+			System.out.println("bewirkt nichts");
 			break;
 		default:
 			System.out.println("Kein passender Input");

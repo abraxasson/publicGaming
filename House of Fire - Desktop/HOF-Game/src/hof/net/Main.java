@@ -1,12 +1,13 @@
 package hof.net;
 
-import hof.net.userMessages.PlayerInfoMessage;
+import java.net.UnknownHostException;
+
+
 
 public class Main {
 
-	public static void main(String[] args) {
-		UdpClientThread udp = UdpClientThread.getInstance();
-		udp.sendObject(new PlayerInfoMessage("Florian"));
-		udp.setActive(false);
+	public static void main(String[] args) throws UnknownHostException {
+		SSDPNetworkClient explorer = new SSDPNetworkClient("Manuel");
+		explorer.start();
 	}
 }

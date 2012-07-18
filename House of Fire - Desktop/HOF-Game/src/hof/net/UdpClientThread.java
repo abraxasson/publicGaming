@@ -21,24 +21,25 @@ public class UdpClientThread extends Thread {
 	private LinkedList<DatagramPacket> list;
 	private static UdpClientThread instance;
 
-	private UdpClientThread() {
+	private UdpClientThread(InetAddress ia) {
 		list = new LinkedList<DatagramPacket>();
-
+		String a = ia.toString().substring(1, ia.toString().length());
 		try {
-			ia = InetAddress.getByName("barbados");
-			toSocket = new DatagramSocket();		
+			this.ia = InetAddress.getByName(a);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			toSocket = new DatagramSocket();
 		} catch (SocketException e) {
 			e.printStackTrace();
 			System.out.println("Socket nicht gefunden");
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			System.out.println("Host nicht gefunden");
-		} 
+		}
 	}
-	
-	public static UdpClientThread getInstance() {
-		if (instance == null || instance.getState() == Thread.State.TERMINATED) {
-			instance = new UdpClientThread();
+
+	public static UdpClientThread getInstance(InetAddress ia) {
+		if (instance == null || instance.getState() == Thread.State.TERMINATED || instance.ia != ia) {
+			instance = new UdpClientThread(ia);
 			instance.start();
 		}
 		return instance;
@@ -72,14 +73,13 @@ public class UdpClientThread extends Thread {
 		this.isActive = active;
 		notify();
 	}
-	
-	public synchronized void sendObject(AbstractMessage e)
-	{
+
+	public synchronized void sendObject(AbstractMessage e) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			ObjectOutputStream stream = new ObjectOutputStream(baos);
 			stream.writeObject(e);
-			byte[] data=  baos.toByteArray();
+			byte[] data = baos.toByteArray();
 			packet = new DatagramPacket(data, data.length, ia, port);
 			list.add(packet);
 			notify();
