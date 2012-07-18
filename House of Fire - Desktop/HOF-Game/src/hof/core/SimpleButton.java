@@ -1,7 +1,5 @@
 package hof.core;
 
-import hof.core.utils.Assets;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
@@ -21,16 +19,22 @@ public class SimpleButton {
 	private float x;
 	private float y;
 	private HAlignment alignment;
+	private Color color;
 
-	public SimpleButton(String text, BitmapFont font) {
+	public SimpleButton(String text, BitmapFont font, Color color) {
 		this.text = text;
 		wasPressed = false;
 		this.font = font;
-		TextBounds bounds = Assets.defaultFont.getBounds(text);
+		TextBounds bounds = font.getBounds(text);
+		
+		bounds.height *= 1.35;
+		
 		textHeight = bounds.height;
+		
 		width = bounds.width;
 		height = bounds.height;
 		alignment = HAlignment.CENTER;
+		this.color = color;
 	}
 
 	public void setWidth(float width) {
@@ -74,22 +78,15 @@ public class SimpleButton {
 	public void draw(SpriteBatch spriteBatch) {
 		Color oldColor = font.getColor();
 		if (down) {
-			spriteBatch.setColor(Color.RED);
-		} else {
-			spriteBatch.setColor(Color.BLUE);
-		}
-		spriteBatch.draw(Assets.pureWhiteTextureRegion, x, y, width, height);
-		spriteBatch.setColor(Color.WHITE);
-		if (down) {
 			font.setColor(oldColor.r / 2, oldColor.g / 2, oldColor.b / 2,
 					oldColor.a);
 		}
 		float textX = x;
 		float textY = y + height;
 		textY -= (height - textHeight) / 2;
+		font.setColor(color);
 		font.drawWrapped(spriteBatch, text, textX, textY, width, alignment);
 		font.setColor(oldColor);
-
 	}
 
 	public void rightOn(float right) {
@@ -114,6 +111,14 @@ public class SimpleButton {
 
 	public void centerVerticallyOn(float centerY) {
 		y = centerY - height / 2;
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
 	}
 
 }

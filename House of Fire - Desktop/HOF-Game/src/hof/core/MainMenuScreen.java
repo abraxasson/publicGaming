@@ -5,6 +5,7 @@ import hof.core.utils.GameScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,10 +32,15 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void createButtons() {
-		playButton = new SimpleButton("Play", Assets.defaultFont);
-		playButton.leftOn(100);
-		playButton.bottomOn(100);
-		endButton = new SimpleButton("End", Assets.defaultFont);
+		playButton = new SimpleButton("Play", Assets.textFont, Color.WHITE);
+		playButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
+		playButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
+		
+		float posX = playButton.getX();
+		float posY = playButton.getY() - 40;
+		endButton = new SimpleButton("End", Assets.textFont, Color.WHITE);
+		endButton.leftOn(posX);
+		endButton.topOn(posY);
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (Gdx.input.isKeyPressed(Keys.SPACE) || playButton.wasPressed()) {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
 
@@ -52,9 +58,11 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 			startGame();
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE) || endButton.wasPressed()) {
 			System.exit(0);
 		}
+
+
 		
 		spriteBatch.begin();
 		drawButtons();
