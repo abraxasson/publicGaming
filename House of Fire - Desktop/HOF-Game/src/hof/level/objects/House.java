@@ -58,7 +58,7 @@ public class House {
 		return null;
 	}
 	
-	public void setBurningArea(Color c, String filename) {
+	public void setBurningArea(int r, int g, int b, String filename) {
 		BufferedImage img;
 		try {
 			img = ImageIO.read(new File("assets/textures/"+filename));
@@ -66,7 +66,13 @@ public class House {
 				for (int y = 0; y < img.getHeight(); y++) {
 					int rgb = img.getRGB(x, y);
 					Color color = new Color(rgb);
+					Color c = new Color(r,g,b);
 					if (color.toString().equals(c.toString())) {
+						Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+						double verhaeltnis = d.getWidth()/img.getWidth();
+						x = (int) (x*verhaeltnis);
+						verhaeltnis = d.getHeight()/img.getHeight();
+						y = (int) (y*verhaeltnis);
 						Pixel pixel = new Pixel(x, y, color);
 						if (burningArea.add(pixel)) {
 							System.out.println("Pixel added");
