@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class Firefighter extends AbstractPerson {
 	private Player player;
 	
-	public Firefighter(Texture body, int x, int y, Player player) {
-		super(body, x, y);
+	public Firefighter(Texture body, int x, int y, int width, int height, Player player) {
+		super(body, x, y, width, height);
 		this.player = player;
 	}
 
