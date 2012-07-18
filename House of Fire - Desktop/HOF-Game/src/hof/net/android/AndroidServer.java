@@ -66,7 +66,8 @@ public class AndroidServer extends Thread {
 	private void messageProcessing(AbstractMessage message) {
 		switch (message.getType()) {
 		case ValidationInfo:
-			UdpClientThread c = UdpClientThread.getInstance(ia);
+			UdpClientThread c = UdpClientThread.getInstance();
+			c.setIA(ia);
 			c.sendObject(new ValidationInfoMessage());
 			System.out.println(message.toString());
 			break;

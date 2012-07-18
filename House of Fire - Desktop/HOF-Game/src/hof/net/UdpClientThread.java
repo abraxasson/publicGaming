@@ -9,7 +9,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.LinkedList;
 
 public class UdpClientThread extends Thread {
@@ -21,14 +20,10 @@ public class UdpClientThread extends Thread {
 	private LinkedList<DatagramPacket> list;
 	private static UdpClientThread instance;
 
-	private UdpClientThread(InetAddress ia) {
+	private UdpClientThread() {
 		list = new LinkedList<DatagramPacket>();
-		String a = ia.toString().substring(1, ia.toString().length());
-		try {
-			this.ia = InetAddress.getByName(a);
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		}
+		this.ia = null;
+
 		try {
 			toSocket = new DatagramSocket();
 		} catch (SocketException e) {
@@ -37,9 +32,9 @@ public class UdpClientThread extends Thread {
 		}
 	}
 
-	public static UdpClientThread getInstance(InetAddress ia) {
-		if (instance == null || instance.getState() == Thread.State.TERMINATED || instance.ia != ia) {
-			instance = new UdpClientThread(ia);
+	public static UdpClientThread getInstance() {
+		if (instance == null || instance.getState() == Thread.State.TERMINATED) {
+			instance = new UdpClientThread();
 			instance.start();
 		}
 		return instance;
@@ -72,6 +67,10 @@ public class UdpClientThread extends Thread {
 	public synchronized void setActive(boolean active) {
 		this.isActive = active;
 		notify();
+	}
+	
+	public void setIA (InetAddress ia) {
+		this.ia = ia;
 	}
 
 	public synchronized void sendObject(AbstractMessage e) {

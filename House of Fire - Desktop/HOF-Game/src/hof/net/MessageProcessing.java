@@ -91,7 +91,9 @@ public class MessageProcessing {
 		Player player = new Player(message.getName(), address, colorList.getNextColor());
 		if (!checkPlayer(address)) {
 			newPlayers.add(player);
+			udpClient.setIA(address);
 			
+			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");

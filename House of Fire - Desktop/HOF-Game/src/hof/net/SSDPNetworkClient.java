@@ -2,8 +2,16 @@ package hof.net;
 
 import hof.net.userMessages.PlayerInfoMessage;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 
@@ -50,7 +58,8 @@ public class SSDPNetworkClient extends Thread {
 			System.out.println("Timeout");
 			for (InetAddress a : this.addresses) {
 				System.out.println(a.toString());
-				sender = UdpClientThread.getInstance(a);
+				sender = UdpClientThread.getInstance();
+				sender.setIA(a);
 				System.out.println("Paket gesendet an "+a.toString());
 				sender.sendObject(new PlayerInfoMessage(name));
 				sender.sendObject(new PlayerInfoMessage(name));
