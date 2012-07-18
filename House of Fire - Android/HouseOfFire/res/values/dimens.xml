@@ -1,11 +1,11 @@
 <resources>
 
-   	<dimen name="padding_small">6dp</dimen>
+    <dimen name="padding_small">6dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
     <dimen name="padding_normal">10dp</dimen>
     <dimen name="padding_large">12dp</dimen>
     <dimen name="padding_mega">15dp</dimen>
     <dimen name="padding_giga">20dp</dimen>
     
-    
+
 </resources>

@@ -2,7 +2,7 @@
 
     <string name="app_name">House of Fire</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_control">control</string>
+    <string name="title_activity_start">StartActivity</string>
     <string name="name">Geben Sie bitte ihren Namen ein!</string>
     <string name="startButton">Dem Spiel beitreten</string>
     <string name="instructions">Anleitung</string>
@@ -17,7 +17,8 @@
 
     <string name="play">Spielen</string>
     <string name="pump">Pumpen</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_controller">ControllerActivity</string>
+    <string name="title_activity_log_in">LogInActivity</string>
+    <string name="title_activity_instructions">InstructionsActivity</string>
 
 </resources>

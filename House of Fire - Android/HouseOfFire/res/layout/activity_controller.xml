@@ -5,24 +5,17 @@
     android:background="@color/myColor"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/output_text"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.12"
-        android:gravity="center"
-        android:textSize="@dimen/padding_large" />
-
-    <RelativeLayout
+     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.12" >
-
+
         <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
             android:layout_weight="0.12"
             android:text="Spielername" />
 
