@@ -11,7 +11,7 @@ public class WaterJet {
 	
 	public WaterJet(Firefighter player) {
 		this.player = player;
-		waterJet = Assets.waterParticleEffect;
+		waterJet = Assets.loadWaterParticles();
 	}
 	
 	public void update () {

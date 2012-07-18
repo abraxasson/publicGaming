@@ -1,17 +1,20 @@
 package hof.level.objects;
 
+import hof.core.utils.Assets;
+
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 public class Fire {
 	private int healthpoints;
-	private Texture flame;
+	private ParticleEffect flame;
 	private int x;
 	private int y;
 	
 	public Fire(int healthpoints, Texture flame, int x, int y) {
 		super();
 		this.healthpoints = healthpoints;
-		this.flame = flame;
+		this.flame = Assets.loadFireParticles();
 		this.x = x;
 		this.y = y;
 	}
@@ -22,14 +25,6 @@ public class Fire {
 	
 	public void setHealthpoints(int healthpoints) {
 		this.healthpoints = healthpoints;
-	}
-	
-	public Texture getFlame() {
-		return flame;
-	}
-	
-	public void setFlame(Texture flame) {
-		this.flame = flame;
 	}
 	
 	public int getX() {
