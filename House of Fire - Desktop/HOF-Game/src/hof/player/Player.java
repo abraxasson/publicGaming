@@ -8,11 +8,10 @@ public class Player {
 	private InetAddress ip;
 	private int score;
 	private Color color;
+	private boolean isAlive;
 	
 	public Player(String name, InetAddress ip) {
-		this.name = name;
-		this.ip = ip;
-		this.score = 0;
+		this(name, ip, Color.WHITE);
 	}
 	
 	public Player(String name, InetAddress ip, Color color) {
@@ -20,6 +19,7 @@ public class Player {
 		this.ip = ip;
 		this.score = 0;
 		this.color = color;
+		isAlive = true;
 	}
 	
 	public String getName() {
@@ -50,5 +50,9 @@ public class Player {
 	
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public boolean getAlive() {
+		return isAlive;
 	}
 }
