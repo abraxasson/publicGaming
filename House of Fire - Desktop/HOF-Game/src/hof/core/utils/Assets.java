@@ -2,6 +2,7 @@ package hof.core.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Assets {
 
 	private static TextureAtlas atlas;
-	
+	public static Texture houseTexture;
 	public static TextureRegion pureWhiteTextureRegion;
 	
 	public static Sound buttonSound;
@@ -47,6 +48,7 @@ public class Assets {
 
 	private static void loadTextures() {
 		pureWhiteTextureRegion = atlas.findRegion("8x8");
+		houseTexture = new Texture(Gdx.files.internal("textures/TestHouseFire3.png"));
 	}
 
 	private static void loadSounds() {

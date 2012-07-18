@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import java.awt.*;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class House {
 	private Texture image;
@@ -74,6 +77,10 @@ public class House {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.draw(image, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1007, 629, false, false);
 	}
 
 }
