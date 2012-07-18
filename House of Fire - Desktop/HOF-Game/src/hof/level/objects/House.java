@@ -45,6 +45,16 @@ public class House {
 		return this.burningArea;
 	}
 
+	public Pixel getRandomBurningArea(){
+		if(!this.burningArea.isEmpty()){
+			int length = this.burningArea.size();
+			int index = (int)(Math.random()*length);
+			Pixel r = (Pixel) burningArea.toArray()[index];
+			return r;
+		}
+		return null;
+	}
+	
 	public void setBurningArea(Color c, String filename) {
 		BufferedImage img;
 		try {
@@ -53,7 +63,6 @@ public class House {
 				for (int y = 0; y < img.getHeight(); y++) {
 					int rgb = img.getRGB(x, y);
 					Color color = new Color(rgb);
-					// System.out.println(color.toString()+" "+c.toString()+"  X:"+x+" Y:"+y);
 					if (color.toString().equals(c.toString())) {
 						Pixel pixel = new Pixel(x, y, color);
 						if (burningArea.add(pixel)) {
@@ -65,7 +74,6 @@ public class House {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

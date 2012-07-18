@@ -12,6 +12,7 @@ public class PixelTest {
 		House house = new House();
 		house.setBurningArea(new Color(255,242,10), "TestHouseFire3.png");
 		//house.setBurningArea(Color.black);
+		System.out.println(house.getRandomBurningArea().toString());
 	}
 
 }
