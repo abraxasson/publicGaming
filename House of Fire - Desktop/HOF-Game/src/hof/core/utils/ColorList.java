@@ -28,6 +28,6 @@ public class ColorList {
 	public Color getNextColor() {
 		if (index < colorList.size()) 
 		return colorList.get(index++);
-		else return null;
+		else return Color.PINK;
 	}
 }
