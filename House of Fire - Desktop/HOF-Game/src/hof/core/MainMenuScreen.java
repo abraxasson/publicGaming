@@ -15,6 +15,9 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 
 	private SpriteBatch spriteBatch;
 	private SimpleButton playButton;
+	private SimpleButton instructionsButton;
+	private SimpleButton settingsButton;
+	private SimpleButton highScoreButton;
 	private SimpleButton endButton;
 	private Vector3 touchPoint;
     private boolean wasTouched;
@@ -32,12 +35,32 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void createButtons() {
+		
 		playButton = new SimpleButton("Play", Assets.textFont, Color.WHITE);
 		playButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		playButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
 		
 		float posX = playButton.getX();
 		float posY = playButton.getY() - 40;
+		
+		instructionsButton = new SimpleButton("Instructions", Assets.textFont, Color.WHITE);
+		instructionsButton.leftOn(posX);
+		instructionsButton.topOn(posY);
+		
+		posY -= 40;
+		
+		settingsButton = new SimpleButton("Settings", Assets.textFont, Color.WHITE);
+		settingsButton.leftOn(posX);
+		settingsButton.topOn(posY);
+		
+		posY -= 40;
+		
+		highScoreButton = new SimpleButton("Highscore", Assets.textFont, Color.WHITE);
+		highScoreButton.leftOn(posX);
+		highScoreButton.topOn(posY);
+		
+		posY -= 40;
+
 		endButton = new SimpleButton("End", Assets.textFont, Color.WHITE);
 		endButton.leftOn(posX);
 		endButton.topOn(posY);
@@ -56,6 +79,18 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 
 		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
 			startGame();
+		}
+		
+		if (instructionsButton.wasPressed()) {
+			System.out.println("Anleitung");
+		}
+		
+		if (settingsButton.wasPressed()) {
+			System.out.println("Einstellungen");
+		}
+		
+		if (highScoreButton.wasPressed()) {
+			System.out.println("Highscore");
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE) || endButton.wasPressed()) {
@@ -82,11 +117,17 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
         wasTouched = isTouched;
 
 		playButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
+		instructionsButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
+		settingsButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
+		highScoreButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
 		endButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
 	}
 	
 	private void drawButtons() {
 		playButton.draw(spriteBatch);
+		instructionsButton.draw(spriteBatch);
+		settingsButton.draw(spriteBatch);
+		highScoreButton.draw(spriteBatch);
 		endButton.draw(spriteBatch);
 	}
 	
