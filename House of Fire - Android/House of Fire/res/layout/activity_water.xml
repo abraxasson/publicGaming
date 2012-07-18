@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myColor"
+    android:orientation="vertical" >
+
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.12" >
+
+        <TextView
+            android:id="@+id/output_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_weight="0.12"
+            android:text="Spielername" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/pfeil_links"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/pfeil_links" />
+
+            <ImageButton
+                android:id="@+id/pfeil_rechts"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/pfeil_rechts" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/waterstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/output_name"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/button_game"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/linearLayout1"
+            android:layout_marginBottom="15dp"
+            android:text="@string/game" />
+
+        <TextView
+            android:id="@+id/output_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/waterstatus"
+            android:layout_centerHorizontal="true"
+            android:text="@string/water" />
+
+    </RelativeLayout>
+
+</LinearLayout>
