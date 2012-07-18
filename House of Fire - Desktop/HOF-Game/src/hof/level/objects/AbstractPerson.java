@@ -2,12 +2,12 @@ package hof.level.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public abstract class Person {
+public abstract class AbstractPerson {
 	private Texture body;
 	private int x;
 	private int y;
 
-	public Person(Texture body, int x, int y) {
+	public AbstractPerson(Texture body, int x, int y) {
 		super();
 		this.body = body;
 		this.x = x;
