@@ -1,12 +1,30 @@
 package hof.core.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen<T> implements Screen {
 
 	protected T game;
+	protected OrthographicCamera  menuCam;
+	protected Vector3 touchPoint;
+	protected SpriteBatch spriteBatch;
+	
 	public GameScreen(T game) {
 		this.game = game;
+		menuCam = new OrthographicCamera();
+		menuCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		spriteBatch = new SpriteBatch();
+		spriteBatch.setProjectionMatrix(menuCam.combined);
+		touchPoint = new Vector3();
+	}
+	
+	protected Vector3 screenToViewport (float x, float y) {
+        menuCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+        return touchPoint;
 	}
 
 	@Override

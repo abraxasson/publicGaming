@@ -7,31 +7,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 
 public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private BitmapFont font;
-	private SpriteBatch spriteBatch;
+	private SimpleButton nextButton;
 	private SimpleButton returnButton;
 	
-	private Vector3 touchPoint;
     private boolean wasTouched;
-	private OrthographicCamera  menuCam;
 	
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
 		super(game);
 		font = new BitmapFont();
 		font.setColor(0, 0, 0, 1);
 		
-		menuCam = new OrthographicCamera();
-		menuCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		spriteBatch = new SpriteBatch();
-		spriteBatch.setProjectionMatrix(menuCam.combined);
-		touchPoint = new Vector3();
+		
+		nextButton = new SimpleButton("Next", Assets.textFont, Color.BLACK);
+		nextButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
+		nextButton.topOn(350);
 		
 		returnButton = new SimpleButton("Return", Assets.textFont, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
@@ -51,8 +45,17 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			game.setScreen(game.mainMenuScreen);
 		}
 		
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			System.exit(0);
+		}
+		
+		if (nextButton.wasPressed()) {
+			game.setScreen(game.playingScreen);
+		}
+		
 		spriteBatch.begin();
 		font.draw(spriteBatch, "Waiting for Players", Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+		nextButton.draw(spriteBatch);
 		returnButton.draw(spriteBatch);
 		spriteBatch.end();
 	}
@@ -64,11 +67,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
         boolean justReleased = wasTouched && !isTouched;
         wasTouched = isTouched;
 
+        nextButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
 		returnButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
-	}
-	
-	private Vector3 screenToViewport (float x, float y) {
-        menuCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-        return touchPoint;
 	}
 }

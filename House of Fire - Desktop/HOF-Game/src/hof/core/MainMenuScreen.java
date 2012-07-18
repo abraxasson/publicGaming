@@ -7,30 +7,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 
 public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 
-	private SpriteBatch spriteBatch;
+	
 	private SimpleButton playButton;
 	private SimpleButton instructionsButton;
 	private SimpleButton settingsButton;
 	private SimpleButton highScoreButton;
 	private SimpleButton endButton;
-	private Vector3 touchPoint;
+	
     private boolean wasTouched;
-	private OrthographicCamera  menuCam;
+	
 
 	
 	public MainMenuScreen(HouseOfFireGame game) {
-		super(game);
-		menuCam = new OrthographicCamera();
-		menuCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		spriteBatch = new SpriteBatch();
-		spriteBatch.setProjectionMatrix(menuCam.combined);
-		touchPoint = new Vector3();
+		super(game);		
 		createButtons();
 	}
 
@@ -130,10 +122,4 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		highScoreButton.draw(spriteBatch);
 		endButton.draw(spriteBatch);
 	}
-	
-	private Vector3 screenToViewport (float x, float y) {
-        menuCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-        return touchPoint;
-	}
-
 }
