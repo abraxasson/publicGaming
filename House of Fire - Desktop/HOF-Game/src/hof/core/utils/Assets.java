@@ -48,7 +48,7 @@ public class Assets {
 
 	private static void loadTextures() {
 		pureWhiteTextureRegion = atlas.findRegion("8x8");
-		houseTexture = new Texture(Gdx.files.internal("textures/TestHouseFire3.png"));
+		houseTexture = new Texture(Gdx.files.internal("textures/TestHouseFire4.png"));
 	}
 
 	private static void loadSounds() {
