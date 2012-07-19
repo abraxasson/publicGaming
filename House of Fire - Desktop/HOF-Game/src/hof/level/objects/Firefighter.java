@@ -30,6 +30,7 @@ public class Firefighter extends AbstractPerson {
 		waterJet.draw(spriteBatch);
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(getPlayer().getColor());
+		
 		spriteBatch.draw(getBody(), getX(), getY(), getWidth(), getHeight(), 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
 	}

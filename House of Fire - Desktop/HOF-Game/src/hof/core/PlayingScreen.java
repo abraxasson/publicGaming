@@ -1,7 +1,5 @@
 package hof.core;
 
-import java.util.ArrayList;
-
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.level.objects.Firefighter;
@@ -9,7 +7,10 @@ import hof.level.objects.House;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.net.MessageProcessing;
+import hof.net.userMessages.PlayerInfoMessage;
 import hof.player.Player;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -45,16 +46,30 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		// draws everything
 		spriteBatch.begin();
 		house.draw(spriteBatch);
 		for (Firefighter fighter: firefighters) {
-			fighter.draw(spriteBatch);
+			//fighter.draw(spriteBatch);
 		}
 		ff.draw(spriteBatch);
 		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
 		
+		// checks if new players are available
+		checkPlayers();
+		
+		// checks that the players stay inside the screen
+		keepInBounds();
+		
+		if (processing.hasInput()) {
+			
+		}
+		
+		if (!house.getAlive()) {
+			game.setScreen(game.gameOverScreen);
+		}
 		
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 
@@ -69,8 +84,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
 		}
-
-		keepInBounds();
 		
 		if (Gdx.input.isKeyPressed(Keys.UP) ||  Gdx.input.isKeyPressed(Keys.W)) {
 			ff.getWaterJet().setStrength(200);
@@ -86,12 +99,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		
 		if ( Gdx.input.isKeyPressed(Keys.D)) {
 			ff.getWaterJet().setAngle(-40);
-		}
-		
-		if (!house.getAlive()) {
-			game.setScreen(game.gameOverScreen);
-		}
-		
+		}		
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
@@ -100,8 +108,19 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
 		}
+		
+		
+		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+			processing.processMessage(new PlayerInfoMessage("Florian"), null);
+			processing.processMessage(new PlayerInfoMessage("Manuel"), null);
+			processing.processMessage(new PlayerInfoMessage("Marcel"), null);
+		}
 	}
 
+	private void checkPlayers() {
+ 		firefighters.add(new Firefighter(processing.getPlayer()));
+	}
+	
 	private void keepInBounds() {
 		for (Firefighter fighter: firefighters) {
 			fighter.stayInBounds();

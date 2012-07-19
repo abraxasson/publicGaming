@@ -1,6 +1,8 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.net.MessageProcessing;
+import hof.player.Player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +15,7 @@ public class StatusBar {
 	private int x;
 	private int y;
 	private Ranking ranking;
+	
 	
 	public StatusBar()  {
 		texture = Assets.pureWhiteTextureRegion.getTexture();
@@ -32,6 +35,7 @@ public class StatusBar {
 	
 	class Ranking {
 		
+		private MessageProcessing processing;
 		private BitmapFont font;
 		private String heading;
 		@SuppressWarnings("unused")
@@ -41,6 +45,7 @@ public class StatusBar {
 		private int wrap;
 		
 		public Ranking() {
+			processing = MessageProcessing.getInstance();
 			font = Assets.textFont;
 			heading = "Active Players: ";
 			ranking = "";
@@ -57,8 +62,9 @@ public class StatusBar {
 		}
 		
 		public void updateText() {
-			
-			ranking = "";
+			for (Player player: processing.getPlayerList()) {
+				ranking += player.getName() + " " + player.getScore() + "\n";
+			}
 		}
 	}
 }

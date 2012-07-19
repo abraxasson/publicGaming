@@ -16,7 +16,8 @@ public class MessageProcessing {
 
 	private ArrayList<Player> activePlayers;
 	private ArrayList<Player> newPlayers;
-	private LinkedList<PlayerInput> queue;
+	private LinkedList<Player> playerQueue;
+	private LinkedList<PlayerInput> inputQueue;
 	private static MessageProcessing instance;
 	private ColorList colorList;
 	
@@ -32,7 +33,8 @@ public class MessageProcessing {
 	private MessageProcessing() {
 		activePlayers = new ArrayList<Player>();
 		newPlayers = new ArrayList<Player>();
-		queue = new LinkedList<PlayerInput>();
+		playerQueue = new LinkedList<>();
+		inputQueue = new LinkedList<PlayerInput>();
 		colorList = new ColorList();
 		
 		udpClient = UdpClientThread.getInstance();
@@ -49,7 +51,7 @@ public class MessageProcessing {
 	 */
 	public void processMessage(AbstractMessage message, InetAddress address) {
 		if (address == null) {
-			return;
+			//return;
 		}
 		Type type = message.getType();
 		switch (type) {
@@ -103,6 +105,7 @@ public class MessageProcessing {
 	private void processValidationMessage(InetAddress address) {
 		Player player = getPlayer(address, newPlayers);
 		activePlayers.add(player);
+		playerQueue.add(player);
 		newPlayers.remove(player);		
 	}
 
@@ -118,7 +121,7 @@ public class MessageProcessing {
 			Player player = getPlayer(address, activePlayers);
 			player.incScore();
 			player.setAlive(true);
-			queue.add(new PlayerInput());
+			inputQueue.add(new PlayerInput());
 		}
 	}
 
@@ -155,17 +158,26 @@ public class MessageProcessing {
 	 * 
 	 * @return ArrayList of active players.
 	 */
-	public ArrayList<Player> getList() {
+	public ArrayList<Player> getPlayerList() {
 		return activePlayers;
 	}
 
+	/**
+	 * Returns the next Player to add to the game
+	 * 
+	 * @return
+	 */
+	public Player getPlayer() {
+		return playerQueue.poll();
+	}
+	
 	/**
 	 * Returns the next PlayerInput
 	 * 
 	 * @return
 	 */
 	public PlayerInput getInput() {
-		return queue.poll();
+		return inputQueue.poll();
 	}
 
 	/**
@@ -174,8 +186,8 @@ public class MessageProcessing {
 	 * @return true if PlayerInput is available
 	 */
 	public boolean hasInput() {
-		if (!queue.isEmpty()) {
-			queue.removeFirst();
+		if (!inputQueue.isEmpty()) {
+			inputQueue.removeFirst();
 			return true;
 		} else {
 			return false;
@@ -214,7 +226,7 @@ public class MessageProcessing {
 
 		}
 
-		for (Player player : m.getList()) {
+		for (Player player : m.getPlayerList()) {
 			System.out.println(player);
 		}
 

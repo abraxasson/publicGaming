@@ -71,7 +71,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			returnButton.draw(spriteBatch);
 			spriteBatch.end();
 			
-			if (!processing.getList().isEmpty()) {
+			if (!processing.getPlayerList().isEmpty()) {
 				isWaiting = false;
 			}
 		} else {
