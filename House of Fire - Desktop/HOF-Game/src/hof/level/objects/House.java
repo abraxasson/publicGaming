@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class House {
 	private Texture image;
 	private float healthpoints;
+	private float maxHealth;
 	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
 	private ArrayList<Fire> fireList = new ArrayList<Fire>();
 
@@ -106,6 +107,10 @@ public class House {
 			this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
 		}
 		
+	}
+
+	public float getMaxHealth() {
+		return maxHealth;
 	}
 
 }

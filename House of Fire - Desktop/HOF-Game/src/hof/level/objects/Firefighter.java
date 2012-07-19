@@ -1,8 +1,8 @@
 package hof.level.objects;
 
+import hof.core.utils.Assets;
 import hof.player.Player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -37,8 +37,8 @@ public class Firefighter extends AbstractPerson {
 	public void stayInBounds() {
 		if (getX() < 0) 
 			setX(0);
-		if (getX() > Gdx.graphics.getWidth() - getWidth())
-			setX(Gdx.graphics.getWidth() - getWidth());
+		if (getX() > Assets.CANVAS_WIDTH - getWidth())
+			setX(Assets.CANVAS_WIDTH  - getWidth());
 	}
 
 	public WaterJet getWaterJet() {

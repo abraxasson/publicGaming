@@ -28,6 +28,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
+		processing = MessageProcessing.getInstance();
 		spriteBatch = new SpriteBatch();
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
@@ -50,7 +51,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			fighter.draw(spriteBatch);
 		}
 		ff.draw(spriteBatch);
-		timeline.draw(spriteBatch, house.getHealthpoints());
+		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
 		

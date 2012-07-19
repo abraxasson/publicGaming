@@ -23,13 +23,10 @@ public class TimeLine {
 		texture = Assets.pureWhiteTextureRegion.getTexture();
 	}
 	
-	private void update() {
+	public void draw(SpriteBatch spriteBatch, House house) {
+		percentage = 1-(house.getHealthpoints()/house.getMaxHealth());
 		width = (int) (maxWidth * percentage);
-	}
-	
-	public void draw(SpriteBatch spriteBatch,float healthpoints) {
-		percentage = 1-(healthpoints/1000);
-		update();
+
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.GRAY);
 		spriteBatch.draw(texture, 0,Gdx.graphics.getHeight() - height, maxWidth, height, 0, 0, 8, 8, false, false);
