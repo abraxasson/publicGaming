@@ -7,11 +7,9 @@ import hof.level.objects.House;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.net.MessageProcessing;
-import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.InputInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import hof.player.Player;
-import hof.player.PlayerInput;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -53,10 +51,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		house.draw(spriteBatch);
-		for (Firefighter fighter : firefighters) {
-			// fighter.draw(spriteBatch);
-		}
-		ff.draw(spriteBatch);
+		drawFirefighters();
+		// ff.draw(spriteBatch);
 		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
@@ -129,14 +125,25 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				processing.processMessage(new PlayerInfoMessage("Manuel"), ia);
 				processing.processMessage(new InputInfoMessage(true), ia);
 			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
+	private void drawFirefighters() {
+		if (firefighters.size() > 0) {
+			for (Firefighter fighter : firefighters) {
+				fighter.draw(spriteBatch);
+			}
+		}
+		System.out.println(firefighters.size());
+	}
+
 	private void checkPlayers() {
-		firefighters.add(new Firefighter(processing.getPlayer()));
+		if (processing.hasPlayers()) {
+			firefighters.add(new Firefighter(processing.getPlayer()));
+		}
+		
 	}
 
 	private void keepInBounds() {

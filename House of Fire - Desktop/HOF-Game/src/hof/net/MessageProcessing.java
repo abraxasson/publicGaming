@@ -172,6 +172,15 @@ public class MessageProcessing {
 	}
 	
 	/**
+	 * Checks if LinkedList has any Players
+	 * 
+	 * @return true if Players are available
+	 */
+	public boolean hasPlayers() {
+		return !this.playerQueue.isEmpty();
+	}
+	
+	/**
 	 * Returns the next PlayerInput
 	 * 
 	 * @return

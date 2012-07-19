@@ -12,7 +12,7 @@ public class Firefighter extends AbstractPerson {
 	private WaterJet waterJet;
 	
 	public Firefighter(Player player) {
-		this(Assets.pureWhiteTextureRegion.getTexture(), (int)Math.random() * Assets.CANVAS_WIDTH,0, 40,80, player);
+		this(Assets.pureWhiteTextureRegion.getTexture(), (int)(Math.random() * Assets.CANVAS_WIDTH),0, 40,80, player);
 	}
 	
 	public Firefighter(Texture body, int x, int y, int width, int height, Player player) {
@@ -29,7 +29,11 @@ public class Firefighter extends AbstractPerson {
 		updateJet();
 		waterJet.draw(spriteBatch);
 		Color oldColor = spriteBatch.getColor();
-		spriteBatch.setColor(getPlayer().getColor());
+		if (player != null) {
+			spriteBatch.setColor(getPlayer().getColor());
+		}
+		else
+		spriteBatch.setColor(Color.BLACK);
 		
 		spriteBatch.draw(getBody(), getX(), getY(), getWidth(), getHeight(), 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
