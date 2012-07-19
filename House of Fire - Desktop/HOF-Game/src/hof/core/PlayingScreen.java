@@ -4,6 +4,7 @@ import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
+import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.player.Player;
 
@@ -17,12 +18,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	Firefighter firefighter;
 	TimeLine timeline;
+	StatusBar statusBar;
 	House house;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		spriteBatch = new SpriteBatch();
 		timeline = new TimeLine();
+		statusBar = new StatusBar();
 		firefighter = new Firefighter(
 				Assets.pureWhiteTextureRegion.getTexture(),
 				Gdx.graphics.getWidth() / 2, 0, 40, 80, new Player("Florian",
@@ -39,6 +42,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		house.draw(spriteBatch);
 		firefighter.draw(spriteBatch);
 		timeline.draw(spriteBatch);
+		statusBar.draw(spriteBatch);
 		spriteBatch.end();
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
