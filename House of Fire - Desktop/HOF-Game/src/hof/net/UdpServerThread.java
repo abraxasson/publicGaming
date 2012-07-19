@@ -47,7 +47,6 @@ public class UdpServerThread extends Thread {
 
 	public void run() {
 		System.out.println("Server wurde gestartet");
-		System.out.println("Server wurde gestartet");
 		while (isActive) {
 			try {
 				socket.receive(packet);
