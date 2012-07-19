@@ -1,5 +1,7 @@
 package hof.level.objects;
 
+import hof.core.utils.Assets;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -69,9 +71,9 @@ public class House {
 			BufferedImage img;
 			img = ImageIO.read(new File("assets/textures/"+filename));
 			Color c = new Color(r,g,b);
-			Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-			double verhaeltnisX = d.getWidth()/img.getWidth();
-			double verhaeltnisY = d.getHeight()/img.getHeight();
+			//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+			double verhaeltnisX = Assets.CANVAS_WIDTH/img.getWidth();
+			double verhaeltnisY = Assets.CANVAS_HEIGHT/img.getHeight();
 			for (int x = 0; x < img.getWidth(); x++) {
 				for (int y = 0; y < img.getHeight(); y++) {
 					int rgb = img.getRGB(x, y);
@@ -94,7 +96,7 @@ public class House {
 	
 	
 	public void draw(SpriteBatch spriteBatch) {
-		spriteBatch.draw(image, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1007, 629, false, false);
+		spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
 		for(Fire fire : fireList){
 			fire.draw(spriteBatch);
 		}
