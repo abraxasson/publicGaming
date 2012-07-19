@@ -37,8 +37,8 @@ public class StatusBar {
 		
 		private MessageProcessing processing;
 		private BitmapFont font;
+		private BitmapFont font2;
 		private String heading;
-		@SuppressWarnings("unused")
 		private String ranking;
 		private int x;
 		private int y;
@@ -47,6 +47,7 @@ public class StatusBar {
 		public Ranking() {
 			processing = MessageProcessing.getInstance();
 			font = Assets.textFont;
+			font2 = Assets.defaultFont;
 			heading = "Active Players: ";
 			ranking = "";
 			x = Assets.TIMELINE_WIDTH + 10;
@@ -58,10 +59,12 @@ public class StatusBar {
 		public void draw (SpriteBatch spriteBatch) {
 			font.setColor(Color.BLACK);
 			font.drawWrapped(spriteBatch, heading, x, y, wrap);
-			
+			updateText();
+			font2.drawMultiLine(spriteBatch, ranking, x, 300);
 		}
 		
 		public void updateText() {
+			ranking = "";
 			for (Player player: processing.getPlayerList()) {
 				ranking += player.getName() + " " + player.getScore() + "\n";
 			}
