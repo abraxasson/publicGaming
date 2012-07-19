@@ -17,7 +17,7 @@ public class AndroidServer extends Thread {
 	private ObjectInputStream ois;
 	private AbstractMessage message;
 	private boolean isActive;
-	private InetAddress ia;
+	private static InetAddress ia;
 
 	public AndroidServer(int port) {
 		super();
@@ -39,7 +39,7 @@ public class AndroidServer extends Thread {
 				byte[] data = packet.getData();
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				message = (AbstractMessage) ois.readObject();
-				ia = packet.getAddress();
+				this.ia = packet.getAddress();
 				messageProcessing(message);
 				ois.close();
 				System.out.println(message);
@@ -61,6 +61,10 @@ public class AndroidServer extends Thread {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	
+	public static InetAddress getIa(){
+		return ia;
 	}
 
 	private void messageProcessing(AbstractMessage message) {
