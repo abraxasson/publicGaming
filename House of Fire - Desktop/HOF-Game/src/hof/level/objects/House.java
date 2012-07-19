@@ -72,9 +72,6 @@ public class House {
 			Color c = new Color(r,g,b);
 			double verhaeltnisX = ((double)Assets.CANVAS_WIDTH)/((double)img.getWidth());
 			double verhaeltnisY = ((double)Assets.CANVAS_HEIGHT)/((double)img.getHeight());
-			System.out.println(Assets.CANVAS_HEIGHT+" "+img.getHeight());
-			System.out.println(Assets.CANVAS_WIDTH+" "+img.getWidth());
-			System.out.println(verhaeltnisX+" "+verhaeltnisY);
 			for (int x = 0; x < img.getWidth(); x++) {
 				for (int y = 0; y < img.getHeight(); y++) {
 					int rgb = img.getRGB(x, y);
