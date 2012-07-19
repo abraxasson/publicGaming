@@ -21,11 +21,14 @@ public class House {
 	private float maxHealth;
 	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
 	private ArrayList<Fire> fireList = new ArrayList<Fire>();
+	
+	private boolean isAlive;
 
 	public House(Texture image, int healthpoints,int fire) {
 		super();
 		this.image = image;
 		this.healthpoints = healthpoints;
+		isAlive = true;
 		maxHealth = healthpoints;
 		this.setBurningArea(177, 177, 176, "TestHouseFire4.png");
 		for(int i=0;i<fire;i++){
@@ -99,15 +102,19 @@ public class House {
 	public void draw(SpriteBatch spriteBatch) {
 		if(this.healthpoints > 0){
 			spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
+			for(Fire fire : fireList){
+				fire.draw(spriteBatch);
+				this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
+			}
 		}
 		else{
+			isAlive = false;
 			System.out.println("Game Over!");
 		}
-		for(Fire fire : fireList){
-			fire.draw(spriteBatch);
-			this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
-		}
-		
+	}
+	
+	public boolean getAlive() {
+		return isAlive;
 	}
 
 	public float getMaxHealth() {

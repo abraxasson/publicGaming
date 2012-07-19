@@ -88,6 +88,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			ff.getWaterJet().setAngle(-40);
 		}
 		
+		if (!house.getAlive()) {
+			game.setScreen(game.gameOverScreen);
+		}
 		
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
