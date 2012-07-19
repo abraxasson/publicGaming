@@ -23,6 +23,9 @@ public class Assets {
 	public static final int CANVAS_HEIGHT = (int) (d.getHeight() - TIMELINE_HEIGHT);
 	public static final int CANVAS_WIDTH = TIMELINE_WIDTH;
 	
+	public static final int RANKING_HEIGHT = STATUS_BAR_HEIGHT / 2;
+	public static final int RANKING_WIDTH = STATUS_BAR_WIDTH;	
+	
 	private static TextureAtlas atlas;
 	public static Texture houseTexture;
 	public static TextureRegion pureWhiteTextureRegion;
