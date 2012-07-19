@@ -11,6 +11,10 @@ public class Firefighter extends AbstractPerson {
 	private Player player;
 	private WaterJet waterJet;
 	
+	public Firefighter(Player player) {
+		this(Assets.pureWhiteTextureRegion.getTexture(), (int)Math.random() * Assets.CANVAS_WIDTH,0, 40,80, player);
+	}
+	
 	public Firefighter(Texture body, int x, int y, int width, int height, Player player) {
 		super(body, x, y, width, height);
 		this.player = player;
