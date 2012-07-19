@@ -50,13 +50,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			fighter.draw(spriteBatch);
 		}
 		ff.draw(spriteBatch);
-		timeline.draw(spriteBatch);
+		timeline.draw(spriteBatch, house.getHealthpoints());
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
 		
-		if (processing.hasInput()) {
-			
-		}
 		
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 

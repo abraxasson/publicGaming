@@ -27,7 +27,8 @@ public class TimeLine {
 		width = (int) (maxWidth * percentage);
 	}
 	
-	public void draw(SpriteBatch spriteBatch) {
+	public void draw(SpriteBatch spriteBatch,float healthpoints) {
+		percentage = 1-(healthpoints/1000);
 		update();
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.GRAY);

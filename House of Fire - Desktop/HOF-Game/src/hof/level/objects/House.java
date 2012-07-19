@@ -11,12 +11,13 @@ import javax.imageio.ImageIO;
 
 import java.awt.*;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class House {
 	private Texture image;
-	private int healthpoints;
+	private float healthpoints;
 	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
 	private ArrayList<Fire> fireList = new ArrayList<Fire>();
 
@@ -43,7 +44,7 @@ public class House {
 		this.image = image;
 	}
 
-	public int getHealthpoints() {
+	public float getHealthpoints() {
 		return healthpoints;
 	}
 
@@ -94,9 +95,15 @@ public class House {
 	
 	
 	public void draw(SpriteBatch spriteBatch) {
-		spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
+		if(this.healthpoints > 0){
+			spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
+		}
+		else{
+			System.out.println("Game Over!");
+		}
 		for(Fire fire : fireList){
 			fire.draw(spriteBatch);
+			this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
 		}
 		
 	}
