@@ -1,5 +1,4 @@
 package hof.net.userMessages;
-import hof.net.android.Medal;
 
 public class AchievementInfoMessage extends AbstractMessage{
 	private static final long serialVersionUID = 37295872L;
@@ -13,5 +12,11 @@ public class AchievementInfoMessage extends AbstractMessage{
 	public Medal getMedal() {
 		return medal;
 	}	
+	
+	public static enum Medal {
+		Gold,
+		Silver,
+		Bronze;
+	}
 	
 }
