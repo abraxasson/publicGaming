@@ -23,7 +23,7 @@ public class House {
 		super();
 		this.image = image;
 		this.healthpoints = healthpoints;
-		this.setBurningArea(0, 0, 0, "TestHouseFire4.png");
+		this.setBurningArea(177, 177, 176, "TestHouseFire4.png");
 		for(int i=0;i<fire;i++){
 			Pixel spawnPos = this.getRandomBurningArea();
 			this.fireList.add(new Fire(1000,spawnPos));
