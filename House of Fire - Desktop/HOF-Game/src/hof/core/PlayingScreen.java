@@ -1,11 +1,14 @@
 package hof.core;
 
+import java.util.ArrayList;
+
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
+import hof.net.MessageProcessing;
 import hof.player.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -16,17 +19,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
-	Firefighter firefighter;
+	ArrayList<Firefighter> firefighters;
+	Firefighter ff;
 	TimeLine timeline;
 	StatusBar statusBar;
 	House house;
+	MessageProcessing processing;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		spriteBatch = new SpriteBatch();
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
-		firefighter = new Firefighter(
+		firefighters = new ArrayList<>();
+		ff = new Firefighter(
 				Assets.pureWhiteTextureRegion.getTexture(),
 				Gdx.graphics.getWidth() / 2, 0, 40, 80, new Player("Florian",
 						null, Color.PINK));
@@ -40,41 +46,48 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		spriteBatch.begin();
 		house.draw(spriteBatch);
-		firefighter.draw(spriteBatch);
+		for (Firefighter fighter: firefighters) {
+			fighter.draw(spriteBatch);
+		}
+		ff.draw(spriteBatch);
 		timeline.draw(spriteBatch);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
-
+		
+		if (processing.hasInput()) {
+			
+		}
+		
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 
-			int d = firefighter.getX();
+			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
-			firefighter.setX(x);
+			ff.setX(x);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 
-			int d = firefighter.getX();
+			int d = ff.getX();
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
-			firefighter.setX(x);
+			ff.setX(x);
 		}
 
 		keepInBounds();
 		
 		if (Gdx.input.isKeyPressed(Keys.UP) ||  Gdx.input.isKeyPressed(Keys.W)) {
-			firefighter.getWaterJet().setStrength(200);
+			ff.getWaterJet().setStrength(200);
 		}
 		
 		if (Gdx.input.isKeyPressed(Keys.DOWN) ||  Gdx.input.isKeyPressed(Keys.S)) {
-			firefighter.getWaterJet().setStrength(-200);
+			ff.getWaterJet().setStrength(-200);
 		}
 		
 		if ( Gdx.input.isKeyPressed(Keys.A)) {
-			firefighter.getWaterJet().setAngle(40);
+			ff.getWaterJet().setAngle(40);
 		}
 		
 		if ( Gdx.input.isKeyPressed(Keys.D)) {
-			firefighter.getWaterJet().setAngle(-40);
+			ff.getWaterJet().setAngle(-40);
 		}
 		
 		
@@ -89,6 +102,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void keepInBounds() {
-		firefighter.stayInBounds();
+		for (Firefighter fighter: firefighters) {
+			fighter.stayInBounds();
+		}
+		ff.stayInBounds();
 	}
 }

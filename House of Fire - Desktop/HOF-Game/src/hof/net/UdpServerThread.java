@@ -10,8 +10,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 
-
-
 public class UdpServerThread extends Thread {
 	private static final int PORT = 4711;
 	
@@ -49,6 +47,7 @@ public class UdpServerThread extends Thread {
 
 	public void run() {
 		System.out.println("Server wurde gestartet");
+		System.out.println("Server wurde gestartet");
 		while (isActive) {
 			try {
 				socket.receive(packet);
@@ -70,8 +69,6 @@ public class UdpServerThread extends Thread {
 				System.out.println("Fehler beim Empfang");
 				System.out.println(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				e.getCause();
-				e.getMessage();
 				e.printStackTrace();
 			}
 

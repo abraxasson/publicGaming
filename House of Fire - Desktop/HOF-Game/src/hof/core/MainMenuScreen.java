@@ -18,6 +18,8 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	private SimpleButton endButton;
 	
     private boolean wasTouched;
+    
+    
 	
 
 	
@@ -39,19 +41,19 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		instructionsButton.leftOn(posX);
 		instructionsButton.topOn(posY);
 		
-		posY -= 40;
+		posY = instructionsButton.getY() - 40;
 		
 		settingsButton = new SimpleButton("Settings", Assets.textFont, Color.WHITE);
 		settingsButton.leftOn(posX);
 		settingsButton.topOn(posY);
 		
-		posY -= 40;
+		posY = settingsButton.getY() - 40;
 		
 		highScoreButton = new SimpleButton("Highscore", Assets.textFont, Color.WHITE);
 		highScoreButton.leftOn(posX);
 		highScoreButton.topOn(posY);
 		
-		posY -= 40;
+		posY = highScoreButton.getY() - 40;
 
 		endButton = new SimpleButton("End", Assets.textFont, Color.WHITE);
 		endButton.leftOn(posX);
