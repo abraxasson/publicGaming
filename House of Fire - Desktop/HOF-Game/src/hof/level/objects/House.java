@@ -17,11 +17,16 @@ public class House {
 	private Texture image;
 	private int healthpoints;
 	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
+	Fire fire;
+	Fire fire2;
 
 	public House(Texture image, int healthpoints) {
 		super();
 		this.image = image;
 		this.healthpoints = healthpoints;
+		this.setBurningArea(0, 0, 0, "TestHouseFire4.png");
+		fire = new Fire(1000,this.getRandomBurningArea());
+		fire2 = new Fire(1000,this.getRandomBurningArea());
 	}
 
 	public House() {
@@ -60,22 +65,23 @@ public class House {
 	
 	public void setBurningArea(int r, int g, int b, String filename) {
 		BufferedImage img;
+		Color c = new Color(r,g,b);
 		try {
 			img = ImageIO.read(new File("assets/textures/"+filename));
 			for (int x = 0; x < img.getWidth(); x++) {
 				for (int y = 0; y < img.getHeight(); y++) {
 					int rgb = img.getRGB(x, y);
 					Color color = new Color(rgb);
-					Color c = new Color(r,g,b);
 					if (color.toString().equals(c.toString())) {
-						Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-						double verhaeltnis = d.getWidth()/img.getWidth();
-						x = (int) (x*verhaeltnis);
-						verhaeltnis = d.getHeight()/img.getHeight();
-						y = (int) (y*verhaeltnis);
-						Pixel pixel = new Pixel(x, y, color);
+						double verhaeltnis = Gdx.graphics.getWidth()/img.getWidth();
+						int x1 = (int) (x*verhaeltnis);
+						verhaeltnis = Gdx.graphics.getHeight()/img.getHeight();
+						int y1 = (int) (y*verhaeltnis);
+						Pixel pixel = new Pixel(x1, y1, color);
 						if (burningArea.add(pixel)) {
-							System.out.println("Pixel added");
+							System.out.println("Pixel added-- X:"+x1+" Y:"+y1);
+							System.out.println(color.toString());
+							//System.out.println(x+" "+y);
 						}
 					}
 				}
@@ -87,6 +93,8 @@ public class House {
 	
 	public void draw(SpriteBatch spriteBatch) {
 		spriteBatch.draw(image, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1007, 629, false, false);
+		fire.draw(spriteBatch);
+		fire2.draw(spriteBatch);
 	}
 
 }
