@@ -27,7 +27,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				Assets.pureWhiteTextureRegion.getTexture(),
 				Gdx.graphics.getWidth() / 2, 0, 40, 80, new Player("Florian",
 						null, Color.PINK));
-		house = new House(Assets.houseTexture, 1000);
+		house = new House(Assets.houseTexture, 1000,20);
 		font = Assets.textFont;
 	}
 
