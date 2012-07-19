@@ -26,6 +26,7 @@ public class House {
 		super();
 		this.image = image;
 		this.healthpoints = healthpoints;
+		maxHealth = healthpoints;
 		this.setBurningArea(177, 177, 176, "TestHouseFire4.png");
 		for(int i=0;i<fire;i++){
 			Pixel spawnPos = this.getRandomBurningArea();
