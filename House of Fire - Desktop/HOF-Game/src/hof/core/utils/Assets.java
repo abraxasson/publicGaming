@@ -10,6 +10,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 
+	public static final int STATUS_BAR_HEIGHT = Gdx.graphics.getHeight();
+	public static final int STATUS_BAR_WIDTH = Gdx.graphics.getWidth() / 6;
+	
+	public static final int TIMELINE_WIDTH = Gdx.graphics.getWidth() - STATUS_BAR_WIDTH;
+	public static final int TIMELINE_HEIGHT = Gdx.graphics.getHeight() / 10;
+	
+	
+	public static final int CANVAS_HEIGHT = Gdx.graphics.getHeight() - TIMELINE_HEIGHT;
+	public static final int CANVAS_WIDTH = TIMELINE_WIDTH;
+	
 	private static TextureAtlas atlas;
 	public static Texture houseTexture;
 	public static TextureRegion pureWhiteTextureRegion;

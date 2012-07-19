@@ -41,15 +41,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		firefighter.draw(spriteBatch);
 		spriteBatch.end();
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)
-				|| Gdx.input.isKeyPressed(Keys.D)) {
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 
 			int d = firefighter.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 			firefighter.setX(x);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 
 			int d = firefighter.getX();
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
@@ -57,6 +56,24 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		keepInBounds();
+		
+		if (Gdx.input.isKeyPressed(Keys.UP) ||  Gdx.input.isKeyPressed(Keys.W)) {
+			firefighter.getWaterJet().setStrength(200);
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.DOWN) ||  Gdx.input.isKeyPressed(Keys.S)) {
+			firefighter.getWaterJet().setStrength(-200);
+		}
+		
+		if ( Gdx.input.isKeyPressed(Keys.A)) {
+			firefighter.getWaterJet().setAngle(40);
+		}
+		
+		if ( Gdx.input.isKeyPressed(Keys.D)) {
+			firefighter.getWaterJet().setAngle(-40);
+		}
+		
+		
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
