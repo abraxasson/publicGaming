@@ -1,5 +1,8 @@
 package hof.core.utils;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,14 +13,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 
-	public static final int STATUS_BAR_HEIGHT = Gdx.graphics.getHeight();
-	public static final int STATUS_BAR_WIDTH = Gdx.graphics.getWidth() / 6;
+	public static final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int STATUS_BAR_HEIGHT = (int) d.getHeight();
+	public static final int STATUS_BAR_WIDTH = (int) (d.getWidth() / 6);
 	
-	public static final int TIMELINE_WIDTH = Gdx.graphics.getWidth() - STATUS_BAR_WIDTH;
-	public static final int TIMELINE_HEIGHT = Gdx.graphics.getHeight() / 10;
+	public static final int TIMELINE_WIDTH = (int) (d.getWidth() - STATUS_BAR_WIDTH);
+	public static final int TIMELINE_HEIGHT = (int) (d.getHeight() / 15);
 	
-	
-	public static final int CANVAS_HEIGHT = Gdx.graphics.getHeight() - TIMELINE_HEIGHT;
+	public static final int CANVAS_HEIGHT = (int) (d.getHeight() - TIMELINE_HEIGHT);
 	public static final int CANVAS_WIDTH = TIMELINE_WIDTH;
 	
 	private static TextureAtlas atlas;
