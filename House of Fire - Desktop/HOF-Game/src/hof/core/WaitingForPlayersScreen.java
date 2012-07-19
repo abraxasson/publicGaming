@@ -1,9 +1,13 @@
 package hof.core;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.net.MessageProcessing;
 import hof.net.UdpServerThread;
+import hof.net.userMessages.PlayerInfoMessage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -65,9 +69,22 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				game.setScreen(game.playingScreen);
 			}
 			
+			
+			if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+				InetAddress ia;
+				try {
+					ia = InetAddress.getLocalHost();
+					processing.processMessage(new PlayerInfoMessage("Florian"), ia);
+					processing.processMessage(new PlayerInfoMessage("Manuel"), ia);
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 			spriteBatch.begin();
 			font.draw(spriteBatch, "Waiting for Players", Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2);
-			nextButton.draw(spriteBatch);
+//			nextButton.draw(spriteBatch);
 			returnButton.draw(spriteBatch);
 			spriteBatch.end();
 			

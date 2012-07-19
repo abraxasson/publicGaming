@@ -88,8 +88,7 @@ public class MessageProcessing {
 	 * @param message
 	 * @param address
 	 */
-	private void processPlayerMessage(PlayerInfoMessage message,
-			InetAddress address) {
+	private void processPlayerMessage(PlayerInfoMessage message, InetAddress address) {
 		Player player = new Player(message.getName(), address, colorList.getNextColor());
 		if (!checkPlayer(address)) {
 			newPlayers.add(player);
@@ -103,6 +102,7 @@ public class MessageProcessing {
 	}
 
 	private void processValidationMessage(InetAddress address) {
+		System.out.println("Validation des Handys erhalten");
 		Player player = getPlayer(address, newPlayers);
 		activePlayers.add(player);
 		playerQueue.add(player);
@@ -115,8 +115,7 @@ public class MessageProcessing {
 	 * @param inputMessage
 	 * @param address
 	 */
-	private void processInputMessage(InputInfoMessage inputMessage,
-			InetAddress address) {
+	private void processInputMessage(InputInfoMessage inputMessage,	InetAddress address) {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address, activePlayers);
 			player.incScore();
@@ -205,12 +204,18 @@ public class MessageProcessing {
 	 * @return true if the InetAddress is already active.
 	 */
 	private boolean checkPlayer(InetAddress address) {
+		boolean check = false;
 		for (Player player : activePlayers) {
 			if (address.equals(player.getIp())) {
-				return true;
+				check = true;
 			}
 		}
-		return false;
+		for (Player player : newPlayers) {
+			if (address.equals(player.getIp())) {
+				check = true;
+			}
+		}
+		return check;
 	}
 
 	public static void main(String[] args) {

@@ -8,8 +8,8 @@ import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.net.MessageProcessing;
 import hof.net.userMessages.InputInfoMessage;
-import hof.net.userMessages.PlayerInfoMessage;
 import hof.player.Player;
+import hof.player.PlayerInput;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -64,16 +64,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		keepInBounds();
 
 		if (processing.hasInput()) {
-			InputInfoMessage input = processing.getInput().getMessage();
-			if (input.getLeft()) {
-				int d = ff.getX();
-				int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
-				ff.setX(x);
-			} else if (!input.getLeft()) {
-				int d = ff.getX();
-				int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
-				ff.setX(x);
-			}
+			moveFireFighter();
 		}
 
 		if (!house.getAlive()) {
@@ -116,18 +107,48 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
 		}
-
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		
+		if (Gdx.input.isKeyPressed(Keys.V)) {
 			InetAddress ia;
 			try {
 				ia = InetAddress.getLocalHost();
-				processing.processMessage(new PlayerInfoMessage("Florian"), ia);
-				processing.processMessage(new PlayerInfoMessage("Manuel"), ia);
+				
 				processing.processMessage(new InputInfoMessage(true), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		if (Gdx.input.isKeyPressed(Keys.B)) {
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+				
+				processing.processMessage(new InputInfoMessage(false), ia);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void moveFireFighter() {
+		PlayerInput input = processing.getInput();
+		for (Firefighter fighter: firefighters) {
+			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
+				if (input.getMessage().getLeft()) {
+					int d = fighter.getX();
+					int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
+					fighter.setX(x);
+				} else  {
+					int d = fighter.getX();
+					int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
+					fighter.setX(x);
+				}		
+			}
+			
+			
+		}
+		
 	}
 
 	private void drawFirefighters() {
@@ -136,7 +157,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				fighter.draw(spriteBatch);
 			}
 		}
-		System.out.println(firefighters.size());
+		ff.draw(spriteBatch);
 	}
 
 	private void checkPlayers() {
