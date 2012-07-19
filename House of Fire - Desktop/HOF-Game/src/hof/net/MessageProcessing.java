@@ -121,7 +121,7 @@ public class MessageProcessing {
 			Player player = getPlayer(address, activePlayers);
 			player.incScore();
 			player.setAlive(true);
-			inputQueue.add(new PlayerInput());
+			inputQueue.add(new PlayerInput(player, inputMessage));
 		}
 	}
 
@@ -186,12 +186,7 @@ public class MessageProcessing {
 	 * @return true if PlayerInput is available
 	 */
 	public boolean hasInput() {
-		if (!inputQueue.isEmpty()) {
-			inputQueue.removeFirst();
-			return true;
-		} else {
-			return false;
-		}
+		return !this.inputQueue.isEmpty();
 	}
 
 	/**

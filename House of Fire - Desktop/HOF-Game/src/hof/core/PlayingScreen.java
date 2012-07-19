@@ -7,9 +7,14 @@ import hof.level.objects.House;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.net.MessageProcessing;
+import hof.net.userMessages.AbstractMessage;
+import hof.net.userMessages.InputInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import hof.player.Player;
+import hof.player.PlayerInput;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -34,11 +39,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		firefighters = new ArrayList<>();
-		ff = new Firefighter(
-				Assets.pureWhiteTextureRegion.getTexture(),
+		ff = new Firefighter(Assets.pureWhiteTextureRegion.getTexture(),
 				Gdx.graphics.getWidth() / 2, 0, 40, 80, new Player("Florian",
 						null, Color.PINK));
-		house = new House(Assets.houseTexture, 1000,20);
+		house = new House(Assets.houseTexture, 1000, 20);
 	}
 
 	@Override
@@ -49,30 +53,38 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		house.draw(spriteBatch);
-		for (Firefighter fighter: firefighters) {
-			//fighter.draw(spriteBatch);
+		for (Firefighter fighter : firefighters) {
+			// fighter.draw(spriteBatch);
 		}
 		ff.draw(spriteBatch);
 		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
-		
+
 		// checks if new players are available
 		checkPlayers();
-		
+
 		// checks that the players stay inside the screen
 		keepInBounds();
-		
+
 		if (processing.hasInput()) {
-			
+			InputInfoMessage input = processing.getInput().getMessage();
+			if (input.getLeft()) {
+				int d = ff.getX();
+				int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
+				ff.setX(x);
+			} else if (!input.getLeft()) {
+				int d = ff.getX();
+				int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
+				ff.setX(x);
+			}
 		}
-		
+
 		if (!house.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
@@ -84,22 +96,22 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.UP) ||  Gdx.input.isKeyPressed(Keys.W)) {
+
+		if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
 			ff.getWaterJet().setStrength(200);
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.DOWN) ||  Gdx.input.isKeyPressed(Keys.S)) {
+
+		if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
 			ff.getWaterJet().setStrength(-200);
 		}
-		
-		if ( Gdx.input.isKeyPressed(Keys.A)) {
+
+		if (Gdx.input.isKeyPressed(Keys.A)) {
 			ff.getWaterJet().setAngle(40);
 		}
-		
-		if ( Gdx.input.isKeyPressed(Keys.D)) {
+
+		if (Gdx.input.isKeyPressed(Keys.D)) {
 			ff.getWaterJet().setAngle(-40);
-		}		
+		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
@@ -108,21 +120,27 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
 		}
-		
-		
+
 		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-			processing.processMessage(new PlayerInfoMessage("Florian"), null);
-			processing.processMessage(new PlayerInfoMessage("Manuel"), null);
-			processing.processMessage(new PlayerInfoMessage("Marcel"), null);
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+				processing.processMessage(new PlayerInfoMessage("Florian"), ia);
+				processing.processMessage(new PlayerInfoMessage("Manuel"), ia);
+				processing.processMessage(new InputInfoMessage(true), ia);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private void checkPlayers() {
- 		firefighters.add(new Firefighter(processing.getPlayer()));
+		firefighters.add(new Firefighter(processing.getPlayer()));
 	}
-	
+
 	private void keepInBounds() {
-		for (Firefighter fighter: firefighters) {
+		for (Firefighter fighter : firefighters) {
 			fighter.stayInBounds();
 		}
 		ff.stayInBounds();
