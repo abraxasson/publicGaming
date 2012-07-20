@@ -62,7 +62,7 @@ public class Assets {
 
 	public static ParticleEffect loadWaterParticles() {
 		ParticleEffect waterParticleEffect = new ParticleEffect();
-		waterParticleEffect.load(Gdx.files.internal("particles/waterjet.p"), Gdx.files.internal("particles"));
+		waterParticleEffect.load(Gdx.files.internal("particles/waterjet2.p"), Gdx.files.internal("particles"));
 		return waterParticleEffect;
 	}
 	
