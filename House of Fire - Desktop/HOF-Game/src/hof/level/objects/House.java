@@ -2,14 +2,9 @@ package hof.level.objects;
 
 import hof.core.utils.Assets;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
-import java.awt.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,7 +25,7 @@ public class House {
 		this.healthpoints = healthpoints;
 		isAlive = true;
 		maxHealth = healthpoints;
-		this.setBurningArea(177, 177, 176, "TestHouseFire4.png");
+		this.setBurningArea(177, 177, 176, Assets.houseMap.get(image));
 		for(int i=0;i<fire;i++){
 			Pixel spawnPos = this.getRandomBurningArea();
 			this.fireList.add(new Fire(1000,spawnPos));
@@ -71,30 +66,24 @@ public class House {
 		return null;
 	}
 	
-	public void setBurningArea(int r, int g, int b, String filename) {
-		try {
-			BufferedImage img;
-			img = ImageIO.read(new File("assets/textures/"+filename));
-			Color c = new Color(r,g,b);
-			double verhaeltnisX = ((double)Assets.CANVAS_WIDTH)/((double)img.getWidth());
-			double verhaeltnisY = ((double)Assets.CANVAS_HEIGHT)/((double)img.getHeight());
-			for (int x = 0; x < img.getWidth(); x++) {
-				for (int y = 0; y < img.getHeight(); y++) {
-					int rgb = img.getRGB(x, y);
-					Color color = new Color(rgb);
-					if (color.toString().equals(c.toString())) {
-						int x1 = (int) (x*verhaeltnisX);
-						int y1 = (int) ((img.getHeight()-y)*verhaeltnisY);
-						Pixel pixel = new Pixel(x1, y1, color);
-						if (burningArea.add(pixel)) {
-							//System.out.println("Pixel added-- X:"+x1+" Y:"+y1);
-							//System.out.println(color.toString());
-						}
+	public void setBurningArea(int r, int g, int b, BufferedImage img) {
+		Color c = new Color(r,g,b);
+		double verhaeltnisX = ((double)Assets.CANVAS_WIDTH)/((double)img.getWidth());
+		double verhaeltnisY = ((double)Assets.CANVAS_HEIGHT)/((double)img.getHeight());
+		for (int x = 0; x < img.getWidth(); x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				int rgb = img.getRGB(x, y);
+				Color color = new Color(rgb);
+				if (color.toString().equals(c.toString())) {
+					int x1 = (int) (x*verhaeltnisX);
+					int y1 = (int) ((img.getHeight()-y)*verhaeltnisY);
+					Pixel pixel = new Pixel(x1, y1, color);
+					if (burningArea.add(pixel)) {
+						//System.out.println("Pixel added-- X:"+x1+" Y:"+y1);
+						//System.out.println(color.toString());
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	

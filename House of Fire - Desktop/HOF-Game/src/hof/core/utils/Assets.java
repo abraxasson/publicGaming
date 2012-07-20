@@ -2,6 +2,13 @@ package hof.core.utils;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -27,8 +34,13 @@ public class Assets {
 	public static final int RANKING_WIDTH = STATUS_BAR_WIDTH;	
 	
 	private static TextureAtlas atlas;
-	public static Texture houseTexture;
 	public static TextureRegion pureWhiteTextureRegion;
+	
+	public static Map<Texture, BufferedImage> houseMap;
+	public static Texture houseTexture;
+	public static BufferedImage houseImage;
+	
+	private static String housePath = "textures/TestHouseFire4.png";
 	
 	public static Sound buttonSound;
 	
@@ -39,13 +51,15 @@ public class Assets {
 		String textureDir = "textures";
 		String textureFile = textureDir + "/pack";
 		atlas = new TextureAtlas(Gdx.files.internal(textureFile), Gdx.files.internal(textureDir));
+		houseMap = new HashMap<Texture, BufferedImage>();
 		loadTextures();
+		loadHouses();
 		createAnimations();
 		loadSounds();
 		loadFonts();
 
 	}
-	
+
 	public static ParticleEffect loadWaterParticles() {
 		ParticleEffect waterParticleEffect = new ParticleEffect();
 		waterParticleEffect.load(Gdx.files.internal("particles/waterjet.p"), Gdx.files.internal("particles"));
@@ -64,9 +78,20 @@ public class Assets {
 
 	private static void loadTextures() {
 		pureWhiteTextureRegion = atlas.findRegion("8x8");
-		houseTexture = new Texture(Gdx.files.internal("textures/TestHouseFire4.png"));
+		
 	}
-
+	
+	private static void loadHouses() {
+		try {
+			houseTexture = new Texture(Gdx.files.internal(housePath));
+			
+			houseImage =  ImageIO.read(new File("assets/" + housePath));
+			houseMap.put(houseTexture, houseImage);
+		} catch (IOException e) {
+			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");
+		}		
+	}
+	
 	private static void loadSounds() {
 		
 	}
