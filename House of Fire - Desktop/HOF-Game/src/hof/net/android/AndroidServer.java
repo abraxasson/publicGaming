@@ -39,7 +39,7 @@ public class AndroidServer extends Thread {
 				byte[] data = packet.getData();
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				message = (AbstractMessage) ois.readObject();
-				this.ia = packet.getAddress();
+				AndroidServer.ia = packet.getAddress();
 				messageProcessing(message);
 				ois.close();
 				System.out.println(message);
