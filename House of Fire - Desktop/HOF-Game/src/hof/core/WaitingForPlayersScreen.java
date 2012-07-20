@@ -1,13 +1,13 @@
 package hof.core;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.net.MessageProcessing;
 import hof.net.UdpServerThread;
 import hof.net.userMessages.PlayerInfoMessage;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -62,7 +62,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			}
 			
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				System.exit(0);
+				Gdx.app.exit();
 			}
 			
 			if (nextButton.wasPressed()) {

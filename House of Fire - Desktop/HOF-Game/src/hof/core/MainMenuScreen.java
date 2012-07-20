@@ -29,7 +29,6 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void createButtons() {
-		
 		playButton = new SimpleButton("Play", Assets.textFont, Color.WHITE);
 		playButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		playButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
@@ -88,7 +87,7 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE) || endButton.wasPressed()) {
-			System.exit(0);
+			Gdx.app.exit();
 		}
 
 

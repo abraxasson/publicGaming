@@ -2,12 +2,12 @@ package hof.core;
 
 
 
+import hof.core.utils.Assets;
+import hof.core.utils.GameScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-
-import hof.core.utils.Assets;
-import hof.core.utils.GameScreen;
 
 public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 
@@ -37,7 +37,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
-			System.exit(0);
+			Gdx.app.exit();
 		}
 	}
 }

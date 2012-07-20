@@ -105,7 +105,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-			System.exit(0);
+			Gdx.app.exit();
 		}
 		
 		if (Gdx.input.isKeyPressed(Keys.V)) {
