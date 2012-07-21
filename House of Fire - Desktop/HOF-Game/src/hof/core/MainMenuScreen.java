@@ -19,43 +19,40 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	
     private boolean wasTouched;
     
-    
-	
-
-	
 	public MainMenuScreen(HouseOfFireGame game) {
 		super(game);		
 		createButtons();
 	}
 
 	private void createButtons() {
-		playButton = new SimpleButton("Play", Assets.textFont, Color.WHITE);
+		int distance = 20;
+		
+		playButton = new SimpleButton("Play", Assets.text45Font, Color.WHITE);
 		playButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		playButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
 		
-		float posX = playButton.getX();
-		float posY = playButton.getY() - 40;
+		float posY = playButton.getY() - distance;
 		
-		instructionsButton = new SimpleButton("Instructions", Assets.textFont, Color.WHITE);
-		instructionsButton.leftOn(posX);
-		instructionsButton.topOn(posY);
-		
-		posY = instructionsButton.getY() - 40;
-		
-		settingsButton = new SimpleButton("Settings", Assets.textFont, Color.WHITE);
-		settingsButton.leftOn(posX);
+		settingsButton = new SimpleButton("Settings", Assets.text45Font, Color.WHITE);
+		settingsButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		settingsButton.topOn(posY);
 		
-		posY = settingsButton.getY() - 40;
+		posY = settingsButton.getY() - distance;
 		
-		highScoreButton = new SimpleButton("Highscore", Assets.textFont, Color.WHITE);
-		highScoreButton.leftOn(posX);
+		instructionsButton = new SimpleButton("Instructions", Assets.text45Font, Color.WHITE);
+		instructionsButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
+		instructionsButton.topOn(posY);
+		
+		posY = instructionsButton.getY() - distance;		
+		
+		highScoreButton = new SimpleButton("Highscore", Assets.text45Font, Color.WHITE);
+		highScoreButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		highScoreButton.topOn(posY);
 		
-		posY = highScoreButton.getY() - 40;
+		posY = highScoreButton.getY() - distance;
 
-		endButton = new SimpleButton("End", Assets.textFont, Color.WHITE);
-		endButton.leftOn(posX);
+		endButton = new SimpleButton("End", Assets.text45Font, Color.WHITE);
+		endButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		endButton.topOn(posY);
 	}
 

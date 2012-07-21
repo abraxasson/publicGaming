@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
-public class GameScreen<T> implements Screen {
+public class GameScreen<HouseOfFire> implements Screen {
 
-	protected T game;
+	protected HouseOfFire game;
 	protected OrthographicCamera  menuCam;
 	protected Vector3 touchPoint;
 	protected SpriteBatch spriteBatch;
 	
-	public GameScreen(T game) {
+	public GameScreen(HouseOfFire game) {
 		this.game = game;
 		menuCam = new OrthographicCamera();
 		menuCam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -46,6 +46,8 @@ public class GameScreen<T> implements Screen {
 	public void resume() {	}
 
 	@Override
-	public void dispose() {	}
+	public void dispose() {
+		spriteBatch.dispose();
+	}
 
 }

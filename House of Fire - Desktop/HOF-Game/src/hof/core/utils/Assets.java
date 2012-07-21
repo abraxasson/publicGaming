@@ -45,7 +45,8 @@ public class Assets {
 	public static Sound buttonSound;
 	
 	public static BitmapFont defaultFont;
-	public static BitmapFont textFont;
+	public static BitmapFont text45Font;
+	public static BitmapFont text50Font;
 	
 	public static void load() {
 		String textureDir = "textures";
@@ -99,7 +100,8 @@ public class Assets {
 	private static void loadFonts() {
 		defaultFont = new BitmapFont();
 		
-		textFont = new BitmapFont(Gdx.files.internal("fonts/text.fnt"), Gdx.files.internal("fonts/text.png"), false);
+		text45Font = new BitmapFont(Gdx.files.internal("fonts/text45.fnt"), Gdx.files.internal("fonts/text45.png"), false);
+		text50Font = new BitmapFont(Gdx.files.internal("fonts/text50.fnt"), Gdx.files.internal("fonts/text50.png"), false);
 	}
 	
 	public static void playSound (Sound sound) {

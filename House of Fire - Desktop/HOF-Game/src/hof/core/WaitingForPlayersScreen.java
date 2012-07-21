@@ -33,15 +33,15 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		udpServer = UdpServerThread.getInstance();
 		processing = MessageProcessing.getInstance();
 		
-		font = Assets.textFont;
+		font = Assets.text50Font;
 		font.setColor(0, 0, 0, 1);
 		
 		
-		nextButton = new SimpleButton("Next", Assets.textFont, Color.BLACK);
+		nextButton = new SimpleButton("Next", Assets.text50Font, Color.BLACK);
 		nextButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
 		nextButton.topOn(350);
 		
-		returnButton = new SimpleButton("Return", Assets.textFont, Color.BLACK);
+		returnButton = new SimpleButton("Return", Assets.text50Font, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
 		returnButton.topOn(300);
 		

@@ -47,7 +47,7 @@ public class StatusBar {
 		
 		public Ranking() {
 			processing = MessageProcessing.getInstance();
-			font = Assets.textFont;
+			font = Assets.text50Font;
 			font2 = Assets.defaultFont;
 			heading = "Active Players: ";
 			ranking = "";

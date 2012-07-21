@@ -33,7 +33,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		Assets.textFont.draw(spriteBatch, "GAME - OVER", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
+		Assets.text50Font.draw(spriteBatch, "GAME - OVER", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
