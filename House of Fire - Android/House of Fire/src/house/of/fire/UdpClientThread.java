@@ -1,47 +1,40 @@
 package house.of.fire;
 
-import hof.net.userMessages.AbstractMessage;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
+import java.io.*;
+
+import hof.net.android.AndroidServer;
+import hof.net.userMessages.AbstractMessage;
 
 public class UdpClientThread extends Thread {
-	private InetAddress ia = null;
+	private InetAddress ia;
 	private static int port = 4711;
 	private DatagramPacket packet;
 	private DatagramSocket toSocket;
 	private boolean isActive = true;
 	private LinkedList<DatagramPacket> list;
-	private static UdpClientThread instance;
 
-	public UdpClientThread() {
+	public UdpClientThread()  {
 		list = new LinkedList<DatagramPacket>();
 
 		try {
-			ia = InetAddress.getByName("barbados");
-			toSocket = new DatagramSocket();		
+			//ia = AndroidServer.getIa();
+			try {
+				ia = InetAddress.getByName("192.168.1.107");
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			toSocket = new DatagramSocket();
 		} catch (SocketException e) {
 			e.printStackTrace();
-			System.out.println("Socket nicht gefunden");
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			System.out.println("Host nicht gefunden");
-		} 
-	}
-	
-	public static UdpClientThread getInstance() {
-		if (instance == null || instance.getState() == Thread.State.TERMINATED) {
-			instance = new UdpClientThread();
-			instance.start();
 		}
-		return instance;
 	}
 
 	public void run() {
@@ -64,28 +57,37 @@ public class UdpClientThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+
 		this.toSocket.close();
 		System.out.println("Thread finished");
 	}
 
 	public synchronized void setActive(boolean active) {
 		this.isActive = active;
-		notify();
+		try {
+			notify();
+		} catch (java.lang.IllegalMonitorStateException e) {
+			System.out.println(e.getMessage());
+		}
 	}
-	
-	public synchronized void sendObject(AbstractMessage e)
-	{
+
+	public synchronized void sendObject(AbstractMessage e) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			ObjectOutputStream stream = new ObjectOutputStream(baos);
 			stream.writeObject(e);
-			byte[] data=  baos.toByteArray();
+			byte[] data = baos.toByteArray();
 			packet = new DatagramPacket(data, data.length, ia, port);
 			list.add(packet);
+			stream.close();
 			notify();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void setIa(InetAddress ia){
+		this.ia = ia;
 	}
 
 }

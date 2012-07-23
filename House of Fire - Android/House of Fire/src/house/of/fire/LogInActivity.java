@@ -1,17 +1,22 @@
 package house.of.fire;
 
 import hof.net.android.AndroidServer;
-import hof.net.userMessages.PlayerInfoMessage;
-import android.os.Bundle;
+import hof.net.android.SSDPNetworkClient;
 import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,13 +24,21 @@ import android.widget.TextView;
 public class LogInActivity extends Activity {
 	
 	
-	public final static String EXTRA_PLAYER_NAME = "playerName";
-	public final static String EXTRA_PLAYER_COLOR = "playerColor";
+	public final static String PREF_PLAYER_NAME = "playerName";
+	public final static String PREF_PLAYER_COLOR = "playerColor";
 
 	private AndroidServer server;
-	private UdpClientThread udpClient;
+	private SSDPNetworkClient explorer;
 	EditText nameEditText;
 	TextView outputText;
+	Button playButton;
+	
+	
+	String playerName;
+	int playerColor;
+	
+	//ProgressDialog dialog = ProgressDialog.show(LogInActivity.this, "", 
+            //"Loading. Please wait...", true);
 	
 	
 
@@ -37,6 +50,45 @@ public class LogInActivity extends Activity {
 		
 		nameEditText = (EditText) findViewById(R.id.nameEditText);
 		outputText = (TextView) findViewById(R.id.output_text);
+		playButton = (Button) findViewById(R.id.button_play);
+		playButton.setEnabled(false);
+		
+		
+		nameEditText.addTextChangedListener(new TextWatcher() {
+			
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				//if (nameEditText.length() >= 12){
+					//String text = nameEditText.getEditableText().toString();
+					//text = text.substring(0, text.length()-2);
+					//s = "";
+				//}
+				
+			}
+			
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				//if (nameEditText.length() >= 12){
+					//String text = nameEditText.getEditableText().toString();
+					//text = text.substring(0, text.length()-2);
+					//s = "";
+				//}
+			}
+			
+			public void afterTextChanged(Editable s) {
+				if (nameEditText.length() > 0) {
+					playButton.setEnabled(true);
+				}
+
+				else {
+					playButton.setEnabled(false);
+				}
+				
+				
+				
+			}
+		});
 	}
 	
 	
@@ -46,13 +98,22 @@ public class LogInActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		
-		//server = new AndroidServer();
-		//server.start();
-		
-		//udpClient =  new UdpClientThread();
-		//udpClient.start();
+		SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
+		playerName = prefs.getString(PREF_PLAYER_NAME, "");
+		nameEditText.setText(playerName);
 		
 		
+		server = new AndroidServer(4711);
+		server.start();
+		
+//		udpClient =  new UdpClientThread();
+//		try {
+//			udpClient.setIa(InetAddress.getLocalHost());
+//		} catch (UnknownHostException e) {
+//			e.printStackTrace();
+//		}
+//		udpClient.start();
+//		udpClient.sendObject(new PlayerInfoMessage("Marcel"));
 	}
 
 
@@ -60,8 +121,9 @@ public class LogInActivity extends Activity {
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
+		server.setActive(false);
 		super.onStop();
-		//server.setActive(false);
+		
 		//udpClient.setActive(false);	
 		
 	}
@@ -69,27 +131,58 @@ public class LogInActivity extends Activity {
 	
 	public void onLogInButtonClicked(View view) {
 		
-		String playerName = nameEditText.getText().toString();
-		if(playerName.length() <= 0) {
-			//outputText.setText("Sie haben keinen Namen eingegeben!");
-		}
-		else if(playerName.length() <=2) {
-			outputText.setText("Ihr Name ist zu kurz!");
-		}
-		else if(playerName.length() > 12){
-			outputText.setText("Ihr Name ist zu lang!");
-		}
-		else{
-		Log.d("login", playerName);
-		outputText.setText("");
-		//udpClient.sendMessage(name);
-		//udpClient.sendObject(new PlayerInfoMessage(playerName));
+		playerName = nameEditText.getText().toString();
 		
+		SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
+		Editor editor = prefs.edit();
+		editor.putString(PREF_PLAYER_NAME, playerName);
+		editor.commit();
+		
+		Log.d("login", playerName);
+		
+		
+		//ProgressDialog.show(getApplicationContext(), PREF_PLAYER_NAME, "Bitte warten...");
+		
+		
+	
+		
+		explorer = new SSDPNetworkClient(playerName);
+		explorer.start();
+		
+//		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//		alertDialog.setTitle(playerName);
+//		alertDialog.setMessage("Bitte warten ...");
+//		alertDialog.show();
+		
+		ProgressDialog progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("Bitte warten...");
+		progressDialog.show();
+		startGame(this);
+		
+		//startActivity(new Intent(LogInActivity.this, ControllerActivity.class));
+		
+		
+		
+//		int z = 0;
+//		while(!server.getValidation()){
+//			alertDialog.show();
+//			z+=1;
+//			if(z==20000000){
+//				break;
+//				
+//			}
+//		}
+		
+		// TODO save playerColor in prefs
+		
+		
+		
+	}
+	
+	public void startGame(Context context){
+		// TODO cancel waiting dialog (AlertDialog)
 		Intent intent = new Intent(LogInActivity.this, ControllerActivity.class);
-		//intent.putExtra(EXTRA_PLAYER_COLOR, Color.RED);
-		intent.putExtra(EXTRA_PLAYER_NAME, playerName);
-		startActivity(intent);
-		}
+		context.startActivity(intent);
 	}
 
 }

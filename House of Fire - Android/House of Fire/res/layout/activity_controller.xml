@@ -1,15 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/myColor"
-    android:orientation="vertical" >
-
-     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.12" >
-
+     >
+
         <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
@@ -37,6 +32,15 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_links" />
+            
+            <house.of.fire.VerticalProgressBar
+                
+                android:id="@+id/water_rating"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:max="1000"
+                android:progress="500" />
 
             <ImageButton
                 android:id="@+id/pfeil_rechts"
@@ -48,21 +52,6 @@
                 android:src="@drawable/pfeil_rechts" />
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/waterstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="20dp" />
-
-        <TextView
-            android:id="@+id/output_water"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_toLeftOf="@id/waterstatus"
-            android:text="@string/water" />
-
         <Button
             android:id="@+id/button_pump"
             style="?android:attr/buttonStyleSmall"
@@ -73,6 +62,13 @@
             android:layout_marginBottom="15dp"
             android:text="@string/pump" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/output_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/output_name"
+            android:layout_alignBottom="@+id/output_name"
+            android:layout_centerHorizontal="true"
+            android:text="@string/water" />
 
-</LinearLayout>
+</RelativeLayout>

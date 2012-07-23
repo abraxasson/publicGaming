@@ -1,40 +1,30 @@
 package house.of.fire;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
-import android.support.v4.app.NavUtils;
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.InputInfoMessage;
-import hof.net.userMessages.LogoutInfoMessage;
 import android.app.Activity;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+
 public class WaterActivity extends Activity {
 	
-	public final static String EXTRA_PLAYER_NAME2 = "playerName";
-	public final static String EXTRA_PLAYER_COLOR = "playerColor";
 	
 
 	ImageButton pfeil_links;
 	ImageButton pfeil_rechts;
 	TextView outputName;
 	//Button logOut;
-	Button button_game;
+	//SeekBar water_bar;
+	
+	int waterLevel = 0;
 	
 	
 	//vorrübergehende Lösung
@@ -43,7 +33,8 @@ public class WaterActivity extends Activity {
 	
 	boolean isleft = false;
 	
-
+	String name;
+	int color;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,18 +44,13 @@ public class WaterActivity extends Activity {
                 pfeil_links = (ImageButton) findViewById(R.id.pfeil_links);
                 pfeil_rechts = (ImageButton) findViewById(R.id.pfeil_rechts);
                 outputName = (TextView) findViewById(R.id.output_name);
-                button_game = (Button) findViewById(R.id.button_game);
+                //water_bar = (SeekBar) findViewById(R.id.waterstatus);
                 
                 pfeil_links.setOnClickListener(pfeil_linksListener);
                 pfeil_rechts.setOnClickListener(pfeil_rechtsListener);
                 //logOut.setOnClickListener(logOutButton_Listener);
-                button_game.setOnClickListener(button_gameListener);
+                //water_bar.setOnSeekBarChangeListener(water_barListener);
                 
-                //server = new AndroidServer();
-                //server.start();
-                
-                //udpClient = new UdpClientThread();
-                //udpClient.start();
                 
                 
                 
@@ -73,9 +59,7 @@ public class WaterActivity extends Activity {
                 //int color = intent.getIntegerExtra(LogInActivity.EXTRA_PLAYER_COLOR);
                 //String name = intent.getStringExtra(ControllerActivity.EXTRA_PLAYER_NAME1);
                 
-                Intent intent = getIntent();
-                String name = intent.getStringExtra(ControllerActivity.EXTRA_PLAYER_NAME1);
-                outputName.setText(name);
+                
                 
                 //setFullscreen();
        
@@ -89,6 +73,8 @@ public class WaterActivity extends Activity {
         	protected void onPause() {
         		// TODO Auto-generated method stub
         		super.onPause();	
+        		
+        		
         	}
 
 
@@ -105,7 +91,10 @@ public class WaterActivity extends Activity {
         	protected void onStart() {
         		// TODO Auto-generated method stub
         		super.onStart();
-        		
+        		server = new AndroidServer(4711);
+                server.start();
+        		udpClient = new UdpClientThread();
+                udpClient.start();	
         		
         	}
 
@@ -115,11 +104,30 @@ public class WaterActivity extends Activity {
         	protected void onStop() {
         		// TODO Auto-generated method stub
         		super.onStop();
-        		//server.setActive(false);
-        		//udpClient.setActive(false);		
+        		server.setActive(false);
+        		udpClient.setActive(false);
+        		
         	}
 
+        	@Override
+        	public void finish() {
+        		
+        		//Prepare data intent
+        		Intent intent = new Intent();
+        		
+        		intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, waterLevel);
+        		
+        		// Activity finished ok, return the data
+        		setResult(RESULT_OK, intent);
+        		super.finish();
 
+        		//intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, waterLevel);
+        		//intent.putExtra(EXTRA_PLAYER_NAME2, getIntent().getStringExtra(ControllerActivity.EXTRA_PLAYER_NAME1));
+        		
+        		//setResult(Activity.RESULT_OK, intent);
+        		//Prepare data intent
+        		
+        	}
 
 
         	private OnClickListener pfeil_linksListener = new OnClickListener() {
@@ -133,14 +141,21 @@ public class WaterActivity extends Activity {
             		}
             		else{
             			isleft = true; {
+            				waterLevel += 20;
+            				if(waterLevel == 100){
+            					finish();
+            				}
             			//sendMessage("m");
-            			//udpClient.sendObject(new InputInfoMessage());
+           			udpClient.sendObject(new InputInfoMessage());
+           			System.out.println("Links");
             		}
             		}
 
             	
             	}
             };
+            
+            
             
             private OnClickListener pfeil_rechtsListener = new OnClickListener() {
             	public void onClick(View v) {
@@ -151,23 +166,18 @@ public class WaterActivity extends Activity {
             		
             		if(isleft) {
             			isleft = false;
+            			waterLevel += 20;
+            			if(waterLevel == 100){
+            				finish();
+            			}
             			//sendMessage("m");
-            			//udpClient.sendObject(new InputInfoMessage());
+            			udpClient.sendObject(new InputInfoMessage());
+            			System.out.println("Rechts");
             		}
             	
             	}
             };
-            
-            private OnClickListener button_gameListener = new OnClickListener() {
-            	public void onClick(View v) {
-            		
-            		Intent intent = new Intent(WaterActivity.this, ControllerActivity.class);
-            		intent.putExtra(EXTRA_PLAYER_NAME2, getIntent().getStringExtra(ControllerActivity.EXTRA_PLAYER_NAME1));
-            		startActivity(intent);
-            		
-            	}
-            };
-            
+
             
             
 //            private OnClickListener logOutButton_Listener = new OnClickListener() {
@@ -177,7 +187,7 @@ public class WaterActivity extends Activity {
 //            		
 //            		
 //            		//sendMessage("Benutzer hat sich ausgeloggt!");
-//            		//udpClient.sendObject(new LogoutInfoMessage());
+//            		udpClient.sendObject(new LogoutInfoMessage());
 //            	}
 //            };
         	
