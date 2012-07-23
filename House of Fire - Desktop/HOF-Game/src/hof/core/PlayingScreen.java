@@ -133,7 +133,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new ButtonInfoMessage(true), ia);
+				processing.processMessage(new ButtonInfoMessage(2), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -144,7 +144,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new ButtonInfoMessage(false), ia);
+				processing.processMessage(new ButtonInfoMessage(4), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -155,17 +155,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		ButtonInput input = processing.getInput();
 		for (Firefighter fighter: firefighters) {
 			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
-				if (input.getMessage().getLeft()) {
+				if (input.getMessage().getState() == 2) {
 					fighter.setBody(Assets.firefighter_left);
 					int d = fighter.getX();
 					int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
-				} else  {
+				} else  if(input.getMessage().getState() == 4){
 					fighter.setBody(Assets.firefighter_right);
 					int d = fighter.getX();
 					int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
-				}		
+				}	
 			}
 		}
 	}
