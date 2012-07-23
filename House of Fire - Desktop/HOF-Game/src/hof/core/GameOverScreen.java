@@ -29,7 +29,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-			System.exit(0);
+			Gdx.app.exit();
 		}
 		
 		spriteBatch.begin();
