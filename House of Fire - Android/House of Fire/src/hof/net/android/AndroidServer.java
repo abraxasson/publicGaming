@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import android.content.Context;
@@ -20,9 +21,9 @@ import android.util.Log;
 
 public class AndroidServer extends Thread {
 	
-	public static int R;
-	public static int G;
-	public static int B;
+	public static int r;
+	public static int g;
+	public static int b;
 	
 	
 	private DatagramSocket socket;
@@ -40,6 +41,7 @@ public class AndroidServer extends Thread {
 		isActive = true;
 		try {
 			this.socket = new DatagramSocket(this.port);
+			socket.setSoTimeout(3000);
 		} catch (IOException e) {
 			System.out.println("Server funktioniert nicht!");
 			System.out.println(e.getMessage());
@@ -62,19 +64,25 @@ public class AndroidServer extends Thread {
 				messageProcessing(message);
 				ois.close();
 				System.out.println(message);
+			} catch (SocketTimeoutException ste) {
+				
 			} catch (IOException e) {
 				System.out.println("Fehler beim Empfang");
 				System.out.println(e.getMessage());
+				setActive(false);
 			} catch (ClassNotFoundException e) {
 				e.getCause();
 				e.getMessage();
 				e.printStackTrace();
 			}
 			catch (NullPointerException e) {
-				
+				setActive(false);
 				e.printStackTrace();
 			}
 
+		}
+		if(socket != null){
+			socket.close();
 		}
 	}
 
@@ -99,9 +107,6 @@ public class AndroidServer extends Thread {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
-		if(!isActive){
-			socket.close();
-		}
 	}
 
 	
@@ -118,9 +123,9 @@ public class AndroidServer extends Thread {
 			logIn.startGame(context);
 			System.out.println(message.toString());
 			ValidationInfoMessage val = (ValidationInfoMessage) message;
-			R = (int)(val.getR()*255);
-			G = (int)(val.getG()*255);
-			B = (int)(val.getB()*255);
+			r = (int)(val.getR()*255);
+			g = (int)(val.getG()*255);
+			b = (int)(val.getB()*255);
 		
 			break;
 		case LevelFinished:

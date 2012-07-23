@@ -1,5 +1,8 @@
 package house.of.fire;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import hof.net.android.AndroidServer;
 import hof.net.android.SSDPNetworkClient;
 import hof.net.userMessages.PlayerInfoMessage;
@@ -119,6 +122,7 @@ public class LogInActivity extends Activity {
 		// TODO Auto-generated method stub
 		
 		super.onStop();
+		server.setActive(false);
 
 		// udpClient.setActive(false);
 
@@ -141,14 +145,15 @@ public class LogInActivity extends Activity {
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("Bitte warten...");
 		progressDialog.setCancelable(true);
-//		progressDialog.setOnCancelListener(new OnCancelListener() {
+		
+		progressDialog.setOnCancelListener(new OnCancelListener() {
 
-//			public void onCancel(DialogInterface dialog) {
-//				Log.d(TAG, "Abbruch");
+			public void onCancel(DialogInterface dialog) {
+				Log.d(TAG, "Abbruch");
 
 				// TODO inform network about cancellation
-//			}
-//		});
+			}
+		});
 		progressDialog.show();
 		server.setContext(this);
 		
@@ -178,7 +183,7 @@ public class LogInActivity extends Activity {
 	public void startGame(Context context) {
 		progressDialog.dismiss();
 
-		server.setActive(false);
+		
 		Intent intent = new Intent(LogInActivity.this, ControllerActivity.class);
 		context.startActivity(intent);
 	}

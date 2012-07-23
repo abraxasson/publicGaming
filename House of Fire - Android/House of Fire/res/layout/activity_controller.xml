@@ -33,15 +33,14 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_links" />
-            
+            
             <house.of.fire.VerticalProgressBar
-                
                 android:id="@+id/water_rating"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:max="1000"
-                android:progress="500" />
+                android:max="100"
+                android:progress="50" />
 
             <ImageButton
                 android:id="@+id/pfeil_rechts"

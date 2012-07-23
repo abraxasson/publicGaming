@@ -1,7 +1,7 @@
 package house.of.fire;
 
+
 import hof.net.android.AndroidServer;
-import hof.net.userMessages.InputInfoMessage;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
