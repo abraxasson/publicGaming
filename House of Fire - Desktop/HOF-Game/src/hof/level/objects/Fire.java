@@ -5,12 +5,14 @@ import hof.core.utils.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Fire {
 	private int healthpoints;
 	public ParticleEffect flame;
 	private int x;
 	private int y;
+	private Rectangle fireRectangle = new Rectangle();
 	
 	public Fire(int healthpoints, Pixel p) {
 		super();
@@ -19,6 +21,10 @@ public class Fire {
 		this.x = p.getX();
 		this.y = p.getY();
 		flame.setPosition(x, y);
+		fireRectangle.setX(x-20);
+		fireRectangle.setY(y);
+		fireRectangle.setWidth(60);
+		fireRectangle.setHeight(100);
 	}
 	
 	public int getHealthpoints() {
