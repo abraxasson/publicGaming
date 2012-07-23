@@ -60,7 +60,7 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	public void render(float delta) {
 		updateButtons(delta);
 		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (Gdx.input.isKeyPressed(Keys.SPACE) || playButton.wasPressed()) {
@@ -87,9 +87,9 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 
-
 		
 		spriteBatch.begin();
+		spriteBatch.draw(Assets.mainMenu, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),0,0,3500,2000,false,false);
 		drawButtons();
 		spriteBatch.end();
 

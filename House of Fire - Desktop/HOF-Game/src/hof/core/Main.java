@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "HouseOfFire";
+		cfg.title = "House of Fire";
 		cfg.useGL20 = true;
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		cfg.width = d.width;

@@ -37,6 +37,7 @@ public class Assets {
 	public static TextureRegion pureWhiteTextureRegion;
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
+	public static Texture mainMenu;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static Texture houseTexture;
@@ -61,7 +62,6 @@ public class Assets {
 		createAnimations();
 		loadSounds();
 		loadFonts();
-
 	}
 
 	public static ParticleEffect loadWaterParticles() {
@@ -84,6 +84,7 @@ public class Assets {
 		pureWhiteTextureRegion = atlas.findRegion("8x8");
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
+		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
 	}
 	
 	private static void loadHouses() {
