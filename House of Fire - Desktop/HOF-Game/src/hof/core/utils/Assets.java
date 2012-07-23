@@ -45,6 +45,7 @@ public class Assets {
 	public static Sound buttonSound;
 	
 	public static BitmapFont defaultFont;
+	public static BitmapFont text30Font;
 	public static BitmapFont text45Font;
 	public static BitmapFont text50Font;
 	
@@ -100,6 +101,7 @@ public class Assets {
 	private static void loadFonts() {
 		defaultFont = new BitmapFont();
 		
+		text30Font = new BitmapFont(Gdx.files.internal("fonts/text30.fnt"), Gdx.files.internal("fonts/text30.png"), false);
 		text45Font = new BitmapFont(Gdx.files.internal("fonts/text45.fnt"), Gdx.files.internal("fonts/text45.png"), false);
 		text50Font = new BitmapFont(Gdx.files.internal("fonts/text50.fnt"), Gdx.files.internal("fonts/text50.png"), false);
 	}
