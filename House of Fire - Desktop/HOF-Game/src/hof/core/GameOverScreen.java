@@ -4,6 +4,8 @@ package hof.core;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.net.UdpClientThread;
+import hof.net.userMessages.GameFinishedInfoMessage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -21,6 +23,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void show() {
 		startTime = System.currentTimeMillis();
+		UdpClientThread.getInstance().sendObject(new GameFinishedInfoMessage(false));
 	}
 	
 	@Override
