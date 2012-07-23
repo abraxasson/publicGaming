@@ -1,16 +1,19 @@
 package hof.net;
 
+import hof.core.utils.ColorList;
+import hof.net.userMessages.AbstractMessage;
+import hof.net.userMessages.AbstractMessage.Type;
+import hof.net.userMessages.InputInfoMessage;
+import hof.net.userMessages.PlayerInfoMessage;
+import hof.net.userMessages.ValidationInfoMessage;
+import hof.player.Player;
+import hof.player.PlayerInput;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import hof.player.PlayerInput;
-import hof.player.Player;
-import hof.core.utils.ColorList;
-import hof.net.userMessages.*;
-import hof.net.userMessages.AbstractMessage.Type;
 
 public class MessageProcessing {
 
@@ -142,6 +145,7 @@ public class MessageProcessing {
 	 */
 	private void processLogoutMessage(InetAddress address) {
 		Iterator<Player> iter = activePlayers.iterator();
+		Iterator<Player> iter2 = newPlayers.iterator();
 		while (iter.hasNext()) {
 			Player player = iter.next();
 			if (address.equals(player.getIp())) {
@@ -150,6 +154,15 @@ public class MessageProcessing {
 				iter.remove();
 			}
 		}
+		while (iter2.hasNext()) {
+			Player player = iter2.next();
+			if (address.equals(player.getIp())) {
+				System.out.println("Player: "+player.getName()+" wurde aus newPlayers entfernt!");
+				iter2.remove();
+			}
+		}
+		
+		
 	}
 
 	/**
