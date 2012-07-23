@@ -27,6 +27,7 @@ public class Firefighter extends AbstractPerson {
 	
 	public void draw(SpriteBatch spriteBatch) {
 		updateJet();
+		waterJet.draw(spriteBatch);
 		Color oldColor = spriteBatch.getColor();
 		if (player != null) {
 			spriteBatch.setColor(getPlayer().getColor());
@@ -36,7 +37,6 @@ public class Firefighter extends AbstractPerson {
 		
 		spriteBatch.draw(getBody(), getX(), getY(), getWidth(), getHeight());
 		spriteBatch.setColor(oldColor);
-		waterJet.draw(spriteBatch);
 	}
 	
 	private void updateJet() {
