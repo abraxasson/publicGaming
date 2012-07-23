@@ -43,7 +43,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian",null,Color.PINK), ButtonInfoMessage.NORMAL);
 		house = new House(Assets.houseTexture, 1000, 20);
-		
 		fps = new FPS();
 	}
 
@@ -85,8 +84,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		if (processing.getPlayerList().isEmpty()) {
-			//for testing not yet implemented
-//			game.setScreen(game.waitingForPlayersScreen);
+			game.setScreen(game.waitingForPlayersScreen);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {

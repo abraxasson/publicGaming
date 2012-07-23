@@ -44,10 +44,13 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		returnButton = new SimpleButton("Return", Assets.text50Font, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
 		returnButton.topOn(300);
-		
-		isWaiting = true;
 	}
 
+	
+	@Override
+	public void show(){
+		isWaiting = true;
+	}
 
 	
 	@Override
