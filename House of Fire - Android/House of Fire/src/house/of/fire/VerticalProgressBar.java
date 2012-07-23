@@ -50,7 +50,7 @@ public class VerticalProgressBar extends ProgressBar{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnabled()) {
+        if (isEnabled()) {
             return false;
         }
 

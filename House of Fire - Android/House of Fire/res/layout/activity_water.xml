@@ -5,16 +5,6 @@
     android:background="#7fffd4"
      >
 
-
-        <TextView
-            android:id="@+id/output_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="35dp"
-            android:layout_weight="0.12"
-            android:text="Spielername" />
-
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
@@ -51,14 +41,13 @@
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_rechts" />
         </LinearLayout>
-
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/output_name"
-            android:layout_alignBottom="@+id/output_name"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
             android:text="@string/water" />
 
 </RelativeLayout>

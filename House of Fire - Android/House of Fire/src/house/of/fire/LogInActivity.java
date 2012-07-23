@@ -11,6 +11,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -26,7 +27,7 @@ public class LogInActivity extends Activity {
 	private final static String TAG = LogInActivity.class.getSimpleName();
 
 	public final static String PREF_PLAYER_NAME = "playerName";
-	public final static String PREF_PLAYER_COLOR = "playerColor";
+//	public final static String PREF_PLAYER_COLOR = "playerColor";
 
 	private AndroidServer server;
 	private SSDPNetworkClient explorer;
@@ -140,20 +141,21 @@ public class LogInActivity extends Activity {
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("Bitte warten...");
 		progressDialog.setCancelable(true);
-		progressDialog.setOnCancelListener(new OnCancelListener() {
+//		progressDialog.setOnCancelListener(new OnCancelListener() {
 
-			public void onCancel(DialogInterface dialog) {
-				Log.d(TAG, "Abbruch");
+//			public void onCancel(DialogInterface dialog) {
+//				Log.d(TAG, "Abbruch");
 
 				// TODO inform network about cancellation
-			}
-		});
+//			}
+//		});
 		progressDialog.show();
-		
+		server.setContext(this);
 		
 		
 		// TODO register over network
-
+		
+		
 		// startGame(this);
 
 		// startActivity(new Intent(LogInActivity.this,
@@ -169,7 +171,7 @@ public class LogInActivity extends Activity {
 		// }
 		// }
 
-		// TODO save playerColor in prefs
+		
 
 	}
 

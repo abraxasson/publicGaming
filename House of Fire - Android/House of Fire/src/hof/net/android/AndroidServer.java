@@ -3,7 +3,6 @@ package hof.net.android;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.LogInActivity;
-import house.of.fire.UdpClientThread;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,9 +13,18 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class AndroidServer extends Thread {
+	
+	public static int R;
+	public static int G;
+	public static int B;
+	
+	
 	private DatagramSocket socket;
 	private DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 	private ObjectInputStream ois;
@@ -24,8 +32,8 @@ public class AndroidServer extends Thread {
 	private boolean isActive;
 	private static InetAddress ia;
 	private int port = 4711;
-	private boolean validation = false;
 	private Context context;
+	
 
 	public AndroidServer(int port) {
 		super();
@@ -96,9 +104,6 @@ public class AndroidServer extends Thread {
 		}
 	}
 
-	public boolean getValidation(){
-		return this.validation;
-	}
 	
 	public void setContext(Context context) {
 		this.context = context;
@@ -107,16 +112,16 @@ public class AndroidServer extends Thread {
 	private void messageProcessing(AbstractMessage message) {
 		switch (message.getType()) {
 		case ValidationInfo:
-			UdpClientThread c = new UdpClientThread();
-			c.start();
-			c.setIa(getIa());
-			c.sendObject(new ValidationInfoMessage());
-//			c.sendObject(new ValidationInfoMessage());
+			
 			Log.w("Android Server", "Validation received");
 			LogInActivity logIn = (LogInActivity) context;
 			logIn.startGame(context);
 			System.out.println(message.toString());
-			this.validation = true;
+			ValidationInfoMessage val = (ValidationInfoMessage) message;
+			R = (int)(val.getR()*255);
+			G = (int)(val.getG()*255);
+			B = (int)(val.getB()*255);
+		
 			break;
 		case LevelFinished:
 			System.out.println(message.toString());

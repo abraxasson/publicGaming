@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/myColor"
      >
-
+
         <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="0.12"
-            android:text="Spielername" />
+            android:text="Spielername"
+            android:textSize="@dimen/padding_mega" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -61,14 +62,14 @@
             android:layout_alignRight="@+id/linearLayout1"
             android:layout_marginBottom="15dp"
             android:text="@string/pump" />
-
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/output_name"
-            android:layout_alignBottom="@+id/output_name"
             android:layout_centerHorizontal="true"
-            android:text="@string/water" />
+            android:layout_marginTop="35dp"
+            android:text="@string/water"
+            android:textSize="@dimen/padding_mega" />
 
 </RelativeLayout>

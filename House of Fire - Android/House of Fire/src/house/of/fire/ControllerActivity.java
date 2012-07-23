@@ -1,5 +1,8 @@
 package house.of.fire;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.InputInfoMessage;
 import hof.net.userMessages.LogoutInfoMessage;
@@ -22,6 +25,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class ControllerActivity extends Activity implements SensorEventListener{
@@ -39,6 +43,7 @@ public class ControllerActivity extends Activity implements SensorEventListener{
 	TextView outputName;
 	//Button logOut;
 	Button button_pump;
+	VerticalProgressBar water_rating;
 	//SeekBar water_bar;
 	
 	int waterLevel = 100; // von 0 bis 100
@@ -61,18 +66,18 @@ public class ControllerActivity extends Activity implements SensorEventListener{
                 pfeil_rechts = (ImageButton) findViewById(R.id.pfeil_rechts);
                 outputName = (TextView) findViewById(R.id.output_name);
                 button_pump = (Button) findViewById(R.id.button_pump);
-                //water_bar = (SeekBar) findViewById(R.id.waterstatus);
+                water_rating = (VerticalProgressBar) findViewById(R.id.water_rating);
                 
                 pfeil_links.setOnTouchListener(pfeil_linksListener);
                 pfeil_rechts.setOnTouchListener(pfeil_rechtsListener);
                 //logOut.setOnClickListener(logOutButton_Listener);
                 button_pump.setOnClickListener(button_pumpListener);
+               
                 
                 
-                
-                udpClient = new UdpClientThread();
+//                udpClient = new UdpClientThread();
 //                System.out.println("Test");
-                udpClient.start();
+//                udpClient.start();
                 
                 
                 mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -121,12 +126,19 @@ public class ControllerActivity extends Activity implements SensorEventListener{
                 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         		playerName = prefs.getString(LogInActivity.PREF_PLAYER_NAME, "");
-        		playerColor = prefs.getInt(LogInActivity.PREF_PLAYER_COLOR, Color.RED);
+        		outputName.setBackgroundColor(Color.rgb(AndroidServer.R, AndroidServer.G, AndroidServer.B));
+//        		playerColor = prefs.getInt(LogInActivity.PREF_PLAYER_COLOR, Color.RED);
         		
                 outputName.setText(playerName);
                 // TODO set color in user inteface
         		
-        		
+                //water_rating.setProgress(waterLevel);
+                //water_rating.setMax(100);
+                
+                //new Timer().scheduleAtFixedRate(null, waterLevel--, 200);
+
+                
+               
         	}
 
 
@@ -154,7 +166,7 @@ public class ControllerActivity extends Activity implements SensorEventListener{
 			}
 
 
-
+        	
 
         	private OnTouchListener pfeil_linksListener = new OnTouchListener() {
 				
@@ -162,10 +174,16 @@ public class ControllerActivity extends Activity implements SensorEventListener{
 					int action = event.getAction();
 					switch (action){
 					case MotionEvent.ACTION_DOWN:
+						
 						udpClient.sendObject(new InputInfoMessage(true));
+						
 						break;
 					case MotionEvent.ACTION_MOVE:
-						
+//						Timer timer = new Timer(200);
+//						timer.start();
+//						if(timer.checkTime()){
+						udpClient.sendObject(new InputInfoMessage(true));
+//						}
 						break;
 						
 					case MotionEvent.ACTION_UP:
@@ -183,12 +201,20 @@ public class ControllerActivity extends Activity implements SensorEventListener{
 					int action = event.getAction();
 					switch (action) {
 					case MotionEvent.ACTION_DOWN:
+						
 						udpClient.sendObject(new InputInfoMessage(false));
+						
 						break;
 					case MotionEvent.ACTION_MOVE:
+//						Timer timer = new Timer(200);
+//						timer.start();
+//						if(timer.checkTime()){
+						udpClient.sendObject(new InputInfoMessage(false));
+//						}
 						
 						break;
 					case MotionEvent.ACTION_UP:
+						
 						
 						break;
 					}
@@ -205,7 +231,7 @@ public class ControllerActivity extends Activity implements SensorEventListener{
             		
             		Intent intent = new Intent(ControllerActivity.this, WaterActivity.class);
             		intent.putExtra(LogInActivity.PREF_PLAYER_NAME, playerName);
-            		intent.putExtra(LogInActivity.PREF_PLAYER_COLOR, playerColor);
+//            		intent.putExtra(LogInActivity.PREF_PLAYER_COLOR, playerColor);
             		startActivityForResult(intent, REQUEST_CODE_WATER_ACTIVITY);
             		
             	}
