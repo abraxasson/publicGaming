@@ -63,9 +63,9 @@ public class MessageProcessing {
 			PlayerInfoMessage playerMessage = (PlayerInfoMessage) message;
 			processPlayerMessage(playerMessage, address);
 			break;
-		case InputInfo:
+		case ButtonInfo:
 			ButtonInfoMessage inputMessage = (ButtonInfoMessage) message;
-			processInputMessage(inputMessage, address);
+			processButtonMessage(inputMessage, address);
 			break;
 		case LogoutInfo:
 			processLogoutMessage(address);
@@ -115,7 +115,7 @@ public class MessageProcessing {
 	 * @param inputMessage
 	 * @param address
 	 */
-	private void processInputMessage(ButtonInfoMessage inputMessage,	InetAddress address) {
+	private void processButtonMessage(ButtonInfoMessage inputMessage,	InetAddress address) {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.incScore();

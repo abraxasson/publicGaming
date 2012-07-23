@@ -41,7 +41,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		firefighters = new ArrayList<>();
-		ff = new Firefighter(new Player("Florian",null,Color.PINK));
+		ff = new Firefighter(new Player("Florian",null,Color.PINK), ButtonInfoMessage.NORMAL);
 		house = new House(Assets.houseTexture, 1000, 20);
 		
 		fps = new FPS();
@@ -90,17 +90,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			ff.setBody(Assets.firefighter_right);
 			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
+			ff.setState(ButtonInfoMessage.RIGHT);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			ff.setBody(Assets.firefighter_left);
 			int d = ff.getX();
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
+			ff.setState(ButtonInfoMessage.LEFT);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
@@ -133,7 +133,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new ButtonInfoMessage(2), ia);
+				processing.processMessage(new ButtonInfoMessage(ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -144,7 +144,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new ButtonInfoMessage(4), ia);
+				processing.processMessage(new ButtonInfoMessage(ButtonInfoMessage.RIGHT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -155,17 +155,26 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		ButtonInput input = processing.getInput();
 		for (Firefighter fighter: firefighters) {
 			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
-				if (input.getMessage().getState() == 2) {
-					fighter.setBody(Assets.firefighter_left);
-					int d = fighter.getX();
-					int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
+				fighter.setState(input.getMessage().getState());
+				int d;
+				int x;
+				switch (fighter.getState()) {
+				case ButtonInfoMessage.NORMAL:
+					break;
+				case ButtonInfoMessage.LEFT:
+					d = fighter.getX();
+					x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
-				} else  if(input.getMessage().getState() == 4){
-					fighter.setBody(Assets.firefighter_right);
-					int d = fighter.getX();
-					int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
+					break;
+				case ButtonInfoMessage.RIGHT: 
+					d = fighter.getX();
+					x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
-				}	
+					break;
+				default:
+					break;
+				}
+				
 			}
 		}
 	}
@@ -181,7 +190,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void checkPlayers() {
 		if (processing.hasPlayers()) {
-			firefighters.add(new Firefighter(processing.getPlayer()));
+			firefighters.add(new Firefighter(processing.getPlayer(), ButtonInfoMessage.NORMAL));
 		}
 		
 		Iterator<Firefighter> iter = firefighters.iterator();

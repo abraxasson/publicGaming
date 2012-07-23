@@ -1,6 +1,7 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.net.userMessages.ButtonInfoMessage;
 import hof.player.Player;
 
 import com.badlogic.gdx.graphics.Color;
@@ -27,7 +28,7 @@ public class Firefighter extends AbstractPerson {
 	}
 	
 	public void draw(SpriteBatch spriteBatch) {
-		updateJet();
+		updateFighter();
 		waterJet.draw(spriteBatch);
 		Color oldColor = spriteBatch.getColor();
 		if (player != null) {
@@ -40,12 +41,23 @@ public class Firefighter extends AbstractPerson {
 		spriteBatch.setColor(oldColor);
 	}
 	
-	private void updateJet() {
-		if(getBody() == Assets.firefighter_left){
+	private void updateFighter() {
+		switch(state) {
+		case ButtonInfoMessage.LEFT:
+			setBody(Assets.firefighter_left);
 			waterJet.setPosition(getX()+20, getY()+125);
-		}
-		else{
+			break;
+		case ButtonInfoMessage.RIGHT:
+			setBody(Assets.firefighter_right);
 			waterJet.setPosition(getX()+105, getY()+125);
+			break;
+		case ButtonInfoMessage.NORMAL:
+			setBody(Assets.firefighter_left);
+			waterJet.setPosition(getX()+20, getY()+125);
+			break;
+		default:
+			waterJet.setPosition(getX()+20, getY()+125);
+			break;
 		}
 	}
 
