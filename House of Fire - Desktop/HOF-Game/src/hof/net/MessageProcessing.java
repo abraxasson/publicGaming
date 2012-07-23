@@ -105,11 +105,15 @@ public class MessageProcessing {
 	}
 
 	private void processValidationMessage(InetAddress address) {
-		System.out.println("Validation des Handys erhalten");
 		Player player = getPlayer(address, newPlayers);
-		activePlayers.add(player);
-		playerQueue.add(player);
-		newPlayers.remove(player);		
+		if (player != null) {
+			System.out.println("Validation des Handys erhalten");
+			activePlayers.add(player);
+			playerQueue.add(player);
+			newPlayers.remove(player);		
+		} else {
+			//ignore
+		}
 	}
 
 	/**
