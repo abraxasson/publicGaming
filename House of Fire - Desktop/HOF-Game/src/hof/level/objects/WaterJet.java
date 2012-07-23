@@ -15,6 +15,8 @@ public class WaterJet {
 	private ParticleEmitter emmitter;
 	private Rectangle streamArea;
 	private float size;
+	private float x;
+	private float y;
 	
 	public WaterJet() {
 		waterJet = Assets.loadWaterParticles();
@@ -33,6 +35,8 @@ public class WaterJet {
 	
 	public void setPosition(float x, float y) {
 		waterJet.setPosition(x, y);
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void setStrength(int change) {
@@ -58,7 +62,8 @@ public class WaterJet {
 		int x = 0;
 		float length = emmitter.getLife().getHighMin();
 		float angle = emmitter.getAngle().getLowMin();
-		x =(int) (Math.cos(angle) * length);
+//		System.out.println("Angle: " + angle + " Cos: " + Math.cos(angle) + " Length" + length);
+		x =(int) (this.x + (Math.cos(Math.toRadians(angle)) * length));
 		return x;
 	}
 	
@@ -66,7 +71,7 @@ public class WaterJet {
 		int y = 0;
 		float length = emmitter.getLife().getHighMin();
 		float angle = emmitter.getAngle().getLowMin();
-		y =(int) (Math.sin(angle) * length);
+		y =(int) (this.y +  (Math.sin(Math.toRadians(angle)) * length));
 		return y;
 	}
 	
@@ -75,7 +80,7 @@ public class WaterJet {
 		streamArea.setY(calcY());
 		streamArea.setWidth(size);
 		streamArea.setHeight(size);
-		System.out.println(streamArea);
+//		System.out.println(streamArea);
 	}
 	
 	public Rectangle getStreamArea() {
@@ -88,7 +93,7 @@ public class WaterJet {
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
 		
-		spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
+//		spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
 	}
 }
