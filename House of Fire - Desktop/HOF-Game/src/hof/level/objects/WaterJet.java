@@ -69,7 +69,7 @@ public class WaterJet {
 	
 	private int calcY() {
 		int y = 0;
-		float length = emmitter.getLife().getHighMin();
+		float length = emmitter.getLife().getHighMin()*2/3;
 		float angle = emmitter.getAngle().getLowMin();
 		y =(int) (this.y +  (Math.sin(Math.toRadians(angle)) * length));
 		return y;
@@ -93,7 +93,7 @@ public class WaterJet {
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
 		
-//		spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
+    	//spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
 	}
 }
