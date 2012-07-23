@@ -10,8 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Firefighter extends AbstractPerson {
 	private Player player;
 	private WaterJet waterJet;
+	private int state;
 	
-	public Firefighter(Player player) {
+	public Firefighter(Player player, int state) {
 		this(Assets.firefighter_left, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
 	}
 	
@@ -57,5 +58,13 @@ public class Firefighter extends AbstractPerson {
 
 	public WaterJet getWaterJet() {
 		return waterJet;		
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 }
