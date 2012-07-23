@@ -14,6 +14,7 @@ import hof.player.PlayerInput;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -165,6 +166,13 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			firefighters.add(new Firefighter(processing.getPlayer()));
 		}
 		
+		Iterator<Firefighter> iter = firefighters.iterator();
+		while (iter.hasNext()) {
+			Firefighter firefighter = iter.next();
+			if (!processing.getPlayerList().contains(firefighter.getPlayer())) {
+				firefighters.remove(firefighter);
+			}
+		}
 	}
 
 	private void keepInBounds() {
