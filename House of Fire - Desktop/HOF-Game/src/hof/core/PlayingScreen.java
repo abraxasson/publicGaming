@@ -122,6 +122,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
 			processing.getPlayerList().clear();
+			house.setHealthpoints(1000);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
