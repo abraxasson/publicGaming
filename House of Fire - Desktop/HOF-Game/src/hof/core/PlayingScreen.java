@@ -31,6 +31,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	House house;
 	MessageProcessing processing;
 
+	FPS fps;
+	
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
@@ -40,6 +42,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian",null,Color.PINK));
 		house = new House(Assets.houseTexture, 1000, 20);
+		
+		fps = new FPS();
 	}
 
 	@Override
@@ -53,6 +57,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		drawFirefighters();
 		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
+		fps.draw(spriteBatch);
 		spriteBatch.end();
 
 		// checks if new players are available
@@ -67,6 +72,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		if (!house.getAlive()) {
 			game.setScreen(game.gameOverScreen);
+		}
+		
+		if (processing.getPlayerList().isEmpty()) {
+			//for testing not yet implemented
+//			game.setScreen(game.waitingForPlayersScreen);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
@@ -101,6 +111,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
+			processing.getPlayerList().clear();
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -170,7 +181,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		while (iter.hasNext()) {
 			Firefighter firefighter = iter.next();
 			if (!processing.getPlayerList().contains(firefighter.getPlayer())) {
-				firefighters.remove(firefighter);
+				iter.remove();
 			}
 		}
 	}
