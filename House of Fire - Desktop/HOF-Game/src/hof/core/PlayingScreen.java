@@ -69,13 +69,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			ff.setBody(Assets.firefighter_right);
 			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-
+			ff.setBody(Assets.firefighter_left);
 			int d = ff.getX();
 			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 			ff.setX(x);

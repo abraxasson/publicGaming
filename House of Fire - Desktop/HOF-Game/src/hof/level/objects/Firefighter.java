@@ -12,7 +12,7 @@ public class Firefighter extends AbstractPerson {
 	private WaterJet waterJet;
 	
 	public Firefighter(Player player) {
-		this(Assets.firefighter, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
+		this(Assets.firefighter_left, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
 	}
 	
 	public Firefighter(Texture body, int x, int y, int width, int height, Player player) {
@@ -40,7 +40,12 @@ public class Firefighter extends AbstractPerson {
 	}
 	
 	private void updateJet() {
-		waterJet.setPosition(getX()+105, getY()+125);
+		if(getBody() == Assets.firefighter_left){
+			waterJet.setPosition(getX()+20, getY()+125);
+		}
+		else{
+			waterJet.setPosition(getX()+105, getY()+125);
+		}
 	}
 
 	public void stayInBounds() {
