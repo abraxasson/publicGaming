@@ -47,8 +47,8 @@ public class StatusBar {
 		
 		public Ranking() {
 			processing = MessageProcessing.getInstance();
-			font = Assets.text50Font;
-			font2 = Assets.defaultFont;
+			font = Assets.text45Font;
+			font2 = Assets.text30Font;
 			heading = "Active Players: ";
 			ranking = "";
 			players = "0/6";
@@ -62,13 +62,13 @@ public class StatusBar {
 			updateText();
 			font.setColor(Color.BLACK);
 			font.drawWrapped(spriteBatch, players, x, y, wrap);
+			font2.setColor(Color.BLACK);
 			font2.drawWrapped(spriteBatch, heading, x, y - 40, wrap);
 			font2.drawMultiLine(spriteBatch, ranking, x, 300);
 		}
 		
 		public void updateText() {
-			//TODO Trennzeichen einfügen
-			players = processing.getPlayerList().size() + "6";
+			players = processing.getPlayerList().size() + "/6";
 			ranking = "";
 			for (Player player: processing.getPlayerList()) {
 				ranking += player.getName() + " " + player.getScore() + "\n";
