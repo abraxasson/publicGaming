@@ -5,6 +5,7 @@ import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.InputInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
+import hof.net.userMessages.SensorInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import hof.player.Player;
 import hof.player.PlayerInput;
@@ -73,7 +74,13 @@ public class MessageProcessing {
 		case WaterPressure:
 			System.out.println(message.toString());
 			break;
+		case SensorInfo:
+			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
+			processSensorMessage(sensorMessage);
+			System.out.println(message.toString());
+			break;
 		default:
+			System.out.println("Input nicht kompatibel!");
 			break;
 		}
 	}
@@ -115,6 +122,10 @@ public class MessageProcessing {
 		}
 	}
 
+	private void processSensorMessage(SensorInfoMessage sensorMessage){
+		System.out.println("Beschleunigungssensordaten umgestzt!");
+	}
+	
 	private Player getPlayer(InetAddress address, List<Player> list) {
 		for (Player player : list) {
 			if (player.getIp().equals(address)) {

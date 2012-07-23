@@ -15,7 +15,7 @@ public class Firefighter extends AbstractPerson {
 		this(Assets.firefighter_left, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
 	}
 	
-	public Firefighter(Texture body, int x, int y, int width, int height, Player player) {
+	private Firefighter(Texture body, int x, int y, int width, int height, Player player) {
 		super(body, x, y, width, height);
 		this.player = player;
 		waterJet = new WaterJet();

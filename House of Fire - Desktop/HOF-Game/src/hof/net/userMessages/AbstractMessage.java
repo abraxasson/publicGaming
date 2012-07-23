@@ -22,6 +22,6 @@ public abstract class AbstractMessage implements Serializable {
 	}
 
 	public static enum Type {
-		PlayerInfo, InputInfo, LogoutInfo, ValidationInfo, LevelFinished, Achievement, GameFinished, Retry, WaterPressure;
+		PlayerInfo, InputInfo, LogoutInfo, ValidationInfo, LevelFinished, Achievement, GameFinished, Retry, WaterPressure, SensorInfo;
 	}
 }
