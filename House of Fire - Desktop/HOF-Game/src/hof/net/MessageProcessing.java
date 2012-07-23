@@ -38,6 +38,7 @@ public class MessageProcessing {
 		activePlayers = new ArrayList<Player>();
 		playerQueue = new LinkedList<>();
 		inputQueue = new LinkedList<ButtonInput>();
+		sensorQueue = new LinkedList<SensorInput>();
 		colorList = new ColorList();
 		
 		udpClient = UdpClientThread.getInstance();
