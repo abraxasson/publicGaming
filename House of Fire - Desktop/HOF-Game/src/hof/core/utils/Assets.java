@@ -51,6 +51,7 @@ public class Assets {
 	public static BitmapFont text30Font;
 	public static BitmapFont text45Font;
 	public static BitmapFont text50Font;
+	public static BitmapFont menu45Font;
 	
 	public static void load() {
 		String textureDir = "textures";
@@ -105,6 +106,7 @@ public class Assets {
 	private static void loadFonts() {
 		defaultFont = new BitmapFont();
 		
+		menu45Font = new BitmapFont(Gdx.files.internal("fonts/menu45.fnt"), Gdx.files.internal("fonts/menu45.png"), false);
 		text30Font = new BitmapFont(Gdx.files.internal("fonts/text30.fnt"), Gdx.files.internal("fonts/text30.png"), false);
 		text45Font = new BitmapFont(Gdx.files.internal("fonts/text45.fnt"), Gdx.files.internal("fonts/text45.png"), false);
 		text50Font = new BitmapFont(Gdx.files.internal("fonts/text50.fnt"), Gdx.files.internal("fonts/text50.png"), false);

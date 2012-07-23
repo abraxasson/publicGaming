@@ -27,31 +27,31 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	private void createButtons() {
 		int distance = 20;
 		
-		playButton = new SimpleButton("Play", Assets.text45Font, Color.WHITE);
+		playButton = new SimpleButton("Play", Assets.menu45Font, Color.WHITE);
 		playButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		playButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
 		
 		float posY = playButton.getY() - distance;
 		
-		settingsButton = new SimpleButton("Settings", Assets.text45Font, Color.WHITE);
+		settingsButton = new SimpleButton("Settings", Assets.menu45Font, Color.WHITE);
 		settingsButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		settingsButton.topOn(posY);
 		
 		posY = settingsButton.getY() - distance;
 		
-		instructionsButton = new SimpleButton("Instructions", Assets.text45Font, Color.WHITE);
+		instructionsButton = new SimpleButton("Instructions", Assets.menu45Font, Color.WHITE);
 		instructionsButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		instructionsButton.topOn(posY);
 		
 		posY = instructionsButton.getY() - distance;		
 		
-		highScoreButton = new SimpleButton("Highscore", Assets.text45Font, Color.WHITE);
+		highScoreButton = new SimpleButton("Highscore", Assets.menu45Font, Color.WHITE);
 		highScoreButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		highScoreButton.topOn(posY);
 		
 		posY = highScoreButton.getY() - distance;
 
-		endButton = new SimpleButton("End", Assets.text45Font, Color.WHITE);
+		endButton = new SimpleButton("End", Assets.menu45Font, Color.WHITE);
 		endButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
 		endButton.topOn(posY);
 	}
