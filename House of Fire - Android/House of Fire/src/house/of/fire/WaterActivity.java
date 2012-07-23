@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 public class WaterActivity extends Activity {
 	
+	private final static String TAG = WaterActivity.class.getSimpleName();
+	
 	
 
 	ImageButton pfeil_links;
@@ -146,7 +148,6 @@ public class WaterActivity extends Activity {
             					finish();
             				}
             			//sendMessage("m");
-           			udpClient.sendObject(new InputInfoMessage());
            			System.out.println("Links");
             		}
             		}
@@ -171,7 +172,6 @@ public class WaterActivity extends Activity {
             				finish();
             			}
             			//sendMessage("m");
-            			udpClient.sendObject(new InputInfoMessage());
             			System.out.println("Rechts");
             		}
             	

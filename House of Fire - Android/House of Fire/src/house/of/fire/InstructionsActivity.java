@@ -13,6 +13,8 @@ import android.view.View.OnClickListener;
 
 public class InstructionsActivity extends Activity {
 	
+	private final static String TAG = InstructionsActivity.class.getSimpleName();
+	
 	Button button_next;
 	TextView outputText;
 

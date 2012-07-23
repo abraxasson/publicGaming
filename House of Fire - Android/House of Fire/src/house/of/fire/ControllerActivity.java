@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 public class ControllerActivity extends Activity implements SensorEventListener{
 	
-	private static final String TAG = "House of Fire";
+	private final static String TAG = ControllerActivity.class.getSimpleName();
 	public final static String EXTRA_WATER_LEVEL = "waterLevel";
 	
 	private final static int REQUEST_CODE_WATER_ACTIVITY = 100;
@@ -74,9 +74,9 @@ public class ControllerActivity extends Activity implements SensorEventListener{
                 
                 
                 
-//                udpClient = new UdpClientThread();
+                udpClient = new UdpClientThread();
 //                System.out.println("Test");
-//                udpClient.start();
+                udpClient.start();
                 
                 
                 mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -139,7 +139,8 @@ public class ControllerActivity extends Activity implements SensorEventListener{
         	protected void onStop() {
         		super.onStop();
         		server.setActive(false);
-        		udpClient.setActive(false);		
+        		udpClient.setActive(false);
+        		//LogInActivity.progressDialog.dismiss();
         	}
         	
 
@@ -172,7 +173,7 @@ public class ControllerActivity extends Activity implements SensorEventListener{
             		
 
             		
-            			udpClient.sendObject(new InputInfoMessage());
+            			udpClient.sendObject(new InputInfoMessage(true));
             		
             		}
 
@@ -190,7 +191,7 @@ public class ControllerActivity extends Activity implements SensorEventListener{
             		
             		
             			//sendMessage("m");
-            			udpClient.sendObject(new InputInfoMessage());
+            			udpClient.sendObject(new InputInfoMessage(false));
             		
             	
             	}
@@ -227,14 +228,6 @@ public class ControllerActivity extends Activity implements SensorEventListener{
             }
         	
             
-            
-            
-            private void sendMessage (String message) {
-            	//udpClient.sendMessage(message);    	
-            }
-
-
-
         	public void onAccuracyChanged(Sensor sensor, int value) {
         		// TODO Auto-generated method stub
         		

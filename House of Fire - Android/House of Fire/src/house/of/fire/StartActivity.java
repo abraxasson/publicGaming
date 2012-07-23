@@ -9,6 +9,8 @@ import android.widget.Button;
 
 public class StartActivity extends Activity{
 	
+	private final static String TAG = StartActivity.class.getSimpleName();
+	
 	Button button_play;
 	Button button_instructions;
 

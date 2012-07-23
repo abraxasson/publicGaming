@@ -1,16 +1,16 @@
 package house.of.fire;
 
+import hof.net.userMessages.AbstractMessage;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
-import java.io.*;
-
-import hof.net.android.AndroidServer;
-import hof.net.userMessages.AbstractMessage;
 
 public class UdpClientThread extends Thread {
 	private InetAddress ia;
@@ -20,21 +20,20 @@ public class UdpClientThread extends Thread {
 	private boolean isActive = true;
 	private LinkedList<DatagramPacket> list;
 
-	public UdpClientThread()  {
+	public UdpClientThread() {
 		list = new LinkedList<DatagramPacket>();
 
 		try {
-			//ia = AndroidServer.getIa();
-			try {
-				ia = InetAddress.getByName("192.168.1.107");
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ia = InetAddress.getByName("192.168.1.105");
 			toSocket = new DatagramSocket();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SocketException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	public void run() {
@@ -80,13 +79,14 @@ public class UdpClientThread extends Thread {
 			packet = new DatagramPacket(data, data.length, ia, port);
 			list.add(packet);
 			stream.close();
+			System.out.println("packet geladen");
 			notify();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
-	public void setIa(InetAddress ia){
+
+	public void setIa(InetAddress ia) {
 		this.ia = ia;
 	}
 
