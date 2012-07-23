@@ -101,6 +101,7 @@ public class LogInActivity extends Activity {
 
 		server = new AndroidServer(4711);
 		server.start();
+		server.setContext(this);
 
 		udpClient = new UdpClientThread();
 		// try {
@@ -115,7 +116,7 @@ public class LogInActivity extends Activity {
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
-//		server.setActive(false);
+		
 		super.onStop();
 
 		// udpClient.setActive(false);
@@ -148,7 +149,7 @@ public class LogInActivity extends Activity {
 			}
 		});
 		progressDialog.show();
-		server.setContext(this);
+		
 		
 		
 		// TODO register over network
@@ -174,8 +175,8 @@ public class LogInActivity extends Activity {
 
 	public void startGame(Context context) {
 		progressDialog.dismiss();
-		server.setActive(false);
 
+		server.setActive(false);
 		Intent intent = new Intent(LogInActivity.this, ControllerActivity.class);
 		context.startActivity(intent);
 	}

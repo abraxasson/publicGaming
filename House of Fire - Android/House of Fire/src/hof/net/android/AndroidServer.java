@@ -111,6 +111,7 @@ public class AndroidServer extends Thread {
 			c.start();
 			c.setIa(getIa());
 			c.sendObject(new ValidationInfoMessage());
+//			c.sendObject(new ValidationInfoMessage());
 			Log.w("Android Server", "Validation received");
 			LogInActivity logIn = (LogInActivity) context;
 			logIn.startGame(context);

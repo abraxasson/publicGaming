@@ -1,12 +1,5 @@
 package house.of.fire;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
-import android.support.v4.app.NavUtils;
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.InputInfoMessage;
 import hof.net.userMessages.LogoutInfoMessage;
@@ -21,11 +14,14 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class ControllerActivity extends Activity implements SensorEventListener{
@@ -67,8 +63,8 @@ public class ControllerActivity extends Activity implements SensorEventListener{
                 button_pump = (Button) findViewById(R.id.button_pump);
                 //water_bar = (SeekBar) findViewById(R.id.waterstatus);
                 
-                pfeil_links.setOnClickListener(pfeil_linksListener);
-                pfeil_rechts.setOnClickListener(pfeil_rechtsListener);
+                pfeil_links.setOnTouchListener(pfeil_linksListener);
+                pfeil_rechts.setOnTouchListener(pfeil_rechtsListener);
                 //logOut.setOnClickListener(logOutButton_Listener);
                 button_pump.setOnClickListener(button_pumpListener);
                 
@@ -160,42 +156,48 @@ public class ControllerActivity extends Activity implements SensorEventListener{
 
 
 
+        	private OnTouchListener pfeil_linksListener = new OnTouchListener() {
+				
+				public boolean onTouch(View v, MotionEvent event) {
+					int action = event.getAction();
+					switch (action){
+					case MotionEvent.ACTION_DOWN:
+						udpClient.sendObject(new InputInfoMessage(true));
+						break;
+					case MotionEvent.ACTION_MOVE:
+						
+						break;
+						
+					case MotionEvent.ACTION_UP:
+						
+						break;
+					}
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
 
-
-			private OnClickListener pfeil_linksListener = new OnClickListener() {
-            	public void onClick(View v) {
-            		
-            		//outputText.setText("Links wurde gedrückt!");
-            		
-            		//sendMessage("Links wurde gedrueckt!");
-            		System.out.println("Links wurde gedrückt");
-            		
-            		
-
-            		
-            			udpClient.sendObject(new InputInfoMessage(true));
-            		
-            		}
-
+			private OnTouchListener pfeil_rechtsListener = new OnTouchListener() {
+				
+				public boolean onTouch(View v, MotionEvent event) {
+					int action = event.getAction();
+					switch (action) {
+					case MotionEvent.ACTION_DOWN:
+						udpClient.sendObject(new InputInfoMessage(false));
+						break;
+					case MotionEvent.ACTION_MOVE:
+						
+						break;
+					case MotionEvent.ACTION_UP:
+						
+						break;
+					}
+					// TODO Auto-generated method stub
+					return false;
+				}
+			};
             	
-            	};
          
-            
-            private OnClickListener pfeil_rechtsListener = new OnClickListener() {
-            	public void onClick(View v) {
-            		
-            		//outputText.setText("Rechts wurde gedrückt!");
-            		
-            		//sendMessage("Rechts wurde gedrueckt!");
-            		System.out.println("Rechts wurde gedrückt");
-            		
-            		
-            			//sendMessage("m");
-            			udpClient.sendObject(new InputInfoMessage(false));
-            		
-            	
-            	}
-            };
             
             private OnClickListener button_pumpListener = new OnClickListener() {
             	public void onClick(View v) {

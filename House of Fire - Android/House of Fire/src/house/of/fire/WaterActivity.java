@@ -31,7 +31,7 @@ public class WaterActivity extends Activity {
 	
 	//vorrübergehende Lösung
 	private UdpClientThread udpClient;
-	private AndroidServer server;
+//	private AndroidServer server;
 	
 	boolean isleft = false;
 	
@@ -93,8 +93,8 @@ public class WaterActivity extends Activity {
         	protected void onStart() {
         		// TODO Auto-generated method stub
         		super.onStart();
-        		server = new AndroidServer(4711);
-                server.start();
+//        		server = new AndroidServer(4711);
+//              server.start();
         		udpClient = new UdpClientThread();
                 udpClient.start();	
         		
@@ -106,7 +106,7 @@ public class WaterActivity extends Activity {
         	protected void onStop() {
         		// TODO Auto-generated method stub
         		super.onStop();
-        		server.setActive(false);
+//        		server.setActive(false);
         		udpClient.setActive(false);
         		
         	}
