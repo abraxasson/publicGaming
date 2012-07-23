@@ -18,7 +18,6 @@ import java.util.List;
 public class MessageProcessing {
 
 	private ArrayList<Player> activePlayers;
-	private ArrayList<Player> newPlayers;
 	private LinkedList<Player> playerQueue;
 	private LinkedList<PlayerInput> inputQueue;
 	private static MessageProcessing instance;
@@ -35,7 +34,6 @@ public class MessageProcessing {
 
 	private MessageProcessing() {
 		activePlayers = new ArrayList<Player>();
-		newPlayers = new ArrayList<Player>();
 		playerQueue = new LinkedList<>();
 		inputQueue = new LinkedList<PlayerInput>();
 		colorList = new ColorList();
@@ -58,19 +56,16 @@ public class MessageProcessing {
 		}
 		Type type = message.getType();
 		switch (type) {
+		case PlayerInfo:
+			PlayerInfoMessage playerMessage = (PlayerInfoMessage) message;
+			processPlayerMessage(playerMessage, address);
+			break;
 		case InputInfo:
 			InputInfoMessage inputMessage = (InputInfoMessage) message;
 			processInputMessage(inputMessage, address);
 			break;
 		case LogoutInfo:
 			processLogoutMessage(address);
-			break;
-		case PlayerInfo:
-			PlayerInfoMessage playerMessage = (PlayerInfoMessage) message;
-			processPlayerMessage(playerMessage, address);
-			break;
-		case ValidationInfo:
-			processValidationMessage(address);
 			break;
 		case Retry:
 			System.out.println(message.toString());
@@ -94,25 +89,14 @@ public class MessageProcessing {
 	private void processPlayerMessage(PlayerInfoMessage message, InetAddress address) {
 		Player player = new Player(message.getName(), address, colorList.getNextColor());
 		if (!checkPlayer(address)) {
-			newPlayers.add(player);
-			udpClient.setIA(address);
+			activePlayers.add(player);
+			playerQueue.add(player);
 			
+			udpClient.setIA(address);			
 			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");
-		}
-	}
-
-	private void processValidationMessage(InetAddress address) {
-		Player player = getPlayer(address, newPlayers);
-		if (player != null) {
-			System.out.println("Validation des Handys erhalten");
-			activePlayers.add(player);
-			playerQueue.add(player);
-			newPlayers.remove(player);		
-		} else {
-			//ignore
 		}
 	}
 
@@ -149,7 +133,6 @@ public class MessageProcessing {
 	 */
 	private void processLogoutMessage(InetAddress address) {
 		Iterator<Player> iter = activePlayers.iterator();
-		Iterator<Player> iter2 = newPlayers.iterator();
 		while (iter.hasNext()) {
 			Player player = iter.next();
 			if (address.equals(player.getIp())) {
@@ -158,15 +141,6 @@ public class MessageProcessing {
 				iter.remove();
 			}
 		}
-		while (iter2.hasNext()) {
-			Player player = iter2.next();
-			if (address.equals(player.getIp())) {
-				System.out.println("Player: "+player.getName()+" wurde aus newPlayers entfernt!");
-				iter2.remove();
-			}
-		}
-		
-		
 	}
 
 	/**
@@ -227,34 +201,6 @@ public class MessageProcessing {
 				check = true;
 			}
 		}
-		for (Player player : newPlayers) {
-			if (address.equals(player.getIp())) {
-				check = true;
-			}
-		}
 		return check;
-	}
-
-	public static void main(String[] args) {
-		MessageProcessing m = MessageProcessing.getInstance();
-		try {
-			m.processMessage(new PlayerInfoMessage("Florian"),
-					InetAddress.getLocalHost());
-			// m.processMessage(new PlayerInfoMessage("Marcel"), null);
-			// m.processMessage(new PlayerInfoMessage("Manuel"),
-			// InetAddress.getByName("niue"));
-			// m.processMessage(new PlayerInfoMessage("Manuel"),
-			// InetAddress.getByName("niue"));
-			// m.processMessage(new LogoutInfoMessage(),
-			// InetAddress.getByName("niue"));
-
-		} catch (Exception e) {
-
-		}
-
-		for (Player player : m.getPlayerList()) {
-			System.out.println(player);
-		}
-
 	}
 }
