@@ -35,6 +35,7 @@ public class Assets {
 	
 	private static TextureAtlas atlas;
 	public static TextureRegion pureWhiteTextureRegion;
+	public static Texture firefighter;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static Texture houseTexture;
@@ -80,7 +81,7 @@ public class Assets {
 
 	private static void loadTextures() {
 		pureWhiteTextureRegion = atlas.findRegion("8x8");
-		
+		firefighter = new Texture(Gdx.files.internal("textures/firefighter.png"));
 	}
 	
 	private static void loadHouses() {

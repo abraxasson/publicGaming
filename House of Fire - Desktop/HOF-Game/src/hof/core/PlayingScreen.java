@@ -37,9 +37,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		firefighters = new ArrayList<>();
-		ff = new Firefighter(Assets.pureWhiteTextureRegion.getTexture(),
-				Gdx.graphics.getWidth() / 2, 0, 40, 80, new Player("Florian",
-						null, Color.PINK));
+		ff = new Firefighter(new Player("Florian",null,Color.PINK));
 		house = new House(Assets.houseTexture, 1000, 20);
 	}
 
@@ -52,7 +50,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.begin();
 		house.draw(spriteBatch);
 		drawFirefighters();
-		// ff.draw(spriteBatch);
 		timeline.draw(spriteBatch, house);
 		statusBar.draw(spriteBatch);
 		spriteBatch.end();
