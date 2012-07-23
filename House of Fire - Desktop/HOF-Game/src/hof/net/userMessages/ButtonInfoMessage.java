@@ -1,10 +1,10 @@
 package hof.net.userMessages;
 
-public class InputInfoMessage extends AbstractMessage {
+public class ButtonInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 37295872L;
 	private boolean left;
 	
-	public InputInfoMessage(boolean left) {
+	public ButtonInfoMessage(boolean left) {
 		super(Type.InputInfo);
 		this.left = left;
 	}

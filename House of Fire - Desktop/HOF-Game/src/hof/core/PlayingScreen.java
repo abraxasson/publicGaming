@@ -7,9 +7,10 @@ import hof.level.objects.House;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
 import hof.net.MessageProcessing;
-import hof.net.userMessages.InputInfoMessage;
+import hof.net.userMessages.ButtonInfoMessage;
+import hof.player.ButtonInput;
 import hof.player.Player;
-import hof.player.PlayerInput;
+import hof.player.SensorInput;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -69,6 +70,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (processing.hasInput()) {
 			moveFireFighter();
 		}
+		
+		if (processing.hasSensorInput()){
+			SensorInput input = processing.getSensorInput();
+			for (Firefighter fighter: firefighters) {
+				if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
+					System.out.println("Weiterverarbeitung der Daten");
+				}
+			}
+		}
 
 		if (!house.getAlive()) {
 			game.setScreen(game.gameOverScreen);
@@ -123,7 +133,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new InputInfoMessage(true), ia);
+				processing.processMessage(new ButtonInfoMessage(true), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -134,7 +144,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 				
-				processing.processMessage(new InputInfoMessage(false), ia);
+				processing.processMessage(new ButtonInfoMessage(false), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -142,7 +152,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void moveFireFighter() {
-		PlayerInput input = processing.getInput();
+		ButtonInput input = processing.getInput();
 		for (Firefighter fighter: firefighters) {
 			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
 				if (input.getMessage().getLeft()) {
@@ -157,10 +167,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					fighter.setX(x);
 				}		
 			}
-			
-			
 		}
-		
 	}
 
 	private void drawFirefighters() {

@@ -3,24 +3,25 @@ package hof.net;
 import hof.core.utils.ColorList;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
-import hof.net.userMessages.InputInfoMessage;
+import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import hof.net.userMessages.SensorInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
+import hof.player.ButtonInput;
 import hof.player.Player;
-import hof.player.PlayerInput;
+import hof.player.SensorInput;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class MessageProcessing {
 
 	private ArrayList<Player> activePlayers;
 	private LinkedList<Player> playerQueue;
-	private LinkedList<PlayerInput> inputQueue;
+	private LinkedList<ButtonInput> inputQueue;
+	private LinkedList<SensorInput> sensorQueue; 
 	private static MessageProcessing instance;
 	private ColorList colorList;
 	
@@ -36,7 +37,7 @@ public class MessageProcessing {
 	private MessageProcessing() {
 		activePlayers = new ArrayList<Player>();
 		playerQueue = new LinkedList<>();
-		inputQueue = new LinkedList<PlayerInput>();
+		inputQueue = new LinkedList<ButtonInput>();
 		colorList = new ColorList();
 		
 		udpClient = UdpClientThread.getInstance();
@@ -62,7 +63,7 @@ public class MessageProcessing {
 			processPlayerMessage(playerMessage, address);
 			break;
 		case InputInfo:
-			InputInfoMessage inputMessage = (InputInfoMessage) message;
+			ButtonInfoMessage inputMessage = (ButtonInfoMessage) message;
 			processInputMessage(inputMessage, address);
 			break;
 		case LogoutInfo:
@@ -76,7 +77,7 @@ public class MessageProcessing {
 			break;
 		case SensorInfo:
 			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
-			processSensorMessage(sensorMessage);
+			processSensorMessage(sensorMessage, address);
 			System.out.println(message.toString());
 			break;
 		default:
@@ -113,21 +114,26 @@ public class MessageProcessing {
 	 * @param inputMessage
 	 * @param address
 	 */
-	private void processInputMessage(InputInfoMessage inputMessage,	InetAddress address) {
+	private void processInputMessage(ButtonInfoMessage inputMessage,	InetAddress address) {
 		if (checkPlayer(address)) {
-			Player player = getPlayer(address, activePlayers);
+			Player player = getPlayer(address);
 			player.incScore();
 			player.setAlive(true);
-			inputQueue.add(new PlayerInput(player, inputMessage));
+			inputQueue.add(new ButtonInput(player, inputMessage));
 		}
 	}
 
-	private void processSensorMessage(SensorInfoMessage sensorMessage){
-		System.out.println("Beschleunigungssensordaten umgestzt!");
+	private void processSensorMessage(SensorInfoMessage sensorMessage, InetAddress address){
+		if (checkPlayer(address)) {
+			Player player = getPlayer(address);
+			player.incScore();
+			player.setAlive(true);
+			sensorQueue.add(new SensorInput(player, sensorMessage));
+		}
 	}
 	
-	private Player getPlayer(InetAddress address, List<Player> list) {
-		for (Player player : list) {
+	private Player getPlayer(InetAddress address) {
+		for (Player player : activePlayers) {
 			if (player.getIp().equals(address)) {
 				return player;
 			}
@@ -186,8 +192,12 @@ public class MessageProcessing {
 	 * 
 	 * @return
 	 */
-	public PlayerInput getInput() {
+	public ButtonInput getInput() {
 		return inputQueue.poll();
+	}
+	
+	public SensorInput getSensorInput(){
+		return this.sensorQueue.poll();
 	}
 
 	/**
@@ -197,6 +207,10 @@ public class MessageProcessing {
 	 */
 	public boolean hasInput() {
 		return !this.inputQueue.isEmpty();
+	}
+	
+	public boolean hasSensorInput(){
+		return !this.sensorQueue.isEmpty();
 	}
 
 	/**
