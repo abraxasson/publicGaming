@@ -134,10 +134,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		for (Firefighter fighter: firefighters) {
 			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
 				if (input.getMessage().getLeft()) {
+					fighter.setBody(Assets.firefighter_left);
 					int d = fighter.getX();
 					int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
 				} else  {
+					fighter.setBody(Assets.firefighter_right);
 					int d = fighter.getX();
 					int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 					fighter.setX(x);
