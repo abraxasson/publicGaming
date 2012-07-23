@@ -43,8 +43,6 @@ public class Assets {
 	public static Texture houseTexture;
 	public static BufferedImage houseImage;
 	
-	private static String housePath = "textures/TestHouseFire4.png";
-	
 	public static Sound buttonSound;
 	
 	public static BitmapFont defaultFont;
@@ -90,9 +88,9 @@ public class Assets {
 	
 	private static void loadHouses() {
 		try {
-			houseTexture = new Texture(Gdx.files.internal(housePath));
+			houseTexture = new Texture(Gdx.files.internal("textures/TestHouse.png"));
 			
-			houseImage =  ImageIO.read(new File("assets/" + housePath));
+			houseImage =  ImageIO.read(new File("assets/textures/TestHouse_burningArea.png"));
 			houseMap.put(houseTexture, houseImage);
 		} catch (IOException e) {
 			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");

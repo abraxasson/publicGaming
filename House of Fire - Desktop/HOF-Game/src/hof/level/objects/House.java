@@ -25,7 +25,7 @@ public class House {
 		this.healthpoints = healthpoints;
 		isAlive = true;
 		maxHealth = healthpoints;
-		this.setBurningArea(177, 177, 176, Assets.houseMap.get(image));
+		this.setBurningArea(Assets.houseMap.get(image));
 		for(int i=0;i<fire;i++){
 			Pixel spawnPos = this.getRandomBurningArea();
 			this.fireList.add(new Fire(1000,spawnPos));
@@ -66,8 +66,9 @@ public class House {
 		return null;
 	}
 	
-	public void setBurningArea(int r, int g, int b, BufferedImage img) {
-		Color c = new Color(r,g,b);
+	
+	public void setBurningArea(BufferedImage img) {
+		Color c = Color.BLACK;
 		double verhaeltnisX = ((double)Assets.CANVAS_WIDTH)/((double)img.getWidth());
 		double verhaeltnisY = ((double)Assets.CANVAS_HEIGHT)/((double)img.getHeight());
 		for (int x = 0; x < img.getWidth(); x++) {
@@ -86,6 +87,8 @@ public class House {
 			}
 		}
 	}
+	
+	
 	
 	
 	public void draw(SpriteBatch spriteBatch) {
