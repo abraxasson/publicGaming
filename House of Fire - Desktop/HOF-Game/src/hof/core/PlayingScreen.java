@@ -2,6 +2,7 @@ package hof.core;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
 import hof.level.objects.StatusBar;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
@@ -74,6 +76,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		
 		moveFireFighter();
 
+		checkCollision();
+		
 		if (processing.hasSensorInput()) {
 			SensorInput input = processing.getSensorInput();
 			for (Firefighter fighter : firefighters) {
@@ -230,5 +234,20 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			fighter.stayInBounds();
 		}
 		ff.stayInBounds();
+	}
+	
+	private void checkCollision(){
+		for(Fire fire : house.getFireList()){
+			if(ff.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
+				fire.setHealthpoints(fire.getHealthpoints()-3);
+			}	
+			for(Firefighter firefighter : firefighters){
+				if(firefighter.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
+					ParticleEmitter pm = fire.getFlame().getEmitters().get(0);
+					pm.getEmission().setHigh(pm.getEmission().getHighMax()-3);
+					firefighter.getPlayer().incScore();
+				}	
+			}
+		}
 	}
 }

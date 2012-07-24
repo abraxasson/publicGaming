@@ -5,6 +5,7 @@ import hof.core.utils.Assets;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,7 +29,7 @@ public class House {
 		this.setBurningArea(Assets.houseMap.get(image));
 		for(int i=0;i<fire;i++){
 			Pixel spawnPos = this.getRandomBurningArea();
-			this.fireList.add(new Fire(1000,spawnPos));
+			this.fireList.add(new Fire(spawnPos));
 		}
 	}
 
@@ -88,12 +89,19 @@ public class House {
 		}
 	}
 	
-	
-	
+	public void checkFire(){
+		Iterator<Fire> iter = this.fireList.iterator();
+		while(iter.hasNext()){
+			if(!iter.next().isAlive()){
+				iter.remove();
+			}
+		}
+	}
 	
 	public void draw(SpriteBatch spriteBatch) {
 		if(this.healthpoints > 0){
 			spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
+			checkFire();
 			for(Fire fire : fireList){
 				fire.draw(spriteBatch);
 				this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
@@ -111,6 +119,10 @@ public class House {
 
 	public float getMaxHealth() {
 		return maxHealth;
+	}
+	
+	public ArrayList<Fire> getFireList(){
+		return this.fireList;
 	}
 
 }
