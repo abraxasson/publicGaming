@@ -1,6 +1,5 @@
 package hof.core;
 
-import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
 import hof.level.objects.Fire;
@@ -24,7 +23,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
@@ -32,7 +30,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	Firefighter ff;
 	TimeLine timeline;
 	StatusBar statusBar;
-	House house;
+	House currentHouse;
+	
 	MessageProcessing processing;
 
 	FPS fps;
@@ -40,19 +39,22 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
-		spriteBatch = new SpriteBatch();
-		timeline = new TimeLine();
-		statusBar = new StatusBar();
+		
+		
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
 				ButtonInfoMessage.NORMAL);
-		house = new House(Assets.houseTexture, 20);
+		currentHouse = game.houseList.get(game.houseIndex);
+		
+		timeline = new TimeLine();
+		statusBar = new StatusBar();
 		fps = new FPS();
 	}
 
 	@Override
 	public void show() {
-		house.setHealthpoints(1000);
+		currentHouse = game.houseList.get(game.houseIndex);
+		currentHouse.setHealthpoints(1000);
 	}
 
 	@Override
@@ -62,9 +64,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// draws everything
 		spriteBatch.begin();
-		house.draw(spriteBatch);
+		currentHouse.draw(spriteBatch);
 		drawFirefighters();
-		timeline.draw(spriteBatch, house);
+		timeline.draw(spriteBatch, currentHouse);
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
 		spriteBatch.end();
@@ -89,11 +91,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			}
 		}
 
-		if (!house.getAlive()) {
+		if (!currentHouse.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
 		
-		if (house.getFireList().size() == 0) {
+		if (currentHouse.getFireList().size() == 0) {
 			game.setScreen(game.levelFinishedScreen);
 		}
 
@@ -242,7 +244,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 	
 	private void checkCollision(){
-		for(Fire fire : house.getFireList()){
+		for(Fire fire : currentHouse.getFireList()){
 			if(ff.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
 				fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
 			}	

@@ -28,6 +28,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,1));
 		}
 		
+		game.houseIndex++;
+		
 	}
 	
 	@Override

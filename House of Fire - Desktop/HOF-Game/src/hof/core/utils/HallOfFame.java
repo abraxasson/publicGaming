@@ -149,13 +149,7 @@ public class HallOfFame {
 		
 		@Override
 		public String toString() {
-			String string = "";
-			string += playerName;
-			
-			string += "  "; 
-			
-			string +=playerScore;
-			return string;
+			return playerName + "  " + playerScore;
 		}
 
 		@Override
