@@ -22,7 +22,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
@@ -186,10 +185,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			}	
 			for(Firefighter firefighter : firefighters){
 				if(firefighter.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-					ParticleEmitter pm = fire.getFlame().getEmitters().get(0);
-					pm.getEmission().setHigh(pm.getEmission().getHighMax()-3);
+					fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
 					firefighter.getPlayer().incScore();
-					currentHouse.checkFire();
 				}	
 			}
 		}
