@@ -28,4 +28,9 @@ public class HouseOfFireGame extends Game {
 		
 		this.setScreen(mainMenuScreen);
 	}	
+	
+	@Override
+	public void dispose() {
+		Assets.dispose();
+	}
 }

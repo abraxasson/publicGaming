@@ -2,6 +2,7 @@ package hof.core;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.core.utils.HallOfFame;
 import hof.net.MessageProcessing;
 import hof.net.UdpServerThread;
 import hof.net.userMessages.PlayerInfoMessage;
@@ -24,6 +25,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	private UdpServerThread udpServer;
 	private MessageProcessing processing;
 	
+	private HallOfFame fame;
+	
 	private boolean isWaiting;
     private boolean wasTouched;
 	
@@ -38,6 +41,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		returnButton = new SimpleButton("Return", Assets.text50Font, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
 		returnButton.topOn(Gdx.graphics.getHeight() / 8);
+		
+		fame = HallOfFame.getInstance();
 	}
 
 	
@@ -75,8 +80,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			
 			
 			spriteBatch.begin();
-			font.draw(spriteBatch, "Waiting for Players", Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2);
-//			nextButton.draw(spriteBatch);
+			fame.draw(spriteBatch);
+			String text = "Waiting for Players";
+			font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - font.getBounds(text).width /2, Gdx.graphics.getHeight() / 4);
 			returnButton.draw(spriteBatch);
 			spriteBatch.end();
 			
