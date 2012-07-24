@@ -24,4 +24,9 @@ public class SensorInfoMessage extends AbstractMessage {
 	public float getZ(){
 		return z;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + " X: " + x + " Y: " + y + " Z: " + z;
+	}
 }
