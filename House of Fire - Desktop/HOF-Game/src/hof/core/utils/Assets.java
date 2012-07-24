@@ -113,4 +113,21 @@ public class Assets {
 	public static void playSound (Sound sound) {
         sound.play(1);
 	}
+	
+	public static void dispose() {
+		atlas.dispose();
+		firefighter_left.dispose();
+		firefighter_right.dispose();
+		mainMenu.dispose();
+
+		houseTexture.dispose();
+		
+//		buttonSound.dispose();
+		
+		defaultFont.dispose();
+		text30Font.dispose();
+		text45Font.dispose();
+		text50Font.dispose();
+		menu45Font.dispose();
+	}
 }
