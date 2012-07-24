@@ -96,10 +96,10 @@ timeline0: 0.0
 timeline1: 0.5684931
 - Angle - 
 active: true
-lowMin: 45.0
-lowMax: 45.0
-highMin: 35.0
-highMax: 55.0
+lowMin: 85.0
+lowMax: 85.0
+highMin: 75.0
+highMax: 95.0
 relative: false
 scalingCount: 4
 scaling0: 0.0
