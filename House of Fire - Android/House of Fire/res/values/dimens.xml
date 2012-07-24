@@ -6,6 +6,8 @@
     <dimen name="padding_large">12dp</dimen>
     <dimen name="padding_mega">15dp</dimen>
     <dimen name="padding_giga">20dp</dimen>
+    <dimen name="startButtonTextSize">30sp</dimen>
+    <dimen name="header_login_textsize">20sp</dimen>
     
 
 </resources>

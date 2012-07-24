@@ -2,7 +2,7 @@ package hof.net.android;
 
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.ValidationInfoMessage;
-import house.of.fire.LogInActivity;
+import house.of.fire.ControllerActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,16 +14,21 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
+import android.content.Intent;
 import android.util.Log;
 
 public class AndroidServer extends Thread {
 	
+	public static final int PORT = 4711;
+	
 	public static int r;
 	public static int g;
 	public static int b;
+	
+	private static final String TAG = AndroidServer.class.getSimpleName();
+	
+	private static AndroidServer instance;
+	private static int instanceCounter = 0;
 	
 	
 	private DatagramSocket socket;
@@ -32,21 +37,34 @@ public class AndroidServer extends Thread {
 	private AbstractMessage message;
 	private boolean isActive;
 	private static InetAddress ia;
-	private int port = 4711;
+	
 	private Context context;
 	
+	public static AndroidServer getInstance(Context context, int port){
+		
+		if (instance == null || instance.getState() == Thread.State.TERMINATED){
+			instance = new AndroidServer(context, port);
+			instance.start();
+		}
+		
+		instanceCounter++;
+		
+		Log.i(TAG, "AndroidServer instances: " + instanceCounter);
+		return instance;
+	}
+	
 
-	public AndroidServer(int port) {
+	private AndroidServer(Context context, int port) {
 		super();
+		this.context = context;
 		isActive = true;
 		try {
-			this.socket = new DatagramSocket(this.port);
+			this.socket = new DatagramSocket(port);
 			socket.setSoTimeout(3000);
 		} catch (IOException e) {
 			System.out.println("Server funktioniert nicht!");
 			System.out.println(e.getMessage());
 		}
-
 	}
 
 	public void run() {
@@ -57,7 +75,7 @@ public class AndroidServer extends Thread {
 				byte[] data = packet.getData();
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				message = (AbstractMessage) ois.readObject();
-				AndroidServer.ia = packet.getAddress();
+				ia = packet.getAddress();
 				
 				Log.w("Android Server", "Message received");
 				
@@ -108,41 +126,53 @@ public class AndroidServer extends Thread {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
 	
-	public void setContext(Context context) {
-		this.context = context;
+	public synchronized void close(){
+		instanceCounter--;
+		Log.i(TAG, "AndroidServer client instances: " + instanceCounter);
+		if (instanceCounter <= 0){
+
+			isActive = false;
+			
+			socket.disconnect();
+			socket.close();
+			
+			Log.d(TAG, "Socket closed");
+			this.notifyAll();
+		}
 	}
+
 
 	private void messageProcessing(AbstractMessage message) {
 		switch (message.getType()) {
 		case ValidationInfo:
-			
 			Log.w("Android Server", "Validation received");
-			LogInActivity logIn = (LogInActivity) context;
-			logIn.startGame(context);
-			System.out.println(message.toString());
+			
 			ValidationInfoMessage val = (ValidationInfoMessage) message;
 			r = (int)(val.getR()*255);
 			g = (int)(val.getG()*255);
 			b = (int)(val.getB()*255);
-		
+			Log.d(TAG, message.toString());
+			
+			Intent intent = new Intent(context, ControllerActivity.class);
+			context.startActivity(intent);
+
 			break;
 		case LevelFinished:
-			System.out.println(message.toString());
+			Log.d(TAG, message.toString());
 			break;
 		case Achievement:
-			System.out.println(message.toString());
+			Log.d(TAG, message.toString());
 			break;
 		case GameFinished:
-			System.out.println(message.toString());
+			Log.d(TAG, message.toString());
 			break;
 		case PlayerInfo:
-			System.out.println(message.toString());
-			System.out.println("bewirkt nichts");
+			Log.d(TAG, message.toString());
+			Log.d(TAG, "bewirkt nichts");
 			break;
 		default:
-			System.out.println("Kein passender Input");
+			Log.d(TAG, "Kein passender Input");
 			break;
 		}
 	}

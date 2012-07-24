@@ -1,26 +1,22 @@
 package house.of.fire;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import hof.net.android.AndroidServer;
 import hof.net.android.SSDPNetworkClient;
+import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,7 +36,7 @@ public class LogInActivity extends Activity {
 
 	String playerName;
 	int playerColor;
-	public static ProgressDialog progressDialog;
+	ProgressDialog progressDialog;
 
 	// ProgressDialog dialog = ProgressDialog.show(LogInActivity.this, "",
 	// "Loading. Please wait...", true);
@@ -61,23 +57,10 @@ public class LogInActivity extends Activity {
 
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-
-				// if (nameEditText.length() >= 12){
-				// String text = nameEditText.getEditableText().toString();
-				// text = text.substring(0, text.length()-2);
-				// s = "";
-				// }
-
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-
-				// if (nameEditText.length() >= 12){
-				// String text = nameEditText.getEditableText().toString();
-				// text = text.substring(0, text.length()-2);
-				// s = "";
-				// }
 			}
 
 			public void afterTextChanged(Editable s) {
@@ -98,64 +81,62 @@ public class LogInActivity extends Activity {
 
 		super.onStart();
 
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(PREF_PLAYER_NAME, "");
 		nameEditText.setText(playerName);
 
-		server = new AndroidServer(4711);
-		server.start();
-		server.setContext(this);
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 
 		udpClient = new UdpClientThread();
-		// try {
-		// udpClient.setIa(InetAddress.getLocalHost());
-		// } catch (UnknownHostException e) {
-		// e.printStackTrace();
-		// }
 		udpClient.start();
 
 	}
 
 	@Override
 	protected void onStop() {
-
-		
 		super.onStop();
-		server.setActive(false);
+		
+		if (progressDialog != null){
+			progressDialog.dismiss();
+		}
+		
+		udpClient.setActive(false);
+	}
+	
 
-		// udpClient.setActive(false);
-
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		server.close();
 	}
 
 	public void onLogInButtonClicked(View view) {
 
 		playerName = nameEditText.getText().toString();
 
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
 		editor.putString(PREF_PLAYER_NAME, playerName);
 		editor.commit();
 
-		Log.d(TAG, playerName);
+		Log.d(TAG, "Player: " + playerName + " meldet sich an");
 
 		udpClient.sendObject(new PlayerInfoMessage(playerName));
 
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("Bitte warten...");
 		progressDialog.setCancelable(true);
-		
+
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			public void onCancel(DialogInterface dialog) {
 				Log.d(TAG, "Abbruch");
-
-				// TODO inform network about cancellation
+				udpClient.sendObject(new LogoutInfoMessage());
 			}
 		});
 		progressDialog.show();
-		server.setContext(this);
+		
+		
 		
 		
 		// TODO register over network
@@ -178,14 +159,6 @@ public class LogInActivity extends Activity {
 
 		
 
-	}
-
-	public void startGame(Context context) {
-		progressDialog.dismiss();
-
-		
-		Intent intent = new Intent(LogInActivity.this, ControllerActivity.class);
-		context.startActivity(intent);
 	}
 
 }

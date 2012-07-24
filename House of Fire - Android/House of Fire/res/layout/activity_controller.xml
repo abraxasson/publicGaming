@@ -1,11 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myColor"
-     >
-
-        <TextView
+    android:background="@drawable/background" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +31,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_links" />
-            
+            
             <house.of.fire.VerticalProgressBar
                 android:id="@+id/water_rating"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -51,16 +49,15 @@
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_rechts" />
         </LinearLayout>
-
+
         <Button
             android:id="@+id/button_pump"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="78dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/linearLayout1"
-            android:layout_marginBottom="15dp"
-            android:text="@string/pump" />
+            android:layout_alignParentRight="true"
+            android:text="@string/pump"
+            android:textSize="@dimen/header_login_textsize" />
 
         <TextView
             android:id="@+id/output_water"

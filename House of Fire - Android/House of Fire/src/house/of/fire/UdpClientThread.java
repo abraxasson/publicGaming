@@ -12,10 +12,14 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
+import android.util.Log;
+
 public class UdpClientThread extends Thread {
+
+	private static final String TAG = UdpClientThread.class.getSimpleName();
+	
 	private InetAddress ia;
 	private static int port = 4711;
-	private DatagramPacket packet;
 	private DatagramSocket toSocket;
 	private boolean isActive = true;
 	private LinkedList<DatagramPacket> list;
@@ -27,25 +31,24 @@ public class UdpClientThread extends Thread {
 			ia = InetAddress.getByName("192.168.1.106");
 			toSocket = new DatagramSocket();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SocketException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
 	public void run() {
-		System.out.println("Thread gestartet -" + isActive);
+		Log.d(TAG, "Thread gestartet -" + isActive);
 
 		while (isActive || !list.isEmpty()) {
 			try {
 				while (!list.isEmpty()) {
 					toSocket.send(list.removeFirst());
-					System.out.println("Paket wurde gesendet");
+					Log.d(TAG, "Paket wurde gesendet");
 				}
-				System.out.println("Thread schläft!");
+				
+				Log.d(TAG, "Thread schläft!");
 				synchronized (this) {
 					this.wait();
 				}
@@ -57,8 +60,10 @@ public class UdpClientThread extends Thread {
 			}
 		}
 
-		this.toSocket.close();
-		System.out.println("Thread finished");
+		if (toSocket != null){
+			this.toSocket.close();
+		}
+		Log.d(TAG, "Thread finished");
 	}
 
 	public synchronized void setActive(boolean active) {
@@ -66,7 +71,7 @@ public class UdpClientThread extends Thread {
 		try {
 			notify();
 		} catch (java.lang.IllegalMonitorStateException e) {
-			System.out.println(e.getMessage());
+			Log.d(TAG, e.getMessage());
 		}
 	}
 
@@ -76,10 +81,13 @@ public class UdpClientThread extends Thread {
 			ObjectOutputStream stream = new ObjectOutputStream(baos);
 			stream.writeObject(e);
 			byte[] data = baos.toByteArray();
-			packet = new DatagramPacket(data, data.length, ia, port);
+			
+			DatagramPacket packet = new DatagramPacket(data, data.length, ia, port);
 			list.add(packet);
+			
 			stream.close();
-			System.out.println("packet geladen");
+			Log.d(TAG, "packet geladen: " + e.toString());
+			
 			notify();
 		} catch (IOException e1) {
 			e1.printStackTrace();

@@ -52,6 +52,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	int playerColor;
 	Handler handler = new Handler();
 	Timer timer;
+	
+	int sensorCount = 0;
 
 	// vorrübergehende Lösung
 	private UdpClientThread udpClient;
@@ -112,8 +114,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		server = new AndroidServer(4711);
-		server.start();
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
+		
 		udpClient = new UdpClientThread();
 		System.out.println("Test");
 		udpClient.start();
@@ -139,11 +141,16 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		server.setActive(false);
 		udpClient.setActive(false);
 		timer.cancel();
 		
 		// LogInActivity.progressDialog.dismiss();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		server.close();
 	}
 
 	@Override
@@ -252,11 +259,16 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	}
 
 	public void onSensorChanged(SensorEvent event) {
+		
+		sensorCount++;
+		// we do not want to send every sensor update to the server to reduce network load
+		if (sensorCount % 2 == 0){
+			float[] values = event.values;
+			Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
 
-		float[] values = event.values;
-		Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
+			// sendMessage(values[0] + " " + values[1] + " " + values[2]);
+		}
 
-		// sendMessage(values[0] + " " + values[1] + " " + values[2]);
 	}
 
 	private void setFullscreen() {
