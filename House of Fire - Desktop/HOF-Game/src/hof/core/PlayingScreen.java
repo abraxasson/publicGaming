@@ -189,6 +189,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					ParticleEmitter pm = fire.getFlame().getEmitters().get(0);
 					pm.getEmission().setHigh(pm.getEmission().getHighMax()-3);
 					firefighter.getPlayer().incScore();
+					currentHouse.checkFire();
 				}	
 			}
 		}

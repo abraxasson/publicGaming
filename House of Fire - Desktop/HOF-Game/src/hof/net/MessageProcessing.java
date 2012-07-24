@@ -118,7 +118,6 @@ public class MessageProcessing {
 	private void processButtonMessage(ButtonInfoMessage inputMessage,	InetAddress address) {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
-			player.incScore();
 			player.setAlive(true);
 			inputQueue.add(new ButtonInput(player, inputMessage));
 		}
