@@ -8,7 +8,7 @@ import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
-import hof.net.userMessages.LevelFinishedInfoMessage;
+import hof.net.userMessages.LevelInfoMessage;
 import hof.player.Player;
 
 public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
@@ -25,7 +25,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player: processing.getPlayerList()) {
 			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new LevelFinishedInfoMessage(1));
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,1));
 		}
 		
 	}
