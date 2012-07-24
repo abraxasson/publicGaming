@@ -106,7 +106,7 @@ public class HallOfFame {
 		String highscore = "";
 		int i = 1;
 		for (Item item : highscoreSet) {
-			if (i < 10) highscore += "  ";
+//			if (i < 10) highscore += "  ";
 			highscore += i + ":  "; 
 			
 			highscore += item.toString() + "\r\n";

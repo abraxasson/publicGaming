@@ -27,6 +27,7 @@ public class HouseOfFireGame extends Game {
 		Settings.load();
 		houseList = new ArrayList<>();
 		houseList.add(new House(Assets.houseTexture, 20));
+		houseList.add(new House(Assets.house2Texture, 20));
 		houseIndex = 0;
 		
 		mainMenuScreen = new MainMenuScreen(this);

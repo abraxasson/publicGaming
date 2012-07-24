@@ -103,36 +103,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			int d = ff.getX();
-			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
-			ff.setX(x);
-			ff.setState(ButtonInfoMessage.RIGHT);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			int d = ff.getX();
-			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
-			ff.setX(x);
-			ff.setState(ButtonInfoMessage.LEFT);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
-			ff.getWaterJet().setStrength(200);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
-			ff.getWaterJet().setStrength(-200);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-			ff.getWaterJet().setAngle(40);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.D)) {
-			ff.getWaterJet().setAngle(-40);
-		}
-
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
 			processing.getPlayerList().clear();
@@ -142,41 +112,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.V)) {
-			InetAddress ia;
-			try {
-				ia = InetAddress.getLocalHost();
-
-				processing.processMessage(new ButtonInfoMessage(
-						ButtonInfoMessage.NORMAL), ia);
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			InetAddress ia;
-			try {
-				ia = InetAddress.getLocalHost();
-
-				processing.processMessage(new ButtonInfoMessage(
-						ButtonInfoMessage.LEFT), ia);
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.B)) {
-			InetAddress ia;
-			try {
-				ia = InetAddress.getLocalHost();
-
-				processing.processMessage(new ButtonInfoMessage(
-						ButtonInfoMessage.RIGHT), ia);
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
-		}
+		checkComputerInput();
 	}
 
 	private void moveFireFighter() {
@@ -255,6 +191,74 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					firefighter.getPlayer().incScore();
 				}	
 			}
+		}
+	}
+	
+	private void checkComputerInput() {
+		if (Gdx.input.isKeyPressed(Keys.V)) {
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+
+				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.NORMAL), ia);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.C)) {
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+
+				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.LEFT), ia);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.B)) {
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+
+				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.RIGHT), ia);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			int d = ff.getX();
+			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());
+			ff.setX(x);
+			ff.setState(ButtonInfoMessage.RIGHT);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+			int d = ff.getX();
+			int x = d - (int) (300 * Gdx.graphics.getDeltaTime());
+			ff.setX(x);
+			ff.setState(ButtonInfoMessage.LEFT);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
+			ff.getWaterJet().setStrength(200);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
+			ff.getWaterJet().setStrength(-200);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			ff.getWaterJet().setAngle(40);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.D)) {
+			ff.getWaterJet().setAngle(-40);
 		}
 	}
 }
