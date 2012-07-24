@@ -42,6 +42,8 @@ public class Assets {
 	public static Map<Texture, BufferedImage> houseMap;
 	public static Texture houseTexture;
 	public static BufferedImage houseImage;
+	public static Texture house2Texture;
+	public static BufferedImage house2Image;
 	
 	public static Sound buttonSound;
 	
@@ -89,9 +91,11 @@ public class Assets {
 	private static void loadHouses() {
 		try {
 			houseTexture = new Texture(Gdx.files.internal("textures/TestHouse.png"));
-			
+			house2Texture = new Texture(Gdx.files.internal("textures/TestHouse2.png"));
 			houseImage =  ImageIO.read(new File("assets/textures/TestHouse_burningArea.png"));
+			house2Image = ImageIO.read(new File("assets/textures/TestHouse2_burningArea.png"));
 			houseMap.put(houseTexture, houseImage);
+			houseMap.put(house2Texture, house2Image);
 		} catch (IOException e) {
 			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");
 		}		
