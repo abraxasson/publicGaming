@@ -75,7 +75,7 @@ public class AndroidServer extends Thread {
 			c.sendObject(new ValidationInfoMessage());
 			System.out.println(message.toString());
 			break;
-		case LevelFinished:
+		case LevelInfo:
 			System.out.println(message.toString());
 			break;
 		case Achievement:
