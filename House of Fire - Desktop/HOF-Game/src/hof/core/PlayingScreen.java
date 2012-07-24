@@ -45,6 +45,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		house = new House(Assets.houseTexture, 1000, 20);
 		fps = new FPS();
 	}
+	
+	@Override
+	public void show() {
+		house.setHealthpoints(1000);
+	}
 
 	@Override
 	public void render(float delta) {
@@ -66,9 +71,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// checks that the players stay inside the screen
 		keepInBounds();
 
-		if (processing.hasInput()) {
-			moveFireFighter();
-		}
+	
+		moveFireFighter();
+		
 		
 		if (processing.hasSensorInput()){
 			SensorInput input = processing.getSensorInput();
@@ -120,7 +125,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
 			processing.getPlayerList().clear();
-			house.setHealthpoints(1000);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
