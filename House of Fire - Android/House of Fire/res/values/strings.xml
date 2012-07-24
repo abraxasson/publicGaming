@@ -22,5 +22,6 @@
     <string name="title_activity_instructions">InstructionsActivity</string>
     <string name="title_activity_water">WaterActivity</string>
     <string name="game">Zum Hauptspiel</string>
+    <string name="water_rating">Wasser auffüllen!</string>
 
 </resources>

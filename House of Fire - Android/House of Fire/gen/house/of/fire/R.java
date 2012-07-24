@@ -78,6 +78,7 @@ public final class R {
         public static final int title_activity_water=0x7f050011;
         public static final int wait=0x7f050007;
         public static final int water=0x7f05000b;
+        public static final int water_rating=0x7f050013;
         public static final int weiter=0x7f050006;
     }
     public static final class style {
