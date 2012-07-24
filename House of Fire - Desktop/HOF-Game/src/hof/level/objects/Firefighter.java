@@ -52,8 +52,6 @@ public class Firefighter extends AbstractPerson {
 			waterJet.setPosition(getX()+105, getY()+125);
 			break;
 		case ButtonInfoMessage.NORMAL:
-			setBody(Assets.firefighter_left);
-			waterJet.setPosition(getX()+20, getY()+125);
 			break;
 		default:
 			waterJet.setPosition(getX()+20, getY()+125);
