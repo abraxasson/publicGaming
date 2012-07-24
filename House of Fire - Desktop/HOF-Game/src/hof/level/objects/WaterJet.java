@@ -25,7 +25,7 @@ public class WaterJet {
 		emmitter.getLife().getHighMin();
 		emmitter.getAngle().getLowMin();
 		
-		size = 100;
+		size = emmitter.getSpawnWidth().getHighMin();
 		streamArea = new Rectangle();
 		streamArea.setX(calcX());
 		streamArea.setY(calcY());
