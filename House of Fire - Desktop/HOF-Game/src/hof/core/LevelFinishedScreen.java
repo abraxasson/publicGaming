@@ -13,19 +13,20 @@ import hof.player.Player;
 
 public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 
+	MessageProcessing processing;
+	UdpClientThread udpClient;
 	
 	public LevelFinishedScreen(HouseOfFireGame game) {
 		super(game);
-		
+		processing = MessageProcessing.getInstance();
+		udpClient = UdpClientThread.getInstance();
 	}
 	
 	@Override
 	public void show() {
-		MessageProcessing processing = MessageProcessing.getInstance();
-		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player: processing.getPlayerList()) {
 			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,1));
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,game.houseIndex + 1));
 		}
 		
 		game.houseIndex++;
@@ -44,6 +45,14 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.begin();
 		Assets.text50Font.draw(spriteBatch, "Level finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();
+	}
+	
+	@Override
+	public void hide() {
+		for (Player player: processing.getPlayerList()) {
+			udpClient.setIA(player.getIp());
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1));
+		}
 	}
 
 	
