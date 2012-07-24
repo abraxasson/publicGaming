@@ -29,6 +29,7 @@ public class WaterJet {
 		streamArea = new Rectangle();
 		streamArea.setX(calcX());
 		streamArea.setY(calcY());
+		
 		streamArea.setWidth(size);
 		streamArea.setHeight(size);
 	}
@@ -60,25 +61,31 @@ public class WaterJet {
 	
 	private int calcX() {
 		int x = 0;
-		float length = emmitter.getLife().getHighMin();
+		float length = emmitter.getLife().getHighMin() * 3/4;
 		float angle = emmitter.getAngle().getLowMin();
 		if (angle == 90 || angle == 270) {
 			x = (int) this.x;
 		} else {
 			x =(int) (this.x + (Math.cos(Math.toRadians(angle)) * length));
 		}
+		
+		x -= size / 2; 
+
 		return x;
 	}
 	
 	private int calcY() {
 		int y = 0;
-		float length = emmitter.getLife().getHighMin()*2/3;
+		float length = emmitter.getLife().getHighMin() * 3/4;
 		float angle = emmitter.getAngle().getLowMin();
 		if (angle == 180 || angle == 360) {
 			y = (int) this.y;
 		} else {
 			y =(int) (this.y +  (Math.sin(Math.toRadians(angle)) * length));
 		}
+		
+		y -= size / 2;
+		
 		return y;
 	}
 	
