@@ -3,6 +3,7 @@ package house.of.fire;
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.LogoutInfoMessage;
+import hof.net.userMessages.SensorInfoMessage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -262,11 +263,11 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		
 		sensorCount++;
 		// we do not want to send every sensor update to the server to reduce network load
-		if (sensorCount % 2 == 0){
+		if (sensorCount % 1 == 0){
 			float[] values = event.values;
 			Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
 
-			// sendMessage(values[0] + " " + values[1] + " " + values[2]);
+			udpClient.sendObject(new SensorInfoMessage(values[0], values[1], values[2]));
 		}
 
 	}
