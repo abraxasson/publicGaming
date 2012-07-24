@@ -62,8 +62,11 @@ public class WaterJet {
 		int x = 0;
 		float length = emmitter.getLife().getHighMin();
 		float angle = emmitter.getAngle().getLowMin();
-//		System.out.println("Angle: " + angle + " Cos: " + Math.cos(angle) + " Length" + length);
-		x =(int) (this.x + (Math.cos(Math.toRadians(angle)) * length));
+		if (angle == 90 || angle == 270) {
+			x = (int) this.x;
+		} else {
+			x =(int) (this.x + (Math.cos(Math.toRadians(angle)) * length));
+		}
 		return x;
 	}
 	
@@ -71,7 +74,11 @@ public class WaterJet {
 		int y = 0;
 		float length = emmitter.getLife().getHighMin()*2/3;
 		float angle = emmitter.getAngle().getLowMin();
-		y =(int) (this.y +  (Math.sin(Math.toRadians(angle)) * length));
+		if (angle == 180 || angle == 360) {
+			y = (int) this.y;
+		} else {
+			y =(int) (this.y +  (Math.sin(Math.toRadians(angle)) * length));
+		}
 		return y;
 	}
 	
