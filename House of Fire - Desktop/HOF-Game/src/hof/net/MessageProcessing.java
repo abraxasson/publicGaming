@@ -96,13 +96,19 @@ public class MessageProcessing {
 	 * @param address
 	 */
 	private void processPlayerMessage(PlayerInfoMessage message, InetAddress address) {
-		Player player = new Player(message.getName(), address, colorList.getNextColor());
+		Player player;
+		if (checkPlayer(address)) {
+			player = getPlayer(address);
+		} else {
+			player = new Player(message.getName(), address, colorList.getNextColor());
+		}
+		
+		udpClient.setIA(address);			
+		udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 		if (!checkPlayer(address)) {
 			activePlayers.add(player);
 			playerQueue.add(player);
 			
-			udpClient.setIA(address);			
-			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");
