@@ -12,6 +12,7 @@ public class HouseOfFireGame extends Game {
 	Screen waitingForPlayersScreen;
 	Screen playingScreen;
 	Screen gameOverScreen;
+	Screen levelFinishedScreen;
 	
 	@Override
 	public void create() {
@@ -21,6 +22,7 @@ public class HouseOfFireGame extends Game {
 		waitingForPlayersScreen = new WaitingForPlayersScreen(this);
 		playingScreen = new PlayingScreen(this);
 		gameOverScreen = new GameOverScreen(this);
+		levelFinishedScreen = new LevelFinishedScreen(this);
 		
 		this.setScreen(mainMenuScreen);
 	}	

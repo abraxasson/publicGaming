@@ -33,10 +33,6 @@ public class House {
 		}
 	}
 
-	public House() {
-
-	}
-
 	public Texture getImage() {
 		return image;
 	}

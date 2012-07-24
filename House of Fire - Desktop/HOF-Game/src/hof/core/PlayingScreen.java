@@ -91,6 +91,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (!house.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
+		
+		if (house.getFireList().size() == 0) {
+			game.setScreen(game.levelFinishedScreen);
+		}
 
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
