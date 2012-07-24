@@ -24,7 +24,7 @@ public class UdpClientThread extends Thread {
 		list = new LinkedList<DatagramPacket>();
 
 		try {
-			ia = InetAddress.getByName("192.168.1.105");
+			ia = InetAddress.getByName("192.168.1.106");
 			toSocket = new DatagramSocket();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

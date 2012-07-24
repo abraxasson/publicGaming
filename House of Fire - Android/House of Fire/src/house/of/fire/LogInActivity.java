@@ -48,7 +48,7 @@ public class LogInActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
@@ -61,7 +61,7 @@ public class LogInActivity extends Activity {
 
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
+
 				// if (nameEditText.length() >= 12){
 				// String text = nameEditText.getEditableText().toString();
 				// text = text.substring(0, text.length()-2);
@@ -72,7 +72,7 @@ public class LogInActivity extends Activity {
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
+
 				// if (nameEditText.length() >= 12){
 				// String text = nameEditText.getEditableText().toString();
 				// text = text.substring(0, text.length()-2);
@@ -95,7 +95,7 @@ public class LogInActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+
 		super.onStart();
 
 		SharedPreferences prefs = PreferenceManager
@@ -119,7 +119,7 @@ public class LogInActivity extends Activity {
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
+
 		
 		super.onStop();
 		server.setActive(false);

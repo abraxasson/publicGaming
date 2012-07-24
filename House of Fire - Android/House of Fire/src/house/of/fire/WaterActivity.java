@@ -2,12 +2,14 @@ package house.of.fire;
 
 
 import hof.net.android.AndroidServer;
+import hof.net.userMessages.ButtonInfoMessage;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -18,16 +20,17 @@ public class WaterActivity extends Activity {
 	
 	private final static String TAG = WaterActivity.class.getSimpleName();
 	
-	
+	public final static String EXTRA_WATER_LEVEL = "waterLevel";
 
 	ImageButton pfeil_links;
 	ImageButton pfeil_rechts;
 	TextView outputName;
 	//Button logOut;
 	//SeekBar water_bar;
+	VerticalProgressBar water_rating;
 	
-	int waterLevel = 0;
-	
+    int state = ButtonInfoMessage.NORMAL;
+	int waterLevel;
 	
 	//vorrübergehende Lösung
 	private UdpClientThread udpClient;
@@ -47,6 +50,8 @@ public class WaterActivity extends Activity {
                 pfeil_rechts = (ImageButton) findViewById(R.id.pfeil_rechts);
                 outputName = (TextView) findViewById(R.id.output_name);
                 //water_bar = (SeekBar) findViewById(R.id.waterstatus);
+                water_rating = (VerticalProgressBar) findViewById(R.id.water_rating);
+        		water_rating.setEnabled(false);
                 
                 pfeil_links.setOnClickListener(pfeil_linksListener);
                 pfeil_rechts.setOnClickListener(pfeil_rechtsListener);
@@ -73,7 +78,7 @@ public class WaterActivity extends Activity {
 
         	@Override
         	protected void onPause() {
-        		// TODO Auto-generated method stub
+
         		super.onPause();	
         		
         		
@@ -83,7 +88,7 @@ public class WaterActivity extends Activity {
 
         	@Override
         	protected void onResume() {
-        		// TODO Auto-generated method stub
+ 
         		super.onResume();
         	}
 
@@ -91,20 +96,24 @@ public class WaterActivity extends Activity {
 
         	@Override
         	protected void onStart() {
-        		// TODO Auto-generated method stub
+
         		super.onStart();
 //        		server = new AndroidServer(4711);
 //              server.start();
         		udpClient = new UdpClientThread();
-                udpClient.start();	
-        		
+                udpClient.start();
+                Intent intent = getIntent();
+                waterLevel = intent.getIntExtra(ControllerActivity.EXTRA_WATER_LEVEL, 0);
+                water_rating.setProgress(waterLevel);
+                water_rating.postInvalidate();
+                state = ButtonInfoMessage.NORMAL;
         	}
 
 
 
         	@Override
         	protected void onStop() {
-        		// TODO Auto-generated method stub
+ 
         		super.onStop();
 //        		server.setActive(false);
         		udpClient.setActive(false);
@@ -117,7 +126,7 @@ public class WaterActivity extends Activity {
         		//Prepare data intent
         		Intent intent = new Intent();
         		
-        		intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, waterLevel);
+        		intent.putExtra(EXTRA_WATER_LEVEL, waterLevel);
         		
         		// Activity finished ok, return the data
         		setResult(RESULT_OK, intent);
@@ -139,21 +148,21 @@ public class WaterActivity extends Activity {
             		
             		//sendMessage("Links wurde gedrueckt!");
             		
-            		if(isleft) {
+            		if(state == ButtonInfoMessage.NORMAL) {
+            			state = ButtonInfoMessage.LEFT;
+            			fillWater(20);
             		}
-            		else{
-            			isleft = true; {
-            				waterLevel += 20;
-            				if(waterLevel == 100){
-            					finish();
-            				}
-            			//sendMessage("m");
-           			System.out.println("Links");
+            		else if(state == ButtonInfoMessage.RIGHT){
+            			state = ButtonInfoMessage.LEFT;
+            			fillWater(20);
             		}
+            		else if(state == ButtonInfoMessage.LEFT){
+            			
             		}
 
-            	
             	}
+
+				
             };
             
             
@@ -165,20 +174,31 @@ public class WaterActivity extends Activity {
             		
             		//sendMessage("Rechts wurde gedrueckt!");
             		
-            		if(isleft) {
-            			isleft = false;
-            			waterLevel += 20;
-            			if(waterLevel == 100){
-            				finish();
-            			}
-            			//sendMessage("m");
-            			System.out.println("Rechts");
+            		if(state == ButtonInfoMessage.NORMAL) {
+            			state = ButtonInfoMessage.RIGHT;
+            			fillWater(20);
+            		}
+            		else if(state == ButtonInfoMessage.LEFT){
+            			state = ButtonInfoMessage.RIGHT;
+            			fillWater(20);
+            		}
+            		else if(state == ButtonInfoMessage.RIGHT){
+            			
             		}
             	
             	}
             };
 
-            
+            private void fillWater(int increase) {
+				waterLevel += increase;
+				water_rating.setProgress(waterLevel);
+				//water_rating.setProgress(water_rating.getProgress()+20);
+				water_rating.postInvalidate();
+				if(waterLevel >= 100){
+					waterLevel = 100;
+					finish();
+				}
+			}
             
 //            private OnClickListener logOutButton_Listener = new OnClickListener() {
 //            	public void onClick(View v) {
@@ -197,7 +217,6 @@ public class WaterActivity extends Activity {
             private void sendMessage (String message) {
             	//udpClient.sendMessage(message);    	
             }
-
 
 
         	  	

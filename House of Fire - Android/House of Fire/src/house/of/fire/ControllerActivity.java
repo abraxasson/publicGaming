@@ -70,6 +70,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		button_pump = (Button) findViewById(R.id.button_pump);
 		water_rating = (VerticalProgressBar) findViewById(R.id.water_rating);
 		water_rating.setEnabled(false);
+		water_rating.setMax(100);
 
 		pfeil_links.setOnTouchListener(pfeil_linksListener);
 		pfeil_rechts.setOnTouchListener(pfeil_rechtsListener);
@@ -95,7 +96,6 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		mSensorManager.unregisterListener(this);
 	}
@@ -126,15 +126,13 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// playerColor = prefs.getInt(LogInActivity.PREF_PLAYER_COLOR,
 		// Color.RED);
 		outputName.setText(playerName);
-		// TODO set color in user inteface
-
+	
 		water_rating.setProgress(waterLevel);
-		water_rating.setMax(100);
+		
 		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new WaterTankTimerTask(water_rating), 500, 100);
 
-		// new Timer().scheduleAtFixedRate(null, waterLevel--, 200);
 
 	}
 
@@ -144,6 +142,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		server.setActive(false);
 		udpClient.setActive(false);
 		timer.cancel();
+		
 		// LogInActivity.progressDialog.dismiss();
 	}
 
@@ -155,6 +154,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		if (requestCode == REQUEST_CODE_WATER_ACTIVITY) {
 
 			waterLevel = data.getIntExtra(EXTRA_WATER_LEVEL, 0);
+			water_rating.setProgress(waterLevel);
 			Log.d(TAG, "waterlevel: " + waterLevel);
 		}
 	}
@@ -180,7 +180,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				}
 				break;
 			}
-			// TODO Auto-generated method stub
+
 			return false;
 		}
 	};
@@ -206,7 +206,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 				break;
 			}
-			// TODO Auto-generated method stub
+
 			return false;
 		}
 	};
@@ -216,13 +216,11 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 			// startActivity(new Intent(ControllerActivity.this,
 			// WaterActivity.class));
 
-			Intent intent = new Intent(ControllerActivity.this,
-					WaterActivity.class);
-			intent.putExtra(LogInActivity.PREF_PLAYER_NAME, playerName);
-			// intent.putExtra(LogInActivity.PREF_PLAYER_COLOR, playerColor);
-			startActivityForResult(intent, REQUEST_CODE_WATER_ACTIVITY);
+			startWaterActivity();
 
 		}
+
+		
 	};
 
 	// private OnClickListener logOutButton_Listener = new OnClickListener() {
@@ -235,6 +233,13 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	// //udpClient.sendObject(new LogoutInfoMessage());
 	// }
 	// };
+	
+	private void startWaterActivity() {
+		Intent intent = new Intent(ControllerActivity.this,
+				WaterActivity.class);
+		intent.putExtra(EXTRA_WATER_LEVEL, waterLevel);
+		startActivityForResult(intent, REQUEST_CODE_WATER_ACTIVITY);
+	}
 
 	public void finish() {
 		udpClient.sendObject(new LogoutInfoMessage());
@@ -242,12 +247,12 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	}
 
 	public void onAccuracyChanged(Sensor sensor, int value) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
+
 		float[] values = event.values;
 		Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
 
@@ -275,12 +280,16 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				
 				public void run() {
 					if(vpb.getProgress() <= 0){
-						//TODO notify user to pump
 						timer.cancel();
-					}
+						
+							startWaterActivity();
+							
+						}
+					
 					else{
 						Log.d(TAG, ""+vpb.getProgress());
-						vpb.setProgress(vpb.getProgress()-1);
+						waterLevel = vpb.getProgress()-1;
+						vpb.setProgress(waterLevel);
 						vpb.postInvalidate();
 					}
 				}
