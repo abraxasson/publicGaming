@@ -33,7 +33,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	MessageProcessing processing;
 
 	FPS fps;
-	
+
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
@@ -41,11 +41,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		firefighters = new ArrayList<>();
-		ff = new Firefighter(new Player("Florian",null,Color.PINK), ButtonInfoMessage.NORMAL);
+		ff = new Firefighter(new Player("Florian", null, Color.PINK),
+				ButtonInfoMessage.NORMAL);
 		house = new House(Assets.houseTexture, 1000, 20);
 		fps = new FPS();
 	}
-	
+
 	@Override
 	public void show() {
 		house.setHealthpoints(1000);
@@ -71,14 +72,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// checks that the players stay inside the screen
 		keepInBounds();
 
-	
-		moveFireFighter();
-		
-		
-		if (processing.hasSensorInput()){
+		if (processing.hasInput()) {
+			moveFireFighter();
+		}
+
+		if (processing.hasSensorInput()) {
 			SensorInput input = processing.getSensorInput();
-			for (Firefighter fighter: firefighters) {
-				if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
+			for (Firefighter fighter : firefighters) {
+				if (fighter.getPlayer().getIp()
+						.equals(input.getPlayer().getIp())) {
 					System.out.println("Weiterverarbeitung der Daten");
 				}
 			}
@@ -87,7 +89,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (!house.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
-		
+
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
@@ -130,24 +132,26 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.V)) {
 			InetAddress ia;
 			try {
 				ia = InetAddress.getLocalHost();
-				
-				processing.processMessage(new ButtonInfoMessage(ButtonInfoMessage.LEFT), ia);
+
+				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.B)) {
 			InetAddress ia;
 			try {
 				ia = InetAddress.getLocalHost();
-				
-				processing.processMessage(new ButtonInfoMessage(ButtonInfoMessage.RIGHT), ia);
+
+				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.RIGHT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -156,28 +160,27 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void moveFireFighter() {
 		ButtonInput input = processing.getInput();
-		for (Firefighter fighter: firefighters) {
-			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())){
+		for (Firefighter fighter : firefighters) {
+			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
 				fighter.setState(input.getMessage().getState());
-				int d;
-				int x;
-				switch (fighter.getState()) {
-				case ButtonInfoMessage.NORMAL:
-					break;
-				case ButtonInfoMessage.LEFT:
-					d = fighter.getX();
-					x = d - (int) (300 * Gdx.graphics.getDeltaTime());
-					fighter.setX(x);
-					break;
-				case ButtonInfoMessage.RIGHT: 
-					d = fighter.getX();
-					x = d + (int) (300 * Gdx.graphics.getDeltaTime());
-					fighter.setX(x);
-					break;
-				default:
-					break;
-				}
-				
+			}
+			int d;
+			int x;
+			switch (fighter.getState()) {
+			case ButtonInfoMessage.NORMAL:
+				break;
+			case ButtonInfoMessage.LEFT:
+				d = fighter.getX();
+				x = d - (int) (300 * Gdx.graphics.getDeltaTime());
+				fighter.setX(x);
+				break;
+			case ButtonInfoMessage.RIGHT:
+				d = fighter.getX();
+				x = d + (int) (300 * Gdx.graphics.getDeltaTime());
+				fighter.setX(x);
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -193,9 +196,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void checkPlayers() {
 		if (processing.hasPlayers()) {
-			firefighters.add(new Firefighter(processing.getPlayer(), ButtonInfoMessage.NORMAL));
+			firefighters.add(new Firefighter(processing.getPlayer(),
+					ButtonInfoMessage.NORMAL));
 		}
-		
+
 		Iterator<Firefighter> iter = firefighters.iterator();
 		while (iter.hasNext()) {
 			Firefighter firefighter = iter.next();
