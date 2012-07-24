@@ -71,10 +71,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// checks that the players stay inside the screen
 		keepInBounds();
-
-		if (processing.hasInput()) {
-			moveFireFighter();
-		}
+		
+		moveFireFighter();
 
 		if (processing.hasSensorInput()) {
 			SensorInput input = processing.getSensorInput();
@@ -139,6 +137,18 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				ia = InetAddress.getLocalHost();
 
 				processing.processMessage(new ButtonInfoMessage(
+						ButtonInfoMessage.NORMAL), ia);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.C)) {
+			InetAddress ia;
+			try {
+				ia = InetAddress.getLocalHost();
+
+				processing.processMessage(new ButtonInfoMessage(
 						ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -159,9 +169,13 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void moveFireFighter() {
-		ButtonInput input = processing.getInput();
+		ButtonInput input = null;
+		if(processing.hasInput()){
+			input = processing.getInput();
+		}
+		
 		for (Firefighter fighter : firefighters) {
-			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
+			if (input != null && fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
 				fighter.setState(input.getMessage().getState());
 			}
 			int d;
@@ -173,11 +187,13 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				d = fighter.getX();
 				x = d - (int) (300 * Gdx.graphics.getDeltaTime());
 				fighter.setX(x);
+				fighter.setState(ButtonInfoMessage.LEFT);
 				break;
 			case ButtonInfoMessage.RIGHT:
 				d = fighter.getX();
 				x = d + (int) (300 * Gdx.graphics.getDeltaTime());
 				fighter.setX(x);
+				fighter.setState(ButtonInfoMessage.RIGHT);
 				break;
 			default:
 				break;
