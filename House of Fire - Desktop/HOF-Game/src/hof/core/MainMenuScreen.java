@@ -96,7 +96,7 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	}
 	
 	private void startGame() {
-		game.setScreen(game.playingScreen);
+		game.setScreen(game.waitingForPlayersScreen);
 	}
 
 	private void updateButtons(float delta) {

@@ -18,7 +18,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private BitmapFont font;
-	private SimpleButton nextButton;
 	private SimpleButton returnButton;
 	
 	@SuppressWarnings("unused")
@@ -36,14 +35,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		font = Assets.text50Font;
 		font.setColor(0, 0, 0, 1);
 		
-		
-		nextButton = new SimpleButton("Next", Assets.text50Font, Color.BLACK);
-		nextButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
-		nextButton.topOn(350);
-		
 		returnButton = new SimpleButton("Return", Assets.text50Font, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth() / 2);
-		returnButton.topOn(300);
+		returnButton.topOn(Gdx.graphics.getHeight() / 8);
 	}
 
 	
@@ -67,11 +61,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 				Gdx.app.exit();
 			}
-			
-			if (nextButton.wasPressed()) {
-				game.setScreen(game.playingScreen);
-			}
-			
 			
 			if (Gdx.input.isKeyPressed(Keys.SPACE)) {
 				InetAddress ia;
@@ -107,7 +96,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
         boolean justReleased = wasTouched && !isTouched;
         wasTouched = isTouched;
 
-        nextButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
 		returnButton.update(delta, justTouched, isTouched, justReleased, touchPoint.x, touchPoint.y);
 	}
 }
