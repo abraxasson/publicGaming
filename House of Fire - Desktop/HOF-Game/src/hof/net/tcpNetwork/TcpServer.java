@@ -1,5 +1,7 @@
 package hof.net.tcpNetwork;
 
+import hof.net.userMessages.AbstractMessage;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -21,12 +23,12 @@ public class TcpServer extends Thread {
 
 	private ServerSocket serverSocket;
 	private InetSocketAddress inboundAddr;
-	private TcpPayload payload;
+	private AbstractMessage message;
 	private boolean isActive;
 
-	/** Default constructor. */
-	public TcpServer() {
-		this.payload = new TcpPayload();
+	
+	public TcpServer(AbstractMessage message) {
+		this.message = message;
 		initServerSocket();
 		this.isActive = true;
 	}
@@ -38,7 +40,7 @@ public class TcpServer extends Thread {
 				Socket sock = this.serverSocket.accept();
 				OutputStream oStream = sock.getOutputStream();
 				ObjectOutputStream ooStream = new ObjectOutputStream(oStream);
-				ooStream.writeObject(this.payload); // send serilized payload
+				ooStream.writeObject(this.message); // send serilized message
 				ooStream.close();
 				Thread.sleep(1000);
 			}
@@ -65,7 +67,7 @@ public class TcpServer extends Thread {
 	
 	/** Initialize a server socket for communicating with the client. */
 	private void initServerSocket() {
-		this.inboundAddr = new InetSocketAddress(COMM_PORT);
+		this.setInboundAddr(new InetSocketAddress(COMM_PORT));
 		try {
 			this.serverSocket = new java.net.ServerSocket(COMM_PORT);
 			assert this.serverSocket.isBound();
@@ -88,6 +90,14 @@ public class TcpServer extends Thread {
 	public void setActive(boolean active){
 		this.isActive = active;
 		System.out.println("Server wurde beendet!");
+	}
+
+	public InetSocketAddress getInboundAddr() {
+		return inboundAddr;
+	}
+	
+	private void setInboundAddr(InetSocketAddress inboundAddr){
+		this.inboundAddr = inboundAddr;
 	}
 
 }

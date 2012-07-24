@@ -1,5 +1,6 @@
 package hof.net.tcpNetwork;
-import java.net.InetAddress;
+import hof.net.userMessages.PlayerInfoMessage;
+
 import java.net.UnknownHostException;
 
 
@@ -12,10 +13,11 @@ public class Main {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws UnknownHostException, InterruptedException {
-		TcpServer server = new TcpServer();
-		TcpClient client = new TcpClient();
+		TcpServer server = new TcpServer(new PlayerInfoMessage("Manuel"));
 		server.start();
+		TcpClient client = new TcpClient();
 		client.start();
+		
 		Thread.sleep(5000);
 		server.setActive(false);
 		
