@@ -1,6 +1,7 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.core.utils.Settings;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -20,10 +21,10 @@ public class House {
 	
 	private boolean isAlive;
 
-	public House(Texture image, int healthpoints,int fire) {
+	public House(Texture image, int fire) {
 		super();
 		this.image = image;
-		this.healthpoints = healthpoints;
+		this.healthpoints = Settings.houseHealthpoints;
 		isAlive = true;
 		maxHealth = healthpoints;
 		this.setBurningArea(Assets.houseMap.get(image));
@@ -100,7 +101,7 @@ public class House {
 			checkFire();
 			for(Fire fire : fireList){
 				fire.draw(spriteBatch);
-				this.healthpoints -= 1*Gdx.graphics.getDeltaTime();
+				this.healthpoints -= Settings.fireDamage  *Gdx.graphics.getDeltaTime();
 			}
 		}
 		else{

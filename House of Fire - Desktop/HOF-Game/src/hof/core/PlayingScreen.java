@@ -2,6 +2,7 @@ package hof.core;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.core.utils.Settings;
 import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
@@ -45,7 +46,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
 				ButtonInfoMessage.NORMAL);
-		house = new House(Assets.houseTexture, 1000, 20);
+		house = new House(Assets.houseTexture, 20);
 		fps = new FPS();
 	}
 
@@ -243,7 +244,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private void checkCollision(){
 		for(Fire fire : house.getFireList()){
 			if(ff.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-				fire.setHealthpoints(fire.getHealthpoints()-3);
+				fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
 			}	
 			for(Firefighter firefighter : firefighters){
 				if(firefighter.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
