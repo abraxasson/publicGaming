@@ -42,7 +42,8 @@ public class WaterJet {
 	
 	public void setStrength(int change) {
 		float strength = emmitter.getLife().getHighMax();
-		strength += change * Gdx.graphics.getDeltaTime();
+		//strength += change * Gdx.graphics.getDeltaTime();
+		strength += change;
 		emmitter.getLife().setHigh(strength);
 		emmitter.getLife().setHighMin(strength - change);
 	}
