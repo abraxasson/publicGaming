@@ -28,8 +28,8 @@ public class Fire {
 		this.healthpoints = emitter.getEmission().getHighMax();
 		fireRectangle.setX(x - 20);
 		fireRectangle.setY(y);
-		fireRectangle.setWidth(50);
-		fireRectangle.setHeight(50);
+		fireRectangle.setWidth(emitter.getSpawnWidth().getHighMin());
+		fireRectangle.setHeight(emitter.getSpawnWidth().getHighMin());
 	}
 
 	public float getHealthpoints() {
@@ -62,8 +62,8 @@ public class Fire {
 	public void draw(SpriteBatch spriteBatch) {
 		update();
 		flame.draw(spriteBatch, Gdx.graphics.getDeltaTime());
-		// spriteBatch.draw(Assets.pureWhiteTextureRegion, x-20,
-		// y,emitter.getLife().getLowMin()/6,emitter.getLife().getLowMin()/6);
+		//spriteBatch.draw(Assets.pureWhiteTextureRegion, x-20,
+		//y,emitter.getLife().getLowMin()/6,emitter.getLife().getLowMin()/6);
 	}
 
 	public void update() {
