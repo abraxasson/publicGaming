@@ -6,6 +6,9 @@ import hof.net.userMessages.LevelInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.ControllerActivity;
 import house.of.fire.LogInActivity;
+import house.of.fire.LostGameActivity;
+import house.of.fire.R;
+import house.of.fire.WinGameActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,6 +31,8 @@ public class AndroidServer extends Thread {
 	public static int r;
 	public static int g;
 	public static int b;
+	public static int level;
+	public static int event;
 	
 	private static final String TAG = AndroidServer.class.getSimpleName();
 	
@@ -166,24 +171,24 @@ public class AndroidServer extends Thread {
 		case LevelInfo:
 			
 			LevelInfoMessage lev = (LevelInfoMessage) message;
-			int level = lev.getLevel();
-			int event = lev.getEventType();
+			level = lev.getLevel();
+			event = lev.getEventType();
 			Log.d(TAG, message.toString());
 			
-			if (event == 1){
-				if (progressDialog != null){
-					progressDialog.dismiss();
-				}
-				Intent intent1 = new Intent(context, LogInActivity.class);
-				context.startActivity(intent1);
+			if (event == LevelInfoMessage.STARTED){
+		
+				context.startActivity(new Intent(context, ControllerActivity.class));
+
 			}
 			
-			if (event == 2){
+			if (event == LevelInfoMessage.FINISHED){
 				
-				progressDialog = new ProgressDialog(context);
-				progressDialog.setMessage("Sie sind in Level" + level + " " + "aufgestiegen.");
-				progressDialog.setCancelable(true);
-				progressDialog.show();
+				
+				context.startActivity(new Intent(context, WinGameActivity.class));
+//				progressDialog = new ProgressDialog(context);
+//				progressDialog.setMessage("Sie sind in Level" + level + " " + "aufgestiegen.");
+//				progressDialog.setCancelable(true);
+//				progressDialog.show();
 				
 //			AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 //			alertDialog.setTitle("Herzlichen Glückwunsch!");
@@ -198,28 +203,33 @@ public class AndroidServer extends Thread {
 		case GameFinished:
 			GameFinishedInfoMessage game = (GameFinishedInfoMessage) message;
 			boolean won = game.hasWon();
-			if(won == true){
-				progressDialog = new ProgressDialog(context);
-				progressDialog.setMessage("Sie haben das Spiel gewonnen!");
-				progressDialog.setCancelable(true);
-				progressDialog.show();
+			if(won){
 				
-				Intent intent2 = new Intent(context, LogInActivity.class);
-				context.startActivity(intent2);
+				context.startActivity(new Intent(context, WinGameActivity.class));
+//				progressDialog = new ProgressDialog(context);
+//				progressDialog.setMessage("Sie haben das Spiel gewonnen!");
+//				progressDialog.setCancelable(true);
+//				progressDialog.show();
 				
-				progressDialog.dismiss();
+//				Intent intent2 = new Intent(context, LogInActivity.class);
+//				context.startActivity(intent2);
+				
+//				progressDialog.dismiss();
 				
 			}
-			if(won == false){
-				progressDialog = new ProgressDialog(context);
-				progressDialog.setMessage("Sie haben das Spiel verloren!");
-				progressDialog.setCancelable(true);
-				progressDialog.show();
+			if(!won){
 				
-				Intent intent3 = new Intent(context, LogInActivity.class);
-				context.startActivity(intent3);
+				context.startActivity(new Intent(context, LostGameActivity.class));
+
+//				progressDialog = new ProgressDialog(context);
+//				progressDialog.setMessage("Sie haben das Spiel verloren!");
+//				progressDialog.setCancelable(true);
+//				progressDialog.show();
 				
-				progressDialog.dismiss();
+//				Intent intent3 = new Intent(context, LogInActivity.class);
+//				context.startActivity(intent3);
+				
+//				progressDialog.dismiss();
 			}
 			else
 			Log.d(TAG, message.toString());
