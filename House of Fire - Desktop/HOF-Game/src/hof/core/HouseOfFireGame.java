@@ -1,10 +1,10 @@
 package hof.core;
 
-import java.util.ArrayList;
-
 import hof.core.utils.Assets;
 import hof.core.utils.Settings;
 import hof.level.objects.House;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
@@ -26,8 +26,8 @@ public class HouseOfFireGame extends Game {
 		Assets.load();
 		Settings.load();
 		houseList = new ArrayList<>();
-		houseList.add(new House(Assets.houseTexture, 20));
-		houseList.add(new House(Assets.house2Texture, 20));
+		houseList.add(new House(Assets.houseTexture, 10));
+		houseList.add(new House(Assets.house2Texture, 10));
 		houseIndex = 0;
 		
 		mainMenuScreen = new MainMenuScreen(this);
