@@ -8,6 +8,7 @@ import hof.player.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class StatusBar {
@@ -86,25 +87,48 @@ public class StatusBar {
 		private BitmapFont font2;
 		private String heading;
 		private String telephoneNumber;
+		private String lightningEffect;
+		private String rainEffect;
+		private String pressureEffect;
 		private int x;
 		private int y;
-		private int wrap;
 		
 		public SMS() {
 			font = Assets.text45Font;
 			font2 = Assets.text30Font;
 			heading = "SMS-Effects: ";
+			lightningEffect = "Lightning";
+			rainEffect = "Rain";
+			pressureEffect = "Pressure";
 			telephoneNumber = Settings.TELEPHONE_NUMBER;
 			x = Assets.TIMELINE_WIDTH + 10;
 			y = Assets.STATUS_BAR_HEIGHT;
-			wrap = Assets.STATUS_BAR_WIDTH;
 		}
 		
 		public void draw (SpriteBatch spriteBatch) {
+			y = Assets.STATUS_BAR_HEIGHT;
 			font.setColor(Color.BLACK);
-			font.drawWrapped(spriteBatch, heading, x, y, wrap);
+			font.draw(spriteBatch, heading, x, y);
+			y -= 80;
 			font2.setColor(Color.BLACK);
-			font2.draw(spriteBatch, telephoneNumber, x, y - 80);
+			
+			TextBounds bounds;
+			bounds = font2.getBounds(lightningEffect);
+			spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			font2.draw(spriteBatch, lightningEffect, x, y);
+			
+			y -= 80;
+			bounds = font2.getBounds(rainEffect);
+			spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			font2.draw(spriteBatch, rainEffect, x, y);
+			
+			y -= 80;
+			bounds = font2.getBounds(pressureEffect);
+			spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			font2.draw(spriteBatch, pressureEffect, x, y);
+			
+			y -= 80;
+			font2.draw(spriteBatch, telephoneNumber, x, y);
 		}
 		
 	}
