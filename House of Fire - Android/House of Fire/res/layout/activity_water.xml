@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7fffd4"
-     >
+    android:background="@drawable/background_water" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -41,13 +40,15 @@
                 android:layout_weight="1"
                 android:src="@drawable/pfeil_rechts" />
         </LinearLayout>
-
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="35dp"
-            android:text="@string/water_rating" />
+            android:background="#ffd700"
+            android:text="@string/water_rating"
+            android:textSize="@dimen/padding_mega" />
 
 </RelativeLayout>

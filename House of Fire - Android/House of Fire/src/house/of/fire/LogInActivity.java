@@ -109,6 +109,10 @@ public class LogInActivity extends Activity {
 		super.onDestroy();
 		server.close();
 	}
+	
+//	public void finish() {
+//		server.close();
+//	}
 
 	public void onLogInButtonClicked(View view) {
 

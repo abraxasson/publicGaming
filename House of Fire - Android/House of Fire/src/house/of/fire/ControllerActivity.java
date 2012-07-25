@@ -4,11 +4,13 @@ import hof.net.android.AndroidServer;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.SensorInfoMessage;
+import hof.net.userMessages.WaterPressureInfoMessage;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,6 +20,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -39,7 +42,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	private int state = ButtonInfoMessage.NORMAL;
 	private SensorManager mSensorManager;
-	private Sensor mAccelerometer;
+	private Sensor mGYROSCOPE;
 	ImageButton pfeil_links;
 	ImageButton pfeil_rechts;
 	TextView outputName;
@@ -52,7 +55,9 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	String playerName;
 	int playerColor;
 	Handler handler = new Handler();
-	Timer timer;
+	Timer timerWaterRating;
+	Timer timerWaterPressure;
+	Vibrator v;
 	
 	int sensorCount = 0;
 
@@ -85,8 +90,10 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// udpClient.start();
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		mAccelerometer = mSensorManager
-				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mGYROSCOPE = mSensorManager
+				.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+		
+		WaterActivity.isActive = false;
 
 		// String name = (String)bundle.get("EXTRA_PLAYER_NAME");
 		// Intent intent = getIntent();
@@ -106,8 +113,10 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mSensorManager.registerListener(this, mAccelerometer,
-				SensorManager.SENSOR_DELAY_NORMAL);
+		mSensorManager.registerListener(this, mGYROSCOPE,
+				SensorManager.SENSOR_DELAY_FASTEST);
+		mSensorManager.registerListener(this, mGYROSCOPE,
+				SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
 		
 		
 	}
@@ -133,9 +142,14 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		water_rating.setProgress(waterLevel);
 		
 		
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new WaterTankTimerTask(water_rating), 500, 100);
+		timerWaterRating = new Timer();
+		timerWaterRating.scheduleAtFixedRate(new WaterTankTimerTask(water_rating), 500, 200);
 
+		timerWaterPressure = new Timer();
+		timerWaterPressure.scheduleAtFixedRate(new WaterPressureTimerTask(), 0, 500);
+		
+		// Get instance of Vibrator from current Context
+		v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 	}
 
@@ -143,7 +157,9 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	protected void onStop() {
 		super.onStop();
 		udpClient.setActive(false);
-		timer.cancel();
+		timerWaterRating.cancel();
+		timerWaterPressure.cancel();
+
 		
 		// LogInActivity.progressDialog.dismiss();
 	}
@@ -225,6 +241,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 			// WaterActivity.class));
 
 			startWaterActivity();
+			
 
 		}
 
@@ -251,6 +268,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	public void finish() {
 		udpClient.sendObject(new LogoutInfoMessage());
+//		server.close();
 		super.finish();
 	}
 
@@ -263,20 +281,20 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		
 		sensorCount++;
 		// we do not want to send every sensor update to the server to reduce network load
-		if (sensorCount % 1 == 0){
+//		if (sensorCount % 1 == 0){
 			float[] values = event.values;
 			Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
 
 			udpClient.sendObject(new SensorInfoMessage(values[0], values[1], values[2]));
-		}
+//		}
 
 	}
 
-	private void setFullscreen() {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	}
+//	private void setFullscreen() {
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//	}
 
 	
 	class WaterTankTimerTask extends TimerTask{
@@ -292,10 +310,12 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 			handler.post(new Runnable() {
 				
 				public void run() {
-					if(vpb.getProgress() <= 0){
-						timer.cancel();
+					if(vpb.getProgress() <= 0 && WaterActivity.isActive == false){
+						timerWaterRating.cancel();
 						
 							startWaterActivity();
+							// Vibrate for 300 milliseconds
+							v.vibrate(300);
 							
 						}
 					
@@ -310,5 +330,14 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 			
 		}
 		
+	}
+	
+	class WaterPressureTimerTask extends TimerTask{
+
+		@Override
+		public void run() {
+			
+			udpClient.sendObject(new WaterPressureInfoMessage(waterLevel));	
+		}
 	}
 }

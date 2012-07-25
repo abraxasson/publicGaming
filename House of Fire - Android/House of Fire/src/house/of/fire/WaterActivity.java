@@ -31,10 +31,10 @@ public class WaterActivity extends Activity {
 	int waterLevel;
 	
 	//vorrübergehende Lösung
-	private UdpClientThread udpClient;
+//	private UdpClientThread udpClient;
 //	private AndroidServer server;
 	
-	boolean isleft = false;
+	public static boolean isActive = true;
 	
 	String name;
 	int color;
@@ -98,13 +98,14 @@ public class WaterActivity extends Activity {
         		super.onStart();
 //        		server = new AndroidServer(4711);
 //              server.start();
-        		udpClient = new UdpClientThread();
-                udpClient.start();
+//        		udpClient = new UdpClientThread();
+//              udpClient.start();
                 Intent intent = getIntent();
                 waterLevel = intent.getIntExtra(ControllerActivity.EXTRA_WATER_LEVEL, 0);
                 water_rating.setProgress(waterLevel);
                 water_rating.postInvalidate();
                 state = ButtonInfoMessage.NORMAL;
+                isActive = true;
         	}
 
 
@@ -114,12 +115,16 @@ public class WaterActivity extends Activity {
  
         		super.onStop();
 //        		server.setActive(false);
-        		udpClient.setActive(false);
+//        		udpClient.setActive(false);
         		
         	}
 
         	@Override
         	public void finish() {
+        		
+        		if(waterLevel >= 1){
+					isActive = false;
+				}
         		
         		//Prepare data intent
         		Intent intent = new Intent();
@@ -192,6 +197,8 @@ public class WaterActivity extends Activity {
 				water_rating.setProgress(waterLevel);
 				//water_rating.setProgress(water_rating.getProgress()+20);
 				water_rating.postInvalidate();
+				//muss immer wieder geändert werden, je nachdem wie viele Punkte man bei jedem Buttondruck bekommt
+				
 				if(waterLevel >= 100){
 					waterLevel = 100;
 					finish();
