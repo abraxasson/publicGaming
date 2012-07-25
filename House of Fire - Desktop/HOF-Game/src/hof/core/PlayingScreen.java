@@ -69,14 +69,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// draws everything
 		spriteBatch.begin();
-		currentHouse.draw(spriteBatch);
-		drawFirefighters();
 		timeline.draw(spriteBatch, currentHouse);
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
-
+		currentHouse.draw(spriteBatch);
+		drawFirefighters();
 		drawSpecialEffects();
-
 		spriteBatch.end();
 
 		// checks if new players are available
