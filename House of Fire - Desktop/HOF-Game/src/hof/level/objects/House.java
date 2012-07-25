@@ -39,6 +39,7 @@ public class House {
 			this.fireList.add(new Fire(spawnPos));
 		}
 		healthpoints = maxHealth;
+		isAlive = true;
 	}
 
 	public Texture getImage() {
@@ -104,7 +105,7 @@ public class House {
 			checkFire();
 			for(Fire fire : fireList){
 				fire.draw(spriteBatch);
-				this.healthpoints -= Settings.fireDamage  *Gdx.graphics.getDeltaTime();
+				this.healthpoints -= Settings.fireDamage  * Gdx.graphics.getDeltaTime();
 			}
 		}
 		else{
