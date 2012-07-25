@@ -18,6 +18,7 @@ public class House {
 	private float maxHealth;
 	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
 	private ArrayList<Fire> fireList = new ArrayList<Fire>();
+	private int fireCount;
 	
 	private boolean isAlive;
 
@@ -25,13 +26,19 @@ public class House {
 		super();
 		this.image = image;
 		this.healthpoints = Settings.houseHealthpoints;
+		fireCount = fire;
 		isAlive = true;
 		maxHealth = healthpoints;
+		
+	}
+	
+	public void resetHouse() {
 		this.setBurningArea(Assets.houseMap.get(image));
-		for(int i=0;i<fire;i++){
+		for(int i = 0 ; i < fireCount; i++){
 			Pixel spawnPos = this.getRandomBurningArea();
 			this.fireList.add(new Fire(spawnPos));
 		}
+		healthpoints = maxHealth;
 	}
 
 	public Texture getImage() {
@@ -44,10 +51,6 @@ public class House {
 
 	public float getHealthpoints() {
 		return healthpoints;
-	}
-
-	public void setHealthpoints(int healthpoints) {
-		this.healthpoints = healthpoints;
 	}
 	
 	public ArrayList<Pixel> getBurningArea(){

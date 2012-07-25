@@ -1,9 +1,5 @@
 package hof.core;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
-
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
@@ -11,6 +7,10 @@ import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.userMessages.LevelInfoMessage;
 import hof.player.Player;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL20;
 
 public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 
@@ -58,6 +58,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			if (game.houseIndex < game.houseList.size()) {
 				game.setScreen(game.playingScreen);
 			} else {
+				game.houseIndex = 0;
 				game.setScreen(game.mainMenuScreen);
 			}			
 		}

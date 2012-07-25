@@ -53,7 +53,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void show() {
 		currentHouse = game.houseList.get(game.houseIndex);
-		currentHouse.setHealthpoints(1000);
+		currentHouse.resetHouse();
 	}
 
 	@Override
@@ -85,13 +85,13 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			for (Firefighter fighter : firefighters) {
 				if (fighter.getPlayer().getIp()
 						.equals(input.getPlayer().getIp())) {
-					if(input.getMessage().getX()<-0.1){
+					if(input.getMessage().getZ()<-0.1){
 						fighter.getWaterJet().setAngle(3);
 					}
-					else if(input.getMessage().getX()==0){
+					else if(input.getMessage().getZ()==0){
 						System.out.println("Gleichgewicht!");
 					}
-					else if(input.getMessage().getX()>0.1){
+					else if(input.getMessage().getZ()>0.1){
 						fighter.getWaterJet().setAngle(-3);
 					}
 					/*
