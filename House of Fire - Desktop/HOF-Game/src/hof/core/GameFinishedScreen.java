@@ -1,7 +1,5 @@
 package hof.core;
 
-
-
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
@@ -14,13 +12,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 
-public class GameOverScreen extends GameScreen<HouseOfFireGame> {
+public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 
 	private long startTime;
+	private MessageProcessing processing;
+	private UdpClientThread udpClient;
 	private HallOfFame fame;
 	
-	public GameOverScreen(HouseOfFireGame game) {
+	public GameFinishedScreen(HouseOfFireGame game) {
 		super(game);
+		processing = MessageProcessing.getInstance();
+		udpClient = UdpClientThread.getInstance();
 		fame = HallOfFame.getInstance();
 	}
 	
@@ -28,12 +30,10 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		startTime = System.currentTimeMillis();
 		
-		MessageProcessing processing = MessageProcessing.getInstance();
-		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
 			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new GameFinishedInfoMessage(false));
+			udpClient.sendObject(new GameFinishedInfoMessage(true));
 		}
 		
 	}
@@ -48,11 +48,11 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		Assets.text50Font.draw(spriteBatch, "GAME - OVER", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
+		Assets.text50Font.draw(spriteBatch, "Game finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
-			Gdx.app.exit();
+			game.setScreen(game.mainMenuScreen);
 		}
 	}
 }
