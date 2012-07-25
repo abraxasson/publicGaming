@@ -15,8 +15,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 
@@ -34,8 +32,9 @@ public class Assets {
 	
 	public static final int SMSBAR_HEIGHT = STATUS_BAR_HEIGHT / 2;
 	
-	private static TextureAtlas atlas;
-	public static TextureRegion pureWhiteTextureRegion;
+	public static Texture pureWhiteTextureRegion;
+	public static Texture borderTexture;
+	
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
 	public static Texture mainMenu;
@@ -58,9 +57,6 @@ public class Assets {
 	public static BitmapFont menu45Font;
 	
 	public static void load() {
-		String textureDir = "textures";
-		String textureFile = textureDir + "/pack";
-		atlas = new TextureAtlas(Gdx.files.internal(textureFile), Gdx.files.internal(textureDir));
 		houseMap = new HashMap<Texture, BufferedImage>();
 		loadTextures();
 		loadHouses();
@@ -92,7 +88,9 @@ public class Assets {
 	}
 
 	private static void loadTextures() {
-		pureWhiteTextureRegion = atlas.findRegion("8x8");
+		pureWhiteTextureRegion = new Texture(Gdx.files.internal("textures/8x8.png"));
+		borderTexture = new Texture(Gdx.files.internal("textures/border.png"));
+		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
@@ -131,7 +129,6 @@ public class Assets {
 	}
 	
 	public static void dispose() {
-		atlas.dispose();
 		firefighter_left.dispose();
 		firefighter_right.dispose();
 		mainMenu.dispose();

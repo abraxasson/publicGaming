@@ -20,7 +20,7 @@ public class TimeLine {
 		percentage = 0.5f;
 		width = 0;
 		maxWidth = Assets.TIMELINE_WIDTH;
-		texture = Assets.pureWhiteTextureRegion.getTexture();
+		texture = Assets.pureWhiteTextureRegion;
 	}
 	
 	public void draw(SpriteBatch spriteBatch, House house) {
