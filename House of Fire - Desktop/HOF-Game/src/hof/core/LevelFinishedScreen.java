@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.core.utils.HallOfFame;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.userMessages.LevelInfoMessage;
@@ -13,14 +14,16 @@ import hof.player.Player;
 
 public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 
-	MessageProcessing processing;
-	UdpClientThread udpClient;
-	long startTime;
+	private MessageProcessing processing;
+	private UdpClientThread udpClient;
+	private long startTime;
+	private HallOfFame fame;
 	
 	public LevelFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		udpClient = UdpClientThread.getInstance();
+		fame = HallOfFame.getInstance();
 	}
 	
 	@Override
@@ -28,11 +31,13 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		startTime = System.currentTimeMillis();
 		
 		for (Player player: processing.getPlayerList()) {
+			fame.addPlayer(player);
 			udpClient.setIA(player.getIp());
 			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,game.houseIndex + 1));
 		}
 		
 		game.houseIndex++;
+		
 		
 	}
 	
