@@ -95,11 +95,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						fighter.getWaterJet().setAngle(-2);
 					}
 					
-					if(input.getMessage().getY()<-3){
-						fighter.getWaterJet().setStrength(3);
+					if(input.getMessage().getY()<-2){
+						fighter.getWaterJet().setStrength(4);
 					}
-					else if(input.getMessage().getY()>3){
-						fighter.getWaterJet().setStrength(-3);
+					else if(input.getMessage().getY()>2){
+						fighter.getWaterJet().setStrength(-4);
 					}
 					
 				}
