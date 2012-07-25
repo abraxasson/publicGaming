@@ -35,7 +35,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private TimeLine timeline;
 	private StatusBar statusBar;
 	private House currentHouse;
-	
+
 	private SmsProcessing smsProcessing;
 	private MessageProcessing processing;
 
@@ -45,12 +45,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		smsProcessing = SmsProcessing.getInstance();
-		
+
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
 				ButtonInfoMessage.NORMAL);
 		currentHouse = game.houseList.get(game.houseIndex);
-		
+
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
@@ -74,9 +74,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline.draw(spriteBatch, currentHouse);
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
-		
+
 		drawSpecialEffects();
-		
+
 		spriteBatch.end();
 
 		// checks if new players are available
@@ -84,34 +84,30 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// checks that the players stay inside the screen
 		keepInBounds();
-		
+
 		moveFireFighter();
 
 		checkCollision();
-		
+
 		if (processing.hasSensorInput()) {
 			SensorInput input = processing.getSensorInput();
 			for (Firefighter fighter : firefighters) {
 				if (fighter.getPlayer().getIp()
 						.equals(input.getPlayer().getIp())) {
-					if(input.getMessage().getZ()<-0.01){
+					if (input.getMessage().getZ() < -0.01) {
 						fighter.getWaterJet().setAngle(-3);
-					}
-					else if(input.getMessage().getZ()==0){
+					} else if (input.getMessage().getZ() == 0) {
 						System.out.println("Gleichgewicht!");
-					}
-					else if(input.getMessage().getZ()>0.01){
+					} else if (input.getMessage().getZ() > 0.01) {
 						fighter.getWaterJet().setAngle(3);
 					}
 					/*
-					if(input.getMessage().getY()<-2){
-						fighter.getWaterJet().setStrength(4);
-					}
-					else if(input.getMessage().getY()>2){
-						fighter.getWaterJet().setStrength(-4);
-					}
-					*/
-					
+					 * if(input.getMessage().getY()<-2){
+					 * fighter.getWaterJet().setStrength(4); } else
+					 * if(input.getMessage().getY()>2){
+					 * fighter.getWaterJet().setStrength(-4); }
+					 */
+
 				}
 			}
 		}
@@ -119,7 +115,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (!currentHouse.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
-		
+
 		if (currentHouse.getFireList().size() == 0) {
 			game.setScreen(game.levelFinishedScreen);
 		}
@@ -127,10 +123,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
-		
-		if(Gdx.input.isKeyPressed(Keys.X)){
-			this.smsProcessing.addEffect(new Lightning(currentHouse.getRandomBurningArea()));
-			this.smsProcessing.addEffect(new Rain(currentHouse.getRandomBurningArea()));
+
+		if (Gdx.input.isKeyPressed(Keys.X)) {
+			this.smsProcessing.addEffect(new Lightning(currentHouse
+					.getRandomBurningArea()));
+			this.smsProcessing.addEffect(new Rain(currentHouse
+					.getRandomBurningArea()));
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -146,37 +144,49 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void drawSpecialEffects() {
-		if(!smsProcessing.getList().isEmpty()){
-			AbstractCloud effect = smsProcessing.getList().poll();
-			switch(effect.getType()){
-			case AbstractCloud.LIGHTNING:
-				Lightning lightning = (Lightning)effect;
-				lightning.draw(spriteBatch);
-				currentHouse.getFireList().add(new Fire(lightning.getHotSpot()));
-				break;
-			case AbstractCloud.RAIN:
-				Rain rain = (Rain)effect;
-				rain.draw(spriteBatch);
-				break;
-			case AbstractCloud.WATERPRESSURE:
-				WaterPressure waterPressure = (WaterPressure)effect;
-				waterPressure.draw(spriteBatch);
-				break;
-			default:
-				break;
+		if (!smsProcessing.getList().isEmpty()) {
+			for (AbstractCloud effect : smsProcessing.getList()) {
+				switch (effect.getType()) {
+				case AbstractCloud.LIGHTNING:
+					Lightning lightning = (Lightning) effect;
+					if (lightning.getActive()) {
+						lightning.draw(spriteBatch);
+						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
+							currentHouse.getFireList().add(
+									new Fire(lightning.getHotSpot()));
+						}
+					}
+					break;
+				case AbstractCloud.RAIN:
+					Rain rain = (Rain) effect;
+					if (rain.getActive()) {
+						rain.draw(spriteBatch);
+						if (rain.getLifeTime() == Settings.rainLifeTime) {
+							// Effekt des Regens
+						}
+					}
+					break;
+				case AbstractCloud.WATERPRESSURE:
+					WaterPressure waterPressure = (WaterPressure) effect;
+					waterPressure.draw(spriteBatch);
+					break;
+				default:
+					break;
+				}
 			}
-			effect.draw(spriteBatch);
 		}
 	}
 
 	private void moveFireFighter() {
 		ButtonInput input = null;
-		if(processing.hasInput()){
+		if (processing.hasInput()) {
 			input = processing.getInput();
 		}
-		
+
 		for (Firefighter fighter : firefighters) {
-			if (input != null && fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
+			if (input != null
+					&& fighter.getPlayer().getIp()
+							.equals(input.getPlayer().getIp())) {
 				fighter.setState(input.getMessage().getState());
 			}
 			int d;
@@ -232,21 +242,25 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 		ff.stayInBounds();
 	}
-	
-	private void checkCollision(){
-		for(Fire fire : currentHouse.getFireList()){
-			if(ff.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-				fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
-			}	
-			for(Firefighter firefighter : firefighters){
-				if(firefighter.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-					fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
+
+	private void checkCollision() {
+		for (Fire fire : currentHouse.getFireList()) {
+			if (ff.getWaterJet().getStreamArea()
+					.overlaps(fire.getFireRectangle())) {
+				fire.setHealthpoints(fire.getHealthpoints()
+						- Settings.waterDamage);
+			}
+			for (Firefighter firefighter : firefighters) {
+				if (firefighter.getWaterJet().getStreamArea()
+						.overlaps(fire.getFireRectangle())) {
+					fire.setHealthpoints(fire.getHealthpoints()
+							- Settings.waterDamage);
 					firefighter.getPlayer().incScore();
-				}	
+				}
 			}
 		}
 	}
-	
+
 	private void checkComputerInput() {
 		if (Gdx.input.isKeyPressed(Keys.V)) {
 			InetAddress ia;
@@ -259,7 +273,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.C)) {
 			InetAddress ia;
 			try {
@@ -283,7 +297,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());

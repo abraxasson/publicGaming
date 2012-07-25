@@ -1,6 +1,7 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.core.utils.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -19,6 +20,7 @@ public class Rain extends AbstractCloud {
 		this.shower = Assets.loadRainParticles();
 		this.type = AbstractCloud.RAIN;
 		emitter = shower.getEmitters().get(0);
+		this.lifeTime = Settings.rainLifeTime;
 	}
 	
 	public void draw(SpriteBatch spriteBatch){
