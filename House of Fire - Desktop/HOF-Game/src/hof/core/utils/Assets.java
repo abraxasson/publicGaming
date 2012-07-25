@@ -31,7 +31,8 @@ public class Assets {
 	public static final int CANVAS_WIDTH = TIMELINE_WIDTH;
 	
 	public static final int RANKING_HEIGHT = STATUS_BAR_HEIGHT / 2;
-	public static final int RANKING_WIDTH = STATUS_BAR_WIDTH;	
+	
+	public static final int SMSBAR_HEIGHT = STATUS_BAR_HEIGHT / 2;
 	
 	private static TextureAtlas atlas;
 	public static TextureRegion pureWhiteTextureRegion;

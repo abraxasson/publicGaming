@@ -1,6 +1,7 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.core.utils.Settings;
 import hof.net.MessageProcessing;
 import hof.player.Player;
 
@@ -15,6 +16,7 @@ public class StatusBar {
 	private int x;
 	private int y;
 	private Ranking ranking;
+	private SMS sms;
 	
 	
 	public StatusBar()  {
@@ -22,6 +24,7 @@ public class StatusBar {
 		x = Assets.TIMELINE_WIDTH;
 		y= 0;
 		ranking = new Ranking();
+		sms = new SMS();
 	}
 	
 	public void draw (SpriteBatch spriteBatch) {
@@ -29,6 +32,7 @@ public class StatusBar {
 		spriteBatch.setColor(Color.WHITE);
 		spriteBatch.draw(texture, x, y, Assets.STATUS_BAR_WIDTH, Assets.STATUS_BAR_HEIGHT, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
+		sms.draw(spriteBatch);
 		ranking.draw(spriteBatch);
 	}
 	
@@ -54,7 +58,7 @@ public class StatusBar {
 			players = "0/6";
 			x = Assets.TIMELINE_WIDTH + 10;
 			y = Assets.RANKING_HEIGHT;
-			wrap = Assets.RANKING_WIDTH;
+			wrap = Assets.STATUS_BAR_WIDTH;
 			
 		}
 		
@@ -74,5 +78,34 @@ public class StatusBar {
 				ranking += player.getName() + " " + player.getScore() + "\n";
 			}
 		}
+	}
+	
+	class SMS {
+		
+		private BitmapFont font;
+		private BitmapFont font2;
+		private String heading;
+		private String telephoneNumber;
+		private int x;
+		private int y;
+		private int wrap;
+		
+		public SMS() {
+			font = Assets.text45Font;
+			font2 = Assets.text30Font;
+			heading = "SMS-Effects: ";
+			telephoneNumber = Settings.TELEPHONE_NUMBER;
+			x = Assets.TIMELINE_WIDTH + 10;
+			y = Assets.STATUS_BAR_HEIGHT;
+			wrap = Assets.STATUS_BAR_WIDTH;
+		}
+		
+		public void draw (SpriteBatch spriteBatch) {
+			font.setColor(Color.BLACK);
+			font.drawWrapped(spriteBatch, heading, x, y, wrap);
+			font2.setColor(Color.BLACK);
+			font2.draw(spriteBatch, telephoneNumber, x, y - 80);
+		}
+		
 	}
 }

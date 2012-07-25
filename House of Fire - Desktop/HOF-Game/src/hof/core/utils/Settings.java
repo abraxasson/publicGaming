@@ -5,6 +5,7 @@ import java.io.File;
 
 public class Settings {
 	
+	public static String TELEPHONE_NUMBER = "0666/666666";
 	public static float houseHealthpoints;
 	public static float fireDamage;
 	public static float waterDamage;
