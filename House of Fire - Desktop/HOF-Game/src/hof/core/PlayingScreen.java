@@ -94,7 +94,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					else if(input.getMessage().getX()>1){
 						fighter.getWaterJet().setAngle(-5);
 					}
-					
+					/*
 					if(input.getMessage().getY()<1){
 						fighter.getWaterJet().setStrength(10);
 					}
@@ -104,8 +104,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					else if(input.getMessage().getY()>1){
 						fighter.getWaterJet().setStrength(-10);
 					}
-					
-					
+					*/
 				}
 			}
 		}
