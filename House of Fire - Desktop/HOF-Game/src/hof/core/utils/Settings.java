@@ -13,17 +13,25 @@ public class Settings {
 	public static String highScoreFilePath;
 	public static int highScoreSize;
 	
+	//WordFilter Settings
+	public static String filterListPath;
+	
 	public static void load() {
 		houseHealthpoints = 1000;
 		fireDamage = 1;
 		waterDamage = 3;
 
 		loadHighScoreSettings();
+		loadWordFilterSettings();
 	}
 	
 	private static void loadHighScoreSettings() {
 		highScoreSize = 10;
 		highScoreFilePath = "Highscore" + File.separator + "highscore.txt";
+	}
+	
+	private static void loadWordFilterSettings() {
+		filterListPath = "WordFilter" + File.separator + "badwords.txt";
 	}
 	
 }
