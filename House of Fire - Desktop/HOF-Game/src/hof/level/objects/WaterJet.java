@@ -96,7 +96,6 @@ public class WaterJet {
 		streamArea.setY(calcY());
 		streamArea.setWidth(size);
 		streamArea.setHeight(size);
-//		System.out.println(streamArea);
 	}
 	
 	public Rectangle getStreamArea() {
@@ -108,7 +107,7 @@ public class WaterJet {
 		waterJet.draw(spriteBatch, Gdx.graphics.getDeltaTime());
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
-		//spriteBatch.draw(Assets.pureWhiteTextureRegion.getTexture(), streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
+		//spriteBatch.draw(Assets.pureWhiteTextureRegion, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
 	}
 }

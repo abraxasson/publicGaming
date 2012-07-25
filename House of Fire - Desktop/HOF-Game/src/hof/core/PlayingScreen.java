@@ -2,12 +2,17 @@ package hof.core;
 
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
+import hof.level.objects.AbstractCloud;
 import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
+import hof.level.objects.Lightning;
+import hof.level.objects.Rain;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
+import hof.level.objects.WaterPressure;
 import hof.net.MessageProcessing;
+import hof.net.SmsProcessing;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.player.ButtonInput;
 import hof.player.Player;
@@ -25,26 +30,27 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
-	ArrayList<Firefighter> firefighters;
-	Firefighter ff;
-	TimeLine timeline;
-	StatusBar statusBar;
-	House currentHouse;
-	
-	MessageProcessing processing;
+	private ArrayList<Firefighter> firefighters;
+	private Firefighter ff;
+	private TimeLine timeline;
+	private StatusBar statusBar;
+	private House currentHouse;
 
-	FPS fps;
+	private SmsProcessing smsProcessing;
+	private MessageProcessing processing;
+
+	private FPS fps;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
-		
-		
+		smsProcessing = SmsProcessing.getInstance();
+
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
 				ButtonInfoMessage.NORMAL);
 		currentHouse = game.houseList.get(game.houseIndex);
-		
+
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
@@ -63,11 +69,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// draws everything
 		spriteBatch.begin();
-		currentHouse.draw(spriteBatch);
-		drawFirefighters();
 		timeline.draw(spriteBatch, currentHouse);
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
+		currentHouse.draw(spriteBatch);
+		drawFirefighters();
+		drawSpecialEffects();
 		spriteBatch.end();
 
 		// checks if new players are available
@@ -75,34 +82,30 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// checks that the players stay inside the screen
 		keepInBounds();
-		
+
 		moveFireFighter();
 
 		checkCollision();
-		
+
 		if (processing.hasSensorInput()) {
 			SensorInput input = processing.getSensorInput();
 			for (Firefighter fighter : firefighters) {
 				if (fighter.getPlayer().getIp()
 						.equals(input.getPlayer().getIp())) {
-					if(input.getMessage().getZ()<-0.01){
+					if (input.getMessage().getZ() < -0.01) {
 						fighter.getWaterJet().setAngle(-3);
-					}
-					else if(input.getMessage().getZ()==0){
+					} else if (input.getMessage().getZ() == 0) {
 						System.out.println("Gleichgewicht!");
-					}
-					else if(input.getMessage().getZ()>0.01){
+					} else if (input.getMessage().getZ() > 0.01) {
 						fighter.getWaterJet().setAngle(3);
 					}
 					/*
-					if(input.getMessage().getY()<-2){
-						fighter.getWaterJet().setStrength(4);
-					}
-					else if(input.getMessage().getY()>2){
-						fighter.getWaterJet().setStrength(-4);
-					}
-					*/
-					
+					 * if(input.getMessage().getY()<-2){
+					 * fighter.getWaterJet().setStrength(4); } else
+					 * if(input.getMessage().getY()>2){
+					 * fighter.getWaterJet().setStrength(-4); }
+					 */
+
 				}
 			}
 		}
@@ -110,13 +113,20 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (!currentHouse.getAlive()) {
 			game.setScreen(game.gameOverScreen);
 		}
-		
+
 		if (currentHouse.getFireList().size() == 0) {
 			game.setScreen(game.levelFinishedScreen);
 		}
 
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.X)) {
+			this.smsProcessing.addEffect(new Lightning(currentHouse
+					.getRandomBurningArea()));
+			this.smsProcessing.addEffect(new Rain(currentHouse
+					.getRandomBurningArea()));
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -131,14 +141,50 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		checkComputerInput();
 	}
 
+	private void drawSpecialEffects() {
+		if (!smsProcessing.getList().isEmpty()) {
+			for (AbstractCloud effect : smsProcessing.getList()) {
+				switch (effect.getType()) {
+				case AbstractCloud.LIGHTNING:
+					Lightning lightning = (Lightning) effect;
+					if (lightning.getActive()) {
+						lightning.draw(spriteBatch);
+						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
+							currentHouse.getFireList().add(
+									new Fire(lightning.getHotSpot()));
+						}
+					}
+					break;
+				case AbstractCloud.RAIN:
+					Rain rain = (Rain) effect;
+					if (rain.getActive()) {
+						rain.draw(spriteBatch);
+						if (rain.getLifeTime() == Settings.rainLifeTime) {
+							// Effekt des Regens
+						}
+					}
+					break;
+				case AbstractCloud.WATERPRESSURE:
+					WaterPressure waterPressure = (WaterPressure) effect;
+					waterPressure.draw(spriteBatch);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
+
 	private void moveFireFighter() {
 		ButtonInput input = null;
-		if(processing.hasInput()){
+		if (processing.hasInput()) {
 			input = processing.getInput();
 		}
-		
+
 		for (Firefighter fighter : firefighters) {
-			if (input != null && fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
+			if (input != null
+					&& fighter.getPlayer().getIp()
+							.equals(input.getPlayer().getIp())) {
 				fighter.setState(input.getMessage().getState());
 			}
 			int d;
@@ -194,21 +240,25 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 		ff.stayInBounds();
 	}
-	
-	private void checkCollision(){
-		for(Fire fire : currentHouse.getFireList()){
-			if(ff.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-				fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
-			}	
-			for(Firefighter firefighter : firefighters){
-				if(firefighter.getWaterJet().getStreamArea().overlaps(fire.getFireRectangle())){
-					fire.setHealthpoints(fire.getHealthpoints() - Settings.waterDamage);
+
+	private void checkCollision() {
+		for (Fire fire : currentHouse.getFireList()) {
+			if (ff.getWaterJet().getStreamArea()
+					.overlaps(fire.getFireRectangle())) {
+				fire.setHealthpoints(fire.getHealthpoints()
+						- Settings.waterDamage);
+			}
+			for (Firefighter firefighter : firefighters) {
+				if (firefighter.getWaterJet().getStreamArea()
+						.overlaps(fire.getFireRectangle())) {
+					fire.setHealthpoints(fire.getHealthpoints()
+							- Settings.waterDamage);
 					firefighter.getPlayer().incScore();
-				}	
+				}
 			}
 		}
 	}
-	
+
 	private void checkComputerInput() {
 		if (Gdx.input.isKeyPressed(Keys.V)) {
 			InetAddress ia;
@@ -221,7 +271,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.C)) {
 			InetAddress ia;
 			try {
@@ -245,7 +295,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			int d = ff.getX();
 			int x = d + (int) (300 * Gdx.graphics.getDeltaTime());

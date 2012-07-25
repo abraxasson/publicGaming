@@ -73,7 +73,7 @@ public class Assets {
 	
 	public static ParticleEffect loadRainParticles(){
 		ParticleEffect rainParticleEffect = new ParticleEffect();
-		rainParticleEffect.load(Gdx.files.internal("particles/rain.p"), Gdx.files.internal("paricles"));
+		rainParticleEffect.load(Gdx.files.internal("particles/rain.p"), Gdx.files.internal("particles"));
 		return rainParticleEffect;
 	}
 	
