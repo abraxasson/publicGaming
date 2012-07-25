@@ -21,8 +21,9 @@ public class Lightning extends AbstractCloud {
 	
 	@Override
 	public void draw(SpriteBatch spriteBatch){
+		//spriteBatch.draw(flash,hotSpot.getX(),hotSpot.getY());
+		spriteBatch.draw(flash, hotSpot.getX(), hotSpot.getY(), 150, 900);
 		super.draw(spriteBatch);
-		spriteBatch.draw(flash,hotSpot.getX(),hotSpot.getY());
 	}
 	
 	public Pixel getHotSpot(){
