@@ -7,6 +7,7 @@ import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
 import hof.level.objects.Lightning;
+import hof.level.objects.Pixel;
 import hof.level.objects.Rain;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
@@ -122,11 +123,19 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.X)) {
+		if (Gdx.input.isKeyPressed(Keys.Y)) {
 			this.smsProcessing.addEffect(new Lightning(currentHouse
 					.getRandomBurningArea()));
-			this.smsProcessing.addEffect(new Rain(currentHouse
-					.getRandomBurningArea()));
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.X)) {
+			if (!currentHouse.getFireList().isEmpty()) {
+				Fire fire = currentHouse.getFireList().get(
+						(int) (Math.random() * currentHouse.getFireList()
+								.size()));
+				Pixel pixel = new Pixel(fire.getX(), fire.getY());
+				this.smsProcessing.addEffect(new Rain(pixel));
+			}
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -148,20 +157,27 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				case AbstractCloud.LIGHTNING:
 					Lightning lightning = (Lightning) effect;
 					if (lightning.getActive()) {
-						lightning.draw(spriteBatch);
 						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
 							currentHouse.getFireList().add(
 									new Fire(lightning.getHotSpot()));
 						}
+						lightning.draw(spriteBatch);
 					}
 					break;
 				case AbstractCloud.RAIN:
 					Rain rain = (Rain) effect;
 					if (rain.getActive()) {
-						rain.draw(spriteBatch);
 						if (rain.getLifeTime() == Settings.rainLifeTime) {
-							// Effekt des Regens
+							for (Fire fire : currentHouse.getFireList()) {
+								if (fire.getX() < rain.getBurningSpot().getX() + 10
+										&& fire.getX() > rain.getBurningSpot()
+												.getX() - 10) {
+									fire.setHealthpoints(fire.getHealthpoints()
+											- Settings.rainDamage);
+								}
+							}
 						}
+						rain.draw(spriteBatch);
 					}
 					break;
 				case AbstractCloud.WATERPRESSURE:
