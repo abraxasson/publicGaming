@@ -62,6 +62,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
 	}
+	
+	@Override
+	public void hide() {
+		smsProcessing.getList().clear();
+	}
 
 	@Override
 	public void render(float delta) {
