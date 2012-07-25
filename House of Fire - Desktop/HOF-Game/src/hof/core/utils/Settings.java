@@ -9,6 +9,7 @@ public class Settings {
 	public static float houseHealthpoints;
 	public static float fireDamage;
 	public static float waterDamage;
+	public static int waterPressureInc;
 	
 	//Highscore Settings
 	public static String highScoreFilePath;
@@ -21,6 +22,7 @@ public class Settings {
 		houseHealthpoints = 1000;
 		fireDamage = 1;
 		waterDamage = 3;
+		waterPressureInc = 5;
 
 		loadHighScoreSettings();
 		loadWordFilterSettings();

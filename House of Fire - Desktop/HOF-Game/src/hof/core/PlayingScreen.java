@@ -2,12 +2,17 @@ package hof.core;
 
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
+import hof.level.objects.AbstractCloud;
 import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
+import hof.level.objects.Lightning;
+import hof.level.objects.Rain;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
+import hof.level.objects.WaterPressure;
 import hof.net.MessageProcessing;
+import hof.net.SmsProcessing;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.player.ButtonInput;
 import hof.player.Player;
@@ -25,20 +30,21 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
-	ArrayList<Firefighter> firefighters;
-	Firefighter ff;
-	TimeLine timeline;
-	StatusBar statusBar;
-	House currentHouse;
+	private ArrayList<Firefighter> firefighters;
+	private Firefighter ff;
+	private TimeLine timeline;
+	private StatusBar statusBar;
+	private House currentHouse;
 	
-	MessageProcessing processing;
+	private SmsProcessing smsProcessing;
+	private MessageProcessing processing;
 
-	FPS fps;
+	private FPS fps;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
-		
+		smsProcessing = SmsProcessing.getInstance();
 		
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
@@ -68,6 +74,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline.draw(spriteBatch, currentHouse);
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
+		
+		drawSpecialEffects();
+		
 		spriteBatch.end();
 
 		// checks if new players are available
@@ -118,6 +127,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
 		}
+		
+		if(Gdx.input.isKeyPressed(Keys.X)){
+			this.smsProcessing.addEffect(new Lightning(currentHouse.getRandomBurningArea()));
+			this.smsProcessing.addEffect(new Rain(currentHouse.getRandomBurningArea()));
+		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
@@ -129,6 +143,30 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		checkComputerInput();
+	}
+
+	private void drawSpecialEffects() {
+		if(!smsProcessing.getList().isEmpty()){
+			AbstractCloud effect = smsProcessing.getList().poll();
+			switch(effect.getType()){
+			case AbstractCloud.LIGHTNING:
+				Lightning lightning = (Lightning)effect;
+				lightning.draw(spriteBatch);
+				currentHouse.getFireList().add(new Fire(lightning.getHotSpot()));
+				break;
+			case AbstractCloud.RAIN:
+				Rain rain = (Rain)effect;
+				rain.draw(spriteBatch);
+				break;
+			case AbstractCloud.WATERPRESSURE:
+				WaterPressure waterPressure = (WaterPressure)effect;
+				waterPressure.draw(spriteBatch);
+				break;
+			default:
+				break;
+			}
+			effect.draw(spriteBatch);
+		}
 	}
 
 	private void moveFireFighter() {

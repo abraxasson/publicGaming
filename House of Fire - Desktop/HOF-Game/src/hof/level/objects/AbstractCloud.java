@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class AbstractCloud {
+	public static final int LIGHTNING = 1;
+	public static final int RAIN = 2;
+	public static final int WATERPRESSURE = 4;
+	protected int type;
 	protected Texture texture;
 	protected int x;
 	protected int y;
@@ -28,5 +32,7 @@ public abstract class AbstractCloud {
 		this.x = x;
 	}
 	
-	
+	public int getType(){
+		return this.type;
+	}
 }

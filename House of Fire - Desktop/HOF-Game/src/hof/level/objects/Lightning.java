@@ -14,6 +14,7 @@ public class Lightning extends AbstractCloud {
 		this.flash = Assets.lightningTexture;
 		this.hotSpot = hotSpot;
 		this.x = hotSpot.getX()+flash.getWidth();
+		this.type = AbstractCloud.LIGHTNING;
 	}
 	
 	@Override
@@ -21,4 +22,9 @@ public class Lightning extends AbstractCloud {
 		super.draw(spriteBatch);
 		spriteBatch.draw(flash,hotSpot.getX(),hotSpot.getY());
 	}
+	
+	public Pixel getHotSpot(){
+		return this.hotSpot;
+	}
+
 }
