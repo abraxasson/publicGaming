@@ -11,7 +11,7 @@ public class Lightning extends AbstractCloud {
 	
 	public Lightning(Pixel hotSpot){
 		super();
-		this.flash = Assets.pureWhiteTextureRegion.getTexture();
+		this.flash = Assets.lightningTexture;
 		this.hotSpot = hotSpot;
 		this.x = hotSpot.getX()+flash.getWidth();
 	}

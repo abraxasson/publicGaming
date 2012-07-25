@@ -46,6 +46,7 @@ public class Assets {
 	public static Texture house2Texture;
 	public static BufferedImage house2Image;
 	
+	public static Texture cloudTexture;
 	public static Texture lightningTexture;
 	
 	public static Sound buttonSound;
@@ -89,6 +90,7 @@ public class Assets {
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
+		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 	}
 	
@@ -129,6 +131,9 @@ public class Assets {
 		mainMenu.dispose();
 
 		houseTexture.dispose();
+		house2Texture.dispose();
+		cloudTexture.dispose();
+		lightningTexture.dispose();
 		
 //		buttonSound.dispose();
 		

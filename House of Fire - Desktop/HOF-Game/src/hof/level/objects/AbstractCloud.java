@@ -11,7 +11,7 @@ public abstract class AbstractCloud {
 	protected int y;
 	
 	protected AbstractCloud(){
-		this.texture = Assets.pureWhiteTextureRegion.getTexture();
+		this.texture = Assets.cloudTexture;
 		this.x = (int)(Math.random()*(Assets.CANVAS_WIDTH-texture.getWidth()));
 		this.y = (int)(Assets.CANVAS_HEIGHT*0.9);
 	}
