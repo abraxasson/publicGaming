@@ -100,7 +100,7 @@ public class House {
 	
 	public void draw(SpriteBatch spriteBatch) {
 		if(this.healthpoints > 0){
-			spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT, 0, 0, 1007, 629, false, false);
+			spriteBatch.draw(image, 0,0, Assets.CANVAS_WIDTH, Assets.CANVAS_HEIGHT);
 			checkFire();
 			for(Fire fire : fireList){
 				fire.draw(spriteBatch);
