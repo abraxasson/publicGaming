@@ -33,6 +33,7 @@ public class House {
 	}
 	
 	public void resetHouse() {
+		this.fireList.clear();
 		this.setBurningArea(Assets.houseMap.get(image));
 		for(int i = 0 ; i < fireCount; i++){
 			Pixel spawnPos = this.getRandomBurningArea();
