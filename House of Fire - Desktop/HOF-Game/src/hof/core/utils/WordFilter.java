@@ -13,11 +13,10 @@ import java.util.Random;
 
 public class WordFilter {
 
-	private static WordFilter instance;
 	private File wordFile;
 	private HashSet<String> wordSet;
 	
-	private WordFilter() {
+	public WordFilter() {
 		Settings.load();
 		String dirPath = Settings.filterListPath.substring(0, Settings.filterListPath.indexOf(File.separatorChar));
 		File dir = new File(dirPath);
@@ -26,13 +25,6 @@ public class WordFilter {
 		
 		wordSet = loadWords();
 		
-	}
-	
-	public static WordFilter getInstance() {
-		if (instance == null) {
-			instance = new WordFilter();
-		}
-		return instance;
 	}
 	
 	private boolean checkWord(String word) {

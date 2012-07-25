@@ -1,6 +1,7 @@
 package hof.net;
 
 import hof.core.utils.ColorList;
+import hof.core.utils.WordFilter;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.ButtonInfoMessage;
@@ -24,6 +25,7 @@ public class MessageProcessing {
 	private LinkedList<SensorInput> sensorQueue; 
 	private static MessageProcessing instance;
 	private ColorList colorList;
+	private WordFilter filter;
 	
 	private UdpClientThread udpClient;
 
@@ -40,6 +42,7 @@ public class MessageProcessing {
 		inputQueue = new LinkedList<ButtonInput>();
 		sensorQueue = new LinkedList<SensorInput>();
 		colorList = new ColorList();
+		filter = new WordFilter();
 		
 		udpClient = UdpClientThread.getInstance();
 	}
@@ -100,7 +103,7 @@ public class MessageProcessing {
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
 		} else {
-			player = new Player(message.getName(), address, colorList.getNextColor());
+			player = new Player(filter.checkName(message.getName()), address, colorList.getNextColor());
 		}
 		
 		udpClient.setIA(address);			
