@@ -52,7 +52,8 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
-			Gdx.app.exit();
+			game.houseIndex = 0;
+			game.setScreen(game.mainMenuScreen);
 		}
 	}
 }

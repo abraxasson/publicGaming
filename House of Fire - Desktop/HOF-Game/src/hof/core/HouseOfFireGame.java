@@ -17,6 +17,7 @@ public class HouseOfFireGame extends Game {
 	Screen playingScreen;
 	Screen gameOverScreen;
 	Screen levelFinishedScreen;
+	Screen gameFinishedScreen;
 	
 	ArrayList<House> houseList;
 	int houseIndex;
@@ -35,6 +36,7 @@ public class HouseOfFireGame extends Game {
 		playingScreen = new PlayingScreen(this);
 		gameOverScreen = new GameOverScreen(this);
 		levelFinishedScreen = new LevelFinishedScreen(this);
+		gameFinishedScreen = new GameFinishedScreen(this);
 		
 		this.setScreen(mainMenuScreen);
 	}	
