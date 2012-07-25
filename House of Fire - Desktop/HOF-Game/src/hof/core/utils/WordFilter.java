@@ -37,7 +37,6 @@ public class WordFilter {
 			testWord = testWord.substring(index).trim();
 		} 
 		words.add(testWord);
-		System.out.println(words);
 		
 		for (String string: words) {
 			if (wordSet.contains(string)) {
