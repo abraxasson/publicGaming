@@ -16,6 +16,7 @@ public class Settings {
 	public static int maxPlayers;
 	public static float waterPressureLifeTime;
 	public static float waterAimSize;
+	public static long playerTimeout;
 	
 	//Highscore Settings
 	public static String highScoreFilePath;
@@ -35,6 +36,7 @@ public class Settings {
 		waterPressureLifeTime = 5;
 		maxPlayers = 6;
 		waterAimSize = 10;
+		playerTimeout = 5000l;
 
 		loadHighScoreSettings();
 		loadWordFilterSettings();

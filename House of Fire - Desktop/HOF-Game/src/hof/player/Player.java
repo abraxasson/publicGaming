@@ -9,6 +9,7 @@ public class Player {
 	private int score;
 	private Color color;
 	private boolean isAlive;
+	private long lastInput;
 	
 	public Player(String name, InetAddress ip) {
 		this(name, ip, Color.WHITE);
@@ -59,5 +60,13 @@ public class Player {
 	public void setAlive(boolean alive) {
 		isAlive = alive;
 		
+	}
+
+	public long getLastInput() {
+		return lastInput;
+	}
+
+	public void setLastInput(long lastInput) {
+		this.lastInput = lastInput;
 	}
 }

@@ -112,7 +112,7 @@ public class MessageProcessing {
 		if (!checkPlayer(address) && activePlayers.size() <= Settings.maxPlayers) {
 			activePlayers.add(player);
 			playerQueue.add(player);
-			
+			player.setLastInput(System.currentTimeMillis());
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");
@@ -129,6 +129,7 @@ public class MessageProcessing {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
+			player.setLastInput(System.currentTimeMillis());
 			inputQueue.add(new ButtonInput(player, inputMessage));
 		}
 	}
@@ -138,6 +139,7 @@ public class MessageProcessing {
 			Player player = getPlayer(address);
 			player.incScore();
 			player.setAlive(true);
+			player.setLastInput(System.currentTimeMillis());
 			sensorQueue.add(new SensorInput(player, sensorMessage));
 		}
 	}
@@ -165,6 +167,7 @@ public class MessageProcessing {
 			if (address.equals(player.getIp())) {
 				System.out.println("Player: " + player.getName()
 						+ " hat sich ausgeloggt");
+				player.setAlive(false);
 				iter.remove();
 			}
 		}
@@ -237,5 +240,20 @@ public class MessageProcessing {
 			}
 		}
 		return check;
+	}
+	
+	public void removeInactivePlayers(){
+		Iterator<Player> iter = this.activePlayers.iterator();
+		for(Player player : this.activePlayers){
+			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout){
+				player.setAlive(false);
+			}
+		}
+		while(iter.hasNext()){
+			Player player = iter.next();
+			if(!player.getAlive()){
+				iter.remove();
+			}
+		}
 	}
 }

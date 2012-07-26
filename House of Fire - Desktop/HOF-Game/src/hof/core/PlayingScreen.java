@@ -166,6 +166,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		checkComputerInput();
+		this.processing.removeInactivePlayers();
 	}
 
 	private void drawSpecialEffects() {
