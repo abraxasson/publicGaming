@@ -123,6 +123,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (currentHouse.getFireList().size() == 0) {
+			for(Player player : this.processing.getPlayerList()){
+				player.setScore(100*(int)(player.getScore()+currentHouse.getHealthpoints()));
+			}
 			game.setScreen(game.levelFinishedScreen);
 		}
 
