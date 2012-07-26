@@ -12,9 +12,6 @@
     <string name="test">Bitte versuchen Sie es erneut!</string>
     <string name="back">zurück</string>
     <string name="water">Wasserfüllstand</string>
-
-    <color name="myColor">#d3d3d3</color>
-
     <string name="play">Spielen</string>
     <string name="pump">Pumpen</string>
     <string name="title_activity_controller">ControllerActivity</string>
@@ -27,9 +24,15 @@
     <string name="title_activity_win_game">WinGameActivity</string>
     <string name="title_activity_lost_game">LostGameActivity</string>
     <string name="lost">Sie haben leider verloren!</string>
+    <string name="level_completed">"Level %1$d geschafft!"</string>
+    
     <string name="congratulation">Herzlichen Glückwunsch!</string>
     <string name="win">Sie haben das Spiel gewonnen.</string>
     <string name="winGold">Durch deine heldenhaften Taten hast du dir die Goldmedaille mehr als verdient.</string>
     <string name="title_activity_level">LevelActivity</string>
+    <string name="bronze_text">%1$d X</string>
+    <string name="silver_text">%1$d X</string>
+    <string name="gold_text">%1$d X</string>
+    <string name="retry_button">Nochmal?</string>
 
 </resources>

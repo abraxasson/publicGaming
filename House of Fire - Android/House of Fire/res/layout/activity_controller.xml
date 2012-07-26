@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_fire" >
-
-        <TextView
+
+        <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:layout_weight="0.12"
+            android:background="@color/medal_layout_background"
             android:text="Spielername"
             android:textSize="@dimen/padding_mega" />
 

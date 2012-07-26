@@ -5,11 +5,9 @@ import hof.net.userMessages.GameFinishedInfoMessage;
 import hof.net.userMessages.LevelInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.ControllerActivity;
+import house.of.fire.GameOverActivity;
 import house.of.fire.LevelActivity;
-import house.of.fire.LogInActivity;
-import house.of.fire.LostGameActivity;
-import house.of.fire.R;
-import house.of.fire.WinGameActivity;
+import house.of.fire.StartActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -20,7 +18,6 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -33,8 +30,10 @@ public class AndroidServer extends Thread {
 	public static int r;
 	public static int g;
 	public static int b;
-	public static int level;
-	public static int event;
+	
+	private int level;
+	private int event;
+	private int medal = LevelInfoMessage.NO_MEDAL;
 	
 	private static final String TAG = AndroidServer.class.getSimpleName();
 	
@@ -170,82 +169,42 @@ public class AndroidServer extends Thread {
 			context.startActivity(intent);
 
 			break;
+			
 		case LevelInfo:
 			
 			LevelInfoMessage lev = (LevelInfoMessage) message;
 			level = lev.getLevel();
 			event = lev.getEventType();
+			medal = lev.getMedalType();
+			
 			Log.d(TAG, message.toString());
 			
 			if (event == LevelInfoMessage.STARTED){
-				
-				
-//				if (ControllerActivity.alertDialog != null){
-//					ControllerActivity.alertDialog.dismiss();
-//				}
-//				else{
-//				}
-		
-				context.startActivity(new Intent(context, ControllerActivity.class));
-
+				Intent gameIntent = new Intent(context, ControllerActivity.class);
+				gameIntent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
+				context.startActivity(gameIntent);
 			}
-			
-			if (event == LevelInfoMessage.FINISHED){
-				
-				context.startActivity(new Intent(context, LevelActivity.class));
-//				progressDialog = new ProgressDialog(context);
-//				progressDialog.setMessage("Sie sind in Level" + level + " " + "aufgestiegen.");
-//				progressDialog.setCancelable(true);
-//				progressDialog.show();
-				
-//			AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-//			alertDialog.setTitle("Herzlichen Glückwunsch!");
-//			alertDialog.setMessage("Sie sind in Level" + level + " " + "aufgestiegen.");
-//			alertDialog.show();
+			else if (event == LevelInfoMessage.FINISHED){
+				Intent levelIntent = new Intent(context, LevelActivity.class);
+				levelIntent.putExtra(LevelActivity.EXTRA_LEVEL, level);
+				levelIntent.putExtra(LevelActivity.EXTRA_MEDAL, medal);
+				context.startActivity(levelIntent);
 			}
 
 			break;
-		case Achievement:
-			Log.d(TAG, message.toString());
-			break;
+
 		case GameFinished:
-			GameFinishedInfoMessage game = (GameFinishedInfoMessage) message;
-			boolean won = game.hasWon();
-			if(won){
-				
-				context.startActivity(new Intent(context, WinGameActivity.class));
-//				progressDialog = new ProgressDialog(context);
-//				progressDialog.setMessage("Sie haben das Spiel gewonnen!");
-//				progressDialog.setCancelable(true);
-//				progressDialog.show();
-				
-//				Intent intent2 = new Intent(context, LogInActivity.class);
-//				context.startActivity(intent2);
-				
-//				progressDialog.dismiss();
-				
-			}
-			if(!won){
-				
-				context.startActivity(new Intent(context, LostGameActivity.class));
-
-//				progressDialog = new ProgressDialog(context);
-//				progressDialog.setMessage("Sie haben das Spiel verloren!");
-//				progressDialog.setCancelable(true);
-//				progressDialog.show();
-				
-//				Intent intent3 = new Intent(context, LogInActivity.class);
-//				context.startActivity(intent3);
-				
-//				progressDialog.dismiss();
-			}
-			else
-			Log.d(TAG, message.toString());
+			// GameOverInfoMessage
+			Intent gameOverIntent = new Intent(context, GameOverActivity.class); 
+			gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			context.startActivity(gameOverIntent);
 			break;
+			
 		case PlayerInfo:
 			Log.d(TAG, message.toString());
 			Log.d(TAG, "bewirkt nichts");
 			break;
+			
 		default:
 			Log.d(TAG, "Kein passender Input");
 			break;
