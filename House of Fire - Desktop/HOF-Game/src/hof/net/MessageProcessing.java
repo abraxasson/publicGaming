@@ -140,7 +140,6 @@ public class MessageProcessing {
 	private void processSensorMessage(SensorInfoMessage sensorMessage, InetAddress address){
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
-			player.incScore();
 			player.setAlive(true);
 			player.setLastInput(System.currentTimeMillis());
 			sensorQueue.add(new SensorInput(player, sensorMessage));
