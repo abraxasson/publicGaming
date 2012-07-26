@@ -21,7 +21,6 @@ public class Settings {
 	private static final String settingsPath = "settings";
 	private static Preferences prefs;
 	
-	
 	public static String TELEPHONE_NUMBER = "0666/666666";
 	
 	public static float houseHealthpoints;	

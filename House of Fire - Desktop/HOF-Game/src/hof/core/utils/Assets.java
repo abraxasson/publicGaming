@@ -48,6 +48,7 @@ public class Assets {
 	public static Texture lightningTexture;
 	
 	public static Sound buttonSound;
+	public static Sound loser;
 	
 	public static BitmapFont defaultFont;
 	public static BitmapFont text30Font;
