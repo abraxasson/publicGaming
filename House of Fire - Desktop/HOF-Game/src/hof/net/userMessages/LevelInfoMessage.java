@@ -15,11 +15,10 @@ public class LevelInfoMessage extends AbstractMessage {
 	private int medal;
 	
 	
-	public LevelInfoMessage(int eventType, int level, boolean lastLevel) {
+	public LevelInfoMessage(int eventType, int level) {
 		super(Type.LevelInfo);
 		this.level = level;
 		this.eventType = eventType;
-		this.lastLevel = lastLevel;
 		this.medal = NOTHING;
 	}
 	

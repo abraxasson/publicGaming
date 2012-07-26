@@ -87,7 +87,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void hide() {
 		for (Player player: processing.getPlayerList()) {
-			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1, lastLevel),player.getIp());
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1),player.getIp());
 			player.setLastInput(System.currentTimeMillis());
 		}
 	}
