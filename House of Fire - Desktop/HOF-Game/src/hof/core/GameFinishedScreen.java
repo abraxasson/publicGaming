@@ -4,8 +4,6 @@ import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
 import hof.net.MessageProcessing;
-import hof.net.UdpClientThread;
-import hof.net.userMessages.GameFinishedInfoMessage;
 import hof.player.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -16,13 +14,11 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 
 	private long startTime;
 	private MessageProcessing processing;
-	private UdpClientThread udpClient;
 	private HallOfFame fame;
 	
 	public GameFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
-		udpClient = UdpClientThread.getInstance();
 		fame = HallOfFame.getInstance();
 	}
 	
@@ -32,8 +28,6 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
-			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new GameFinishedInfoMessage(true));
 		}
 		
 	}
