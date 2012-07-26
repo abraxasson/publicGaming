@@ -23,7 +23,7 @@ public class MessageProcessing {
 
 	private ArrayList<Player> activePlayers;
 	private LinkedList<Player> playerQueue;
-	private LinkedList<ButtonInput> inputQueue;
+	private LinkedList<ButtonInput> buttonQueue;
 	private LinkedList<SensorInput> sensorQueue; 
 	private static MessageProcessing instance;
 	private ColorList colorList;
@@ -42,7 +42,7 @@ public class MessageProcessing {
 	private MessageProcessing() {
 		activePlayers = new ArrayList<Player>();
 		playerQueue = new LinkedList<>();
-		inputQueue = new LinkedList<ButtonInput>();
+		buttonQueue = new LinkedList<ButtonInput>();
 		sensorQueue = new LinkedList<SensorInput>();
 		colorList = new ColorList();
 		filter = new WordFilter();
@@ -133,7 +133,7 @@ public class MessageProcessing {
 			Player player = getPlayer(address);
 			player.setAlive(true);
 			player.setLastInput(System.currentTimeMillis());
-			inputQueue.add(new ButtonInput(player, inputMessage));
+			buttonQueue.add(new ButtonInput(player, inputMessage));
 		}
 	}
 
@@ -210,9 +210,14 @@ public class MessageProcessing {
 	 * @return
 	 */
 	public ButtonInput getInput() {
-		return inputQueue.poll();
+		return buttonQueue.poll();
 	}
 	
+	/**
+	 * Returns the next SensorInput
+	 * 
+	 * @return
+	 */
 	public SensorInput getSensorInput(){
 		return this.sensorQueue.poll();
 	}
@@ -223,11 +228,38 @@ public class MessageProcessing {
 	 * @return true if PlayerInput is available
 	 */
 	public boolean hasInput() {
-		return !this.inputQueue.isEmpty();
+		return !this.buttonQueue.isEmpty();
 	}
 	
+	/**
+	 * Checks if LinkedList has any SensorInput
+	 * 
+	 * @return true if SensorInput is available
+	 */
 	public boolean hasSensorInput(){
 		return !this.sensorQueue.isEmpty();
+	}
+	
+	/**
+	 * Clears the sensorQueue
+	 */
+	public void emptySensorInput() {
+		sensorQueue.clear();
+	}
+	
+	/**
+	 * Clears the buttonQueue
+	 */
+	public void emptyButtonInput() {
+		buttonQueue.clear();
+	}
+	
+	/**
+	 * Clears the sensorQueue and the buttonQueue
+	 */
+	public void emptyInputQueues() {
+		sensorQueue.clear();
+		buttonQueue.clear();
 	}
 
 	/**

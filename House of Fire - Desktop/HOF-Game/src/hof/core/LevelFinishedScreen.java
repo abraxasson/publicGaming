@@ -90,6 +90,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1),player.getIp());
 			player.setLastInput(System.currentTimeMillis());
 		}
+		processing.emptyInputQueues();
 	}
 
 	
