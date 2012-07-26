@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 
 
 public class HouseOfFireGame extends Game {
@@ -27,8 +28,11 @@ public class HouseOfFireGame extends Game {
 		Assets.load();
 		Settings.load();
 		houseList = new ArrayList<>();
-		houseList.add(new House(Assets.houseTexture, 10));
-		houseList.add(new House(Assets.house2Texture, 10));
+		int flames = 10;
+		for (Texture texture: Assets.houseList) {
+			houseList.add(new House(texture, flames));
+		}
+		
 		houseIndex = 0;
 		
 		mainMenuScreen = new MainMenuScreen(this);

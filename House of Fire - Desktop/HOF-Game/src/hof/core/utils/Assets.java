@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,10 +42,7 @@ public class Assets {
 	public static Texture levelFinishedScreen;
 	
 	public static Map<Texture, BufferedImage> houseMap;
-	public static Texture houseTexture;
-	public static BufferedImage houseImage;
-	public static Texture house2Texture;
-	public static BufferedImage house2Image;
+	public static ArrayList<Texture> houseList;
 	
 	public static Texture cloudTexture;
 	public static Texture lightningTexture;
@@ -59,6 +57,7 @@ public class Assets {
 	
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
+		houseList = new ArrayList<>();
 		loadTextures();
 		loadHouses();
 		createAnimations();
@@ -102,12 +101,25 @@ public class Assets {
 	
 	private static void loadHouses() {
 		try {
-			houseTexture = new Texture(Gdx.files.internal("textures/house-texture/House_1/TestHouse_1.png"));
-			house2Texture = new Texture(Gdx.files.internal("textures/house-texture/House_2/TestHouse_2.png"));
-			houseImage =  ImageIO.read(new File("assets/textures/house-texture/House_1/TestHouse_1_burningArea.png"));
-			house2Image = ImageIO.read(new File("assets/textures/house-texture/House_2/TestHouse_2_burningArea.png"));
-			houseMap.put(houseTexture, houseImage);
-			houseMap.put(house2Texture, house2Image);
+			String housePath = "textures/house-texture";
+			String imagePath = "assets/" + housePath;
+			File directory = new File(imagePath);
+			File [] dirs = null;
+			if (directory.isDirectory()) {
+				dirs = directory.listFiles();
+				
+			} 
+			for (File dir : dirs) {
+				if (dir.isDirectory()) {
+					System.out.println(dir.getName());
+					File [] file = dir.listFiles();
+					String path = file[0].getPath().substring(file[0].getPath().indexOf('\\') + 1);
+					Texture house = new Texture(Gdx.files.internal(path));
+					houseList.add(house);
+					houseMap.put(house, ImageIO.read(new File(file[1].getPath())));
+				}
+				
+			}
 		} catch (IOException e) {
 			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");
 		}		
@@ -135,8 +147,6 @@ public class Assets {
 		firefighter_right.dispose();
 		mainMenu.dispose();
 
-		houseTexture.dispose();
-		house2Texture.dispose();
 		cloudTexture.dispose();
 		lightningTexture.dispose();
 		
