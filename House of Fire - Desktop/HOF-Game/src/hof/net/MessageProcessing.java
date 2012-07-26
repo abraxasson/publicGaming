@@ -1,6 +1,7 @@
 package hof.net;
 
 import hof.core.utils.ColorList;
+import hof.core.utils.Settings;
 import hof.core.utils.WordFilter;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
@@ -102,13 +103,13 @@ public class MessageProcessing {
 		Player player;
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
+			udpClient.setIA(address);			
+			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 		} else {
 			player = new Player(filter.checkName(message.getName()), address, colorList.getNextColor());
 		}
 		
-		udpClient.setIA(address);			
-		udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
-		if (!checkPlayer(address)) {
+		if (!checkPlayer(address) && activePlayers.size() <= Settings.maxPlayers) {
 			activePlayers.add(player);
 			playerQueue.add(player);
 			
