@@ -56,7 +56,7 @@ public class StatusBar {
 			font2 = Assets.text30Font;
 			heading = "Active Players: ";
 			ranking = "";
-			players = "0/6";
+			players = "0/" + Settings.maxPlayers;
 			x = Assets.TIMELINE_WIDTH + 10;
 			y = Assets.RANKING_HEIGHT;
 			wrap = Assets.STATUS_BAR_WIDTH;
