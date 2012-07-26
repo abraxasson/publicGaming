@@ -35,7 +35,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	private final static String TAG = ControllerActivity.class.getSimpleName();
 	public final static String EXTRA_WATER_LEVEL = "waterLevel";
-
+	public final static int MAX_WATER_LEVEL = 100;
+	
 	private final static int REQUEST_CODE_WATER_ACTIVITY = 100;
 
 	private int state = ButtonInfoMessage.NORMAL;
@@ -49,7 +50,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	VerticalProgressBar water_rating;
 	// SeekBar water_bar;
 
-	int waterLevel = 100; // von 0 bis 100
+	int waterLevel = MAX_WATER_LEVEL; // von 0 bis 100
 	String playerName;
 	int playerColor;
 	Handler handler = new Handler();
@@ -134,6 +135,10 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// Color.RED);
 		outputName.setText(playerName);
 	
+		Intent receivedIntent = getIntent();
+		if(receivedIntent.hasExtra(EXTRA_WATER_LEVEL)){
+			waterLevel = receivedIntent.getIntExtra(EXTRA_WATER_LEVEL, MAX_WATER_LEVEL);
+		}
 		water_rating.setProgress(waterLevel);
 		
 		

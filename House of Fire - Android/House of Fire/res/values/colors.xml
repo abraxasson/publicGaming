@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="my_color">#444444</color>
+	<color name="medal_text_color">#EEE</color>
+	<color name="medal_layout_background">#77555555</color>
+</resources>
