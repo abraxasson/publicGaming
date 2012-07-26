@@ -30,7 +30,7 @@ public class LevelInfoMessage extends AbstractMessage {
 		this.medal = medal;
 	}
 
-	public int getMedal() {
+	public int getMedalType() {
 		return medal;
 	}
 
