@@ -1,13 +1,12 @@
 package hof.net.android;
 
 import hof.net.userMessages.AbstractMessage;
-import hof.net.userMessages.GameFinishedInfoMessage;
+import hof.net.userMessages.GameOverInfoMessage;
 import hof.net.userMessages.LevelInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.ControllerActivity;
 import house.of.fire.GameOverActivity;
 import house.of.fire.LevelActivity;
-import house.of.fire.StartActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -18,7 +17,6 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -49,7 +47,6 @@ public class AndroidServer extends Thread {
 	private static InetAddress ia;
 	
 	private Context context;
-	ProgressDialog progressDialog;
 	
 	public static AndroidServer getInstance(Context context, int port){
 		
@@ -89,10 +86,10 @@ public class AndroidServer extends Thread {
 				ia = packet.getAddress();
 				
 				Log.w("Android Server", "Message received");
-				
+				System.out.println(message);
 				messageProcessing(message);
 				ois.close();
-				System.out.println(message);
+				
 			} catch (SocketTimeoutException ste) {
 				
 			} catch (IOException e) {
@@ -193,8 +190,10 @@ public class AndroidServer extends Thread {
 
 			break;
 
-		case GameFinished:
-			// GameOverInfoMessage
+		case GameOver:
+			
+//			GameOverInfoMessage gameOver = (GameOverInfoMessage) message;
+			
 			Intent gameOverIntent = new Intent(context, GameOverActivity.class); 
 			gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			context.startActivity(gameOverIntent);
