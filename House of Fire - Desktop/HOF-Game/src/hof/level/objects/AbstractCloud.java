@@ -39,14 +39,6 @@ public abstract class AbstractCloud {
 		}
 	}
 	
-	protected int getX(){
-		return this.x;
-	}
-	
-	protected void setX(int x){
-		this.x = x;
-	}
-	
 	public int getType(){
 		return this.type;
 	}
