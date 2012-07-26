@@ -1,6 +1,7 @@
 package hof.net;
 
 import hof.core.utils.ColorList;
+import hof.core.utils.HallOfFame;
 import hof.core.utils.Settings;
 import hof.core.utils.WordFilter;
 import hof.net.userMessages.AbstractMessage;
@@ -27,6 +28,7 @@ public class MessageProcessing {
 	private static MessageProcessing instance;
 	private ColorList colorList;
 	private WordFilter filter;
+	private HallOfFame fame;
 	
 	private UdpClientThread udpClient;
 
@@ -44,6 +46,7 @@ public class MessageProcessing {
 		sensorQueue = new LinkedList<SensorInput>();
 		colorList = new ColorList();
 		filter = new WordFilter();
+		fame = HallOfFame.getInstance();
 		
 		udpClient = UdpClientThread.getInstance();
 	}
@@ -103,8 +106,7 @@ public class MessageProcessing {
 		Player player;
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
-			udpClient.setIA(address);			
-			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
+			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 		} else {
 			player = new Player(filter.checkName(message.getName()), address, colorList.getNextColor());
 		}
@@ -113,8 +115,7 @@ public class MessageProcessing {
 			activePlayers.add(player);
 			playerQueue.add(player);
 			player.setLastInput(System.currentTimeMillis());
-			udpClient.setIA(address);			
-			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
+			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");
@@ -170,6 +171,7 @@ public class MessageProcessing {
 				System.out.println("Player: " + player.getName()
 						+ " hat sich ausgeloggt");
 				player.setAlive(false);
+				fame.addPlayer(player);
 				iter.remove();
 			}
 		}
