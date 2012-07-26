@@ -7,7 +7,7 @@ import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
-import hof.net.userMessages.GameFinishedInfoMessage;
+import hof.net.userMessages.GameOverInfoMessage;
 import hof.player.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -32,8 +32,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
-			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new GameFinishedInfoMessage(false));
+			udpClient.sendObject(new GameOverInfoMessage(), player.getIp());
 		}
 		
 	}

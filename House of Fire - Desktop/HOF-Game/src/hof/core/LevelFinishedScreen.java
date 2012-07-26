@@ -16,25 +16,50 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private MessageProcessing processing;
 	private UdpClientThread udpClient;
 	private long startTime;
+	private boolean lastLevel;
 	
 	public LevelFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		udpClient = UdpClientThread.getInstance();
+		lastLevel = false;
 	}
 	
 	@Override
 	public void show() {
 		startTime = System.currentTimeMillis();
 		
-		for (Player player: processing.getPlayerList()) {
-			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED,game.houseIndex + 1));
-		}
-		
 		game.houseIndex++;
 		
+		if (game.houseIndex < game.houseList.size()) {
+			lastLevel = false;
+		} else  {
+			lastLevel = true;
+		}
+		int medal = getMedal();
+		for (Player player: processing.getPlayerList()) {
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.FINISHED, game.houseIndex , lastLevel, medal), player.getIp());
+		}
 		
+	}
+
+	private int getMedal() {
+		int medal;
+		int diff = game.houseList.size() / 3;
+		int  bronze = diff;
+		int silver = 2 * diff;
+		int gold = 3 * diff;
+		
+		if (game.houseIndex == bronze) {
+			medal = LevelInfoMessage.BRONZE;
+		} else if (game.houseIndex == silver) {
+			medal = LevelInfoMessage.SILVER;
+		} else if (game.houseIndex == gold) {
+			medal = LevelInfoMessage.GOLD;
+		} else {
+			medal = LevelInfoMessage.NOTHING;
+		}
+		return medal;
 	}
 	
 	@Override
@@ -51,10 +76,10 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
-			if (game.houseIndex < game.houseList.size()) {
-				game.setScreen(game.playingScreen);
-			} else {
+			if (lastLevel) {
 				game.setScreen(game.gameFinishedScreen);
+			} else {
+				game.setScreen(game.playingScreen);
 			}			
 		}
 	}
@@ -62,8 +87,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void hide() {
 		for (Player player: processing.getPlayerList()) {
-			udpClient.setIA(player.getIp());
-			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1));
+			udpClient.sendObject(new LevelInfoMessage(LevelInfoMessage.STARTED,game.houseIndex + 1, lastLevel),player.getIp());
 			player.setLastInput(System.currentTimeMillis());
 		}
 	}
