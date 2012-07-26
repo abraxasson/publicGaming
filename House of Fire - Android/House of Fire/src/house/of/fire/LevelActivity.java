@@ -1,15 +1,15 @@
 package house.of.fire;
 
 import hof.net.android.AndroidServer;
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
 
 public class LevelActivity extends Activity {
 	
+	Context context;
 	TextView outputText;
 
     @Override
@@ -34,7 +34,7 @@ public class LevelActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		outputText.setText("Sie haben Level " + AndroidServer.level + " " + "geschafft!");
+		outputText.setText("Sie haben Level " + AndroidServer.level + " geschafft!");
 		super.onStart();
 	}
 
@@ -42,6 +42,12 @@ public class LevelActivity extends Activity {
 	protected void onStop() {
 		
 		super.onStop();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		context.startActivity(new Intent(context, ControllerActivity.class));
+		super.onBackPressed();
 	}
 
     
