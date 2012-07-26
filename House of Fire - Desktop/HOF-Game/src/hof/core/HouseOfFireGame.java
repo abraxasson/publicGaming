@@ -44,5 +44,6 @@ public class HouseOfFireGame extends Game {
 	@Override
 	public void dispose() {
 		Assets.dispose();
+		Settings.savePrefs();
 	}
 }
