@@ -4,7 +4,7 @@ public class GameOverInfoMessage extends AbstractMessage{
 	private static final long serialVersionUID = 37295872L;
 	
 	public GameOverInfoMessage() {
-		super(Type.GameFinished);
+		super(Type.GameOver);
 	}
 
 	

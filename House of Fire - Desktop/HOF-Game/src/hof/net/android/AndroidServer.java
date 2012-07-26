@@ -80,7 +80,7 @@ public class AndroidServer extends Thread {
 		case Achievement:
 			System.out.println(message.toString());
 			break;
-		case GameFinished:
+		case GameOver:
 			System.out.println(message.toString());
 			break;
 		case PlayerInfo:
