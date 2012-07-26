@@ -100,10 +100,10 @@ public class Assets {
 	
 	private static void loadHouses() {
 		try {
-			houseTexture = new Texture(Gdx.files.internal("textures/house-texture/TestHouse_1.png"));
-			house2Texture = new Texture(Gdx.files.internal("textures/house-texture/TestHouse_2.png"));
-			houseImage =  ImageIO.read(new File("assets/textures/house-texture/TestHouse_1_burningArea.png"));
-			house2Image = ImageIO.read(new File("assets/textures/house-texture/TestHouse_2_burningArea.png"));
+			houseTexture = new Texture(Gdx.files.internal("textures/house-texture/House_1/TestHouse_1.png"));
+			house2Texture = new Texture(Gdx.files.internal("textures/house-texture/House_2/TestHouse_2.png"));
+			houseImage =  ImageIO.read(new File("assets/textures/house-texture/House_1/TestHouse_1_burningArea.png"));
+			house2Image = ImageIO.read(new File("assets/textures/house-texture/House_2/TestHouse_2_burningArea.png"));
 			houseMap.put(houseTexture, houseImage);
 			houseMap.put(house2Texture, house2Image);
 		} catch (IOException e) {
