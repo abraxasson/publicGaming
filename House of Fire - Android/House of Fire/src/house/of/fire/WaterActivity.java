@@ -1,6 +1,5 @@
 package house.of.fire;
 
-import hof.net.android.AndroidServer;
 import hof.net.userMessages.ButtonInfoMessage;
 import android.app.Activity;
 import android.content.Intent;
@@ -215,14 +214,6 @@ public class WaterActivity extends Activity {
 //            		udpClient.sendObject(new LogoutInfoMessage());
 //            	}
 //            };
-        	
-            
-            
-            
-            private void sendMessage (String message) {
-            	//udpClient.sendMessage(message);    	
-            }
-
 
         	  	
         }

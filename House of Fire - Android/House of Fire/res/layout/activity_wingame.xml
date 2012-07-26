@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/myColor" >
-
+
     <TextView
         android:id="@+id/outputText_congratulation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:background="@color/myColor"
         android:padding="10dp"
-        android:text="@string/congratulatoin"
+        android:text="@string/congratulation"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

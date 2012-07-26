@@ -41,13 +41,26 @@ public class LostGameActivity extends Activity {
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
+//		context.startActivity(new Intent(context, LogInActivity.class));
 		super.onStop();
 		
 	}
-	
-	public void finish() {
-		context.startActivity(new Intent(context, LogInActivity.class));
-	}
 
+//	@Override
+//	public void onBackPressed() {
+//		context.startActivity(new Intent(context, LogInActivity.class));
+//		super.onBackPressed();
+//	}
+
+//	@Override
+//	public void finishActivity(int requestCode) {
+//		// TODO Auto-generated method stub
+//		super.finishActivity(requestCode);
+//	}
+	
+//	public void finish() {
+//		context.startActivity(new Intent(context, LogInActivity.class));
+//	}
+
+	
 }

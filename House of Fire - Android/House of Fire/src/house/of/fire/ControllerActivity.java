@@ -27,8 +27,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -337,7 +335,15 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		@Override
 		public void run() {
 			
-			udpClient.sendObject(new WaterPressureInfoMessage(waterLevel));	
+			udpClient.sendObject(new WaterPressureInfoMessage(waterLevel));
+			
 		}
 	}
+	
+//	public void alertDialog(){
+//		alertDialog = new AlertDialog.Builder(context).create();
+//		alertDialog.setTitle("Herzlichen Glückwunsch!");
+//		alertDialog.setMessage("Sie sind in Level" + AndroidServer.level + " aufgestiegen.");
+//		alertDialog.show();
+//	}
 }

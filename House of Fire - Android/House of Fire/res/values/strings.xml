@@ -27,8 +27,9 @@
     <string name="title_activity_win_game">WinGameActivity</string>
     <string name="title_activity_lost_game">LostGameActivity</string>
     <string name="lost">Sie haben leider verloren!</string>
-    <string name="congratulatoin">Herzlichen Glückwunsch!</string>
+    <string name="congratulation">Herzlichen Glückwunsch!</string>
     <string name="win">Sie haben das Spiel gewonnen.</string>
     <string name="winGold">Durch deine heldenhaften Taten hast du dir die Goldmedaille mehr als verdient.</string>
+    <string name="title_activity_level">LevelActivity</string>
 
 </resources>

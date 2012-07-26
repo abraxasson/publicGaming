@@ -5,6 +5,7 @@ import hof.net.userMessages.GameFinishedInfoMessage;
 import hof.net.userMessages.LevelInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.ControllerActivity;
+import house.of.fire.LevelActivity;
 import house.of.fire.LogInActivity;
 import house.of.fire.LostGameActivity;
 import house.of.fire.R;
@@ -19,6 +20,7 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -176,6 +178,13 @@ public class AndroidServer extends Thread {
 			Log.d(TAG, message.toString());
 			
 			if (event == LevelInfoMessage.STARTED){
+				
+				
+//				if (ControllerActivity.alertDialog != null){
+//					ControllerActivity.alertDialog.dismiss();
+//				}
+//				else{
+//				}
 		
 				context.startActivity(new Intent(context, ControllerActivity.class));
 
@@ -183,8 +192,7 @@ public class AndroidServer extends Thread {
 			
 			if (event == LevelInfoMessage.FINISHED){
 				
-				
-				context.startActivity(new Intent(context, WinGameActivity.class));
+				context.startActivity(new Intent(context, LevelActivity.class));
 //				progressDialog = new ProgressDialog(context);
 //				progressDialog.setMessage("Sie sind in Level" + level + " " + "aufgestiegen.");
 //				progressDialog.setCancelable(true);

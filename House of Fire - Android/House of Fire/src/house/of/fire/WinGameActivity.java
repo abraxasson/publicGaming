@@ -1,6 +1,5 @@
 package house.of.fire;
 
-import hof.net.android.AndroidServer;
 import hof.net.userMessages.LevelInfoMessage;
 import android.os.Bundle;
 import android.app.Activity;
@@ -41,20 +40,21 @@ public class WinGameActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		if (AndroidServer.level < 6){
-			alertDialog = new AlertDialog.Builder(context).create();
-			alertDialog.setTitle("Herzlichen Glückwunsch!");
-			alertDialog.setMessage("Sie sind in Level" + AndroidServer.level + " aufgestiegen.");
-			alertDialog.show();
-		}
-		else if (AndroidServer.event == LevelInfoMessage.FINISHED){
-			if (alertDialog != null){
-				alertDialog.dismiss();
-			}
-		}
-		else{
+		
+//		if (AndroidServer.level < 6){
+//			alertDialog = new AlertDialog.Builder(context).create();
+//			alertDialog.setTitle("Herzlichen Glückwunsch!");
+//			alertDialog.setMessage("Sie sind in Level" + AndroidServer.level + " aufgestiegen.");
+//			alertDialog.show();
+//		}
+//		else if (AndroidServer.event == LevelInfoMessage.FINISHED){
+//			if (alertDialog != null){
+//				alertDialog.dismiss();
+//			}
+//		}
+//		else{
 		super.onStart();
-		}
+//		}
 	}
 
 	@Override
@@ -63,13 +63,20 @@ public class WinGameActivity extends Activity {
 		super.onStop();
 	}
 	
-	public void finish() {
-		if (AndroidServer.level >= 6){
-		context.startActivity(new Intent(context, LogInActivity.class));
-		}
-		else{
-		}
-	}
+//	public void finish() {
+//		if (AndroidServer.level >= 6){
+//		context.startActivity(new Intent(context, LogInActivity.class));
+//		}
+//		else{
+//		}
+//	}
+
+//	@Override
+//	public void onBackPressed() {
+//		context.startActivity(new Intent(context, LogInActivity.class));
+//		super.onBackPressed();
+//	}
+	
 
     
 }
