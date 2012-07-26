@@ -150,7 +150,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			while(iter.hasNext()){
 				AbstractCloud message = (AbstractCloud) iter.next();
 				if(message.getType() == AbstractCloud.WATERPRESSURE){
-					smsProcessing.getList().remove(message);
+					iter.remove();
 				}
 			}
 			this.smsProcessing.addEffect(new WaterPressure());
