@@ -63,7 +63,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
 	}
-	
+
 	@Override
 	public void hide() {
 		smsProcessing.getList().clear();
@@ -101,18 +101,18 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						.equals(input.getPlayer().getIp())) {
 					if (input.getMessage().getY() > 1.5) {
 						fighter.getWaterJet().setAngle(-3);
-					} 
-					else if (input.getMessage().getY() < 1.5 && input.getMessage().getY() > -1.5){
+					} else if (input.getMessage().getY() < 1.5
+							&& input.getMessage().getY() > -1.5) {
 						System.out.println("Gleichgewicht!");
-					}else if (input.getMessage().getY() < -1.5) {
+					} else if (input.getMessage().getY() < -1.5) {
 						fighter.getWaterJet().setAngle(3);
 					}
-					/*
-					 * if(input.getMessage().getY()<-2){
-					 * fighter.getWaterJet().setStrength(4); } else
-					 * if(input.getMessage().getY()>2){
-					 * fighter.getWaterJet().setStrength(-4); }
-					 */
+
+					if (input.getMessage().getX() < 1.5) {
+						fighter.getWaterJet().setStrength(8);
+					} else if (input.getMessage().getX() > 8.5) {
+						fighter.getWaterJet().setStrength(-8);
+					}
 
 				}
 			}
@@ -145,12 +145,13 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				this.smsProcessing.addEffect(new Rain(pixel));
 			}
 		}
-		
-		if(Gdx.input.isKeyPressed(Keys.Z)){
-			Iterator<AbstractCloud> iter = this.smsProcessing.getList().iterator();
-			while(iter.hasNext()){
+
+		if (Gdx.input.isKeyPressed(Keys.Z)) {
+			Iterator<AbstractCloud> iter = this.smsProcessing.getList()
+					.iterator();
+			while (iter.hasNext()) {
 				AbstractCloud message = (AbstractCloud) iter.next();
-				if(message.getType() == AbstractCloud.WATERPRESSURE){
+				if (message.getType() == AbstractCloud.WATERPRESSURE) {
 					iter.remove();
 				}
 			}
@@ -202,17 +203,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					break;
 				case AbstractCloud.WATERPRESSURE:
 					WaterPressure waterPressure = (WaterPressure) effect;
-					if(waterPressure.getActive()){
-						if(waterPressure.getLifeTime() == Settings.waterPressureLifeTime){
-							for(Firefighter firefighter : this.firefighters){
+					if (waterPressure.getActive()) {
+						if (waterPressure.getLifeTime() == Settings.waterPressureLifeTime) {
+							for (Firefighter firefighter : this.firefighters) {
 								WaterJet waterJet = firefighter.getWaterJet();
-								waterJet.setSize(waterJet.getSize()+WaterPressure.WATERPRESSUREINC);
+								waterJet.setSize(waterJet.getSize()
+										+ WaterPressure.WATERPRESSUREINC);
 							}
 						}
 						waterPressure.draw(spriteBatch);
-					}
-					else{
-						for(Firefighter firefighter : this.firefighters){
+					} else {
+						for (Firefighter firefighter : this.firefighters) {
 							WaterJet waterJet = firefighter.getWaterJet();
 							waterJet.setSize(Settings.waterAimSize);
 						}
