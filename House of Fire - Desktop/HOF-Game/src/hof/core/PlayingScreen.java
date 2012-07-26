@@ -99,11 +99,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			for (Firefighter fighter : firefighters) {
 				if (fighter.getPlayer().getIp()
 						.equals(input.getPlayer().getIp())) {
-					if (input.getMessage().getX() > 5) {
+					if (input.getMessage().getY() > 0) {
 						fighter.getWaterJet().setAngle(-3);
-					} else if (input.getMessage().getX() < 5 && input.getMessage().getX() > 4.8) {
-						System.out.println("Gleichgewicht!");
-					} else if (input.getMessage().getX() < 4.8) {
+					} else if (input.getMessage().getY() < 0) {
 						fighter.getWaterJet().setAngle(3);
 					}
 					/*
