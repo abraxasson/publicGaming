@@ -80,7 +80,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		Assets.text50Font.draw(spriteBatch, "Level finished", Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() * 0.9));
+		spriteBatch.draw(Assets.levelFinishedScreen, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//Assets.text50Font.draw(spriteBatch, "Level finished", Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() * 0.9));
 		int i = 0;
 		for(Player player : processing.getPlayerList()){
 			i++;
