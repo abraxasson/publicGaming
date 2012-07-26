@@ -13,6 +13,9 @@ public class Settings {
 	public static float rainLifeTime;
 	public static float lightningLifeTime;
 	public static int rainDamage;
+	public static int maxPlayers;
+	public static float waterPressureLifeTime;
+	public static float waterAimSize;
 	
 	//Highscore Settings
 	public static String highScoreFilePath;
@@ -29,6 +32,9 @@ public class Settings {
 		rainLifeTime = 5;
 		lightningLifeTime = 1;
 		rainDamage = 20;
+		waterPressureLifeTime = 5;
+		maxPlayers = 6;
+		waterAimSize = 10;
 
 		loadHighScoreSettings();
 		loadWordFilterSettings();

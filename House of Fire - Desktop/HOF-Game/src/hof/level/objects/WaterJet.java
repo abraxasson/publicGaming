@@ -1,6 +1,7 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.core.utils.Settings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -25,7 +26,8 @@ public class WaterJet {
 		emmitter.getLife().getHighMin();
 		emmitter.getAngle().getLowMin();
 		
-		size = emmitter.getSpawnWidth().getHighMin();
+		//size = emmitter.getSpawnWidth().getHighMin();
+		size = Settings.waterAimSize;
 		streamArea = new Rectangle();
 		streamArea.setX(calcX());
 		streamArea.setY(calcY());
@@ -100,6 +102,14 @@ public class WaterJet {
 	
 	public Rectangle getStreamArea() {
 		return streamArea;
+	}
+	
+	public void setSize(float size){
+		this.size = size;
+	}
+	
+	public float getSize(){
+		return this.size;
 	}
 	
 	public void draw (SpriteBatch spriteBatch) {

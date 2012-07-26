@@ -11,6 +11,7 @@ import hof.level.objects.Pixel;
 import hof.level.objects.Rain;
 import hof.level.objects.StatusBar;
 import hof.level.objects.TimeLine;
+import hof.level.objects.WaterJet;
 import hof.level.objects.WaterPressure;
 import hof.net.MessageProcessing;
 import hof.net.SmsProcessing;
@@ -126,6 +127,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
+			game.houseIndex = 0;
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
@@ -141,6 +143,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				Pixel pixel = new Pixel(fire.getX(), fire.getY());
 				this.smsProcessing.addEffect(new Rain(pixel));
 			}
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.Z)){
+			Iterator<AbstractCloud> iter = this.smsProcessing.getList().iterator();
+			while(iter.hasNext()){
+				AbstractCloud message = (AbstractCloud) iter.next();
+				if(message.getType() == AbstractCloud.WATERPRESSURE){
+					smsProcessing.getList().remove(message);
+				}
+			}
+			this.smsProcessing.addEffect(new WaterPressure());
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -187,7 +200,21 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					break;
 				case AbstractCloud.WATERPRESSURE:
 					WaterPressure waterPressure = (WaterPressure) effect;
-					waterPressure.draw(spriteBatch);
+					if(waterPressure.getActive()){
+						if(waterPressure.getLifeTime() == Settings.waterPressureLifeTime){
+							for(Firefighter firefighter : this.firefighters){
+								WaterJet waterJet = firefighter.getWaterJet();
+								waterJet.setSize(waterJet.getSize()+WaterPressure.WATERPRESSUREINC);
+							}
+						}
+						waterPressure.draw(spriteBatch);
+					}
+					else{
+						for(Firefighter firefighter : this.firefighters){
+							WaterJet waterJet = firefighter.getWaterJet();
+							waterJet.setSize(Settings.waterAimSize);
+						}
+					}
 					break;
 				default:
 					break;
