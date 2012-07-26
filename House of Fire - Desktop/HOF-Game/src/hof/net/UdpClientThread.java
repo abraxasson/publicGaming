@@ -12,7 +12,6 @@ import java.net.SocketException;
 import java.util.LinkedList;
 
 public class UdpClientThread extends Thread {
-	private InetAddress ia = null;
 	private static int port = 4711;
 	private DatagramPacket packet;
 	private DatagramSocket toSocket;
@@ -22,7 +21,6 @@ public class UdpClientThread extends Thread {
 
 	private UdpClientThread() {
 		list = new LinkedList<DatagramPacket>();
-		this.ia = null;
 
 		try {
 			toSocket = new DatagramSocket();
@@ -68,18 +66,14 @@ public class UdpClientThread extends Thread {
 		this.isActive = active;
 		notify();
 	}
-	
-	public void setIA (InetAddress ia) {
-		this.ia = ia;
-	}
 
-	public synchronized void sendObject(AbstractMessage e) {
+	public synchronized void sendObject(AbstractMessage e, InetAddress ineta) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			ObjectOutputStream stream = new ObjectOutputStream(baos);
 			stream.writeObject(e);
 			byte[] data = baos.toByteArray();
-			packet = new DatagramPacket(data, data.length, ia, port);
+			packet = new DatagramPacket(data, data.length, ineta, port);
 			list.add(packet);
 			notify();
 		} catch (IOException e1) {
