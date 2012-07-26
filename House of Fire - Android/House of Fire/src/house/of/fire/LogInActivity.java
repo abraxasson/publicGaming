@@ -117,6 +117,9 @@ public class LogInActivity extends Activity {
 	public void onLogInButtonClicked(View view) {
 
 		playerName = nameEditText.getText().toString();
+		if (playerName.length() > 15){
+			playerName = playerName.substring(0, 15);
+		}
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
@@ -139,28 +142,6 @@ public class LogInActivity extends Activity {
 			}
 		});
 		progressDialog.show();
-		
-		
-		
-		
-		// TODO register over network
-		
-		
-		// startGame(this);
-
-		// startActivity(new Intent(LogInActivity.this,
-		// ControllerActivity.class));
-
-		// int z = 0;
-		// while(!server.getValidation()){
-		// alertDialog.show();
-		// z+=1;
-		// if(z==20000000){
-		// break;
-		//
-		// }
-		// }
-
 		
 
 	}

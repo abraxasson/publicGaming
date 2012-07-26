@@ -74,31 +74,10 @@ public class WaterActivity extends Activity {
 
 
         	@Override
-        	protected void onPause() {
-
-        		super.onPause();	
-        		
-        		
-        	}
-
-
-
-        	@Override
-        	protected void onResume() {
- 
-        		super.onResume();
-        	}
-
-
-
-        	@Override
         	protected void onStart() {
 
         		super.onStart();
-//        		server = new AndroidServer(4711);
-//              server.start();
-//        		udpClient = new UdpClientThread();
-//              udpClient.start();
+
                 Intent intent = getIntent();
                 waterLevel = intent.getIntExtra(ControllerActivity.EXTRA_WATER_LEVEL, 0);
                 water_rating.setProgress(waterLevel);

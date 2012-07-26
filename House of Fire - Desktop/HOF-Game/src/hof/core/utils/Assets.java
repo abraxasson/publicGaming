@@ -38,6 +38,7 @@ public class Assets {
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
 	public static Texture mainMenu;
+	public static Texture levelFinishedScreen;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static Texture houseTexture;
@@ -96,6 +97,7 @@ public class Assets {
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
+		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
 	}
 	
 	private static void loadHouses() {

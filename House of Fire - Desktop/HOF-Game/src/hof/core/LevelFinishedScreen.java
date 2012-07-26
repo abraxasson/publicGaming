@@ -10,6 +10,8 @@ import hof.player.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 
 public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 
@@ -17,12 +19,18 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private UdpClientThread udpClient;
 	private long startTime;
 	private boolean lastLevel;
+	private float collumnWidth;
+	private BitmapFont infoFont;
+	private BitmapFont nameFont;
 	
 	public LevelFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		udpClient = UdpClientThread.getInstance();
 		lastLevel = false;
+		collumnWidth = Gdx.graphics.getWidth()/8;
+		infoFont = Assets.text45Font;
+		nameFont = Assets.menu45Font;
 	}
 	
 	@Override
@@ -72,7 +80,18 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		Assets.text50Font.draw(spriteBatch, "Level finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
+		spriteBatch.draw(Assets.levelFinishedScreen, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//Assets.text50Font.draw(spriteBatch, "Level finished", Gdx.graphics.getWidth()/2, (float) (Gdx.graphics.getHeight() * 0.9));
+		int i = 0;
+		for(Player player : processing.getPlayerList()){
+			i++;
+			this.infoFont.setColor(player.getColor());
+			this.nameFont.setColor(player.getColor());
+			String score = "" +player.getScore()+" Points";
+			TextBounds bounds = infoFont.getBounds(player.getName());
+			nameFont.draw(spriteBatch, player.getName(),i*this.collumnWidth , (float) (Gdx.graphics.getHeight()*0.6));
+			infoFont.draw(spriteBatch, score, i*this.collumnWidth, (float) (Gdx.graphics.getHeight()*0.6) - (2*bounds.height));
+		}
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {

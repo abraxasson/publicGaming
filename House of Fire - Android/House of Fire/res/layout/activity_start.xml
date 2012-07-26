@@ -1,35 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:background="@drawable/background"
+    android:orientation="horizontal"
+    android:padding="20dp" >
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center_vertical|center_horizontal"
+                 android:orientation="vertical" >
 
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="@dimen/medal_text_margin"
+                     android:background="@color/medal_layout_background"
+                     android:padding="@dimen/medal_text_padding" >
 
-         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="20dp"
-            android:gravity="right"
-            android:orientation="vertical"
-            android:background="@drawable/background" >
-
-             <Button
-                 android:id="@+id/button_play"
-                 android:layout_width="200dp"
-                 android:layout_height="wrap_content"
-                 android:layout_margin="10dp"
-                 android:background="@drawable/btn_default"
-                 android:onClick="startClicked"
-                 android:text="@string/play"
-                 android:textColor="#FFF"
-                 android:textSize="@dimen/startButtonTextSize" />
+                     <TextView
+                         android:id="@+id/gold_text"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="@string/gold_text"
+                         android:textColor="@color/medal_text_color"
+                         android:textSize="@dimen/startButtonTextSize" />
+
+                     <ImageView
+                         android:id="@+id/imageView3"
+                         android:layout_width="30dp"
+                         android:layout_height="30dp"
+                         android:layout_marginLeft="20dp"
+                         android:src="@drawable/bronze" />
+                 </LinearLayout>
 
-             <Button
-                 android:id="@+id/button_instructions"
-                 android:layout_width="200dp"
-                 android:layout_height="wrap_content"
-                 android:layout_margin="10dp"
-                 android:background="@drawable/btn_default"
-                 android:onClick="instructionsClicked"
-                 android:text="@string/instructions"
-                 android:textColor="#FFF"
-                 android:textSize="@dimen/startButtonTextSize" />
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="@dimen/medal_text_margin"
+                     android:background="@color/medal_layout_background"
+                     android:padding="@dimen/medal_text_padding" >
+
+                     <TextView
+                         android:id="@+id/silver_text"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="@string/silver_text"
+                         android:textColor="@color/medal_text_color"
+                         android:textSize="@dimen/startButtonTextSize" />
+
+                     <ImageView
+                         android:id="@+id/imageView2"
+                         android:layout_width="30dp"
+                         android:layout_height="30dp"
+                         android:layout_marginLeft="20dp"
+                         android:scaleType="fitXY"
+                         android:src="@drawable/silber" />
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="@dimen/medal_text_margin"
+                     android:background="@color/medal_layout_background"
+                     android:orientation="horizontal"
+                     android:padding="@dimen/medal_text_padding" >
+
+                     <TextView
+                         android:id="@+id/bronze_text"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="@string/silver_text"
+                         android:textColor="@color/medal_text_color"
+                         android:textSize="@dimen/startButtonTextSize" />
+
+                     <ImageView
+                         android:id="@+id/imageView1"
+                         android:layout_width="30dp"
+                         android:layout_height="30dp"
+                         android:layout_marginLeft="20dp"
+                         android:scaleType="fitXY"
+                         android:src="@drawable/bronze" />
+                 </LinearLayout>
+
+             </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="right|center_vertical"
+                 android:orientation="vertical" >
+
+                 <Button
+                     android:id="@+id/button_play"
+                     android:layout_width="200dp"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="10dp"
+                     android:background="@drawable/btn_default"
+                     android:onClick="startClicked"
+                     android:text="@string/play"
+                     android:textColor="#FFF"
+                     android:textSize="@dimen/startButtonTextSize" />
+
+                 <Button
+                     android:id="@+id/button_instructions"
+                     android:layout_width="200dp"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="10dp"
+                     android:background="@drawable/btn_default"
+                     android:onClick="instructionsClicked"
+                     android:text="@string/instructions"
+                     android:textColor="#FFF"
+                     android:textSize="@dimen/startButtonTextSize" />
+
+             </LinearLayout>
 
         </LinearLayout>
