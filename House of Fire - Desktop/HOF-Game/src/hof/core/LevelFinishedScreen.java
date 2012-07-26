@@ -51,13 +51,13 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		int gold = 3 * diff;
 		
 		if (game.houseIndex == bronze) {
-			medal = LevelInfoMessage.BRONZE;
+			medal = LevelInfoMessage.BRONZE_MEDAL;
 		} else if (game.houseIndex == silver) {
-			medal = LevelInfoMessage.SILVER;
+			medal = LevelInfoMessage.SILVER_MEDAL;
 		} else if (game.houseIndex == gold) {
-			medal = LevelInfoMessage.GOLD;
+			medal = LevelInfoMessage.GOLD_MEDAL;
 		} else {
-			medal = LevelInfoMessage.NOTHING;
+			medal = LevelInfoMessage.NO_MEDAL;
 		}
 		return medal;
 	}
