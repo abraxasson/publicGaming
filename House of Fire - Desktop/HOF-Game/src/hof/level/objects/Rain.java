@@ -15,7 +15,7 @@ public class Rain extends AbstractCloud {
 	
 	public Rain(Pixel burningSpot){
 		super();
-		this.x = burningSpot.getX();
+		this.x = burningSpot.getX()-this.width/2;
 		this.setBurningSpot(burningSpot);
 		this.shower = Assets.loadRainParticles();
 		this.type = AbstractCloud.RAIN;
@@ -25,7 +25,7 @@ public class Rain extends AbstractCloud {
 	
 	public void draw(SpriteBatch spriteBatch){
 		super.draw(spriteBatch);
-		emitter.setPosition(burningSpot.getX(), this.y);
+		emitter.setPosition(this.x, this.y);
 		shower.draw(spriteBatch,Gdx.graphics.getDeltaTime());
 	}
 

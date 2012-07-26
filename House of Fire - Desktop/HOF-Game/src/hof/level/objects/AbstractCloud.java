@@ -16,12 +16,16 @@ public abstract class AbstractCloud {
 	protected int y;
 	protected float lifeTime;
 	protected boolean alive;
+	protected int width;
+	protected int height;
 	
 	protected AbstractCloud(){
 		this.texture = Assets.cloudTexture;
-		this.x = (int)(Math.random()*(Assets.CANVAS_WIDTH-texture.getWidth()));
-		this.y = (int)(Assets.CANVAS_HEIGHT*0.9);
 		this.alive = true;
+		this.width = 300;
+		this.height = 150;
+		this.x = (int)(Math.random()*(Assets.CANVAS_WIDTH-texture.getWidth())-width/2);
+		this.y = (int)(Assets.CANVAS_HEIGHT*0.9);
 	}
 
 	public void draw(SpriteBatch spriteBatch){
@@ -31,7 +35,7 @@ public abstract class AbstractCloud {
 		}
 		else{
 			//spriteBatch.draw(texture, x, y);
-			spriteBatch.draw(texture, x, y, 300, 150);
+			spriteBatch.draw(texture, x, y, width, height);
 		}
 	}
 	
