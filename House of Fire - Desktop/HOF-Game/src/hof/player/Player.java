@@ -10,6 +10,7 @@ public class Player {
 	private Color color;
 	private boolean isAlive;
 	private long lastInput;
+	private int bonuspoints;
 	
 	public Player(String name, InetAddress ip) {
 		this(name, ip, Color.WHITE);
@@ -68,5 +69,13 @@ public class Player {
 
 	public void setLastInput(long lastInput) {
 		this.lastInput = lastInput;
+	}
+
+	public int getBonuspoints() {
+		return bonuspoints;
+	}
+
+	public void setBonuspoints(int bonuspoints) {
+		this.bonuspoints = bonuspoints;
 	}
 }

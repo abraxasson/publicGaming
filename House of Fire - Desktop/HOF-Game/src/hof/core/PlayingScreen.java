@@ -62,6 +62,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
+		for(Player player : processing.getPlayerList()){
+			player.setScore(player.getScore()+player.getBonuspoints());
+			player.setBonuspoints(0);
+		}
 	}
 
 	@Override
@@ -124,7 +128,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		if (currentHouse.getFireList().size() == 0) {
 			for(Player player : this.processing.getPlayerList()){
-				player.setScore(10*(int)(player.getScore()+currentHouse.getHealthpoints()));
+				player.setBonuspoints((int)(currentHouse.getHealthpoints())*10);
 			}
 			game.setScreen(game.levelFinishedScreen);
 		}
