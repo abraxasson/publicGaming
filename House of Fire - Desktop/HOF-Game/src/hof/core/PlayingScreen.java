@@ -109,9 +109,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					}
 
 					if (input.getMessage().getX() < 1.5) {
-						fighter.getWaterJet().setStrength(4);
+						fighter.getWaterJet().setStrength(8);
 					} else if (input.getMessage().getX() > 8.5) {
-						fighter.getWaterJet().setStrength(-4);
+						fighter.getWaterJet().setStrength(-8);
 					}
 
 				}
