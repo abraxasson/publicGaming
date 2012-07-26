@@ -40,7 +40,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	private int state = ButtonInfoMessage.NORMAL;
 	private SensorManager mSensorManager;
-	private Sensor mGYROSCOPE;
+	private Sensor mACCELEROMETER;
 	ImageButton pfeil_links;
 	ImageButton pfeil_rechts;
 	TextView outputName;
@@ -88,8 +88,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// udpClient.start();
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		mGYROSCOPE = mSensorManager
-				.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+		mACCELEROMETER = mSensorManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		
 		WaterActivity.isActive = false;
 
@@ -111,11 +111,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mSensorManager.registerListener(this, mGYROSCOPE,
-				SensorManager.SENSOR_DELAY_FASTEST);
-		mSensorManager.registerListener(this, mGYROSCOPE,
-				SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
-		
+		mSensorManager.registerListener(this, mACCELEROMETER,
+				SensorManager.SENSOR_DELAY_UI);
 		
 	}
 
