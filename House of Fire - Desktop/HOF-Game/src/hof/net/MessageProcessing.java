@@ -77,9 +77,6 @@ public class MessageProcessing {
 		case LogoutInfo:
 			processLogoutMessage(address);
 			break;
-		case Retry:
-			System.out.println(message.toString());
-			break;
 		case WaterPressure:
 			System.out.println(message.toString());
 			break;
