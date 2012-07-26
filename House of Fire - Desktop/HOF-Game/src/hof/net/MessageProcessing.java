@@ -113,6 +113,8 @@ public class MessageProcessing {
 			activePlayers.add(player);
 			playerQueue.add(player);
 			player.setLastInput(System.currentTimeMillis());
+			udpClient.setIA(address);			
+			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b));
 			System.out.println("New Player online");
 		} else {
 			System.out.println("Spieler existiert bereits");
