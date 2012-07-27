@@ -368,19 +368,19 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
-			ff.getWaterJet().setStrength(200);
+			ff.getWaterJet().setStrength(8);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
-			ff.getWaterJet().setStrength(-200);
+			ff.getWaterJet().setStrength(-8);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.A)) {
-			ff.getWaterJet().setAngle(40);
+			ff.getWaterJet().setAngle(3);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.D)) {
-			ff.getWaterJet().setAngle(-40);
+			ff.getWaterJet().setAngle(-3);
 		}
 	}
 }
