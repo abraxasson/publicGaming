@@ -15,6 +15,7 @@ public class TimeLine {
 	private float percentage;
 	private Texture texture;
 	private int offset;
+	private int borderOff;
 	
 	public TimeLine() {
 		height = Assets.TIMELINE_HEIGHT;
@@ -22,7 +23,8 @@ public class TimeLine {
 		width = 0;
 		offset = Assets.TIMELINE_OFFSET;
 		maxWidth = Assets.TIMELINE_WIDTH;
-		texture = Assets.pureWhiteTextureRegion;
+		texture = Assets.pureWhiteTexture;
+		borderOff = 2;
 	}
 	
 	public void draw(SpriteBatch spriteBatch, House house) {
@@ -30,10 +32,12 @@ public class TimeLine {
 		width = (int) (maxWidth * percentage);
 
 		Color oldColor = spriteBatch.getColor();
+		spriteBatch.setColor(Color.BLACK);
+		spriteBatch.draw(texture, offset - borderOff,Gdx.graphics.getHeight() - height - offset - borderOff, maxWidth + (borderOff*2), height +  (borderOff*2), 0, 0, 1000, 50, false, false);
 		spriteBatch.setColor(Color.GRAY);
-		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, maxWidth, height, 0, 0, 8, 8, false, false);
+		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, maxWidth, height);
 		spriteBatch.setColor(Color.RED);
-		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, width , height, 0, 0, 8, 8, false, false);
+		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, width , height);
 		spriteBatch.setColor(oldColor);
 	}
 }

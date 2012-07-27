@@ -34,8 +34,9 @@ public class Assets {
 	
 	public static final int SMSBAR_HEIGHT = STATUS_BAR_HEIGHT / 2;
 	
-	public static Texture pureWhiteTextureRegion;
+	public static Texture pureWhiteTexture;
 	public static Texture borderTexture;
+	public static Texture timeLineTexture;
 	
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
@@ -65,6 +66,8 @@ public class Assets {
 		createAnimations();
 		loadSounds();
 		loadFonts();
+		System.out.println(TIMELINE_HEIGHT);
+		System.out.println(TIMELINE_WIDTH);
 	}
 
 	public static ParticleEffect loadWaterParticles() {
@@ -90,8 +93,9 @@ public class Assets {
 	}
 
 	private static void loadTextures() {
-		pureWhiteTextureRegion = new Texture(Gdx.files.internal("textures/8x8.png"));
+		pureWhiteTexture = new Texture(Gdx.files.internal("textures/8x8.png"));
 		borderTexture = new Texture(Gdx.files.internal("textures/border.png"));
+		timeLineTexture = new Texture(Gdx.files.internal("textures/timeline.png"));;
 		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
@@ -113,7 +117,6 @@ public class Assets {
 			} 
 			for (File dir : dirs) {
 				if (dir.isDirectory()) {
-					System.out.println(dir.getName());
 					File [] file = dir.listFiles();
 					String path = file[0].getPath().substring(file[0].getPath().indexOf('\\') + 1);
 					Texture house = new Texture(Gdx.files.internal(path));
@@ -124,6 +127,7 @@ public class Assets {
 			}
 		} catch (IOException e) {
 			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");
+			Gdx.app.exit();
 		}		
 	}
 	
@@ -149,8 +153,15 @@ public class Assets {
 		firefighter_right.dispose();
 		mainMenu.dispose();
 
+		pureWhiteTexture.dispose();
+		borderTexture.dispose();
+		timeLineTexture.dispose();
 		cloudTexture.dispose();
 		lightningTexture.dispose();
+		
+		for (Texture texture: houseList) {
+			texture.dispose();
+		}
 		
 //		buttonSound.dispose();
 		

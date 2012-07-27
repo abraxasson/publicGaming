@@ -89,7 +89,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.setColor(Color.BLACK);
 		TextBounds bounds = infoFont.getBounds("Test");
 		spriteBatch
-				.draw(Assets.pureWhiteTextureRegion,
+				.draw(Assets.pureWhiteTexture,
 						this.collumnWidth,
 						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5.1 * bounds.height)),
 						this.collumnWidth * 6, 15);

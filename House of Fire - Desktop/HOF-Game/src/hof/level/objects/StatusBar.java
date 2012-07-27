@@ -21,7 +21,7 @@ public class StatusBar {
 	
 	
 	public StatusBar()  {
-		texture = Assets.pureWhiteTextureRegion;
+		texture = Assets.pureWhiteTexture;
 		x = Assets.TIMELINE_WIDTH + (Assets.TIMELINE_WIDTH_OFFSET);
 		y= 0;
 		ranking = new Ranking();
@@ -114,17 +114,17 @@ public class StatusBar {
 			
 			TextBounds bounds;
 			bounds = font2.getBounds(lightningEffect);
-			spriteBatch.draw(Assets.pureWhiteTextureRegion, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			spriteBatch.draw(Assets.pureWhiteTexture, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
 			font2.draw(spriteBatch, lightningEffect, x, y);
 			
 			y -= 80;
 			bounds = font2.getBounds(rainEffect);
-			spriteBatch.draw(Assets.pureWhiteTextureRegion, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			spriteBatch.draw(Assets.pureWhiteTexture, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
 			font2.draw(spriteBatch, rainEffect, x, y);
 			
 			y -= 80;
 			bounds = font2.getBounds(pressureEffect);
-			spriteBatch.draw(Assets.pureWhiteTextureRegion, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
+			spriteBatch.draw(Assets.pureWhiteTexture, x, y, bounds.width, bounds.height, 0, 0, 8, 8, false, false);
 			font2.draw(spriteBatch, pressureEffect, x, y);
 			
 			y -= 80;
