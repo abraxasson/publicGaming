@@ -17,6 +17,9 @@ public class Settings {
 	private static final String waterAimSizeID = "waterAimSize";
 	private static final String playerTimeoutID = "playerTimeout";
 	private static final String maxPlayersID = "maxPlayers";
+	private static final String rainKeyWordID = "rainKeyWord";
+	private static final String lightningKeyWordID = "lightningKeyWord";
+	private static final String pressureKeyWordID = "pressureKeyWord";
 	
 	private static final String settingsPath = "settings";
 	private static Preferences prefs;
@@ -35,7 +38,9 @@ public class Settings {
 	public static float rainDamage;
 	public static float lightningLifeTime;	
 	public static float waterPressureLifeTime;
-
+	public static String rainKeyWord;
+	public static String lightningKeyWord;
+	public static String pressureKeyWord;
 
 	public static long playerTimeout;
 	public static int maxPlayers;
@@ -64,6 +69,9 @@ public class Settings {
 		waterAimSize = prefs.getFloat(waterAimSizeID, 10);
 		playerTimeout = prefs.getLong(playerTimeoutID, 5000l);
 		maxPlayers = prefs.getInt(maxPlayersID, 6);
+		rainKeyWord = prefs.get(rainKeyWordID, "RAIN");
+		lightningKeyWord = prefs.get(lightningKeyWordID, "LIGHTNING");
+		pressureKeyWord = prefs.get(pressureKeyWordID, "PRESSURE");
 
 		loadHighScoreSettings();
 		loadWordFilterSettings();
@@ -79,6 +87,9 @@ public class Settings {
 		prefs.putFloat(waterPressureLifeTimeID, waterPressureLifeTime);			
 		prefs.putFloat(rainDamageID, rainDamage);		
 		prefs.putFloat(rainLifeTimeID, rainLifeTime);
+		prefs.put(rainKeyWordID, rainKeyWord);
+		prefs.put(lightningKeyWordID, lightningKeyWord);
+		prefs.put(pressureKeyWordID, pressureKeyWord);
 		
 		prefs.putFloat(waterDamageID, waterDamage);		
 		prefs.putInt(waterPressureIncID, waterPressureInc);		

@@ -1,7 +1,5 @@
 package hof.core.utils;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,15 +17,18 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 public class Assets {
 
-	public static final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final int STATUS_BAR_HEIGHT = (int) d.getHeight();
-	public static final int STATUS_BAR_WIDTH = (int) (d.getWidth() / 6);
+	public static final int FRAME_WIDTH = Gdx.graphics.getWidth();
+	public static final int FRAME_HEIGHT = Gdx.graphics.getHeight();
+	public static final int STATUS_BAR_HEIGHT = FRAME_HEIGHT;
+	public static final int STATUS_BAR_WIDTH = FRAME_WIDTH / 6;
 	
-	public static final int TIMELINE_WIDTH = (int) (d.getWidth() - STATUS_BAR_WIDTH);
-	public static final int TIMELINE_HEIGHT = (int) (d.getHeight() / 15);
+	public static final int TIMELINE_OFFSET = 10;
+	public static final int TIMELINE_WIDTH_OFFSET = TIMELINE_OFFSET * 2;
+	public static final int TIMELINE_WIDTH = (int) (FRAME_WIDTH - STATUS_BAR_WIDTH) - (TIMELINE_WIDTH_OFFSET);
+	public static final int TIMELINE_HEIGHT = (int) (FRAME_HEIGHT / 15);
 	
-	public static final int CANVAS_HEIGHT = (int) (d.getHeight() - TIMELINE_HEIGHT);
-	public static final int CANVAS_WIDTH = TIMELINE_WIDTH;
+	public static final int CANVAS_HEIGHT = (int) (FRAME_HEIGHT - TIMELINE_HEIGHT);
+	public static final int CANVAS_WIDTH = FRAME_WIDTH - STATUS_BAR_WIDTH;
 	
 	public static final int RANKING_HEIGHT = STATUS_BAR_HEIGHT / 2;
 	

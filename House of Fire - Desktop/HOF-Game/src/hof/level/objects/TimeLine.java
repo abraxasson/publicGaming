@@ -14,11 +14,13 @@ public class TimeLine {
 	private int maxWidth;
 	private float percentage;
 	private Texture texture;
+	private int offset;
 	
 	public TimeLine() {
 		height = Assets.TIMELINE_HEIGHT;
 		percentage = 0.5f;
 		width = 0;
+		offset = Assets.TIMELINE_OFFSET;
 		maxWidth = Assets.TIMELINE_WIDTH;
 		texture = Assets.pureWhiteTextureRegion;
 	}
@@ -29,9 +31,9 @@ public class TimeLine {
 
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.GRAY);
-		spriteBatch.draw(texture, 0,Gdx.graphics.getHeight() - height, maxWidth, height, 0, 0, 8, 8, false, false);
+		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, maxWidth, height, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(Color.RED);
-		spriteBatch.draw(texture, 0,Gdx.graphics.getHeight() - height, width, height, 0, 0, 8, 8, false, false);
+		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, width , height, 0, 0, 8, 8, false, false);
 		spriteBatch.setColor(oldColor);
 	}
 }

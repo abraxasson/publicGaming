@@ -75,16 +75,18 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		Gdx.gl.glClearColor(0.08235f, 0f, 0.498f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// draws everything
 		spriteBatch.begin();
-		timeline.draw(spriteBatch, currentHouse);
-		statusBar.draw(spriteBatch);
-		fps.draw(spriteBatch);
 		currentHouse.draw(spriteBatch);
 		drawFirefighters();
+		
+		statusBar.draw(spriteBatch);
+		fps.draw(spriteBatch);
+		timeline.draw(spriteBatch, currentHouse);
+		
 		drawSpecialEffects();
 		spriteBatch.end();
 

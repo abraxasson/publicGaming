@@ -34,6 +34,6 @@ public class FPS {
 		     frames = 0;
 		  }
 		  font.setColor(Color.BLACK);
-		  font.draw(spriteBatch, fps + " fps", Assets.TIMELINE_WIDTH, Assets.RANKING_HEIGHT / 5);
+		  font.draw(spriteBatch, fps + " fps", Assets.TIMELINE_WIDTH  + Assets.TIMELINE_WIDTH_OFFSET +10, Assets.RANKING_HEIGHT / 5);
 	}
 }

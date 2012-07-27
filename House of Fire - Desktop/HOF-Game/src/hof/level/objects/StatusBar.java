@@ -22,7 +22,7 @@ public class StatusBar {
 	
 	public StatusBar()  {
 		texture = Assets.pureWhiteTextureRegion;
-		x = Assets.TIMELINE_WIDTH;
+		x = Assets.TIMELINE_WIDTH + (Assets.TIMELINE_WIDTH_OFFSET);
 		y= 0;
 		ranking = new Ranking();
 		sms = new SMS();
@@ -57,7 +57,7 @@ public class StatusBar {
 			heading = "Active Players: ";
 			ranking = "";
 			players = "0/" + Settings.maxPlayers;
-			x = Assets.TIMELINE_WIDTH + 10;
+			x = Assets.TIMELINE_WIDTH + Assets.TIMELINE_WIDTH_OFFSET + 10;
 			y = Assets.RANKING_HEIGHT;
 			wrap = Assets.STATUS_BAR_WIDTH;
 			
@@ -97,11 +97,11 @@ public class StatusBar {
 			font = Assets.text45Font;
 			font2 = Assets.text30Font;
 			heading = "SMS-Effects: ";
-			lightningEffect = "Lightning";
-			rainEffect = "Rain";
-			pressureEffect = "Pressure";
+			lightningEffect = Settings.lightningKeyWord;
+			rainEffect = Settings.rainKeyWord;
+			pressureEffect = Settings.pressureKeyWord;
 			telephoneNumber = Settings.TELEPHONE_NUMBER;
-			x = Assets.TIMELINE_WIDTH + 10;
+			x = Assets.TIMELINE_WIDTH + Assets.TIMELINE_WIDTH_OFFSET + 10;
 			y = Assets.STATUS_BAR_HEIGHT;
 		}
 		
