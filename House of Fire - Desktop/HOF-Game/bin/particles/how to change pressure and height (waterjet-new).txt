@@ -1,0 +1,5 @@
+- change emission between high 120 and high 300 to change water pressure (120 is minimum, 300 is maximum)
+- change life between high 400-500 and high 900-1000 (400-500 is minimum, 900-1000 is maximum height)
+
+
+
