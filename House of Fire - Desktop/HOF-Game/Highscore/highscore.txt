@@ -4,7 +4,7 @@
 4:  Florian  20200
 5:  Florian  18650
 6:  Florian  17980
-7:  Florian  9590
-8:  Florian  5890
-9:  Florian  3400
-10:  Florian  3360
+7:  Bonifaz  10900
+8:  Florian  9590
+9:  Florian  6970
+10:  Florian  5890

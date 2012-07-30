@@ -59,9 +59,7 @@ public class UdpServerThread extends Thread {
 				message =  (AbstractMessage) ois.readObject();
 				ois.close();
 				
-				//list.add(message);
 				processing.processMessage(message, address);
-				System.out.println(message);
 				
 
 			} catch (IOException e) {

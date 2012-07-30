@@ -140,11 +140,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
-			if (!currentHouse.getFireList().isEmpty()) {
-
-				processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
-
-			}
+			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
@@ -192,12 +188,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					Rain rain = (Rain) effect;
 					if (rain.getActive()) {
 						if (rain.getBurningSpot() == null) {
-							Fire fire = currentHouse.getFireList().get(
+							if (!currentHouse.getFireList().isEmpty()) {
+								Fire fire = currentHouse.getFireList().get(
 									(int) (Math.random() * currentHouse.getFireList().size()));
-							Pixel pixel = new Pixel(fire.getX(), fire.getY());
-							rain.setBurningSpot(pixel);
+								Pixel pixel = new Pixel(fire.getX(), fire.getY());
+								rain.setBurningSpot(pixel);
+							}
 						}
-						if (rain.getLifeTime() == Settings.rainLifeTime) {
+						if (rain.getLifeTime() == Settings.rainLifeTime && rain.getBurningSpot() != null) {
 							for (Fire fire : currentHouse.getFireList()) {
 								if (fire.getX() < rain.getBurningSpot().getX() + 10
 										&& fire.getX() > rain.getBurningSpot()

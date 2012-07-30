@@ -67,8 +67,6 @@ public class Assets {
 		createAnimations();
 		loadSounds();
 		loadFonts();
-		System.out.println(TIMELINE_HEIGHT);
-		System.out.println(TIMELINE_WIDTH);
 	}
 
 	public static ParticleEffect loadWaterParticles() {
