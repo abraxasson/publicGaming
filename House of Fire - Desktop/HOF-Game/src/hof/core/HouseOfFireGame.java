@@ -31,6 +31,7 @@ public class HouseOfFireGame extends Game {
 		int flames = 10;
 		for (Texture texture: Assets.houseList) {
 			houseList.add(new House(texture, flames));
+			flames += Settings.fireIncrease;
 		}
 		
 		houseIndex = 0;
