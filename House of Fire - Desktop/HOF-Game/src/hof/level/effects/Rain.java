@@ -1,7 +1,8 @@
-package hof.level.objects;
+package hof.level.effects;
 
 import hof.core.utils.Assets;
 import hof.core.utils.Settings;
+import hof.level.objects.Pixel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -13,10 +14,10 @@ public class Rain extends AbstractCloud {
 	private Pixel burningSpot;
 	private ParticleEmitter emitter;
 	
-	public Rain(Pixel burningSpot){
+	public Rain(){
 		super();
-		this.x = burningSpot.getX()-this.width/2;
-		this.setBurningSpot(burningSpot);
+		this.x = Assets.FRAME_WIDTH * 2;
+		burningSpot = null;
 		this.shower = Assets.loadRainParticles();
 		this.type = AbstractCloud.RAIN;
 		emitter = shower.getEmitters().get(0);
@@ -35,6 +36,7 @@ public class Rain extends AbstractCloud {
 
 	public void setBurningSpot(Pixel burningSpot) {
 		this.burningSpot = burningSpot;
+		this.x = burningSpot.getX()-this.width/2;
 	}
 
 }

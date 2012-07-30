@@ -3,7 +3,11 @@ package hof.net;
 import hof.core.utils.ColorList;
 import hof.core.utils.Settings;
 import hof.core.utils.WordFilter;
-import hof.level.objects.AbstractCloud;
+
+import hof.level.effects.AbstractCloud;
+import hof.level.effects.Lightning;
+import hof.level.effects.Rain;
+import hof.level.effects.WaterPressure;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.ButtonInfoMessage;
@@ -11,6 +15,7 @@ import hof.net.userMessages.PlayerInfoMessage;
 import hof.net.userMessages.SMSInfoMessage;
 import hof.net.userMessages.SensorInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
+import hof.net.userMessages.WaterPressureInfoMessage;
 import hof.player.ButtonInput;
 import hof.player.Player;
 import hof.player.SensorInput;
@@ -81,6 +86,8 @@ public class MessageProcessing {
 			break;
 		case WaterPressure:
 			System.out.println(message.toString());
+			WaterPressureInfoMessage pressureMessage = (WaterPressureInfoMessage) message;
+			processWaterPressureMessage(pressureMessage, address);
 			break;
 		case SensorInfo:
 			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
@@ -150,13 +157,51 @@ public class MessageProcessing {
 		}
 	}
 	
+	private void processWaterPressureMessage(WaterPressureInfoMessage pressureMessage, InetAddress address) {
+		//TODO waterpressure messages einbauen
+		if (checkPlayer(address)) {
+			Player player = getPlayer(address);
+			player.setAlive(true);
+			player.setLastInput(System.currentTimeMillis());
+			if (pressureMessage.getPressure() <= 0) {
+				player.setPumping(true);
+			} else {
+				player.setPumping(false);
+			}
+		}
+	}
+	
 	/**
 	 * Processes the received SmsMessages.
 	 * @param smsMessage to process
 	 * @param address - the address from where the message came
 	 */
 	private void processSmsMessage(SMSInfoMessage smsMessage,	InetAddress address) {		
-		this.smsQueue.add(smsMessage.getEffect());
+		AbstractCloud effect = null;
+		switch (smsMessage.getEffectType()) {
+		case SMSInfoMessage.LIGHTNING: 
+			effect = new Lightning();
+			break;
+		case SMSInfoMessage.RAIN:
+			effect = new Rain();
+			break;
+		case SMSInfoMessage.PRESSURE: 
+			effect = new WaterPressure();
+			break;
+		default:
+			double rand = Math.random();
+			if (rand < 0.2) {
+				effect = new Lightning();
+			} else if (rand < 0.6) {
+				effect = new Rain();
+			} else {
+				effect = new WaterPressure();
+			}
+			break;
+		}
+		if (effect != null) {
+			this.smsQueue.add(effect);
+		}
 	}
 	
 	/**
@@ -315,7 +360,10 @@ public class MessageProcessing {
 	 */
 	public void removeInactivePlayers(){
 		for(Player player : this.activePlayers){
-			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout){
+			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout && !player.isPumping()){
+				player.setAlive(false);
+			}
+			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout * 2){
 				player.setAlive(false);
 			}
 		}

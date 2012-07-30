@@ -1,19 +1,22 @@
 package hof.net.userMessages;
 
-import hof.level.objects.AbstractCloud;
 
 public class SMSInfoMessage extends AbstractMessage {
 
+	public static final int LIGHTNING = 0;
+	public static final int RAIN = 1;
+	public static final int PRESSURE = 2;
 	private static final long serialVersionUID = 37295872L;
-	private AbstractCloud effect;
 	
-	public SMSInfoMessage(AbstractCloud effect) {
+	private int type;
+	
+	public SMSInfoMessage(int effect) {
 		super(Type.SMSInfo);
-		this.effect = effect;
+		type = effect;
 	}
 
-	public AbstractCloud getEffect() {
-		return effect;
+	public int getEffectType() {
+		return type;
 	}
 
 }

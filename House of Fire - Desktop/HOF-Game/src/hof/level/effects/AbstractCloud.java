@@ -1,4 +1,4 @@
-package hof.level.objects;
+package hof.level.effects;
 
 import hof.core.utils.Assets;
 

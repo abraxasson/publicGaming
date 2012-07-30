@@ -2,17 +2,8 @@ package hof.core;
 
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
-import hof.level.objects.AbstractCloud;
-import hof.level.objects.Fire;
-import hof.level.objects.Firefighter;
-import hof.level.objects.House;
-import hof.level.objects.Lightning;
-import hof.level.objects.Pixel;
-import hof.level.objects.Rain;
-import hof.level.objects.StatusBar;
-import hof.level.objects.TimeLine;
-import hof.level.objects.WaterJet;
-import hof.level.objects.WaterPressure;
+import hof.level.effects.*;
+import hof.level.objects.*;
 import hof.net.MessageProcessing;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.SMSInfoMessage;
@@ -145,17 +136,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
-			processing.processMessage(new SMSInfoMessage( new Lightning(currentHouse
-						.getRandomBurningArea())), ia);
+			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
 			if (!currentHouse.getFireList().isEmpty()) {
-				Fire fire = currentHouse.getFireList().get(
-						(int) (Math.random() * currentHouse.getFireList()
-								.size()));
-				Pixel pixel = new Pixel(fire.getX(), fire.getY());
-				processing.processMessage(new SMSInfoMessage( new Rain(pixel)), ia);
+
+				processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
+
 			}
 		}
 
@@ -167,7 +155,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					iter.remove();
 				}
 			}
-			processing.processMessage(new SMSInfoMessage( new WaterPressure()), ia);
+			processing.processMessage(new SMSInfoMessage( SMSInfoMessage.PRESSURE), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -190,6 +178,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				case AbstractCloud.LIGHTNING:
 					Lightning lightning = (Lightning) effect;
 					if (lightning.getActive()) {
+						if (lightning.getHotSpot() == null) {
+							lightning.setHotSpot(currentHouse.getRandomBurningArea());
+						}
 						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
 							currentHouse.getFireList().add(
 									new Fire(lightning.getHotSpot()));
@@ -200,6 +191,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				case AbstractCloud.RAIN:
 					Rain rain = (Rain) effect;
 					if (rain.getActive()) {
+						if (rain.getBurningSpot() == null) {
+							Fire fire = currentHouse.getFireList().get(
+									(int) (Math.random() * currentHouse.getFireList().size()));
+							Pixel pixel = new Pixel(fire.getX(), fire.getY());
+							rain.setBurningSpot(pixel);
+						}
 						if (rain.getLifeTime() == Settings.rainLifeTime) {
 							for (Fire fire : currentHouse.getFireList()) {
 								if (fire.getX() < rain.getBurningSpot().getX() + 10
