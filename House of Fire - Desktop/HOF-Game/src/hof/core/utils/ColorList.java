@@ -21,8 +21,8 @@ public class ColorList {
 		colorList.add(Color.BLUE);
 		colorList.add(Color.YELLOW);
 		colorList.add(Color.GREEN);
-		colorList.add(Color.WHITE);
-		colorList.add(Color.BLACK);
+		colorList.add(Color.ORANGE);
+		colorList.add(Color.MAGENTA);
 	}
 	
 	public Color getNextColor() {
