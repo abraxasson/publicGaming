@@ -3,10 +3,12 @@ package hof.net;
 import hof.core.utils.ColorList;
 import hof.core.utils.Settings;
 import hof.core.utils.WordFilter;
+import hof.level.objects.AbstractCloud;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
+import hof.net.userMessages.SMSInfoMessage;
 import hof.net.userMessages.SensorInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import hof.player.ButtonInput;
@@ -24,6 +26,8 @@ public class MessageProcessing {
 	private LinkedList<Player> playerQueue;
 	private LinkedList<ButtonInput> buttonQueue;
 	private LinkedList<SensorInput> sensorQueue; 
+	private LinkedList<AbstractCloud> smsQueue;
+
 	private static MessageProcessing instance;
 	private ColorList colorList;
 	private WordFilter filter;
@@ -42,6 +46,7 @@ public class MessageProcessing {
 		playerQueue = new LinkedList<>();
 		buttonQueue = new LinkedList<ButtonInput>();
 		sensorQueue = new LinkedList<SensorInput>();
+		smsQueue = new LinkedList<>();
 		colorList = new ColorList();
 		filter = new WordFilter();
 		
@@ -80,6 +85,10 @@ public class MessageProcessing {
 		case SensorInfo:
 			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
 			processSensorMessage(sensorMessage, address);
+			break;
+		case SMSInfo:
+			SMSInfoMessage smsMessage = (SMSInfoMessage) message;
+			processSmsMessage(smsMessage, address);
 			break;
 		default:
 			break;
@@ -126,6 +135,12 @@ public class MessageProcessing {
 		}
 	}
 
+	/**
+	 * Processes the received SensorMessages.
+	 * It checks if there is an existing player, adds him to the list and sets him alive.
+	 * @param sensorMessage to process
+	 * @param address the address from where the message came
+	 */
 	private void processSensorMessage(SensorInfoMessage sensorMessage, InetAddress address){
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
@@ -135,6 +150,20 @@ public class MessageProcessing {
 		}
 	}
 	
+	/**
+	 * Processes the received SmsMessages.
+	 * @param smsMessage to process
+	 * @param address - the address from where the message came
+	 */
+	private void processSmsMessage(SMSInfoMessage smsMessage,	InetAddress address) {		
+		this.smsQueue.add(smsMessage.getEffect());
+	}
+	
+	/**
+	 * Returns the player which has the given InetAddress
+	 * @param address of the player
+	 * @return the player
+	 */
 	private Player getPlayer(InetAddress address) {
 		for (Player player : activePlayers) {
 			if (player.getIp().equals(address)) {
@@ -206,6 +235,23 @@ public class MessageProcessing {
 	public SensorInput getSensorInput(){
 		return this.sensorQueue.poll();
 	}
+	
+	/**
+	 * Return the Queue of the received text messages
+	 * @return LinkedList with AbstractCloud
+	 */
+	public LinkedList<AbstractCloud> getSmsQueue() {
+		return smsQueue;
+	}
+	
+	/**
+	 * Checks if LinkedList has any SMS
+	 * 
+	 * @return true if PlayerInput is available
+	 */
+	public boolean hasSMS() {
+		return !this.smsQueue.isEmpty();
+	}
 
 	/**
 	 * Checks if LinkedList has any PlayerInput
@@ -245,6 +291,7 @@ public class MessageProcessing {
 	public void emptyInputQueues() {
 		sensorQueue.clear();
 		buttonQueue.clear();
+		smsQueue.clear();
 	}
 
 	/**
@@ -263,13 +310,17 @@ public class MessageProcessing {
 		return check;
 	}
 	
+	/**
+	 * Removes inactive players from the game
+	 */
 	public void removeInactivePlayers(){
-		Iterator<Player> iter = this.activePlayers.iterator();
 		for(Player player : this.activePlayers){
 			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout){
 				player.setAlive(false);
 			}
 		}
+		
+		Iterator<Player> iter = this.activePlayers.iterator();
 		while(iter.hasNext()){
 			Player player = iter.next();
 			if(!player.getAlive()){

@@ -14,8 +14,8 @@ import hof.level.objects.TimeLine;
 import hof.level.objects.WaterJet;
 import hof.level.objects.WaterPressure;
 import hof.net.MessageProcessing;
-import hof.net.SmsProcessing;
 import hof.net.userMessages.ButtonInfoMessage;
+import hof.net.userMessages.SMSInfoMessage;
 import hof.player.ButtonInput;
 import hof.player.Player;
 import hof.player.SensorInput;
@@ -38,15 +38,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private StatusBar statusBar;
 	private House currentHouse;
 
-	private SmsProcessing smsProcessing;
 	private MessageProcessing processing;
 
 	private FPS fps;
+	InetAddress ia;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
-		smsProcessing = SmsProcessing.getInstance();
 
 		firefighters = new ArrayList<>();
 		ff = new Firefighter(new Player("Florian", null, Color.PINK),
@@ -56,6 +55,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
+		
+		try {
+			ia = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -66,11 +71,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			player.setScore(player.getScore()+player.getBonuspoints());
 			player.setBonuspoints(0);
 		}
-	}
-
-	@Override
-	public void hide() {
-		smsProcessing.getList().clear();
 	}
 
 	@Override
@@ -140,8 +140,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
-			this.smsProcessing.addEffect(new Lightning(currentHouse
-					.getRandomBurningArea()));
+			processing.processMessage(new SMSInfoMessage( new Lightning(currentHouse
+						.getRandomBurningArea())), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
@@ -150,20 +150,19 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						(int) (Math.random() * currentHouse.getFireList()
 								.size()));
 				Pixel pixel = new Pixel(fire.getX(), fire.getY());
-				this.smsProcessing.addEffect(new Rain(pixel));
+				processing.processMessage(new SMSInfoMessage( new Rain(pixel)), ia);
 			}
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			Iterator<AbstractCloud> iter = this.smsProcessing.getList()
-					.iterator();
+			Iterator<AbstractCloud> iter = processing.getSmsQueue().iterator();
 			while (iter.hasNext()) {
 				AbstractCloud message = (AbstractCloud) iter.next();
 				if (message.getType() == AbstractCloud.WATERPRESSURE) {
 					iter.remove();
 				}
 			}
-			this.smsProcessing.addEffect(new WaterPressure());
+			processing.processMessage(new SMSInfoMessage( new WaterPressure()), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
@@ -180,8 +179,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void drawSpecialEffects() {
-		if (!smsProcessing.getList().isEmpty()) {
-			for (AbstractCloud effect : smsProcessing.getList()) {
+		if (processing.hasSMS()) {
+			for (AbstractCloud effect : processing.getSmsQueue()) {
 				switch (effect.getType()) {
 				case AbstractCloud.LIGHTNING:
 					Lightning lightning = (Lightning) effect;
