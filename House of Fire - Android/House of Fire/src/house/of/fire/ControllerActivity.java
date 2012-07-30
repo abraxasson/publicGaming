@@ -11,10 +11,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -25,7 +23,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -73,14 +70,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	
 	long sensorTimeStamp = 0;
 	
-	ServiceConnection conn = new ServiceConnection() {
-		
-		public void onServiceDisconnected(ComponentName name) {
-		}
-		
-		public void onServiceConnected(ComponentName name, IBinder service) {
-		}
-	};
+	AndroidServer server;
 	
 
 	// vorrübergehende Lösung
@@ -166,7 +156,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	protected void onStart() {
 		super.onStart();
 		
-		bindService(new Intent(this, NetworkService.class), conn , Context.BIND_AUTO_CREATE);
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
+		
 		
 		udpClient = new UdpClientThread();
 		udpClient.start();
@@ -203,13 +194,14 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (conn != null)
-			unbindService(conn);;
 		
 		udpClient.sendObject(new ButtonInfoMessage(ButtonInfoMessage.NORMAL));
 		udpClient.setActive(false);
 		timerWaterRating.cancel();
 		timerWaterPressure.cancel();
+		
+
+		server.close();
 	}
 	
 	@Override

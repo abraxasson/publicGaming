@@ -41,12 +41,9 @@ public class StartActivity extends Activity{
 	}
 	
 	
-
-
 	@Override
 	protected void onStop() {
 		super.onStop();
-		stopService(new Intent(this, NetworkService.class));
 	}
 
 

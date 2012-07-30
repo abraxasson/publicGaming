@@ -50,17 +50,11 @@
             android:name=".GameOverActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="house.of.fire.gameover"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".LevelActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="house.of.fire.level"/>
-            </intent-filter>
         </activity>
         <receiver android:name="SMSReceiver">
             <intent-filter>

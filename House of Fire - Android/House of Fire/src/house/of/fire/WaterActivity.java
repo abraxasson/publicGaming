@@ -1,13 +1,10 @@
 package house.of.fire;
 
+import hof.net.android.AndroidServer;
 import hof.net.userMessages.ButtonInfoMessage;
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -33,15 +30,8 @@ public class WaterActivity extends Activity {
 
 	String name;
 	int color;
+	AndroidServer server;
 	
-	ServiceConnection conn = new ServiceConnection() {
-		
-		public void onServiceDisconnected(ComponentName name) {
-		}
-		
-		public void onServiceConnected(ComponentName name, IBinder service) {
-		}
-	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +63,8 @@ public class WaterActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-
-		bindService(new Intent(this, NetworkService.class), conn , Context.BIND_AUTO_CREATE);
+		
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 
 		Intent intent = getIntent();
 		waterLevel = intent
@@ -87,12 +77,8 @@ public class WaterActivity extends Activity {
 
 	@Override
 	protected void onStop() {
-
 		super.onStop();
-		
-		if (conn != null)
-			unbindService(conn);
-
+		server.close();
 	}
 
 	@Override

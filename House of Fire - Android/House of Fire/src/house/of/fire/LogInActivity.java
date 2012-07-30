@@ -1,19 +1,15 @@
 package house.of.fire;
 
+import hof.net.android.AndroidServer;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,15 +34,7 @@ public class LogInActivity extends Activity {
 	ProgressDialog progressDialog;
 
 	UdpClientThread udpClient;
-	
-	ServiceConnection conn = new ServiceConnection() {
-		
-		public void onServiceDisconnected(ComponentName name) {
-		}
-		
-		public void onServiceConnected(ComponentName name, IBinder service) {
-		}
-	};
+	AndroidServer server;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +68,8 @@ public class LogInActivity extends Activity {
 
 			}
 		});
+		
+		
 	}
 
 	@Override
@@ -87,8 +77,8 @@ public class LogInActivity extends Activity {
 
 		super.onStart();
 		
-		bindService(new Intent(this, NetworkService.class), conn , Context.BIND_AUTO_CREATE);
-
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
+		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(PREF_PLAYER_NAME, "");
 		nameEditText.setText(playerName);
@@ -105,14 +95,17 @@ public class LogInActivity extends Activity {
 		if (progressDialog != null){
 			progressDialog.dismiss();
 		}
-		
-		if (conn != null)
-			unbindService(conn);
-		
 		udpClient.setActive(false);
+		
+
+		server.close();
 	}
 	
-
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
 
 	public void onLogInButtonClicked(View view) {
 

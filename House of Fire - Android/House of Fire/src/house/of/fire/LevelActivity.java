@@ -1,15 +1,12 @@
 package house.of.fire;
 
+import hof.net.android.AndroidServer;
 import hof.net.userMessages.LevelInfoMessage;
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,14 +21,8 @@ public class LevelActivity extends Activity {
 	TextView outputText;
 	boolean lastLevel = false;
 	
-	ServiceConnection conn = new ServiceConnection() {
-		
-		public void onServiceDisconnected(ComponentName name) {
-						}
-		
-		public void onServiceConnected(ComponentName name, IBinder service) {
-		}
-	};
+	AndroidServer server;
+	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,9 +37,9 @@ public class LevelActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Intent intent = getIntent();
 		
-		bindService(new Intent(this, NetworkService.class), conn , Context.BIND_AUTO_CREATE);
+		server = AndroidServer.getInstance(this, AndroidServer.PORT);
+		Intent intent = getIntent();
 		
 		if (intent != null){
 			int level = intent.getIntExtra(EXTRA_LEVEL, 1);
@@ -92,8 +83,7 @@ public class LevelActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (conn != null)
-			unbindService(conn);
+		server.close();
 	}
 
 

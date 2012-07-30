@@ -18,7 +18,6 @@ import java.net.UnknownHostException;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
 import android.util.Log;
 
 public class AndroidServer extends Thread {
@@ -131,6 +130,10 @@ public class AndroidServer extends Thread {
 		return isActive;
 	}
 
+	public void removeAllInstancesAndClose(){
+		instanceCounter = 0;
+		close();
+	}
 	
 	public synchronized void close(){
 		instanceCounter--;
