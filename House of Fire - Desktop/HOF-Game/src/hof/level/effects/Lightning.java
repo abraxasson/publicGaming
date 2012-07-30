@@ -1,7 +1,8 @@
-package hof.level.objects;
+package hof.level.effects;
 
 import hof.core.utils.Assets;
 import hof.core.utils.Settings;
+import hof.level.objects.Pixel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,13 +12,13 @@ public class Lightning extends AbstractCloud {
 	private Texture flash;
 	private Pixel hotSpot;
 	
-	public Lightning(Pixel hotSpot){
+	public Lightning(){
 		super();
 		this.flash = Assets.lightningTexture;
-		this.hotSpot = hotSpot;
-		this.x = hotSpot.getX()+flash.getWidth();
+		this.x = Assets.FRAME_WIDTH * 2;
 		this.type = AbstractCloud.LIGHTNING;
 		this.lifeTime = Settings.lightningLifeTime;
+		hotSpot = null;
 	}
 	
 	@Override
@@ -29,6 +30,11 @@ public class Lightning extends AbstractCloud {
 		else{
 			spriteBatch.draw(flash, hotSpot.getX(), hotSpot.getY(), 150, 900);
 		}
+	}
+	
+	public void setHotSpot(Pixel hotSpot) {
+		this.hotSpot = hotSpot;
+		this.x = hotSpot.getX()+flash.getWidth();
 	}
 	
 	public Pixel getHotSpot(){

@@ -9,6 +9,7 @@ public class Player {
 	private int score;
 	private Color color;
 	private boolean isAlive;
+	private boolean isPumping;
 	private long lastInput;
 	private int bonuspoints;
 	
@@ -22,6 +23,7 @@ public class Player {
 		this.score = 0;
 		this.color = color;
 		isAlive = true;
+		setPumping(false);
 	}
 	
 	public String getName() {
@@ -77,5 +79,13 @@ public class Player {
 
 	public void setBonuspoints(int bonuspoints) {
 		this.bonuspoints = bonuspoints;
+	}
+
+	public boolean isPumping() {
+		return isPumping;
+	}
+
+	public void setPumping(boolean isPumping) {
+		this.isPumping = isPumping;
 	}
 }
