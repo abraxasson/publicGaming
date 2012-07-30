@@ -47,7 +47,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {
 			game.houseIndex = 0;
-			game.setScreen(game.mainMenuScreen);
+			game.setScreen(game.waitingForPlayersScreen);
 		}
 	}
 }
