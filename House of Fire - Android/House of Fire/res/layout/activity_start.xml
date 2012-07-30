@@ -5,6 +5,7 @@
     android:layout_centerVertical="true"
     android:background="@drawable/background"
     android:orientation="horizontal"
+    android:baselineAligned="false"
     android:padding="20dp" >
 
              <LinearLayout
@@ -74,7 +75,7 @@
                          android:id="@+id/bronze_text"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="@string/silver_text"
+                         android:text="@string/bronze_text"
                          android:textColor="@color/medal_text_color"
                          android:textSize="@dimen/startButtonTextSize" />
 
@@ -89,35 +90,35 @@
 
              </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:gravity="right|center_vertical"
-                 android:orientation="vertical" >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="right|center_vertical"
+          android:orientation="vertical" >
 
-                 <Button
-                     android:id="@+id/button_play"
-                     android:layout_width="200dp"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="10dp"
-                     android:background="@drawable/btn_default"
-                     android:onClick="startClicked"
-                     android:text="@string/play"
-                     android:textColor="#FFF"
-                     android:textSize="@dimen/startButtonTextSize" />
+          <Button
+              android:id="@+id/button_play"
+              android:layout_width="200dp"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:background="@drawable/btn_default"
+              android:onClick="startClicked"
+              android:text="@string/play"
+              android:textColor="#FFF"
+              android:textSize="@dimen/startButtonTextSize" />
 
-                 <Button
-                     android:id="@+id/button_instructions"
-                     android:layout_width="200dp"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="10dp"
-                     android:background="@drawable/btn_default"
-                     android:onClick="instructionsClicked"
-                     android:text="@string/instructions"
-                     android:textColor="#FFF"
-                     android:textSize="@dimen/startButtonTextSize" />
+          <Button
+              android:id="@+id/button_instructions"
+              android:layout_width="200dp"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:background="@drawable/btn_default"
+              android:onClick="instructionsClicked"
+              android:text="@string/instructions"
+              android:textColor="#FFF"
+              android:textSize="@dimen/startButtonTextSize" />
 
-             </LinearLayout>
+      </LinearLayout>
 
-        </LinearLayout>
+</LinearLayout>

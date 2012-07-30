@@ -31,14 +31,18 @@ public class StartActivity extends Activity{
 		int silverMedal = prefs.getInt(PREF_MEDAL_SILVER, 0);
 		int goldMedal = prefs.getInt(PREF_MEDAL_GOLD, 0);
 		
-		TextView textView = (TextView) findViewById(R.id.bronze_text);
-		textView.setText(getString(R.string.bronze_text, bronzeMedal));
+		TextView textView = (TextView) findViewById(R.id.gold_text);
+		textView.setText(getString(R.string.gold_text, goldMedal));
 		
 		textView = (TextView) findViewById(R.id.silver_text);
 		textView.setText(getString(R.string.silver_text, silverMedal));
 		
-		textView = (TextView) findViewById(R.id.gold_text);
-		textView.setText(getString(R.string.gold_text, goldMedal));
+		textView = (TextView) findViewById(R.id.bronze_text);
+		textView.setText(getString(R.string.bronze_text, bronzeMedal));
+		
+		
+		
+		
 	}
 
 
