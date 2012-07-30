@@ -42,6 +42,7 @@ public class Assets {
 	public static Texture firefighter_right;
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
+	public static Texture GameOverScreen;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static ArrayList<Texture> houseList;
@@ -103,6 +104,7 @@ public class Assets {
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
+		GameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
 	}
 	
 	private static void loadHouses() {

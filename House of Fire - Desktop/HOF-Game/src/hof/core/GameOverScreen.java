@@ -12,6 +12,7 @@ import hof.player.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
 public class GameOverScreen extends GameScreen<HouseOfFireGame> {
@@ -47,7 +48,12 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		Assets.text50Font.draw(spriteBatch, "GAME - OVER", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
+		spriteBatch.draw(Assets.GameOverScreen, 0, 0,
+				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		Color oldColor = spriteBatch.getColor();
+		spriteBatch.setColor(Color.WHITE);
+		fame.draw(spriteBatch, (int)(Gdx.graphics.getWidth()*0.8), (int)(Gdx.graphics.getHeight()*0.65));
+		spriteBatch.setColor(oldColor);
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 4000l) {

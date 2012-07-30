@@ -126,7 +126,18 @@ public class HallOfFame {
 			font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - bounds.width /2, height);
 			i++;
 		}
-		
+	}
+	
+	public void draw(SpriteBatch spriteBatch, int x, int y){
+		int i = 1;
+		int height = y;
+		for (Item item : highscoreSet) {
+			String text = "" + i + ":  " + item.toString();
+			TextBounds bounds = font.getBounds(text);
+			height -= bounds.height * 1.35;
+			font.draw(spriteBatch, text, x - bounds.width /2, height);
+			i++;
+		}
 	}
 	
 	class Item implements Comparable<Item>{
