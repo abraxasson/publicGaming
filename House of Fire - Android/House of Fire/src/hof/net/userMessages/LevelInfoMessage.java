@@ -19,6 +19,7 @@ public class LevelInfoMessage extends AbstractMessage {
 		super(Type.LevelInfo);
 		this.level = level;
 		this.eventType = eventType;
+		this.lastLevel = false;
 		this.medal = NO_MEDAL;
 	}
 	

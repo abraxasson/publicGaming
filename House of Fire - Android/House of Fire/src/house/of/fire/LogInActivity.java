@@ -1,12 +1,12 @@
 package house.of.fire;
 
 import hof.net.android.AndroidServer;
-import hof.net.android.SSDPNetworkClient;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,7 +28,6 @@ public class LogInActivity extends Activity {
 //	public final static String PREF_PLAYER_COLOR = "playerColor";
 
 	private AndroidServer server;
-	private SSDPNetworkClient explorer;
 	EditText nameEditText;
 	TextView outputText;
 	Button playButton;
@@ -145,5 +143,5 @@ public class LogInActivity extends Activity {
 		
 
 	}
-
+	
 }

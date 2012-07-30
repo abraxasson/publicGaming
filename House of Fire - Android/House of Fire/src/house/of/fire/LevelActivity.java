@@ -47,12 +47,15 @@ public class LevelActivity extends Activity {
 			
 			if (medalType == LevelInfoMessage.GOLD_MEDAL){
 				medalView.setImageResource(R.drawable.gold);
+				outputText.setText("Goldmedaille erhalten!");
 			}
 			else if (medalType == LevelInfoMessage.SILVER_MEDAL){
 				medalView.setImageResource(R.drawable.silber);
+				outputText.setText("Silbermedaille erhalten!");
 			}
 			else if (medalType == LevelInfoMessage.BRONZE_MEDAL){
 				medalView.setImageResource(R.drawable.bronze);
+				outputText.setText("Bronzemedaille erhalten!");
 			}
 			
 		}

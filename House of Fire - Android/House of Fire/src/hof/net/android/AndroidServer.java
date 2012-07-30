@@ -1,7 +1,6 @@
 package hof.net.android;
 
 import hof.net.userMessages.AbstractMessage;
-import hof.net.userMessages.GameOverInfoMessage;
 import hof.net.userMessages.LevelInfoMessage;
 import hof.net.userMessages.ValidationInfoMessage;
 import house.of.fire.ControllerActivity;
@@ -195,7 +194,7 @@ public class AndroidServer extends Thread {
 //			GameOverInfoMessage gameOver = (GameOverInfoMessage) message;
 			
 			Intent gameOverIntent = new Intent(context, GameOverActivity.class); 
-			gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			context.startActivity(gameOverIntent);
 			break;
 			

@@ -123,7 +123,6 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 		
 		udpClient = new UdpClientThread();
-		System.out.println("Test");
 		udpClient.start();
 
 		SharedPreferences prefs = PreferenceManager

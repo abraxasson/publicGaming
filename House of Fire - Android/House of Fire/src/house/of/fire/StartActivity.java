@@ -49,6 +49,12 @@ public class StartActivity extends Activity{
 	
 	public void instructionsClicked(View view){
 		startActivity(new Intent(StartActivity.this, InstructionsActivity.class));
+	}
+
+
+
+	public static String getTag() {
+		return TAG;
 	}   
 
 }
