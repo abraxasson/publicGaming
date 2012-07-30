@@ -72,6 +72,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			player.setBonuspoints(0);
 		}
 	}
+	
+	@Override
+	public void hide() {
+		processing.getSmsQueue().clear();
+	}
 
 	@Override
 	public void render(float delta) {
