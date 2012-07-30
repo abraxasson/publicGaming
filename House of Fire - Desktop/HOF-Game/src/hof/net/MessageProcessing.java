@@ -169,7 +169,6 @@ public class MessageProcessing {
 	}
 	
 	private void processWaterPressureMessage(WaterPressureInfoMessage pressureMessage) {
-		//TODO waterpressure messages einbauen
 		InetAddress address = pressureMessage.getIa();
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
@@ -211,22 +210,22 @@ public class MessageProcessing {
 		AbstractCloud effect = null;
 		switch (smsMessage.getEffectType()) {
 		case SMSInfoMessage.LIGHTNING: 
-			effect = new Lightning();
+			if (Lightning.isReady()) effect = new Lightning();
 			break;
 		case SMSInfoMessage.RAIN:
-			effect = new Rain();
+			if (Rain.isReady()) effect = new Rain();
 			break;
 		case SMSInfoMessage.PRESSURE: 
-			effect = new WaterPressure();
+			if (WaterPressure.isReady()) effect = new WaterPressure();
 			break;
 		default:
 			double rand = Math.random();
 			if (rand < 0.2) {
-				effect = new Lightning();
+				if (Lightning.isReady()) effect = new Lightning();
 			} else if (rand < 0.6) {
-				effect = new Rain();
+				if (Rain.isReady()) effect = new Rain();
 			} else {
-				effect = new WaterPressure();
+				if (WaterPressure.isReady()) effect = new WaterPressure();
 			}
 			break;
 		}

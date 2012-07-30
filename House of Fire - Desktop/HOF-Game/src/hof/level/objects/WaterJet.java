@@ -143,7 +143,7 @@ public class WaterJet {
 			waterJet.draw(spriteBatch, Gdx.graphics.getDeltaTime());
 			Color oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.BLACK);
-			//spriteBatch.draw(Assets.pureWhiteTexture, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
+			spriteBatch.draw(Assets.pureWhiteTexture, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
 			spriteBatch.setColor(oldColor);
 		} else {
 			streamArea.setX(0);

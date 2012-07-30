@@ -11,14 +11,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Lightning extends AbstractCloud {
 	private Texture flash;
 	private Pixel hotSpot;
+	private static long lastUsed;
 	
 	public Lightning(){
-		super();
+		super(Settings.lightningCooldown);
 		this.flash = Assets.lightningTexture;
 		this.x = Assets.FRAME_WIDTH * 2;
 		this.type = AbstractCloud.LIGHTNING;
 		this.lifeTime = Settings.lightningLifeTime;
 		hotSpot = null;
+		lastUsed = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -39,6 +41,14 @@ public class Lightning extends AbstractCloud {
 	
 	public Pixel getHotSpot(){
 		return this.hotSpot;
+	}
+	
+	public static boolean isReady() {
+		if (System.currentTimeMillis() - lastUsed >= cooldown) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

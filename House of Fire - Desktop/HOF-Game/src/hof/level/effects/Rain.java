@@ -13,15 +13,17 @@ public class Rain extends AbstractCloud {
 	private ParticleEffect shower;
 	private Pixel burningSpot;
 	private ParticleEmitter emitter;
+	private static long lastUsed;
 	
 	public Rain(){
-		super();
+		super(Settings.rainCooldown);
 		this.x = Assets.FRAME_WIDTH * 2;
 		burningSpot = null;
 		this.shower = Assets.loadRainParticles();
 		this.type = AbstractCloud.RAIN;
 		emitter = shower.getEmitters().get(0);
 		this.lifeTime = Settings.rainLifeTime;
+		lastUsed = System.currentTimeMillis();
 	}
 	
 	public void draw(SpriteBatch spriteBatch){
@@ -38,5 +40,12 @@ public class Rain extends AbstractCloud {
 		this.burningSpot = burningSpot;
 		this.x = burningSpot.getX()-this.width/2;
 	}
-
+	
+	public static boolean isReady() {
+		if (System.currentTimeMillis() - lastUsed >= cooldown) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

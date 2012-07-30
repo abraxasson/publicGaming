@@ -10,10 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class WaterPressure extends AbstractCloud {
 	public static final int WATERPRESSUREINC = Settings.waterPressureInc;
-
+	public static long lastUsed;
+	
 	public WaterPressure(){
+		super(Settings.pressureCooldown);
 		this.type = AbstractCloud.WATERPRESSURE;
 		this.lifeTime = Settings.waterPressureLifeTime;
+		lastUsed = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -30,4 +33,11 @@ public class WaterPressure extends AbstractCloud {
 		}
 	}
 	
+	public static boolean isReady() {
+		if (System.currentTimeMillis() - lastUsed >= cooldown) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
