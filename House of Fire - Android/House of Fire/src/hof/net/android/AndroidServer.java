@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.util.Log;
 
 public class AndroidServer extends Thread {
@@ -69,13 +70,13 @@ public class AndroidServer extends Thread {
 			this.socket = new DatagramSocket(port);
 			socket.setSoTimeout(3000);
 		} catch (IOException e) {
-			System.out.println("Server funktioniert nicht!");
-			System.out.println(e.getMessage());
+			Log.d(TAG, "Server funktioniert nicht!");
+			Log.d(TAG, e.getMessage());
 		}
 	}
 
 	public void run() {
-		System.out.println("Server wurde gestartet");
+		Log.d(TAG, "Server wurde gestartet");
 		while (isActive) {
 			try {
 				socket.receive(packet);
@@ -85,29 +86,29 @@ public class AndroidServer extends Thread {
 				ia = packet.getAddress();
 				
 				Log.w("Android Server", "Message received");
-				System.out.println(message);
 				messageProcessing(message);
 				ois.close();
 				
 			} catch (SocketTimeoutException ste) {
 				
 			} catch (IOException e) {
-				System.out.println("Fehler beim Empfang");
-				System.out.println(e.getMessage());
-				setActive(false);
+				Log.d(TAG, "Fehler beim Empfang");
+				Log.d(TAG, e.getMessage());
+				isActive = false;
 			} catch (ClassNotFoundException e) {
 				e.getCause();
 				e.getMessage();
 				e.printStackTrace();
 			}
 			catch (NullPointerException e) {
-				setActive(false);
+				isActive = false;
 				e.printStackTrace();
 			}
 
 		}
 		if(socket != null){
 			socket.close();
+			Log.d(TAG, "Socket closed");
 		}
 	}
 
@@ -130,9 +131,6 @@ public class AndroidServer extends Thread {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
 	
 	public synchronized void close(){
 		instanceCounter--;
@@ -142,9 +140,6 @@ public class AndroidServer extends Thread {
 			isActive = false;
 			
 			socket.disconnect();
-			socket.close();
-			
-			Log.d(TAG, "Socket closed");
 			this.notifyAll();
 		}
 	}
@@ -161,6 +156,8 @@ public class AndroidServer extends Thread {
 			b = (int)(val.getB()*255);
 			Log.d(TAG, message.toString());
 			
+			
+			//Intent intent = new Intent("house.of.fire.startgame");
 			Intent intent = new Intent(context, ControllerActivity.class);
 			context.startActivity(intent);
 
@@ -172,29 +169,34 @@ public class AndroidServer extends Thread {
 			level = lev.getLevel();
 			event = lev.getEventType();
 			medal = lev.getMedalType();
+			boolean lastLevel = lev.isLastLevel();
 			
 			Log.d(TAG, message.toString());
 			
 			if (event == LevelInfoMessage.STARTED){
+				//Intent gameIntent = new Intent("house.of.fire.startgame");
 				Intent gameIntent = new Intent(context, ControllerActivity.class);
 				gameIntent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
+				
 				context.startActivity(gameIntent);
 			}
 			else if (event == LevelInfoMessage.FINISHED){
+				//Intent levelIntent = new Intent("house.of.fire.level");
 				Intent levelIntent = new Intent(context, LevelActivity.class);
+				levelIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				levelIntent.putExtra(LevelActivity.EXTRA_LEVEL, level);
 				levelIntent.putExtra(LevelActivity.EXTRA_MEDAL, medal);
+				levelIntent.putExtra(LevelActivity.EXTRA_LASTLEVEL, lastLevel);
+				
 				context.startActivity(levelIntent);
 			}
 
 			break;
 
 		case GameOver:
-			
-//			GameOverInfoMessage gameOver = (GameOverInfoMessage) message;
-			
+			//Intent gameOverIntent = new Intent("house.of.fire.gameover");
 			Intent gameOverIntent = new Intent(context, GameOverActivity.class); 
-			gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			context.startActivity(gameOverIntent);
 			break;
 			

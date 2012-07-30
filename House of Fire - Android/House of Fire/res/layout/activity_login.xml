@@ -5,7 +5,7 @@
     android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="@dimen/padding_large" >
-
+
          <TextView
              android:id="@+id/output_text"
              android:layout_width="match_parent"
@@ -15,16 +15,19 @@
              android:text="@string/name"
              android:textColor="#fff"
              android:textSize="@dimen/header_login_textsize" />
-
+
          <EditText
              android:id="@+id/nameEditText"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_margin="10dp"
              android:ems="10"
              android:inputType="textPersonName"
-             android:textColor="#008b8b" />
-
+             android:textColor="#008b8b" 
+			 android:layout_margin="10dp">
+             <requestFocus />
+         </EditText>
+         
+
          <Button
              android:id="@+id/button_play"
              android:layout_width="wrap_content"

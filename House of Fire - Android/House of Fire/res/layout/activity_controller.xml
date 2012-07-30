@@ -1,18 +1,28 @@
 <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_fire" >
-
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/player_name_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#afff"
+        android:padding="4dp" >
+
         <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="0.12"
-            android:background="@color/medal_layout_background"
             android:text="Spielername"
+            android:textColor="#000"
             android:textSize="@dimen/padding_mega" />
+
+    </FrameLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout1"

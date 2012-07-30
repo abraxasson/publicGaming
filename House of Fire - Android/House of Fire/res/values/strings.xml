@@ -34,5 +34,6 @@
     <string name="silver_text">%1$d X</string>
     <string name="gold_text">%1$d X</string>
     <string name="retry_button">Nochmal?</string>
+    <string name="type_in_your_name">Type in your name</string>
 
 </resources>

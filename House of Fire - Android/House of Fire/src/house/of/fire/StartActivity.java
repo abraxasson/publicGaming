@@ -21,8 +21,7 @@ public class StartActivity extends Activity{
         setContentView(R.layout.activity_start);
 	}
 	
-	
-	
+		
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -39,12 +38,16 @@ public class StartActivity extends Activity{
 		
 		textView = (TextView) findViewById(R.id.bronze_text);
 		textView.setText(getString(R.string.bronze_text, bronzeMedal));
-		
-		
-		
-		
 	}
+	
+	
 
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		stopService(new Intent(this, NetworkService.class));
+	}
 
 
 	public void startClicked(View view){
@@ -54,11 +57,5 @@ public class StartActivity extends Activity{
 	public void instructionsClicked(View view){
 		startActivity(new Intent(StartActivity.this, InstructionsActivity.class));
 	}
-
-
-
-	public static String getTag() {
-		return TAG;
-	}   
 
 }

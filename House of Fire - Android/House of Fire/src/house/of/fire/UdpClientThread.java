@@ -24,6 +24,7 @@ public class UdpClientThread extends Thread {
 	private boolean isActive = true;
 	private LinkedList<DatagramPacket> list;
 
+
 	public UdpClientThread() {
 		list = new LinkedList<DatagramPacket>();
 
@@ -35,7 +36,6 @@ public class UdpClientThread extends Thread {
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void run() {
@@ -43,20 +43,25 @@ public class UdpClientThread extends Thread {
 
 		while (isActive || !list.isEmpty()) {
 			try {
-				while (!list.isEmpty()) {
-					toSocket.send(list.removeFirst());
-					Log.d(TAG, "Paket wurde gesendet");
+				synchronized (list) {
+					while (!list.isEmpty()) {
+						toSocket.send(list.removeFirst());
+						//Log.d(TAG, "Paket wurde gesendet");
+					}
+
+					if (isActive){
+						//Log.d(TAG, "Thread schläft!");
+						list.wait();
+						//Log.d(TAG, "Thread wacht auf! - List size: " + list.size());
+					}
 				}
 				
-				Log.d(TAG, "Thread schläft!");
-				synchronized (this) {
-					this.wait();
-				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				this.isActive = false;
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Log.d(TAG, "Thread interrupted");
+				//e.printStackTrace();
 			}
 		}
 
@@ -66,29 +71,35 @@ public class UdpClientThread extends Thread {
 		Log.d(TAG, "Thread finished");
 	}
 
-	public synchronized void setActive(boolean active) {
+	public void setActive(boolean active) {
 		this.isActive = active;
+
 		try {
-			notify();
+			//Log.d(TAG, "Thread set to: " + (active ? "active" : "inactive"));
+			synchronized (list) {
+				list.notifyAll();
+			}
 		} catch (java.lang.IllegalMonitorStateException e) {
 			Log.d(TAG, e.getMessage());
 		}
 	}
 
-	public synchronized void sendObject(AbstractMessage e) {
+	public void sendObject(AbstractMessage e) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
-			ObjectOutputStream stream = new ObjectOutputStream(baos);
-			stream.writeObject(e);
-			byte[] data = baos.toByteArray();
-			
-			DatagramPacket packet = new DatagramPacket(data, data.length, ia, port);
-			list.add(packet);
-			
-			stream.close();
-			Log.d(TAG, "packet geladen: " + e.toString());
-			
-			notify();
+			synchronized (list) {
+				ObjectOutputStream stream = new ObjectOutputStream(baos);
+				stream.writeObject(e);
+				byte[] data = baos.toByteArray();
+				DatagramPacket packet = new DatagramPacket(data, data.length, ia, port);
+				list.add(packet);
+				
+				stream.close();
+				//Log.d(TAG, "packet geladen: " + e.toString());
+				
+				list.notifyAll();
+			}
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

@@ -1,16 +1,19 @@
 package house.of.fire;
 
-import hof.net.android.AndroidServer;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,9 +28,7 @@ public class LogInActivity extends Activity {
 	private final static String TAG = LogInActivity.class.getSimpleName();
 
 	public final static String PREF_PLAYER_NAME = "playerName";
-//	public final static String PREF_PLAYER_COLOR = "playerColor";
 
-	private AndroidServer server;
 	EditText nameEditText;
 	TextView outputText;
 	Button playButton;
@@ -36,9 +37,16 @@ public class LogInActivity extends Activity {
 	int playerColor;
 	ProgressDialog progressDialog;
 
-	// ProgressDialog dialog = ProgressDialog.show(LogInActivity.this, "",
-	// "Loading. Please wait...", true);
 	UdpClientThread udpClient;
+	
+	ServiceConnection conn = new ServiceConnection() {
+		
+		public void onServiceDisconnected(ComponentName name) {
+		}
+		
+		public void onServiceConnected(ComponentName name, IBinder service) {
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +86,12 @@ public class LogInActivity extends Activity {
 	protected void onStart() {
 
 		super.onStart();
+		
+		bindService(new Intent(this, NetworkService.class), conn , Context.BIND_AUTO_CREATE);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(PREF_PLAYER_NAME, "");
 		nameEditText.setText(playerName);
-
-		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 
 		udpClient = new UdpClientThread();
 		udpClient.start();
@@ -98,19 +106,13 @@ public class LogInActivity extends Activity {
 			progressDialog.dismiss();
 		}
 		
+		if (conn != null)
+			unbindService(conn);
+		
 		udpClient.setActive(false);
 	}
 	
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		server.close();
-	}
-	
-//	public void finish() {
-//		server.close();
-//	}
 
 	public void onLogInButtonClicked(View view) {
 
@@ -126,8 +128,6 @@ public class LogInActivity extends Activity {
 
 		Log.d(TAG, "Player: " + playerName + " meldet sich an");
 
-		udpClient.sendObject(new PlayerInfoMessage(playerName));
-
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("Bitte warten...");
 		progressDialog.setCancelable(true);
@@ -141,7 +141,8 @@ public class LogInActivity extends Activity {
 		});
 		progressDialog.show();
 		
-
+		udpClient.sendObject(new PlayerInfoMessage(playerName));
 	}
+	
 	
 }

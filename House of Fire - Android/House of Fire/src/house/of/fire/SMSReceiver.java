@@ -1,7 +1,5 @@
 package house.of.fire;
 
-import hof.net.userMessages.SMSInfoMessage;
-import hof.net.userMessages.SensorInfoMessage;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +8,11 @@ import android.telephony.SmsMessage;
 
 public class SMSReceiver extends BroadcastReceiver {
 	
-	private UdpClientThread udpClient;
-
+	public static final String EXTRA_SMS_MESSAGE = "message";
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		udpClient = new UdpClientThread();
-		udpClient.start();
+
 		Bundle bundle = intent.getExtras();
 
 		Object messages[] = (Object[]) bundle.get("pdus");
@@ -25,31 +22,14 @@ public class SMSReceiver extends BroadcastReceiver {
 			smsMessage[i] = SmsMessage.createFromPdu((byte[]) messages[i]);
 		}
 		
+		Intent serviceIntent = new Intent(context, SMSService.class);
+		
 		String msg = smsMessage[0].getMessageBody();
-		msg.toLowerCase();
-		if(msg.contains("blitz") && msg.length()==5){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.LIGHTNING));
-			
-		}
+		msg = msg.toLowerCase().trim();
 		
-		if (msg.contains("regen") && msg.length()==5){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN));
-		}
+		serviceIntent.putExtra(EXTRA_SMS_MESSAGE, msg);
 		
-		if (msg.contains("wasserdruck") && msg.length()==11){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
-		}
-//		if (((msg.contains("blitz") || msg.contains("regen")) && msg.length()==5) || (msg.contains("wasserdruck") && msg.length()==11)){
-//			// Send sms to Game Server
-//			udpClient.sendObject(new SMSInfoMessage(msg);
-//			
-//		}
+		context.startService(serviceIntent);
 
-		// show first message
-		//Toast toast = Toast.makeText(context,
-		//		"Received SMS: " + smsMessage[0].getMessageBody(), Toast.LENGTH_LONG);
-		//toast.show();
-		
-		udpClient.setActive(false);
 	}
 }
