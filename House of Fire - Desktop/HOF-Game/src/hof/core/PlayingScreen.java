@@ -3,8 +3,17 @@ package hof.core;
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
-import hof.level.effects.*;
-import hof.level.objects.*;
+import hof.core.view.StatusBar;
+import hof.core.view.TimeLine;
+import hof.level.effects.AbstractCloud;
+import hof.level.effects.Lightning;
+import hof.level.effects.Rain;
+import hof.level.effects.WaterPressure;
+import hof.level.objects.Fire;
+import hof.level.objects.Firefighter;
+import hof.level.objects.House;
+import hof.level.objects.Pixel;
+import hof.level.objects.WaterJet;
 import hof.level.objects.WaterJet.State;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
@@ -18,6 +27,7 @@ import hof.player.SensorInput;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
@@ -90,10 +100,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		// checks if new players are available
 		checkPlayers();
+		Collections.sort(processing.getPlayerList());
 
 		// checks that the players stay inside the screen
 		keepInBounds();
-
 		moveFireFighter();
 
 		checkCollision();
@@ -202,12 +212,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				break;
 			case LEFT:
 				if (waterJet.getAngle() <= 135) {
-					waterJet.setAngle(40);
+					waterJet.setAngle(30);
 				}
 				break;
 			case RIGHT:
 				if (waterJet.getAngle() >= 45) {
-					waterJet.setAngle(-40);
+					waterJet.setAngle(-30);
 				}
 				break;
 			default:
@@ -216,12 +226,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			switch (waterJet.getStrengthState()) {
 			case UP:
 				if (waterJet.getStrength() < (Assets.CANVAS_HEIGHT) * 1.3) {
-					waterJet.setStrength(72);
+					waterJet.setStrength(96);
 				}
 				break;
 			case DOWN:
 				if (waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 5)) {
-					waterJet.setStrength(-72);
+					waterJet.setStrength(-96);
 				}
 				break;
 			case NORMAL:

@@ -29,7 +29,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		processing = MessageProcessing.getInstance();
 		udpClient = UdpClientThread.getInstance();
 		lastLevel = false;
-		collumnWidth = Gdx.graphics.getWidth() / 8;
+		collumnWidth = Gdx.graphics.getWidth() / 8 + 30;
 		infoFont = Assets.text45Font;
 		nameFont = Assets.menu45Font;
 	}
@@ -88,11 +88,10 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
 		TextBounds bounds = infoFont.getBounds("Test");
-		spriteBatch
-				.draw(Assets.pureWhiteTexture,
+		spriteBatch.draw(Assets.pureWhiteTexture,
 						this.collumnWidth,
 						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5.1 * bounds.height)),
-						this.collumnWidth * 6, 15);
+						(this.collumnWidth-30) * 6, 10);
 		spriteBatch.setColor(oldColor);
 		showScore();
 		spriteBatch.end();
@@ -112,8 +111,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			i++;
 			this.infoFont.setColor(player.getColor());
 			this.nameFont.setColor(player.getColor());
-			String oldScore = "" + player.getScore() + " Points";
-			String bonuspoints = "" + player.getBonuspoints() + " Bonuspts";
+			String oldScore = "" + player.getScore() + " ";
+			String bonuspoints = "" + player.getBonuspoints() + " ";
 			TextBounds bounds = infoFont.getBounds(player.getName());
 			nameFont.draw(spriteBatch, player.getName(), i * this.collumnWidth,
 					(float) (Gdx.graphics.getHeight() * 0.6));
@@ -126,7 +125,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					i * this.collumnWidth,
 					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (3.5 * bounds.height)));
 			int newPoints = player.getScore() + player.getBonuspoints();
-			String newScore = "" + newPoints + " Points";
+			String newScore = "" + newPoints + " ";
 			infoFont.draw(
 					spriteBatch,
 					newScore,

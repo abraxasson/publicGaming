@@ -2,6 +2,7 @@ package hof.core.utils;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -14,6 +15,7 @@ public class ColorList {
 		colorList = new ArrayList<Color>();
 		fillList();
 		index = 0;
+		Collections.shuffle(colorList);
 	}
 	
 	private void fillList() {

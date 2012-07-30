@@ -1,4 +1,4 @@
-package hof.level.objects;
+package hof.core.view;
 
 import hof.core.utils.Assets;
 import hof.core.utils.Settings;
@@ -44,7 +44,6 @@ public class StatusBar {
 		private BitmapFont font;
 		private BitmapFont font2;
 		private String heading;
-		private String ranking;
 		private String players;
 		private int x;
 		private int y;
@@ -55,7 +54,6 @@ public class StatusBar {
 			font = Assets.text45Font;
 			font2 = Assets.text30Font;
 			heading = "Active Players: ";
-			ranking = "";
 			players = "0/" + Settings.maxPlayers;
 			x = Assets.TIMELINE_WIDTH + Assets.TIMELINE_WIDTH_OFFSET + 10;
 			y = Assets.RANKING_HEIGHT;
@@ -64,20 +62,29 @@ public class StatusBar {
 		}
 		
 		public void draw (SpriteBatch spriteBatch) {
+			y = Assets.RANKING_HEIGHT;
 			updateText();
 			font.setColor(Color.BLACK);
 			font.drawWrapped(spriteBatch, players, x, y, wrap);
 			font2.setColor(Color.BLACK);
-			font2.drawWrapped(spriteBatch, heading, x, y - 40, wrap);
-			font2.drawMultiLine(spriteBatch, ranking, x, 300);
+			y-= 40;
+			font2.drawWrapped(spriteBatch, heading, x, y, wrap);
+			drawPlayerNames(spriteBatch);
 		}
 		
-		public void updateText() {
-			players = processing.getPlayerList().size() + "/6";
-			ranking = "";
+		private void drawPlayerNames(SpriteBatch spriteBatch) {
+			String text = "";
 			for (Player player: processing.getPlayerList()) {
-				ranking += player.getName() + " " + player.getScore() + "\n";
+				y-= 40;
+				text = player.getName() + " " + player.getScore();
+				font2.setColor(player.getColor());
+				font2.draw(spriteBatch, text, x, y);
 			}
+			
+		}
+
+		public void updateText() {
+			players = processing.getPlayerList().size() + "/6";			
 		}
 	}
 	

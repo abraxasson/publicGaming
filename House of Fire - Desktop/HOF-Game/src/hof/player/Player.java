@@ -3,7 +3,7 @@ import java.net.InetAddress;
 
 import com.badlogic.gdx.graphics.Color;
 
-public class Player {
+public class Player implements Comparable<Player> {
 	private String name;
 	private InetAddress ip;
 	private int score;
@@ -87,5 +87,10 @@ public class Player {
 
 	public void setPumping(boolean isPumping) {
 		this.isPumping = isPumping;
+	}
+
+	@Override
+	public int compareTo(Player p) {
+		return p.score - score;
 	}
 }

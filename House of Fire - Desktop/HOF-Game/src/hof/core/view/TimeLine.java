@@ -1,6 +1,7 @@
-package hof.level.objects;
+package hof.core.view;
 
 import hof.core.utils.Assets;
+import hof.level.objects.House;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

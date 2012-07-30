@@ -8,15 +8,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.TreeSet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HallOfFame {
 	
@@ -144,38 +143,37 @@ public class HallOfFame {
 		
 		private String playerName;
 		private int playerScore;
-		private Date date;
 		
 		public Item() {
 			playerName = "default";
 			playerScore = 0;
-			date = new Date();
 		}
 		
 		public Item (Player player) {
 			playerName = player.getName();
 			playerScore = player.getScore();
-			date = new Date();
 		}
 		
 		@Override
 		public String toString() {
-			return playerName + "  " + playerScore;
+			String score = "";
+			String hilf = "" + playerScore;
+			int dots = hilf.length() / 3;
+			if (hilf.length() % 3 == 0) {
+				dots--;
+			}
+			while (dots > 0) {
+				score = "." +  hilf.substring(hilf.length() - 3, hilf.length()) + score;
+				hilf = hilf.substring(0, hilf.length() - 3);
+				dots--;
+			}
+			score = hilf + score;
+			return playerName + "  " + score;
 		}
 
 		@Override
 		public int compareTo(Item otherItem) {
-			if (playerScore > otherItem.playerScore) {
-				return -1;
-			} else if (playerScore < otherItem.playerScore) {
-				return 1;
-			} else  {
-				if (date.after(otherItem.date)) {
-					return 1;
-				} else {
-					return -1;
-				}
-			}
+			return otherItem.playerScore - playerScore;
 		}
 	}
 }
