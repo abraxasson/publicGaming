@@ -4,6 +4,7 @@ import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
 import hof.net.MessageProcessing;
+import hof.net.UdpClientThread;
 import hof.net.UdpServerThread;
 import hof.net.userMessages.PlayerInfoMessage;
 
@@ -71,14 +72,13 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				InetAddress ia;
 				try {
 					ia = InetAddress.getLocalHost();
-					processing.processMessage(new PlayerInfoMessage("Florian"), ia);
-					processing.processMessage(new PlayerInfoMessage("Manuel"), ia);
+					UdpClientThread.getInstance().sendObject(new PlayerInfoMessage("Florian"), ia);
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
 			}
 			
-			
+			processing.processMessageQueue();
 			spriteBatch.begin();
 			fame.draw(spriteBatch);
 			String text = "Waiting for Players";

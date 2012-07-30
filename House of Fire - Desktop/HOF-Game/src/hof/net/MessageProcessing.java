@@ -11,6 +11,7 @@ import hof.level.effects.WaterPressure;
 import hof.net.userMessages.AbstractMessage;
 import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.ButtonInfoMessage;
+import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
 import hof.net.userMessages.SMSInfoMessage;
 import hof.net.userMessages.SensorInfoMessage;
@@ -27,6 +28,7 @@ import java.util.LinkedList;
 
 public class MessageProcessing {
 
+	private LinkedList<AbstractMessage> messageQueue;
 	private ArrayList<Player> activePlayers;
 	private LinkedList<Player> playerQueue;
 	private LinkedList<ButtonInput> buttonQueue;
@@ -47,6 +49,7 @@ public class MessageProcessing {
 	}
 
 	private MessageProcessing() {
+		messageQueue = new LinkedList<>();
 		activePlayers = new ArrayList<Player>();
 		playerQueue = new LinkedList<>();
 		buttonQueue = new LinkedList<ButtonInput>();
@@ -56,6 +59,12 @@ public class MessageProcessing {
 		filter = new WordFilter();
 		
 		udpClient = UdpClientThread.getInstance();
+	}
+	
+	public void processMessageQueue() {
+		if (!messageQueue.isEmpty()) {
+			processMessage(messageQueue.poll());
+		}
 	}
 
 	/**
@@ -67,35 +76,32 @@ public class MessageProcessing {
 	 * @param address
 	 *            the InetAddress of the sender
 	 */
-	public void processMessage(AbstractMessage message, InetAddress address) {
-		if (address == null) {
-			//return;
-		}
+	private void processMessage(AbstractMessage message) {
 		Type type = message.getType();
 		switch (type) {
 		case PlayerInfo:
 			PlayerInfoMessage playerMessage = (PlayerInfoMessage) message;
-			processPlayerMessage(playerMessage, address);
+			processPlayerMessage(playerMessage);
 			break;
 		case ButtonInfo:
 			ButtonInfoMessage inputMessage = (ButtonInfoMessage) message;
-			processButtonMessage(inputMessage, address);
+			processButtonMessage(inputMessage);
 			break;
 		case LogoutInfo:
-			processLogoutMessage(address);
+			LogoutInfoMessage logOutMessage = (LogoutInfoMessage) message;
+			processLogoutMessage(logOutMessage);
 			break;
 		case WaterPressure:
 			WaterPressureInfoMessage pressureMessage = (WaterPressureInfoMessage) message;
-			processWaterPressureMessage(pressureMessage, address);
+			processWaterPressureMessage(pressureMessage);
 			break;
 		case SensorInfo:
 			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
-			processSensorMessage(sensorMessage, address);
+			processSensorMessage(sensorMessage);
 			break;
 		case SMSInfo:
-			System.out.println(message);
 			SMSInfoMessage smsMessage = (SMSInfoMessage) message;
-			processSmsMessage(smsMessage, address);
+			processSmsMessage(smsMessage);
 			break;
 		default:
 			System.out.println("Paket unbekannt");
@@ -111,8 +117,9 @@ public class MessageProcessing {
 	 * @param message
 	 * @param address
 	 */
-	private void processPlayerMessage(PlayerInfoMessage message, InetAddress address) {
+	private void processPlayerMessage(PlayerInfoMessage message) {
 		Player player;
+		InetAddress address = message.getIa();
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
 			udpClient.sendObject(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
@@ -134,7 +141,8 @@ public class MessageProcessing {
 	 * @param inputMessage
 	 * @param address
 	 */
-	private void processButtonMessage(ButtonInfoMessage inputMessage,	InetAddress address) {
+	private void processButtonMessage(ButtonInfoMessage inputMessage) {
+		InetAddress address = inputMessage.getIa();
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
@@ -149,7 +157,8 @@ public class MessageProcessing {
 	 * @param sensorMessage to process
 	 * @param address the address from where the message came
 	 */
-	private void processSensorMessage(SensorInfoMessage sensorMessage, InetAddress address){
+	private void processSensorMessage(SensorInfoMessage sensorMessage){
+		InetAddress address = sensorMessage.getIa();
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
@@ -158,8 +167,9 @@ public class MessageProcessing {
 		}
 	}
 	
-	private void processWaterPressureMessage(WaterPressureInfoMessage pressureMessage, InetAddress address) {
+	private void processWaterPressureMessage(WaterPressureInfoMessage pressureMessage) {
 		//TODO waterpressure messages einbauen
+		InetAddress address = pressureMessage.getIa();
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
@@ -173,11 +183,29 @@ public class MessageProcessing {
 	}
 	
 	/**
+	 * Removes the player with the given InetAddress from the list of active
+	 * Players.
+	 * 
+	 * @param logoutMessage
+	 * @param address
+	 */
+	private void processLogoutMessage(LogoutInfoMessage logOutMessage) {
+		Iterator<Player> iter = activePlayers.iterator();
+		while (iter.hasNext()) {
+			Player player = iter.next();
+			if (logOutMessage.getIa().equals(player.getIp())) {
+				player.setAlive(false);
+				iter.remove();
+			}
+		}
+	}
+	
+	/**
 	 * Processes the received SmsMessages.
 	 * @param smsMessage to process
 	 * @param address - the address from where the message came
 	 */
-	private void processSmsMessage(SMSInfoMessage smsMessage,	InetAddress address) {		
+	private void processSmsMessage(SMSInfoMessage smsMessage) {		
 		AbstractCloud effect = null;
 		switch (smsMessage.getEffectType()) {
 		case SMSInfoMessage.LIGHTNING: 
@@ -217,24 +245,6 @@ public class MessageProcessing {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * Removes the player with the given InetAddress from the list of active
-	 * Players.
-	 * 
-	 * @param logoutMessage
-	 * @param address
-	 */
-	private void processLogoutMessage(InetAddress address) {
-		Iterator<Player> iter = activePlayers.iterator();
-		while (iter.hasNext()) {
-			Player player = iter.next();
-			if (address.equals(player.getIp())) {
-				player.setAlive(false);
-				iter.remove();
-			}
-		}
 	}
 
 	/**
@@ -354,6 +364,10 @@ public class MessageProcessing {
 			}
 		}
 		return check;
+	}
+	
+	public void addMessage(AbstractMessage message) {
+		messageQueue.add(message);
 	}
 	
 	/**

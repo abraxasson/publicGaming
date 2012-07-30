@@ -50,12 +50,20 @@ public class WaterJet {
 		emmitter.getLife().setHighMin(strength - change);
 	}
 	
+	public float getStrength() {
+		return emmitter.getLife().getHighMin();
+	}
+	
 	public void setAngle(int val ) {
 		float angle = emmitter.getAngle().getLowMin();
 		//angle += val * Gdx.graphics.getDeltaTime();
 		angle += val;
 		emmitter.getAngle().setLow(angle);
 		emmitter.getAngle().setHigh(angle - 10, angle + 10);
+	}
+	
+	public float getAngle() {
+		return emmitter.getAngle().getLowMin();
 	}
 	
 	public void changeDiameter(float diameter) {

@@ -57,9 +57,10 @@ public class UdpServerThread extends Thread {
 				ois = new ObjectInputStream(new ByteArrayInputStream(data));
 				
 				message =  (AbstractMessage) ois.readObject();
+				message.setIa(address);
 				ois.close();
 				
-				processing.processMessage(message, address);
+				processing.addMessage(message); 
 				
 			} catch (IOException e) {
 				System.out.println("Fehler beim Empfang");

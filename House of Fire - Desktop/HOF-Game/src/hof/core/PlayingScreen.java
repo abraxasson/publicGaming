@@ -1,10 +1,12 @@
 package hof.core;
 
+import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
 import hof.level.effects.*;
 import hof.level.objects.*;
 import hof.net.MessageProcessing;
+import hof.net.UdpClientThread;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.SMSInfoMessage;
 import hof.player.ButtonInput;
@@ -91,6 +93,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		moveFireFighter();
 
 		checkCollision();
+		
+		processing.processMessageQueue();
 
 		if (processing.hasSensorInput()) {
 			moveWaterJet();
@@ -130,18 +134,20 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		for (Firefighter fighter : firefighters) {
 			if (fighter.getPlayer().getIp()
 					.equals(input.getPlayer().getIp())) {
-				if (input.getMessage().getY() > 1.5) {
-					fighter.getWaterJet().setAngle(-3);
+				
+				WaterJet waterJet = fighter.getWaterJet();
+				if (input.getMessage().getY() > 1.5 && waterJet.getAngle() >= 45) {
+					waterJet.setAngle(-3);
 				} else if (input.getMessage().getY() < 1.5
 						&& input.getMessage().getY() > -1.5) {
-				} else if (input.getMessage().getY() < -1.5) {
-					fighter.getWaterJet().setAngle(3);
+				} else if (input.getMessage().getY() < -1.5 && waterJet.getAngle() <= 135) {
+					waterJet.setAngle(3);
 				}
 
-				if (input.getMessage().getX() < 1.5) {
-					fighter.getWaterJet().setStrength(-12);
-				} else if (input.getMessage().getX() > 8.5) {
-					fighter.getWaterJet().setStrength(12);
+				if (input.getMessage().getX() < 1.5 && waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 9)) {
+					waterJet.setStrength(-12);
+				} else if (input.getMessage().getX() > 8.5 && waterJet.getStrength() < (Assets.CANVAS_HEIGHT)) {
+					waterJet.setStrength(12);
 				}
 
 			}
@@ -297,7 +303,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				processing.processMessage(new ButtonInfoMessage(
+				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
 						ButtonInfoMessage.NORMAL), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -309,7 +315,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				processing.processMessage(new ButtonInfoMessage(
+				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
 						ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -321,7 +327,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				processing.processMessage(new ButtonInfoMessage(
+				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
 						ButtonInfoMessage.RIGHT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -329,11 +335,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
-			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
+			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
-			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
+			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
+//			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
@@ -344,7 +351,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					iter.remove();
 				}
 			}
-			processing.processMessage(new SMSInfoMessage( SMSInfoMessage.PRESSURE), ia);
+
+			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}
 
 	}
