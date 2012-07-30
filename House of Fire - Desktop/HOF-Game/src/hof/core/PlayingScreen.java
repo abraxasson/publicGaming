@@ -5,10 +5,12 @@ import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
 import hof.level.effects.*;
 import hof.level.objects.*;
+import hof.level.objects.WaterJet.State;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.SMSInfoMessage;
+import hof.net.userMessages.WaterPressureInfoMessage;
 import hof.player.ButtonInput;
 import hof.player.Player;
 import hof.player.SensorInput;
@@ -33,6 +35,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private FPS fps;
 	InetAddress ia;
+	private long finishedTime;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
@@ -44,7 +47,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
-		
+		finishedTime = 0;
+
 		try {
 			ia = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
@@ -56,12 +60,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
-		for(Player player : processing.getPlayerList()){
-			player.setScore(player.getScore()+player.getBonuspoints());
+		for (Player player : processing.getPlayerList()) {
+			player.setScore(player.getScore() + player.getBonuspoints());
 			player.setBonuspoints(0);
 		}
 	}
-	
+
 	@Override
 	public void hide() {
 		processing.getSmsQueue().clear();
@@ -76,11 +80,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
 		drawFirefighters();
-		
+
 		statusBar.draw(spriteBatch);
 		fps.draw(spriteBatch);
 		timeline.draw(spriteBatch, currentHouse);
-		
+
 		drawSpecialEffects();
 		spriteBatch.end();
 
@@ -93,22 +97,30 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		moveFireFighter();
 
 		checkCollision();
-		
+
 		processing.processMessageQueue();
 
-		if (processing.hasSensorInput()) {
-			moveWaterJet();
-		}
+		updateWaterJet();
 
 		if (!currentHouse.getAlive()) {
+			if (finishedTime == 0) {
+				finishedTime = System.currentTimeMillis();
+			} else if (System.currentTimeMillis() - finishedTime > 3000l) {
+				
+			}
 			game.setScreen(game.gameOverScreen);
 		}
 
 		if (currentHouse.getFireList().size() == 0) {
-			for(Player player : this.processing.getPlayerList()){
-				player.setBonuspoints((int)(currentHouse.getHealthpoints())*10);
+			for (Player player : this.processing.getPlayerList()) {
+				player.setBonuspoints((int) (currentHouse.getHealthpoints()) * 10);
 			}
-			game.setScreen(game.levelFinishedScreen);
+			
+			if (finishedTime == 0) {
+				finishedTime = System.currentTimeMillis();
+			} else if (System.currentTimeMillis() - finishedTime > 3000l) {
+				game.setScreen(game.levelFinishedScreen);
+			}
 		}
 
 		if (processing.getPlayerList().isEmpty()) {
@@ -127,29 +139,94 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		checkComputerInput();
 		this.processing.removeInactivePlayers();
+		processWaterPressure();
+	}
+
+	private void processWaterPressure(){
+		if(processing.hasWaterPressureMessage()){
+			WaterPressureInfoMessage waterInfoMessage = processing.getWaterPressureMessage();
+			for(Firefighter firefighter : this.firefighters){
+				if(firefighter.getPlayer().getIp().equals(waterInfoMessage.getIa())){
+					if (waterInfoMessage.getPressure() <= 0) {
+						firefighter.getWaterJet().setActive(false);
+					} else {
+						firefighter.getWaterJet().setActive(true);
+					}
+//					WaterJet waterJet = firefighter.getWaterJet();					
+//					waterJet.setSize(waterJet.getSize()*waterInfoMessage.getPressure()/100);
+				}
+			}
+		}
+	}
+	
+	private void updateWaterJet() {
+		if (processing.hasSensorInput()) {
+			checkWaterJetState();
+		}
+		moveWaterJet();
+	}
+	
+	private void checkWaterJetState() {
+		SensorInput input = processing.getSensorInput();
+		for (Firefighter fighter : firefighters) {
+			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
+
+				WaterJet waterJet = fighter.getWaterJet();
+				if (input.getMessage().getY() > 1.5) {
+					waterJet.setDirectionState(State.RIGHT);
+				} else if (input.getMessage().getY() < 1.5
+						&& input.getMessage().getY() > -1.5) {
+					waterJet.setDirectionState(State.NORMAL);
+				} else if (input.getMessage().getY() < -1.5) {
+					waterJet.setDirectionState(State.LEFT);
+				}
+
+				if (input.getMessage().getX() < 1.5) {
+					waterJet.setStrengthState(State.DOWN);
+				} else if (input.getMessage().getX() > 1.5
+						&& input.getMessage().getX() < 8.5) {
+					waterJet.setStrengthState(State.NORMAL);
+				} else if (input.getMessage().getX() > 8.5) {
+					waterJet.setStrengthState(State.UP);
+				}
+
+			}
+		}
 	}
 
 	private void moveWaterJet() {
-		SensorInput input = processing.getSensorInput();
 		for (Firefighter fighter : firefighters) {
-			if (fighter.getPlayer().getIp()
-					.equals(input.getPlayer().getIp())) {
-				
-				WaterJet waterJet = fighter.getWaterJet();
-				if (input.getMessage().getY() > 1.5 && waterJet.getAngle() >= 45) {
-					waterJet.setAngle(-3);
-				} else if (input.getMessage().getY() < 1.5
-						&& input.getMessage().getY() > -1.5) {
-				} else if (input.getMessage().getY() < -1.5 && waterJet.getAngle() <= 135) {
-					waterJet.setAngle(3);
+			WaterJet waterJet = fighter.getWaterJet();
+			switch (waterJet.getDirectionState()) {
+			case NORMAL:
+				break;
+			case LEFT:
+				if (waterJet.getAngle() <= 135) {
+					waterJet.setAngle(40);
 				}
-
-				if (input.getMessage().getX() < 1.5 && waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 9)) {
-					waterJet.setStrength(-12);
-				} else if (input.getMessage().getX() > 8.5 && waterJet.getStrength() < (Assets.CANVAS_HEIGHT)) {
-					waterJet.setStrength(12);
+				break;
+			case RIGHT:
+				if (waterJet.getAngle() >= 45) {
+					waterJet.setAngle(-40);
 				}
-
+				break;
+			default:
+				break;
+			}
+			switch (waterJet.getStrengthState()) {
+			case UP:
+				if (waterJet.getStrength() < (Assets.CANVAS_HEIGHT) * 1.3) {
+					waterJet.setStrength(72);
+				}
+				break;
+			case DOWN:
+				if (waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 5)) {
+					waterJet.setStrength(-72);
+				}
+				break;
+			case NORMAL:
+			default:
+				break;
 			}
 		}
 	}
@@ -162,7 +239,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					Lightning lightning = (Lightning) effect;
 					if (lightning.getActive()) {
 						if (lightning.getHotSpot() == null) {
-							lightning.setHotSpot(currentHouse.getRandomBurningArea());
+							lightning.setHotSpot(currentHouse
+									.getRandomBurningArea());
 						}
 						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
 							currentHouse.getFireList().add(
@@ -177,12 +255,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						if (rain.getBurningSpot() == null) {
 							if (!currentHouse.getFireList().isEmpty()) {
 								Fire fire = currentHouse.getFireList().get(
-									(int) (Math.random() * currentHouse.getFireList().size()));
-								Pixel pixel = new Pixel(fire.getX(), fire.getY());
+										(int) (Math.random() * currentHouse
+												.getFireList().size()));
+								Pixel pixel = new Pixel(fire.getX(),
+										fire.getY());
 								rain.setBurningSpot(pixel);
 							}
 						}
-						if (rain.getLifeTime() == Settings.rainLifeTime && rain.getBurningSpot() != null) {
+						if (rain.getLifeTime() == Settings.rainLifeTime
+								&& rain.getBurningSpot() != null) {
 							for (Fire fire : currentHouse.getFireList()) {
 								if (fire.getX() < rain.getBurningSpot().getX() + 10
 										&& fire.getX() > rain.getBurningSpot()
@@ -201,7 +282,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						if (waterPressure.getLifeTime() == Settings.waterPressureLifeTime) {
 							for (Firefighter firefighter : this.firefighters) {
 								WaterJet waterJet = firefighter.getWaterJet();
-								waterJet.setSize(waterJet.getSize()
+								waterJet.changeDiameter(waterJet.getSize()
 										+ WaterPressure.WATERPRESSUREINC);
 							}
 						}
@@ -209,7 +290,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					} else {
 						for (Firefighter firefighter : this.firefighters) {
 							WaterJet waterJet = firefighter.getWaterJet();
-							waterJet.setSize(Settings.waterAimSize);
+							waterJet.changeDiameter(Settings.waterAimSize);
 						}
 					}
 					break;
@@ -303,8 +384,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
-						ButtonInfoMessage.NORMAL), ia);
+				UdpClientThread.getInstance().sendObject(
+						new ButtonInfoMessage(ButtonInfoMessage.NORMAL), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -315,8 +396,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
-						ButtonInfoMessage.LEFT), ia);
+				UdpClientThread.getInstance().sendObject(
+						new ButtonInfoMessage(ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -327,20 +408,23 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(new ButtonInfoMessage(
-						ButtonInfoMessage.RIGHT), ia);
+				UdpClientThread.getInstance().sendObject(
+						new ButtonInfoMessage(ButtonInfoMessage.RIGHT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
-			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
+			UdpClientThread.getInstance().sendObject(
+					new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
-			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
-//			processing.processMessage(new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
+			UdpClientThread.getInstance().sendObject(
+					new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
+			// processing.processMessage(new
+			// SMSInfoMessage(SMSInfoMessage.RAIN), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
@@ -352,7 +436,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				}
 			}
 
-			UdpClientThread.getInstance().sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
+			UdpClientThread.getInstance().sendObject(
+					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}
 
 	}

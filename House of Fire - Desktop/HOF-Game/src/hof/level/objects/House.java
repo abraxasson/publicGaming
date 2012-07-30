@@ -111,7 +111,6 @@ public class House {
 		}
 		else{
 			isAlive = false;
-			System.out.println("Game Over!");
 		}
 	}
 	

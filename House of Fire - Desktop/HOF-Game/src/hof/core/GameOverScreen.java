@@ -35,7 +35,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 			fame.addPlayer(player);
 			udpClient.sendObject(new GameOverInfoMessage(), player.getIp());
 		}
-		
+		processing.getPlayerList().clear();
 	}
 	
 	@Override

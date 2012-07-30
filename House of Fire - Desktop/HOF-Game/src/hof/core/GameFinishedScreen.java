@@ -29,7 +29,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
 		}
-		
+		processing.getPlayerList().clear();
 	}
 	
 	@Override

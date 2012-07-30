@@ -18,6 +18,9 @@ public class WaterJet {
 	private float size;
 	private float x;
 	private float y;
+	private State directionState;
+	private State strengthState;
+	private boolean isActive;
 	
 	public WaterJet() {
 		waterJet = Assets.loadWaterParticles();
@@ -34,6 +37,10 @@ public class WaterJet {
 		
 		streamArea.setWidth(size);
 		streamArea.setHeight(size);
+		
+		isActive = true;
+		directionState = State.NORMAL;
+		strengthState = State.NORMAL;
 	}
 	
 	public void setPosition(float x, float y) {
@@ -44,8 +51,7 @@ public class WaterJet {
 	
 	public void setStrength(int change) {
 		float strength = emmitter.getLife().getHighMax();
-		//strength += change * Gdx.graphics.getDeltaTime();
-		strength += change;
+		strength += change * Gdx.graphics.getDeltaTime();
 		emmitter.getLife().setHigh(strength);
 		emmitter.getLife().setHighMin(strength - change);
 	}
@@ -56,8 +62,7 @@ public class WaterJet {
 	
 	public void setAngle(int val ) {
 		float angle = emmitter.getAngle().getLowMin();
-		//angle += val * Gdx.graphics.getDeltaTime();
-		angle += val;
+		angle += val * Gdx.graphics.getDeltaTime();
 		emmitter.getAngle().setLow(angle);
 		emmitter.getAngle().setHigh(angle - 10, angle + 10);
 	}
@@ -112,20 +117,47 @@ public class WaterJet {
 		return streamArea;
 	}
 	
-	public void setSize(float size){
-		this.size = size;
-	}
-	
 	public float getSize(){
 		return this.size;
 	}
 	
+	public State getStrengthState() {
+		return strengthState;
+	}
+
+	public void setStrengthState(State strengthState) {
+		this.strengthState = strengthState;
+	}
+
+	public State getDirectionState() {
+		return directionState;
+	}
+
+	public void setDirectionState(State directionState) {
+		this.directionState = directionState;
+	}
+
 	public void draw (SpriteBatch spriteBatch) {
-		updateRectangle();
-		waterJet.draw(spriteBatch, Gdx.graphics.getDeltaTime());
-		Color oldColor = spriteBatch.getColor();
-		spriteBatch.setColor(Color.BLACK);
-		//spriteBatch.draw(Assets.pureWhiteTexture, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
-		spriteBatch.setColor(oldColor);
+		if (isActive) {
+			updateRectangle();
+			waterJet.draw(spriteBatch, Gdx.graphics.getDeltaTime());
+			Color oldColor = spriteBatch.getColor();
+			spriteBatch.setColor(Color.BLACK);
+			//spriteBatch.draw(Assets.pureWhiteTexture, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
+			spriteBatch.setColor(oldColor);
+		} else {
+			streamArea.setX(0);
+			streamArea.setY(0);
+			streamArea.setWidth(0);
+			streamArea.setHeight(0);
+		}
+	}
+	
+	public void setActive(boolean active) {
+		isActive = active;
+	}
+	
+	public enum State {
+		LEFT, RIGHT, NORMAL, UP, DOWN;
 	}
 }

@@ -39,15 +39,15 @@ public class UdpClientThread extends Thread {
 	}
 
 	public void run() {
-		System.out.println("Thread gestartet -" + isActive);
+//		System.out.println("Thread gestartet -" + isActive);
 
 		while (isActive || !list.isEmpty()) {
 			try {
 				while (!list.isEmpty()) {
 					toSocket.send(list.removeFirst());
-					System.out.println("Paket wurde gesendet");
+//					System.out.println("Paket wurde gesendet");
 				}
-				System.out.println("Thread schläft!");
+//				System.out.println("Thread schläft!");
 				synchronized (this) {
 					this.wait();
 				}

@@ -34,6 +34,7 @@ public class MessageProcessing {
 	private LinkedList<ButtonInput> buttonQueue;
 	private LinkedList<SensorInput> sensorQueue; 
 	private LinkedList<AbstractCloud> smsQueue;
+	private LinkedList<WaterPressureInfoMessage> waterPressureQueue;
 
 	private static MessageProcessing instance;
 	private ColorList colorList;
@@ -57,7 +58,7 @@ public class MessageProcessing {
 		smsQueue = new LinkedList<>();
 		colorList = new ColorList();
 		filter = new WordFilter();
-		
+		waterPressureQueue = new LinkedList<WaterPressureInfoMessage>();
 		udpClient = UdpClientThread.getInstance();
 	}
 	
@@ -179,6 +180,7 @@ public class MessageProcessing {
 			} else {
 				player.setPumping(false);
 			}
+			waterPressureQueue.add(pressureMessage);
 		}
 	}
 	
@@ -283,6 +285,14 @@ public class MessageProcessing {
 		return buttonQueue.poll();
 	}
 	
+	public boolean hasWaterPressureMessage(){
+		return !this.waterPressureQueue.isEmpty();
+	}
+	
+	public WaterPressureInfoMessage getWaterPressureMessage(){
+		return this.waterPressureQueue.poll();
+	}
+	
 	/**
 	 * Returns the next SensorInput
 	 * 
@@ -348,6 +358,7 @@ public class MessageProcessing {
 		sensorQueue.clear();
 		buttonQueue.clear();
 		smsQueue.clear();
+		waterPressureQueue.clear();
 	}
 
 	/**
