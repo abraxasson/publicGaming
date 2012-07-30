@@ -18,5 +18,24 @@ public class SMSInfoMessage extends AbstractMessage {
 	public int getEffectType() {
 		return type;
 	}
-
+	
+	@Override
+	public String toString() {
+		String typ = "";
+		switch (type) {
+		case LIGHTNING:
+			typ = "LIGHTNING";
+			break;
+		case RAIN:
+			typ = "RAIN";
+			break;
+		case PRESSURE:
+			typ = "PRESSURE";
+			break;
+		default: 
+			typ = "default";
+			break;
+		}
+		return super.toString() + " " + typ;
+	}
 }

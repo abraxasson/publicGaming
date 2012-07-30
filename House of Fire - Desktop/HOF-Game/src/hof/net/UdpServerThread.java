@@ -61,7 +61,6 @@ public class UdpServerThread extends Thread {
 				
 				processing.processMessage(message, address);
 				
-
 			} catch (IOException e) {
 				System.out.println("Fehler beim Empfang");
 				System.out.println(e.getMessage());

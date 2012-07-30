@@ -85,7 +85,6 @@ public class MessageProcessing {
 			processLogoutMessage(address);
 			break;
 		case WaterPressure:
-			System.out.println(message.toString());
 			WaterPressureInfoMessage pressureMessage = (WaterPressureInfoMessage) message;
 			processWaterPressureMessage(pressureMessage, address);
 			break;
@@ -94,10 +93,12 @@ public class MessageProcessing {
 			processSensorMessage(sensorMessage, address);
 			break;
 		case SMSInfo:
+			System.out.println(message);
 			SMSInfoMessage smsMessage = (SMSInfoMessage) message;
 			processSmsMessage(smsMessage, address);
 			break;
 		default:
+			System.out.println("Paket unbekannt");
 			break;
 		}
 	}
