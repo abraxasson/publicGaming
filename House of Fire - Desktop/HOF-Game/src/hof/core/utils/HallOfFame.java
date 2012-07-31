@@ -130,11 +130,14 @@ public class HallOfFame {
 	public void draw(SpriteBatch spriteBatch, int x, int y){
 		int i = 1;
 		int height = y;
+		BitmapFont font2 = Assets.highscore40Font;
+		TextBounds bounds = font2.getBounds("Highscore");
+		font2.draw(spriteBatch, "Highscore\n", x - bounds.width /2, height);
 		for (Item item : highscoreSet) {
 			String text = "" + i + ":  " + item.toString();
-			TextBounds bounds = font.getBounds(text);
+			bounds = font2.getBounds(text);
 			height -= bounds.height * 1.35;
-			font.draw(spriteBatch, text, x - bounds.width /2, height);
+			font2.draw(spriteBatch, text, x - bounds.width /2, height);
 			i++;
 		}
 	}
