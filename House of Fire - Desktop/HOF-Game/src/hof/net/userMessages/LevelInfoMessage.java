@@ -5,9 +5,9 @@ public class LevelInfoMessage extends AbstractMessage {
 	public static final int FINISHED = 2;
 	
 	public static final int NO_MEDAL = 0;
-	public static final int BRONZE_MEDAL = 2;
-	public static final int SILVER_MEDAL = 4;
-	public static final int GOLD_MEDAL = 6;
+	public static final int BRONZE_MEDAL = 1;
+	public static final int SILVER_MEDAL = 2;
+	public static final int GOLD_MEDAL = 4;
 	private static final long serialVersionUID = 37295872L;
 	private int level;
 	private int eventType;
