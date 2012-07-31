@@ -57,7 +57,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.WHITE);
-		fame.draw(spriteBatch, (int)(Gdx.graphics.getWidth()*0.8), (int)(Gdx.graphics.getHeight()*0.60));
+		fame.draw(spriteBatch, (int)(Gdx.graphics.getWidth()*0.8), (int)(Gdx.graphics.getHeight()*0.60),Assets.highscore40Font);
 		spriteBatch.setColor(oldColor);
 		spriteBatch.end();
 		
