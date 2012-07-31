@@ -1,5 +1,6 @@
 package hof.core.utils;
 
+import hof.core.GameOverScreen;
 import hof.player.Player;
 
 import java.io.BufferedReader;
@@ -143,7 +144,7 @@ public class HallOfFame {
 			String text = "" + i + ":  " + item.toString();
 			bounds = font.getBounds(text);
 			height -= bounds.height * 1.35;
-			if(height > (Gdx.graphics.getHeight()/4)-bounds.height){
+			if(height -bounds.height > GameOverScreen.getMinRankingHeight()){
 				font.draw(spriteBatch, text, x - bounds.width / 2, height);
 				i++;
 			}

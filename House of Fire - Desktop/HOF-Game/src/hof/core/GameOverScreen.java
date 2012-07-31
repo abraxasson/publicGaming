@@ -25,11 +25,14 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 	private MessageProcessing processing;
 	private ParticleEffect[] smokeArray;
 	private ArrayList<Pixel> smokingArea;
+	private static int  minRankingHeight = 1000000;
+	private static int minRankingWidth = 1000000;
 
 	public GameOverScreen(HouseOfFireGame game) {
 		super(game);
 		smokingArea = new ArrayList<Pixel>();
 		this.setSmokingArea(Assets.smokingArea);
+		this.setMinRankingArea(Assets.smokingArea);
 		smokeArray = new ParticleEffect[5];
 		Pixel pixel;
 		for(int i = 0;i<smokeArray.length;i++){
@@ -88,6 +91,30 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		return pixel;
 	}
 
+	private void setMinRankingArea(BufferedImage img){
+		Color c = Color.WHITE;
+		double verhaeltnisX = ((double) Gdx.graphics.getWidth() / ((double) img
+				.getWidth()));
+		double verhaeltnisY = ((double) Gdx.graphics.getHeight() / ((double) img
+				.getHeight()));
+		for (int x = 0; x < img.getWidth(); x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				int rgb = img.getRGB(x, y);
+				Color color = new Color(rgb);
+				if (color.toString().equals(c.toString())) {
+					int x1 = (int) (x * verhaeltnisX);
+					int y1 = (int) ((img.getHeight() - y) * verhaeltnisY);
+					if(minRankingHeight > y1){
+						minRankingHeight = y1;
+					}
+					else if(minRankingWidth < x1){
+						minRankingWidth = x1;
+					}
+				}
+			}
+		}
+	}
+	
 	private void setSmokingArea(BufferedImage img) {
 		Color c = Color.BLACK;
 		double verhaeltnisX = ((double) Gdx.graphics.getWidth() / ((double) img
@@ -106,5 +133,13 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 				}
 			}
 		}
+	}
+	
+	public static int getMinRankingWidth(){
+		return minRankingWidth;
+	}
+	
+	public static int getMinRankingHeight(){
+		return minRankingHeight;
 	}
 }
