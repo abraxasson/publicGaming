@@ -14,11 +14,14 @@ import com.badlogic.gdx.graphics.Texture;
 public class HouseOfFireGame extends Game {
 
 	Screen mainMenuScreen;
+	Screen instructionsScreen;
+	Screen highScoreScreen;
 	Screen waitingForPlayersScreen;
 	Screen playingScreen;
 	Screen gameOverScreen;
 	Screen levelFinishedScreen;
 	Screen gameFinishedScreen;
+	
 	
 	ArrayList<House> houseList;
 	int houseIndex;
@@ -37,6 +40,8 @@ public class HouseOfFireGame extends Game {
 		houseIndex = 0;
 		
 		mainMenuScreen = new MainMenuScreen(this);
+		instructionsScreen = new InstructionsScreen(this);
+		highScoreScreen = new HighScoreScreen(this);
 		waitingForPlayersScreen = new WaitingForPlayersScreen(this);
 		playingScreen = new PlayingScreen(this);
 		gameOverScreen = new GameOverScreen(this);

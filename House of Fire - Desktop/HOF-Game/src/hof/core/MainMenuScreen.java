@@ -72,15 +72,19 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		if (instructionsButton.wasPressed()) {
-			System.out.println("Anleitung");
+			game.setScreen(game.instructionsScreen);
 		}
 		
 		if (settingsButton.wasPressed()) {
-			System.out.println("Einstellungen");
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+//					new SettingsDialog();
+				}
+			});
 		}
 		
 		if (highScoreButton.wasPressed()) {
-			System.out.println("Highscore");
+			game.setScreen(game.highScoreScreen);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE) || endButton.wasPressed()) {
