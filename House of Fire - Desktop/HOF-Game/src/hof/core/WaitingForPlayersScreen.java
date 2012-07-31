@@ -80,7 +80,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			
 			processing.processMessageQueue();
 			spriteBatch.begin();
-			fame.draw(spriteBatch);
+			fame.draw(spriteBatch, Assets.text50Font, Color.BLACK);
 			String text = "Waiting for Players";
 			font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - font.getBounds(text).width /2, Gdx.graphics.getHeight() / 4);
 			returnButton.draw(spriteBatch);

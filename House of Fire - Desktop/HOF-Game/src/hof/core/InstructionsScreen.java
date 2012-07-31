@@ -10,7 +10,7 @@ import hof.core.utils.GameScreen;
 
 public class InstructionsScreen extends GameScreen<HouseOfFireGame> {
 
-	SimpleButton returnButton;
+	private SimpleButton returnButton;
 	private boolean wasTouched;
 	
 	public InstructionsScreen(HouseOfFireGame game) {

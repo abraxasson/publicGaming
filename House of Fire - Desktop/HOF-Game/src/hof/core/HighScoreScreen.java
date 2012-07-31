@@ -4,20 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.core.utils.HallOfFame;
 
 public class HighScoreScreen extends GameScreen<HouseOfFireGame> {
 	
-	SimpleButton returnButton;
+	private SimpleButton returnButton;
 	private boolean wasTouched;
+	private BitmapFont font;
+	private HallOfFame fame;
 	
 	public HighScoreScreen(HouseOfFireGame game) {
 		super(game);
+		font = Assets.highscore50Font;
+		fame = HallOfFame.getInstance();
 		returnButton = new SimpleButton("Return", Assets.menu45Font, Color.BLACK);
 		returnButton.centerHorizontallyOn(Gdx.graphics.getWidth()/2);
-		returnButton.centerVerticallyOn(Gdx.graphics.getHeight()/2);
+		returnButton.centerVerticallyOn(Gdx.graphics.getHeight()/10);
 	}
 	
 	@Override
@@ -35,6 +41,8 @@ public class HighScoreScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
+		fame.draw(spriteBatch, Assets.highscore50Font, Color.BLACK);
+		font.draw(spriteBatch, "", 0, 0);
 		returnButton.draw(spriteBatch);
 		spriteBatch.end();
 	}

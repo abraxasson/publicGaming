@@ -60,6 +60,7 @@ public class Assets {
 	public static BitmapFont menu45Font;
 	public static BitmapFont highscore30Font;
 	public static BitmapFont highscore40Font;
+	public static BitmapFont highscore50Font;
 	
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
@@ -146,6 +147,7 @@ public class Assets {
 		text50Font = new BitmapFont(Gdx.files.internal("fonts/text50.fnt"), Gdx.files.internal("fonts/text50.png"), false);
 		highscore30Font = new BitmapFont(Gdx.files.internal("fonts/Highscore30.fnt"),Gdx.files.internal("fonts/Highscore30.png"),false);
 		highscore40Font = new BitmapFont(Gdx.files.internal("fonts/Highscore40.fnt"),Gdx.files.internal("fonts/Highscore40.png"),false);
+		highscore50Font = new BitmapFont(Gdx.files.internal("fonts/highscore50.fnt"),Gdx.files.internal("fonts/highscore50.png"),false);;
 	}
 	
 	public static void playSound (Sound sound) {

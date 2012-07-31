@@ -13,6 +13,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,7 +23,6 @@ public class HallOfFame {
 	private static HallOfFame instance;
 	private TreeSet<Item> highscoreSet;
 	private File hihscoreFile;
-	private BitmapFont font;
 
 	private HallOfFame() {
 		String dirPath = Settings.highScoreFilePath.substring(0,
@@ -33,7 +33,6 @@ public class HallOfFame {
 
 		highscoreSet = loadHighscore();
 
-		font = Assets.text50Font;
 
 		if (highscoreSet.size() < Settings.highScoreSize) {
 			for (int i = highscoreSet.size(); i < Settings.highScoreSize; i++) {
@@ -117,9 +116,11 @@ public class HallOfFame {
 		return highscore;
 	}
 
-	public void draw(SpriteBatch spriteBatch) {
+	public void draw(SpriteBatch spriteBatch, BitmapFont font, Color color) {
 		int i = 1;
 		int height = Gdx.graphics.getHeight();
+		Color oldColor = font.getColor();
+		font.setColor(color);
 		for (Item item : highscoreSet) {
 			String text = "" + i + ":  " + item.toString();
 			TextBounds bounds = font.getBounds(text);
@@ -128,11 +129,14 @@ public class HallOfFame {
 					- bounds.width / 2, height);
 			i++;
 		}
+		font.setColor(oldColor);
 	}
 
-	public void draw(SpriteBatch spriteBatch, int x, int y,BitmapFont font) {
+	public void draw(SpriteBatch spriteBatch, int x, int y,BitmapFont font, Color color) {
 		int i = 1;
 		int height = y;
+		Color oldColor = font.getColor();
+		font.setColor(color);
 		TextBounds bounds = font.getBounds("Highscore");
 		font.draw(spriteBatch, "Highscore\n", x - bounds.width / 2, height);
 		for (Item item : highscoreSet) {
@@ -144,6 +148,7 @@ public class HallOfFame {
 				i++;
 			}
 		}
+		font.setColor(oldColor);
 	}
 
 	class Item implements Comparable<Item> {
