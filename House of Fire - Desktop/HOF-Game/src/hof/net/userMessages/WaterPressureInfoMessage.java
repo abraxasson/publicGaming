@@ -5,7 +5,7 @@ public class WaterPressureInfoMessage extends AbstractMessage {
 	private float pressure;			//Wasserdruck in Prozent
 
 	public WaterPressureInfoMessage(float pressure) {
-		super(Type.WaterPressure);
+		super(AbstractMessage.WaterPressure);
 		if (pressure > 1) {
 			pressure = 1;
 		} else if (pressure < 0) {

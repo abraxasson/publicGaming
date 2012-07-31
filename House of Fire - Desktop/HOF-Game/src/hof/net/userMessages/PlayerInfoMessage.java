@@ -6,7 +6,7 @@ public class PlayerInfoMessage extends AbstractMessage {
 	private String name;
 
 	public PlayerInfoMessage(String name) {
-		super(Type.PlayerInfo);
+		super(AbstractMessage.PlayerInfo);
 		this.setName(name);
 	}
 

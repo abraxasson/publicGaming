@@ -11,7 +11,7 @@ public class SMSInfoMessage extends AbstractMessage {
 	private int type;
 	
 	public SMSInfoMessage(int effect) {
-		super(Type.SMSInfo);
+		super(AbstractMessage.SMSInfo);
 		type = effect;
 	}
 

@@ -9,7 +9,6 @@ import hof.level.effects.Lightning;
 import hof.level.effects.Rain;
 import hof.level.effects.WaterPressure;
 import hof.net.userMessages.AbstractMessage;
-import hof.net.userMessages.AbstractMessage.Type;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
@@ -78,29 +77,29 @@ public class MessageProcessing {
 	 *            the InetAddress of the sender
 	 */
 	private void processMessage(AbstractMessage message) {
-		Type type = message.getType();
+		int type = message.getType();
 		switch (type) {
-		case PlayerInfo:
+		case AbstractMessage.PlayerInfo:
 			PlayerInfoMessage playerMessage = (PlayerInfoMessage) message;
 			processPlayerMessage(playerMessage);
 			break;
-		case ButtonInfo:
+		case AbstractMessage.ButtonInfo:
 			ButtonInfoMessage inputMessage = (ButtonInfoMessage) message;
 			processButtonMessage(inputMessage);
 			break;
-		case LogoutInfo:
+		case AbstractMessage.LogoutInfo:
 			LogoutInfoMessage logOutMessage = (LogoutInfoMessage) message;
 			processLogoutMessage(logOutMessage);
 			break;
-		case WaterPressure:
+		case AbstractMessage.WaterPressure:
 			WaterPressureInfoMessage pressureMessage = (WaterPressureInfoMessage) message;
 			processWaterPressureMessage(pressureMessage);
 			break;
-		case SensorInfo:
+		case AbstractMessage.SensorInfo:
 			SensorInfoMessage sensorMessage = (SensorInfoMessage) message;
 			processSensorMessage(sensorMessage);
 			break;
-		case SMSInfo:
+		case AbstractMessage.SMSInfo:
 			SMSInfoMessage smsMessage = (SMSInfoMessage) message;
 			processSmsMessage(smsMessage);
 			break;

@@ -8,7 +8,7 @@ public class ButtonInfoMessage extends AbstractMessage {
 	private int state;
 	
 	public ButtonInfoMessage(int state) {
-		super(Type.ButtonInfo);
+		super(AbstractMessage.ButtonInfo);
 		this.state = state;
 	}
 	

@@ -7,7 +7,7 @@ public class SensorInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 37295872L;
 	
 	public SensorInfoMessage(float x, float y, float z){
-		super(Type.SensorInfo);
+		super(AbstractMessage.SensorInfo);
 		this.x = x;
 		this.y = y;
 		this.z = z;

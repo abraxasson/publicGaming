@@ -11,12 +11,31 @@ public class SMSInfoMessage extends AbstractMessage {
 	private int type;
 	
 	public SMSInfoMessage(int effect) {
-		super(Type.SMSInfo);
+		super(AbstractMessage.SMSInfo);
 		type = effect;
 	}
 
 	public int getEffectType() {
 		return type;
 	}
-
+	
+	@Override
+	public String toString() {
+		String typ = "";
+		switch (type) {
+		case LIGHTNING:
+			typ = "LIGHTNING";
+			break;
+		case RAIN:
+			typ = "RAIN";
+			break;
+		case PRESSURE:
+			typ = "PRESSURE";
+			break;
+		default: 
+			typ = "default";
+			break;
+		}
+		return super.toString() + " " + typ;
+	}
 }

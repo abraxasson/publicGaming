@@ -5,7 +5,7 @@ public class LogoutInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 37295872L;
 
 	public LogoutInfoMessage() {
-		super(Type.LogoutInfo);
+		super(AbstractMessage.LogoutInfo);
 	}
 
 	@Override
