@@ -90,6 +90,10 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE) || endButton.wasPressed()) {
 			Gdx.app.exit();
 		}
+		
+		if (Gdx.input.isKeyPressed(Keys.V)) {
+			game.setScreen(game.gameFinishedScreen);
+		}
 
 		
 		spriteBatch.begin();

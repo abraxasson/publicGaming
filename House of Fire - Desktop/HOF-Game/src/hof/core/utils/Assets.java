@@ -102,6 +102,12 @@ public class Assets {
 		fireParticleEffect.load(Gdx.files.internal("particles/fire.p"), Gdx.files.internal("particles"));
 		return fireParticleEffect;
 	}
+	
+	public static ParticleEffect loadFireWorksParticles() {
+		ParticleEffect fireWorkParticleEffect = new ParticleEffect();
+		fireWorkParticleEffect.load(Gdx.files.internal("particles/firework.p"), Gdx.files.internal("particles"));
+		return fireWorkParticleEffect;
+	}
 
 	private static void createAnimations() {
 		runningSheet = new Texture (Gdx.files.internal("textures/Strich1.png"));
