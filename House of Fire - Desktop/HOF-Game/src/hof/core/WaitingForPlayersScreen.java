@@ -30,6 +30,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	
 	private boolean isWaiting;
     private boolean wasTouched;
+    
+    private float stateTime;
 	
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
 		super(game);
@@ -50,6 +52,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void show(){
 		isWaiting = true;
+		stateTime = 0;
 	}
 
 	
@@ -79,6 +82,11 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			}
 			
 			processing.processMessageQueue();
+			
+			stateTime += delta;
+			if (stateTime > 5.0) {
+//				Gdx.app.exit();
+			}
 			spriteBatch.begin();
 			fame.draw(spriteBatch, Assets.text50Font, Color.BLACK);
 			String text = "Waiting for Players";

@@ -12,8 +12,10 @@ import javax.imageio.ImageIO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
 
@@ -43,6 +45,8 @@ public class Assets {
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture GameOverScreen;
+	private static Texture runningSheet;
+	public static Animation runningAnimation;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static ArrayList<Texture> houseList;
@@ -91,7 +95,17 @@ public class Assets {
 	}
 
 	private static void createAnimations() {
-		
+		runningSheet = new Texture (Gdx.files.internal("textures/Strich1.png"));
+		TextureRegion [][] tmp = TextureRegion.split(runningSheet, 
+				runningSheet.getWidth() / 7, runningSheet.getHeight() / 1);
+		TextureRegion [] runningFrames = new TextureRegion[7];
+		int index = 0;
+		for (int i = 0; i < 1; i++  ) {
+			for (int j = 0; j < 7; j++) {
+				runningFrames[index++] = tmp[i][j];
+			}
+		}
+		runningAnimation = new Animation(0.025f, runningFrames);
 	}
 
 	private static void loadTextures() {
