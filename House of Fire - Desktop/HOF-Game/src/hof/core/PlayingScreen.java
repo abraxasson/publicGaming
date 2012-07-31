@@ -297,15 +297,24 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 							}
 						}
 						waterPressure.draw(spriteBatch);
-					} else {
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			
+			Iterator<AbstractCloud> iter = processing.getSmsQueue().iterator();
+			while(iter.hasNext()){
+				AbstractCloud currentEffect = iter.next();
+				if(!currentEffect.getActive()){
+					if(currentEffect.getType() == AbstractCloud.WATERPRESSURE){
 						for (Firefighter firefighter : this.firefighters) {
 							WaterJet waterJet = firefighter.getWaterJet();
 							waterJet.changeDiameter(Settings.waterAimSize);
 						}
 					}
-					break;
-				default:
-					break;
+					iter.remove();
 				}
 			}
 		}
@@ -438,14 +447,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			Iterator<AbstractCloud> iter = processing.getSmsQueue().iterator();
-			while (iter.hasNext()) {
-				AbstractCloud message = (AbstractCloud) iter.next();
-				if (message.getType() == AbstractCloud.WATERPRESSURE) {
-					iter.remove();
-				}
-			}
-
 			UdpClientThread.getInstance().sendObject(
 					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}

@@ -16,6 +16,7 @@ public class WaterPressure extends AbstractCloud {
 		super(Settings.pressureCooldown);
 		this.type = AbstractCloud.WATERPRESSURE;
 		this.lifeTime = Settings.waterPressureLifeTime;
+		this.alive = true;
 		lastUsed = System.currentTimeMillis();
 	}
 	
@@ -30,6 +31,7 @@ public class WaterPressure extends AbstractCloud {
 			font.setColor(0, 0, 255, 1);
 			TextBounds bounds = font.getBounds("Wasserdruck erhöht!");
 			font.draw(spriteBatch, "Wasserdruck erhöht!", Gdx.graphics.getWidth()/2-bounds.width/2, Gdx.graphics.getHeight()/2-bounds.height/2);
+			this.alive = true;
 		}
 	}
 	

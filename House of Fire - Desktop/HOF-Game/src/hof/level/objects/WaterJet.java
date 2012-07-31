@@ -4,7 +4,6 @@ import hof.core.utils.Assets;
 import hof.core.utils.Settings;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -141,10 +140,10 @@ public class WaterJet {
 		if (isActive) {
 			updateRectangle();
 			waterJet.draw(spriteBatch, Gdx.graphics.getDeltaTime());
-			Color oldColor = spriteBatch.getColor();
+			/*Color oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.BLACK);
 			spriteBatch.draw(Assets.pureWhiteTexture, streamArea.x, streamArea.y, streamArea.width, streamArea.height, 0, 0, 8, 8, false, false);
-			spriteBatch.setColor(oldColor);
+			spriteBatch.setColor(oldColor);*/
 		} else {
 			streamArea.setX(0);
 			streamArea.setY(0);

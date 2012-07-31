@@ -37,7 +37,6 @@ public abstract class AbstractCloud {
 			this.alive = false;
 		}
 		else{
-			//spriteBatch.draw(texture, x, y);
 			spriteBatch.draw(texture, x, y, width, height);
 		}
 	}
