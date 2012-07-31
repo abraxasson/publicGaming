@@ -57,7 +57,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
-		finishedTime = 0;
 
 		try {
 			ia = InetAddress.getLocalHost();
@@ -74,6 +73,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			player.setScore(player.getScore() + player.getBonuspoints());
 			player.setBonuspoints(0);
 		}
+		finishedTime = 0;
 	}
 
 	@Override

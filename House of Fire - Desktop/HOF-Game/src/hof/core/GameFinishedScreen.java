@@ -34,7 +34,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0.11f, 0.48f, 0.98f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -42,6 +42,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
+		spriteBatch.draw(Assets.gameFinishedScreen, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 		Assets.text50Font.draw(spriteBatch, "Game finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();
 		

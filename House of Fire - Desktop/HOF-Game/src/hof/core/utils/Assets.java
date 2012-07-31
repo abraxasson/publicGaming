@@ -45,6 +45,7 @@ public class Assets {
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture GameOverScreen;
+	public static Texture gameFinishedScreen;
 	private static Texture runningSheet;
 	public static Animation runningAnimation;
 	
@@ -126,6 +127,7 @@ public class Assets {
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
 		GameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
+		gameFinishedScreen = new Texture(Gdx.files.internal("textures/GameFinished.png"));
 	}
 	
 	private static void loadHouses() {
