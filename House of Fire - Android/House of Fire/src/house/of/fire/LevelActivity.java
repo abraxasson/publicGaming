@@ -17,9 +17,11 @@ public class LevelActivity extends Activity {
 	public static final String EXTRA_LEVEL = "level";
 	public static final String EXTRA_MEDAL= "medal";
 	public static final String EXTRA_LASTLEVEL= "lastlevel";
+	public static boolean isActive;
 	
 	TextView outputText;
 	boolean lastLevel = false;
+	
 	
 	AndroidServer server;
 	
@@ -40,6 +42,8 @@ public class LevelActivity extends Activity {
 		
 		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 		Intent intent = getIntent();
+		
+		isActive = true;
 		
 		if (intent != null){
 			int level = intent.getIntExtra(EXTRA_LEVEL, 1);
@@ -83,6 +87,7 @@ public class LevelActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		isActive = false;
 		server.close();
 	}
 
@@ -124,6 +129,7 @@ public class LevelActivity extends Activity {
 		}
 		else {
 			Intent intent = new Intent(LevelActivity.this, ControllerActivity.class);
+			intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			this.startActivity(intent);
 		}

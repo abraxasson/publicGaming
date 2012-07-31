@@ -39,11 +39,12 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	private final static String TAG = ControllerActivity.class.getSimpleName();
 	public final static String EXTRA_WATER_LEVEL = "waterLevel";
 	public final static int MAX_WATER_LEVEL = 100;
-	
+	public static boolean isActive;
+
 	private final static int REQUEST_CODE_WATER_ACTIVITY = 100;
-	
+
 	public static final int SOUND_WATER_EMPTY = 1;
-	
+
 	private final static int SENSOR_TIME = 500; // in ms
 
 	private int state = ButtonInfoMessage.NORMAL;
@@ -64,14 +65,13 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	Timer timerWaterRating;
 	Timer timerWaterPressure;
 	Vibrator vibrator;
-	
+
 	private SoundPool soundPool;
 	private HashMap<Integer, Integer> soundPoolMap;
-	
+
 	long sensorTimeStamp = 0;
-	
+
 	AndroidServer server;
-	
 
 	// vorrübergehende Lösung
 	private UdpClientThread udpClient;
@@ -103,14 +103,14 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mACCELEROMETER = mSensorManager
 				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		
+
 		WaterActivity.isActive = false;
-		
+
 		// Get instance of Vibrator from current Context
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		
+
 		initSounds();
-		
+
 		// String name = (String)bundle.get("EXTRA_PLAYER_NAME");
 		// Intent intent = getIntent();
 		// int color = intent.getIntegerExtra(LogInActivity.EXTRA_PLAYER_COLOR);
@@ -119,11 +119,12 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// setFullscreen();
 
 	}
-	
+
 	private void initSounds() {
-	     soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
-	     soundPoolMap = new HashMap<Integer, Integer>();
-	     soundPoolMap.put(SOUND_WATER_EMPTY, soundPool.load(this, R.raw.water, 1));
+		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
+		soundPoolMap = new HashMap<Integer, Integer>();
+		soundPoolMap.put(SOUND_WATER_EMPTY,
+				soundPool.load(this, R.raw.water, 1));
 	}
 
 	@Override
@@ -131,34 +132,39 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		super.onPause();
 		mSensorManager.unregisterListener(this);
 	}
-	
+
 	public void playSound(int sound) {
-	    /* Updated: The next 4 lines calculate the current volume in a scale of 0.0 to 1.0 */
-	    AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-	    float streamVolumeCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);
-	    float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);    
-	    float volume = streamVolumeCurrent / streamVolumeMax;
-	    
-	    /* Play the sound with the correct volume */
-	    soundPool.play(soundPoolMap.get(sound), volume, volume, 1, 0, 1f);     
+		/*
+		 * Updated: The next 4 lines calculate the current volume in a scale of
+		 * 0.0 to 1.0
+		 */
+		AudioManager mgr = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		float streamVolumeCurrent = mgr
+				.getStreamVolume(AudioManager.STREAM_MUSIC);
+		float streamVolumeMax = mgr
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		float volume = streamVolumeCurrent / streamVolumeMax;
+
+		/* Play the sound with the correct volume */
+		soundPool.play(soundPoolMap.get(sound), volume, volume, 1, 0, 1f);
 	}
-	
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		mSensorManager.registerListener(this, mACCELEROMETER,
 				SensorManager.SENSOR_DELAY_UI);
-		
+
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		
+
 		server = AndroidServer.getInstance(this, AndroidServer.PORT);
-		
-		
+
+		isActive = true;
+
 		udpClient = new UdpClientThread();
 		udpClient.start();
 
@@ -166,44 +172,45 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(LogInActivity.PREF_PLAYER_NAME, "");
 		outputName.setText(playerName);
-		
-		findViewById(R.id.player_name_background).setBackgroundColor(Color.rgb(AndroidServer.r,
-				AndroidServer.g, AndroidServer.b));
-		
+
+		findViewById(R.id.player_name_background).setBackgroundColor(
+				Color.rgb(AndroidServer.r, AndroidServer.g, AndroidServer.b));
+
 		// playerColor = prefs.getInt(LogInActivity.PREF_PLAYER_COLOR,
 		// Color.RED);
 
 		Intent receivedIntent = getIntent();
-		
-		if(receivedIntent != null && receivedIntent.hasExtra(EXTRA_WATER_LEVEL)){
-			waterLevel = receivedIntent.getIntExtra(EXTRA_WATER_LEVEL, MAX_WATER_LEVEL);
+
+		if (receivedIntent != null
+				&& receivedIntent.hasExtra(EXTRA_WATER_LEVEL)) {
+			waterLevel = receivedIntent.getIntExtra(EXTRA_WATER_LEVEL,
+					MAX_WATER_LEVEL);
 		}
 		water_rating.setProgress(waterLevel);
-		
-		
+
 		timerWaterRating = new Timer();
-		timerWaterRating.scheduleAtFixedRate(new WaterTankTimerTask(water_rating), 500, 200);
+		timerWaterRating.scheduleAtFixedRate(new WaterTankTimerTask(
+				water_rating), 500, 200);
 
 		timerWaterPressure = new Timer();
-		timerWaterPressure.scheduleAtFixedRate(new WaterPressureTimerTask(), 0, 500);
-		
-		
+		timerWaterPressure.scheduleAtFixedRate(new WaterPressureTimerTask(), 0,
+				500);
 
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		
+
 		udpClient.sendObject(new ButtonInfoMessage(ButtonInfoMessage.NORMAL));
 		udpClient.setActive(false);
 		timerWaterRating.cancel();
 		timerWaterPressure.cancel();
-		
+		isActive = false;
 
 		server.close();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -215,7 +222,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == REQUEST_CODE_WATER_ACTIVITY) {
-			if (data != null){
+			if (data != null) {
 				waterLevel = data.getIntExtra(EXTRA_WATER_LEVEL, 0);
 				water_rating.setProgress(waterLevel);
 				Log.d(TAG, "waterlevel: " + waterLevel);
@@ -281,11 +288,9 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 			// WaterActivity.class));
 
 			startWaterActivity();
-			
 
 		}
 
-		
 	};
 
 	// private OnClickListener logOutButton_Listener = new OnClickListener() {
@@ -298,88 +303,89 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	// //udpClient.sendObject(new LogoutInfoMessage());
 	// }
 	// };
-	
+
 	private void startWaterActivity() {
-		Intent intent = new Intent(ControllerActivity.this,
-				WaterActivity.class);
+		Intent intent = new Intent(ControllerActivity.this, WaterActivity.class);
 		intent.putExtra(EXTRA_WATER_LEVEL, waterLevel);
 		startActivityForResult(intent, REQUEST_CODE_WATER_ACTIVITY);
 	}
 
 	public void finish() {
 		udpClient.sendObject(new LogoutInfoMessage());
-//		server.close();
+		// server.close();
 		super.finish();
 	}
 
 	public void onAccuracyChanged(Sensor sensor, int value) {
 
-
 	}
 
 	public void onSensorChanged(SensorEvent event) {
 		final long now = System.currentTimeMillis();
-		
-		if (now > sensorTimeStamp+SENSOR_TIME){
-			final float[] values = event.values;
-			//Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
 
-			udpClient.sendObject(new SensorInfoMessage(values[0], values[1], values[2]));
+		if (now > sensorTimeStamp + SENSOR_TIME) {
+			final float[] values = event.values;
+			// Log.d(TAG, values[0] + " " + values[1] + " " + values[2]);
+
+			udpClient.sendObject(new SensorInfoMessage(values[0], values[1],
+					values[2]));
 			sensorTimeStamp = now;
 		}
 
 	}
 
-	
-	class WaterTankTimerTask extends TimerTask{
-		
+	class WaterTankTimerTask extends TimerTask {
+
 		VerticalProgressBar vpb;
-		
-		public WaterTankTimerTask (VerticalProgressBar vpb){
+
+		public WaterTankTimerTask(VerticalProgressBar vpb) {
 			this.vpb = vpb;
 		}
 
 		@Override
 		public void run() {
 			handler.post(new Runnable() {
-				
+
 				public void run() {
-					if(vpb.getProgress() <= 0 && WaterActivity.isActive == false){
+					if (vpb.getProgress() <= 0
+							&& WaterActivity.isActive == false
+							&& ControllerActivity.isActive) {
 						timerWaterRating.cancel();
 
 						// Vibrate for 300 milliseconds
 						vibrator.vibrate(300);
 						playSound(SOUND_WATER_EMPTY);
 						startWaterActivity();
-						
+
 					}
-					
-					else{
-						//Log.d(TAG, ""+vpb.getProgress());
-						waterLevel = vpb.getProgress()-1;
+
+					else {
+						// Log.d(TAG, ""+vpb.getProgress());
+						waterLevel = vpb.getProgress() - 1;
 						vpb.setProgress(waterLevel);
 						vpb.postInvalidate();
 					}
 				}
 			});
-			
+
 		}
 	}
-	
-	class WaterPressureTimerTask extends TimerTask{
+
+	class WaterPressureTimerTask extends TimerTask {
 
 		@Override
 		public void run() {
-			
+
 			udpClient.sendObject(new WaterPressureInfoMessage(waterLevel));
-			
+
 		}
 	}
-	
-//	public void alertDialog(){
-//		alertDialog = new AlertDialog.Builder(context).create();
-//		alertDialog.setTitle("Herzlichen Glückwunsch!");
-//		alertDialog.setMessage("Sie sind in Level" + AndroidServer.level + " aufgestiegen.");
-//		alertDialog.show();
-//	}
+
+	// public void alertDialog(){
+	// alertDialog = new AlertDialog.Builder(context).create();
+	// alertDialog.setTitle("Herzlichen Glückwunsch!");
+	// alertDialog.setMessage("Sie sind in Level" + AndroidServer.level +
+	// " aufgestiegen.");
+	// alertDialog.show();
+	// }
 }
