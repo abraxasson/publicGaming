@@ -42,6 +42,7 @@ public class Assets {
 	
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
+	public static Texture cat;
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture GameOverScreen;
@@ -153,6 +154,7 @@ public class Assets {
 		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
+		cat = new Texture(Gdx.files.internal("textures/cat.png"));
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));

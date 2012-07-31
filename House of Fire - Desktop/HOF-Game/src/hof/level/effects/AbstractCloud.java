@@ -20,6 +20,7 @@ public abstract class AbstractCloud {
 	protected boolean alive;
 	protected int width;
 	protected int height;
+	protected int startPos;
 	
 	protected AbstractCloud(float cooldown){
 		this.texture = Assets.cloudTexture;
@@ -28,16 +29,27 @@ public abstract class AbstractCloud {
 		this.height = 150;
 		this.x = (int)(Math.random()*(Assets.CANVAS_WIDTH-texture.getWidth())-width/2);
 		this.y = (int)(Assets.CANVAS_HEIGHT*0.9);
+		this.startPos = Assets.CANVAS_WIDTH;
 		AbstractCloud.cooldown = cooldown;
 	}
 
 	public void draw(SpriteBatch spriteBatch){
-		this.lifeTime -= Gdx.graphics.getDeltaTime();
-		if(this.lifeTime < 0){
-			this.alive = false;
+		if(this.alive && this.startPos> this.x){
+			spriteBatch.draw(texture, startPos, y, width, height);
+			startPos -= 200*Gdx.graphics.getDeltaTime();
 		}
 		else{
-			spriteBatch.draw(texture, x, y, width, height);
+			if(this.lifeTime < 0){
+				spriteBatch.draw(texture, startPos, y, width, height);
+				startPos -= 200*Gdx.graphics.getDeltaTime();
+				if(startPos+width <= 0){
+					this.alive = false;
+				}
+			}
+			else{
+				spriteBatch.draw(texture, x, y, width, height);
+				this.lifeTime -= Gdx.graphics.getDeltaTime();
+			}
 		}
 	}
 	
