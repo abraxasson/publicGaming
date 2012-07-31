@@ -46,8 +46,8 @@ public class Assets {
 	public static Texture levelFinishedScreen;
 	public static Texture GameOverScreen;
 	public static Texture gameFinishedScreen;
-	private static Texture runningSheet;
 	public static Animation runningAnimation;
+	public static Animation fireWorksAnimation;
 	
 	public static Map<Texture, BufferedImage> houseMap;
 	public static ArrayList<Texture> houseList;
@@ -102,19 +102,48 @@ public class Assets {
 		fireParticleEffect.load(Gdx.files.internal("particles/fire.p"), Gdx.files.internal("particles"));
 		return fireParticleEffect;
 	}
+	
+	public static ParticleEffect loadFireWorksParticles() {
+		ParticleEffect fireWorkParticleEffect = new ParticleEffect();
+		fireWorkParticleEffect.load(Gdx.files.internal("particles/firework.p"), Gdx.files.internal("particles"));
+		return fireWorkParticleEffect;
+	}
 
 	private static void createAnimations() {
-		runningSheet = new Texture (Gdx.files.internal("textures/Strich1.png"));
-		TextureRegion [][] tmp = TextureRegion.split(runningSheet, 
-				runningSheet.getWidth() / 7, runningSheet.getHeight() / 1);
-		TextureRegion [] runningFrames = new TextureRegion[7];
-		int index = 0;
-		for (int i = 0; i < 1; i++  ) {
-			for (int j = 0; j < 7; j++) {
-				runningFrames[index++] = tmp[i][j];
+		int colums;
+		int rows;
+		Texture sheet;
+		TextureRegion [][] tmp;
+		TextureRegion [] frames;
+		int index;
+		
+		colums = 7;
+		rows = 1;
+		sheet = new Texture (Gdx.files.internal("textures/animations/Strich1.png"));
+		tmp = TextureRegion.split(sheet, 
+				sheet.getWidth() / colums, sheet.getHeight() / rows);
+		frames = new TextureRegion[rows * colums];
+		index = 0;
+		for (int i = 0; i < rows; i++  ) {
+			for (int j = 0; j < colums; j++) {
+				frames[index++] = tmp[i][j];
 			}
 		}
-		runningAnimation = new Animation(0.025f, runningFrames);
+		runningAnimation = new Animation(0.025f, frames);
+		
+		colums = 5;
+		rows = 5;
+		sheet = new Texture (Gdx.files.internal("textures/animations/feuerwerk.png"));
+		tmp = TextureRegion.split(sheet, 
+				sheet.getWidth() / colums, sheet.getHeight() / rows);
+		frames = new TextureRegion[colums * rows];
+		index = 0;
+		for (int i = 0; i < rows; i++  ) {
+			for (int j = 0; j < colums; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+		fireWorksAnimation = new Animation(0.025f, frames);
 	}
 
 	private static void loadTextures() {
