@@ -123,7 +123,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	private void initSounds() {
 	     soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
 	     soundPoolMap = new HashMap<Integer, Integer>();
-	     soundPoolMap.put(SOUND_WATER_EMPTY, soundPool.load(this, R.raw.loser, 1));
+	     soundPoolMap.put(SOUND_WATER_EMPTY, soundPool.load(this, R.raw.water, 1));
 	}
 
 	@Override

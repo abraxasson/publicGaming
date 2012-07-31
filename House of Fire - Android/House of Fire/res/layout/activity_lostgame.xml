@@ -2,34 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/my_color" >
+    android:background="@drawable/game_over" >
+
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentRight="true"
+         android:orientation="vertical"
+         android:padding="20dp" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/outputText_lost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="25dp"
-            android:text="Game Over"
-            android:textColor="#c22"
-            android:textSize="60sp" />
-
-        <Button
-            android:id="@+id/retry_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/btn_default"
-            android:onClick="retryButtonClicked"
-            android:text="@string/retry_button"
-            android:textColor="#fff"
-            android:textSize="@dimen/startButtonTextSize" />
+         <Button
+             android:id="@+id/retry_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:background="@drawable/btn_default"
+             android:onClick="retryButtonClicked"
+             android:text="@string/retry_button"
+             android:textColor="#fff"
+             android:textSize="@dimen/startButtonTextSize" />
 
     </LinearLayout>
 

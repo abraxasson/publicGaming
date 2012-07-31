@@ -150,7 +150,7 @@ public class AndroidServer extends Thread {
 
 	private void messageProcessing(AbstractMessage message) {
 		switch (message.getType()) {
-		case ValidationInfo:
+		case AbstractMessage.ValidationInfo:
 			Log.w("Android Server", "Validation received");
 			
 			ValidationInfoMessage val = (ValidationInfoMessage) message;
@@ -166,7 +166,7 @@ public class AndroidServer extends Thread {
 
 			break;
 			
-		case LevelInfo:
+		case AbstractMessage.LevelInfo:
 			
 			LevelInfoMessage lev = (LevelInfoMessage) message;
 			level = lev.getLevel();
@@ -196,14 +196,14 @@ public class AndroidServer extends Thread {
 
 			break;
 
-		case GameOver:
+		case AbstractMessage.GameOver:
 			//Intent gameOverIntent = new Intent("house.of.fire.gameover");
 			Intent gameOverIntent = new Intent(context, GameOverActivity.class); 
 			gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			context.startActivity(gameOverIntent);
 			break;
 			
-		case PlayerInfo:
+		case AbstractMessage.PlayerInfo:
 			Log.d(TAG, message.toString());
 			Log.d(TAG, "bewirkt nichts");
 			break;
