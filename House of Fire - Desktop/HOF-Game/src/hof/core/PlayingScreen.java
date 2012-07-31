@@ -12,6 +12,7 @@ import hof.level.effects.WaterPressure;
 import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
 import hof.level.objects.House;
+import hof.level.objects.NonPlayable;
 import hof.level.objects.Pixel;
 import hof.level.objects.WaterJet;
 import hof.level.objects.WaterJet.State;
@@ -40,7 +41,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private TimeLine timeline;
 	private StatusBar statusBar;
 	private House currentHouse;
-
+	private ArrayList<NonPlayable> gags;
+	
 	private MessageProcessing processing;
 
 	private FPS fps;
@@ -52,7 +54,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		processing = MessageProcessing.getInstance();
 
 		firefighters = new ArrayList<>();
+		gags = new ArrayList<NonPlayable>();
 		currentHouse = game.houseList.get(game.houseIndex);
+		initGag();
 
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
@@ -89,6 +93,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
+		this.gags.get(0).draw(spriteBatch);
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
@@ -170,6 +175,10 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				}
 			}
 		}
+	}
+	
+	private void initGag(){
+		this.gags.add(new NonPlayable(Assets.cat,100,100,200,100,500));
 	}
 	
 	private void updateWaterJet() {
@@ -451,6 +460,5 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			UdpClientThread.getInstance().sendObject(
 					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}
-
 	}
 }
