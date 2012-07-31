@@ -57,6 +57,8 @@ public class Assets {
 	public static Sound buttonSound;
 	public static Sound loser;
 	
+	public static BufferedImage smokingArea;
+	
 	public static BitmapFont defaultFont;
 	public static BitmapFont text30Font;
 	public static BitmapFont text45Font;
@@ -126,6 +128,11 @@ public class Assets {
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
 		GameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
+		try {
+			smokingArea = ImageIO.read(new File("assets/textures/GameOver_SmokingArea.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static void loadHouses() {
