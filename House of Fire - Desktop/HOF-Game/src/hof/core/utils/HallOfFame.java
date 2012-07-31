@@ -18,22 +18,23 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HallOfFame {
-	
+
 	private static HallOfFame instance;
 	private TreeSet<Item> highscoreSet;
 	private File hihscoreFile;
 	private BitmapFont font;
-	
+
 	private HallOfFame() {
-		String dirPath = Settings.highScoreFilePath.substring(0, Settings.highScoreFilePath.indexOf(File.separatorChar));
+		String dirPath = Settings.highScoreFilePath.substring(0,
+				Settings.highScoreFilePath.indexOf(File.separatorChar));
 		File dir = new File(dirPath);
 		dir.mkdir();
 		hihscoreFile = new File(Settings.highScoreFilePath);
-		
+
 		highscoreSet = loadHighscore();
-		
+
 		font = Assets.text50Font;
-		
+
 		if (highscoreSet.size() < Settings.highScoreSize) {
 			for (int i = highscoreSet.size(); i < Settings.highScoreSize; i++) {
 				highscoreSet.add(new Item());
@@ -41,14 +42,14 @@ public class HallOfFame {
 			saveHighscore();
 		}
 	}
-	
+
 	public static HallOfFame getInstance() {
 		if (instance == null) {
 			instance = new HallOfFame();
 		}
 		return instance;
 	}
-	
+
 	public void addPlayer(Player player) {
 		highscoreSet.add(new Item(player));
 		while (highscoreSet.size() > Settings.highScoreSize) {
@@ -56,7 +57,7 @@ public class HallOfFame {
 		}
 		saveHighscore();
 	}
-	
+
 	private void saveHighscore() {
 		try {
 			FileWriter fw = new FileWriter(hihscoreFile, false);
@@ -67,26 +68,27 @@ public class HallOfFame {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private TreeSet<Item> loadHighscore() {
 		TreeSet<Item> set = new TreeSet<Item>();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(hihscoreFile));
+			BufferedReader reader = new BufferedReader(new FileReader(
+					hihscoreFile));
 			String line = reader.readLine();
 			while (line != null) {
 				Scanner tokenizer = new Scanner(line);
-				
-				//ignore
+
+				// ignore
 				tokenizer.next();
-				
-				//name and score
+
+				// name and score
 				String name = tokenizer.next();
 				int score = tokenizer.nextInt();
-				
+
 				Player player = new Player(name, null);
 				player.setScore(score);
 				set.add(new Item(player));
-				
+
 				tokenizer.close();
 				line = reader.readLine();
 			}
@@ -96,25 +98,25 @@ public class HallOfFame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NoSuchElementException e) {
-			//ignore
+			// ignore
 		}
 		return set;
 	}
-	
+
 	public String getHighscore() {
 		String highscore = "";
 		int i = 1;
 		for (Item item : highscoreSet) {
-//			if (i < 10) highscore += "  ";
-			highscore += i + ":  "; 
-			
+			// if (i < 10) highscore += "  ";
+			highscore += i + ":  ";
+
 			highscore += item.toString() + "\r\n";
 			i++;
 		}
-		
+
 		return highscore;
 	}
-	
+
 	public void draw(SpriteBatch spriteBatch) {
 		int i = 1;
 		int height = Gdx.graphics.getHeight();
@@ -122,43 +124,44 @@ public class HallOfFame {
 			String text = "" + i + ":  " + item.toString();
 			TextBounds bounds = font.getBounds(text);
 			height -= bounds.height * 1.35;
-			if(height > Gdx.graphics.getHeight()/10){
-				font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - bounds.width /2, height);
-				i++;
-			}
+			font.draw(spriteBatch, text, Gdx.graphics.getWidth() / 2
+					- bounds.width / 2, height);
+			i++;
 		}
 	}
-	
-	public void draw(SpriteBatch spriteBatch, int x, int y){
+
+	public void draw(SpriteBatch spriteBatch, int x, int y) {
 		int i = 1;
 		int height = y;
 		BitmapFont font2 = Assets.highscore40Font;
 		TextBounds bounds = font2.getBounds("Highscore");
-		font2.draw(spriteBatch, "Highscore\n", x - bounds.width /2, height);
+		font2.draw(spriteBatch, "Highscore\n", x - bounds.width / 2, height);
 		for (Item item : highscoreSet) {
 			String text = "" + i + ":  " + item.toString();
 			bounds = font2.getBounds(text);
 			height -= bounds.height * 1.35;
-			font2.draw(spriteBatch, text, x - bounds.width /2, height);
-			i++;
+			if(height > Gdx.graphics.getHeight()/10){
+				font2.draw(spriteBatch, text, x - bounds.width / 2, height);
+				i++;
+			}
 		}
 	}
-	
-	class Item implements Comparable<Item>{
-		
+
+	class Item implements Comparable<Item> {
+
 		private String playerName;
 		private int playerScore;
-		
+
 		public Item() {
 			playerName = "default";
 			playerScore = 0;
 		}
-		
-		public Item (Player player) {
+
+		public Item(Player player) {
 			playerName = player.getName();
 			playerScore = player.getScore();
 		}
-		
+
 		@Override
 		public String toString() {
 			String score = "";
@@ -168,7 +171,8 @@ public class HallOfFame {
 				dots--;
 			}
 			while (dots > 0) {
-				score = "." +  hilf.substring(hilf.length() - 3, hilf.length()) + score;
+				score = "." + hilf.substring(hilf.length() - 3, hilf.length())
+						+ score;
 				hilf = hilf.substring(0, hilf.length() - 3);
 				dots--;
 			}
