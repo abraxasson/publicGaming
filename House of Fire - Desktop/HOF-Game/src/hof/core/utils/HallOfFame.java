@@ -122,8 +122,10 @@ public class HallOfFame {
 			String text = "" + i + ":  " + item.toString();
 			TextBounds bounds = font.getBounds(text);
 			height -= bounds.height * 1.35;
-			font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - bounds.width /2, height);
-			i++;
+			if(height > Gdx.graphics.getHeight()/10){
+				font.draw(spriteBatch, text, Gdx.graphics.getWidth()/2 - bounds.width /2, height);
+				i++;
+			}
 		}
 	}
 	

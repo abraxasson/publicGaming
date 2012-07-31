@@ -125,5 +125,9 @@ public class House {
 	public ArrayList<Fire> getFireList(){
 		return this.fireList;
 	}
+	
+	public void destroy(){
+		this.healthpoints = 0;
+	}
 
 }

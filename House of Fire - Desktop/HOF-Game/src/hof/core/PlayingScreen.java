@@ -141,6 +141,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
+		
+		if (Gdx.input.isKeyPressed(Keys.W)){
+			currentHouse.getFireList().clear();
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.L)){
+			currentHouse.destroy();
+		}
 
 		checkComputerInput();
 		this.processing.removeInactivePlayers();
