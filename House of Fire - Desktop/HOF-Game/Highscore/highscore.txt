@@ -2,9 +2,9 @@
 2:  Florian  138.810
 3:  Florian  23.320
 4:  Florian  21.470
-5:  Florian  20.200
-6:  Florian  20.000
-7:  Florian  19.710
-8:  Florian  19.630
-9:  Florian  18.650
-10:  Florian  17.980
+5:  Florian  20.860
+6:  Florian  20.200
+7:  Florian  20.000
+8:  Florian  19.880
+9:  Florian  19.710
+10:  Florian  19.630
