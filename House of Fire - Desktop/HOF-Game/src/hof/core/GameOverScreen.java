@@ -19,6 +19,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 
 	private long startTime;
 	private HallOfFame fame;
+	private MessageProcessing processing; 
 	
 	public GameOverScreen(HouseOfFireGame game) {
 		super(game);
@@ -29,12 +30,16 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		startTime = System.currentTimeMillis();
 		
-		MessageProcessing processing = MessageProcessing.getInstance();
+		processing = MessageProcessing.getInstance();
 		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
 			udpClient.sendObject(new GameOverInfoMessage(), player.getIp());
 		}
+	}
+	
+	@Override
+	public void hide() {
 		processing.getPlayerList().clear();
 	}
 	
@@ -56,7 +61,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.setColor(oldColor);
 		spriteBatch.end();
 		
-		if (System.currentTimeMillis() - startTime >= 4000l) {
+		if (System.currentTimeMillis() - startTime >= 10000l) {
 			game.houseIndex = 0;
 			game.setScreen(game.waitingForPlayersScreen);
 		}

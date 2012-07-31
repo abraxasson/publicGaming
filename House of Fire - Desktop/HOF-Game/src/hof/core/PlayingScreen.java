@@ -113,11 +113,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		updateWaterJet();
 
 		if (!currentHouse.getAlive()) {
-			if (finishedTime == 0) {
-				finishedTime = System.currentTimeMillis();
-			} else if (System.currentTimeMillis() - finishedTime > 3000l) {
-				
-			}
 			game.setScreen(game.gameOverScreen);
 		}
 
@@ -442,8 +437,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.X)) {
 			UdpClientThread.getInstance().sendObject(
 					new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
-			// processing.processMessage(new
-			// SMSInfoMessage(SMSInfoMessage.RAIN), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
