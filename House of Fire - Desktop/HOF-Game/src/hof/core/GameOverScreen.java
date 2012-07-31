@@ -69,7 +69,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		spriteBatch.begin();
-		spriteBatch.draw(Assets.GameOverScreen, 0, 0, Gdx.graphics.getWidth(),
+		spriteBatch.draw(Assets.gameOverScreen, 0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		fame.draw(spriteBatch, (int) (Gdx.graphics.getWidth() * 0.8),
 				(int) (Gdx.graphics.getHeight() * 0.60),

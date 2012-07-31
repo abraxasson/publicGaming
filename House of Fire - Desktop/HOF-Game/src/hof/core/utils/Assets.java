@@ -43,9 +43,10 @@ public class Assets {
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
 	public static Texture cat;
+	
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
-	public static Texture GameOverScreen;
+	public static Texture gameOverScreen;
 	public static Texture gameFinishedScreen;
 	public static Animation runningAnimation;
 	public static Animation fireWorksAnimation;
@@ -159,7 +160,7 @@ public class Assets {
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
-		GameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
+		gameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
 		try {
 			smokingArea = ImageIO.read(new File("assets/textures/GameOver_SmokingArea.png"));
 		} catch (IOException e) {
@@ -217,8 +218,12 @@ public class Assets {
 	public static void dispose() {
 		firefighter_left.dispose();
 		firefighter_right.dispose();
+		cat.dispose();
 		mainMenu.dispose();
-
+		levelFinishedScreen.dispose();
+		gameOverScreen.dispose();
+		gameFinishedScreen.dispose();
+		
 		pureWhiteTexture.dispose();
 		borderTexture.dispose();
 		timeLineTexture.dispose();
@@ -236,5 +241,9 @@ public class Assets {
 		text45Font.dispose();
 		text50Font.dispose();
 		menu45Font.dispose();
+		highscore30Font.dispose();
+		highscore40Font.dispose();
+		highscore50Font.dispose();
+		
 	}
 }
