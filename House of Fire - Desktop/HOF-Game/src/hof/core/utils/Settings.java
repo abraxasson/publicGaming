@@ -76,7 +76,7 @@ public class Settings {
 		rainLifeTime = prefs.getFloat(rainLifeTimeID, 5);
 		lightningLifeTime = prefs.getFloat(lightningLifeTimeID, 1);
 		waterPressureLifeTime = prefs.getFloat(waterPressureLifeTimeID, 5);
-		rainDamage = prefs.getFloat(rainDamageID, 300);
+		rainDamage = prefs.getFloat(rainDamageID, 20);
 		waterAimSize = prefs.getFloat(waterAimSizeID, 10);
 		playerTimeout = prefs.getLong(playerTimeoutID, 5000l);
 		maxPlayers = prefs.getInt(maxPlayersID, 6);
@@ -131,6 +131,6 @@ public class Settings {
 	
 	public static void main(String[] args) {
 		Settings.load();
-//		Settings.savePrefs();
+		Settings.savePrefs();
 	}
 }

@@ -275,14 +275,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 								rain.setBurningSpot(pixel);
 							}
 						}
-						if (rain.getLifeTime() == Settings.rainLifeTime
-								&& rain.getBurningSpot() != null) {
+						if (rain.getBurningSpot() != null && rain.isOnPosition()) {
 							for (Fire fire : currentHouse.getFireList()) {
 								if (fire.getX() < rain.getBurningSpot().getX() + 10
 										&& fire.getX() > rain.getBurningSpot()
 												.getX() - 10) {
 									fire.setHealthpoints(fire.getHealthpoints()
 											- Settings.rainDamage);
+									Rain.setLastUsed(System.currentTimeMillis());
 								}
 							}
 						}

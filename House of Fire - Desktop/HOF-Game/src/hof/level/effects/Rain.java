@@ -14,6 +14,8 @@ public class Rain extends AbstractCloud {
 	private Pixel burningSpot;
 	private ParticleEmitter emitter;
 	private static long lastUsed;
+	private boolean onPosition;
+	private int count = 0;
 	
 	public Rain(){
 		super(Settings.rainCooldown);
@@ -24,16 +26,28 @@ public class Rain extends AbstractCloud {
 		emitter = shower.getEmitters().get(0);
 		this.lifeTime = Settings.rainLifeTime;
 		lastUsed = System.currentTimeMillis();
+		this.onPosition = false;
 	}
 	
 	public void draw(SpriteBatch spriteBatch){
 		super.draw(spriteBatch);
-		emitter.setPosition(this.x, this.y);
-		shower.draw(spriteBatch,Gdx.graphics.getDeltaTime());
+		if(this.startPos <= super.x && this.lifeTime > 0){
+			if(count == 0){
+				this.lifeTime = Settings.rainLifeTime;
+				count++;
+			}
+			emitter.setPosition(this.x, this.y);
+			shower.draw(spriteBatch,Gdx.graphics.getDeltaTime());
+			this.onPosition = true;
+		}
 	}
 
 	public Pixel getBurningSpot() {
 		return burningSpot;
+	}
+	
+	public static void setLastUsed(long newLastUsed){
+		lastUsed = newLastUsed;
 	}
 
 	public void setBurningSpot(Pixel burningSpot) {
@@ -48,4 +62,9 @@ public class Rain extends AbstractCloud {
 			return false;
 		}
 	}
+
+	public boolean isOnPosition() {
+		return onPosition;
+	}
+
 }
