@@ -54,6 +54,14 @@ public class HouseOfFireGame extends Game {
 	@Override
 	public void dispose() {
 		Assets.dispose();
-		Settings.savePrefs();
+		Settings.savePrefs();	
+		mainMenuScreen.dispose();
+		instructionsScreen.dispose();
+		highScoreScreen.dispose();
+		waitingForPlayersScreen.dispose();
+		playingScreen.dispose();
+		gameOverScreen.dispose();
+		levelFinishedScreen.dispose();
+		gameFinishedScreen.dispose();
 	}
 }
