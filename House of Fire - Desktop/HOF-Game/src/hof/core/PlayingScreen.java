@@ -44,7 +44,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private MessageProcessing processing;
 
 	private FPS fps;
-	InetAddress ia;
+	private InetAddress ia;
 	private long finishedTime;
 
 	public PlayingScreen(HouseOfFireGame game) {

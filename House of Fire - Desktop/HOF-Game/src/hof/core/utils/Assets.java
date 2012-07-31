@@ -76,6 +76,12 @@ public class Assets {
 		loadFonts();
 	}
 
+	public static ParticleEffect loadSmokeParticles(){
+		ParticleEffect smokeParticleEffect = new ParticleEffect();
+		smokeParticleEffect.load(Gdx.files.internal("particles/smoke.p"),Gdx.files.internal("particles"));
+		return smokeParticleEffect;
+	}
+	
 	public static ParticleEffect loadWaterParticles() {
 		ParticleEffect waterParticleEffect = new ParticleEffect();
 		waterParticleEffect.load(Gdx.files.internal("particles/waterjet2.p"), Gdx.files.internal("particles"));

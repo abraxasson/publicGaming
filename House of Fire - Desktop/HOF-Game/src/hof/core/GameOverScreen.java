@@ -14,16 +14,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 
 	private long startTime;
 	private HallOfFame fame;
 	private MessageProcessing processing; 
+	private ParticleEffect smoke;
 	
 	public GameOverScreen(HouseOfFireGame game) {
 		super(game);
 		fame = HallOfFame.getInstance();
+		smoke = Assets.loadSmokeParticles();
 	}
 	
 	@Override
@@ -55,10 +58,9 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.begin();
 		spriteBatch.draw(Assets.GameOverScreen, 0, 0,
 				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Color oldColor = spriteBatch.getColor();
-		spriteBatch.setColor(Color.WHITE);
 		fame.draw(spriteBatch, (int)(Gdx.graphics.getWidth()*0.8), (int)(Gdx.graphics.getHeight()*0.60),Assets.highscore40Font, Color.WHITE);
-		spriteBatch.setColor(oldColor);
+		
+		smoke.draw(spriteBatch, Gdx.graphics.getDeltaTime());
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= 10000l) {
