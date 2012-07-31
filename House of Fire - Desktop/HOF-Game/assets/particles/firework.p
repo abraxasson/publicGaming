@@ -119,4 +119,4 @@ aligned: false
 additive: true
 behind: false
 - Image Path -
-C:\Users\p_floria\publicGaming\publicGaming\House of Fire - Desktop\HOF-Game\assets\particles\particle-new.png
+particle.png

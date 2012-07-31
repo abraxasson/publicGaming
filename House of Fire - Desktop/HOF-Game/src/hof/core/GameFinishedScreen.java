@@ -1,5 +1,7 @@
 package hof.core;
 
+import java.util.Random;
+
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
@@ -18,15 +21,22 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private MessageProcessing processing;
 	private HallOfFame fame;
 	private ParticleEffect fireworkParticles;
-	private TextureRegion currentFirework;
+	private TextureRegion[] currentFireworks;
 	private float stateTime;
+	private boolean started;
+	private float height;
+	private Random rand;
 	
 	public GameFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		fame = HallOfFame.getInstance();
 		fireworkParticles = Assets.loadFireWorksParticles();
-		fireworkParticles.getEmitters().get(0).setPosition(Assets.FRAME_WIDTH / 2, 0);
+		ParticleEmitter pm = fireworkParticles.getEmitters().get(0);
+		pm.setPosition(Assets.FRAME_WIDTH / 2, 0);
+		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
+		rand = new Random();
+		currentFireworks = new TextureRegion[10];
 	}
 	
 	@Override
@@ -38,6 +48,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		}
 		processing.getPlayerList().clear();
 		stateTime = 0;
+		started = false;
 	}
 	
 	@Override
@@ -50,10 +61,31 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 		stateTime += delta;
-		currentFirework = Assets.fireWorksAnimation.getKeyFrame(stateTime, true);
+		if (stateTime >= 1.5f && !started) {
+			started = true;
+			stateTime = 0;
+		}
+		if (started) {
+			for (int i = 0; i < currentFireworks.length; i++) {
+				currentFireworks[i] = Assets.fireWorksAnimation.getKeyFrame(stateTime, true);
+			}
+		}
+		
 		spriteBatch.begin();
 		fireworkParticles.draw(spriteBatch, delta);
-		spriteBatch.draw(currentFirework, (int)(Math.random() * 10) + Assets.FRAME_WIDTH / 2 - 10,(int) Math.random() * 10 + Assets.FRAME_HEIGHT* 9/10);
+		if (started) {
+			float x = rand.nextInt(400) + (Assets.FRAME_WIDTH / 2 - 200);
+			float y = rand.nextInt(30) + height;
+			int i = 1;
+			for (TextureRegion region: currentFireworks) {
+				spriteBatch.draw(region, x, y, 300,300);
+				System.out.println(i + ". x: " + x + " y: " + y);
+				i++;
+				x = rand.nextInt(400) + (Assets.FRAME_WIDTH / 2 - 200);
+				y = rand.nextInt(30) + height;
+			}
+//			spriteBatch.draw(currentFirework, rand.nextInt(10) + Assets.FRAME_WIDTH / 2 - 10, rand.nextInt(10) + height);
+		}
 		spriteBatch.draw(Assets.gameFinishedScreen, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 		Assets.text50Font.draw(spriteBatch, "Game finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();

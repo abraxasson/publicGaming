@@ -129,11 +129,11 @@ public class Assets {
 				frames[index++] = tmp[i][j];
 			}
 		}
-		runningAnimation = new Animation(0.025f, frames);
+		runningAnimation = new Animation(0.05f, frames);
 		
 		colums = 5;
 		rows = 5;
-		sheet = new Texture (Gdx.files.internal("textures/animations/feuerwerk.png"));
+		sheet = new Texture (Gdx.files.internal("textures/animations/feuerwerk1.png"));
 		tmp = TextureRegion.split(sheet, 
 				sheet.getWidth() / colums, sheet.getHeight() / rows);
 		frames = new TextureRegion[colums * rows];
