@@ -140,7 +140,7 @@ public class HallOfFame {
 			String text = "" + i + ":  " + item.toString();
 			bounds = font2.getBounds(text);
 			height -= bounds.height * 1.35;
-			if(height > Gdx.graphics.getHeight()/10){
+			if(height > Gdx.graphics.getHeight()/8){
 				font2.draw(spriteBatch, text, x - bounds.width / 2, height);
 				i++;
 			}
