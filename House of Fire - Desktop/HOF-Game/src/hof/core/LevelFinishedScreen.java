@@ -46,10 +46,10 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			lastLevel = true;
 		}
 		int medal = getMedal();
+		LevelInfoMessage message = new LevelInfoMessage(LevelInfoMessage.FINISHED, 
+				game.houseIndex, lastLevel,	medal);
 		for (Player player : processing.getPlayerList()) {
-			udpClient.sendObject(new LevelInfoMessage(
-					LevelInfoMessage.FINISHED, game.houseIndex, lastLevel,
-					medal), player.getIp());
+			udpClient.sendObject(message , player.getIp());
 		}
 
 	}

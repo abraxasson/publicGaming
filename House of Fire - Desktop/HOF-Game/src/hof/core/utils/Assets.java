@@ -45,6 +45,7 @@ public class Assets {
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture GameOverScreen;
+	public static Texture gameFinishedScreen;
 	private static Texture runningSheet;
 	public static Animation runningAnimation;
 	
@@ -133,6 +134,7 @@ public class Assets {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		gameFinishedScreen = new Texture(Gdx.files.internal("textures/GameFinished.png"));
 	}
 	
 	private static void loadHouses() {

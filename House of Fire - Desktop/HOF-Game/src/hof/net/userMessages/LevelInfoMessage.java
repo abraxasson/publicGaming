@@ -48,4 +48,10 @@ public class LevelInfoMessage extends AbstractMessage {
 		return level;
 	}	
 	
+	@Override
+	public String toString() {
+		return super.toString() + " " + level + " " + medal + " " + lastLevel;
+	}
+	
+	
 }
