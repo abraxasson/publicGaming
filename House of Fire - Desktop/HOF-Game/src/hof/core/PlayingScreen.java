@@ -290,6 +290,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 							if (lightning.getLifeTime() == Settings.lightningLifeTime) {
 								currentHouse.getFireList().add(
 										new Fire(lightning.getHotSpot()));
+								Assets.thunder.play();
 							}
 							lightning.draw(spriteBatch);
 						}

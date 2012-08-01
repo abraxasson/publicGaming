@@ -59,6 +59,8 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void show() {
 		startTime = System.currentTimeMillis();
+		Assets.fanfare.play();
+		Assets.firework.loop();
 		
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
@@ -66,6 +68,12 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		processing.getPlayerList().clear();
 		stateTime = 0;
 		started = false;
+	}
+	
+	@Override
+	public void hide(){
+		Assets.firework.stop();
+		Assets.firework2.stop();
 	}
 	
 	@Override
@@ -81,6 +89,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		if (stateTime >= delay && !started) {
 			started = true;
 			stateTime = 0;
+			Assets.firework2.loop();
 		}
 		if (started) {
 			currentFirework = Assets.fireWorksAnimation.getKeyFrame(stateTime, true);

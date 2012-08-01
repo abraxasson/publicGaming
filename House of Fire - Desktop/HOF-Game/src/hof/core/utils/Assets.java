@@ -69,6 +69,9 @@ public class Assets{
 	public static Sound rain;
 	public static Sound sirene;
 	public static Sound fanfare;
+	public static Sound thunder;
+	public static Sound firework;
+	public static Sound firework2;
 	
 	public static BufferedImage smokingArea;
 	
@@ -269,6 +272,9 @@ public class Assets{
 		sirene = Gdx.audio.newSound(Gdx.files.internal("sounds/emergency.mp3"));
 		fanfare = Gdx.audio.newSound(Gdx.files.internal("sounds/fanfare2.ogg"));
 		rain = Gdx.audio.newSound(Gdx.files.internal("sounds/rain.mp3"));
+		thunder = Gdx.audio.newSound(Gdx.files.internal("sounds/thunder.ogg"));
+		firework = Gdx.audio.newSound(Gdx.files.internal("sounds/firework.ogg"));
+		firework2 = Gdx.audio.newSound(Gdx.files.internal("sounds/firework2.mp3"));
 	}
 	
 	public static void dispose() {
