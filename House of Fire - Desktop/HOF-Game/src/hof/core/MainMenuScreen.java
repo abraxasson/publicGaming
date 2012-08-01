@@ -57,6 +57,17 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	@Override
+	public void show(){
+		Assets.backgroundMusicMenu.play();
+		Assets.backgroundMusicMenu.setLooping(true);
+	}
+	
+	@Override
+	public void hide(){
+		Assets.backgroundMusicMenu.stop();
+	}
+	
+	@Override
 	public void render(float delta) {
 		updateButtons(delta);
 		

@@ -82,11 +82,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Lightning.setLastUsed(System.currentTimeMillis());
 		Rain.setLastUsed(System.currentTimeMillis());
 		WaterPressure.setLastUsed(System.currentTimeMillis());
+		Assets.backgroundMusic.play();
+		Assets.backgroundMusic.setLooping(true);
 	}
 
 	@Override
 	public void hide() {
 		processing.getSmsQueue().clear();
+		Assets.backgroundMusic.stop();
 	}
 
 	@Override

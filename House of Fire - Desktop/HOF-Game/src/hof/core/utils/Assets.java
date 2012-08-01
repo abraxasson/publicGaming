@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -72,6 +73,8 @@ public class Assets{
 	public static Sound thunder;
 	public static Sound firework;
 	public static Sound firework2;
+	public static Music backgroundMusic;
+	public static Music backgroundMusicMenu;
 	
 	public static BufferedImage smokingArea;
 	
@@ -275,6 +278,8 @@ public class Assets{
 		thunder = Gdx.audio.newSound(Gdx.files.internal("sounds/thunder.ogg"));
 		firework = Gdx.audio.newSound(Gdx.files.internal("sounds/firework.ogg"));
 		firework2 = Gdx.audio.newSound(Gdx.files.internal("sounds/firework2.mp3"));
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+		backgroundMusicMenu = Gdx.audio.newMusic(Gdx.files.internal("sounds/background2.mp3"));
 	}
 	
 	public static void dispose() {
