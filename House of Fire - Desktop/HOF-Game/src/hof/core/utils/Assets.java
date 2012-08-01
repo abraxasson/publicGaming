@@ -9,20 +9,15 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.AudioDevice;
-import com.badlogic.gdx.audio.AudioRecorder;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Assets implements Audio{
+public class Assets{
 
 	public static final int FRAME_WIDTH = Gdx.graphics.getWidth();
 	public static final int FRAME_HEIGHT = Gdx.graphics.getHeight();
@@ -66,8 +61,12 @@ public class Assets implements Audio{
 	public static Texture lightningTexture;
 	public static Texture statusBar;
 	
-	public static Sound buttonSound;
 	public static Sound loser;
+	public static Sound applause;
+	public static Sound applause2;
+	public static Sound rain;
+	public static Sound sirene;
+	public static Sound fanfare;
 	
 	public static BufferedImage smokingArea;
 	
@@ -87,8 +86,7 @@ public class Assets implements Audio{
 		loadHouses();
 		createAnimations();
 		loadFonts();
-		Assets asset = new Assets();
-		loser = asset.newSound(Gdx.files.internal("sounds/loser.ogg"));
+		loadSounds();
 	}
 
 	public static ParticleEffect loadSmokeParticles(){
@@ -260,8 +258,13 @@ public class Assets implements Audio{
 		highscore50Font = new BitmapFont(Gdx.files.internal("fonts/highscore50.fnt"),Gdx.files.internal("fonts/highscore50.png"),false);;
 	}
 	
-	public static void playSound (Sound sound) {
-        sound.play(1);
+	public static void loadSounds(){
+		loser = Gdx.audio.newSound(Gdx.files.internal("sounds/loser.ogg")); 
+		applause = Gdx.audio.newSound(Gdx.files.internal("sounds/applause.mp3"));
+		applause2 = Gdx.audio.newSound(Gdx.files.internal("sounds/applause2.ogg"));
+		sirene = Gdx.audio.newSound(Gdx.files.internal("sounds/emergency.mp3"));
+		fanfare = Gdx.audio.newSound(Gdx.files.internal("sounds/fanfare2.ogg"));
+		rain = Gdx.audio.newSound(Gdx.files.internal("sounds/rain.mp3"));
 	}
 	
 	public static void dispose() {
@@ -294,30 +297,5 @@ public class Assets implements Audio{
 		highscore40Font.dispose();
 		highscore50Font.dispose();
 		
-	}
-
-	@Override
-	public AudioDevice newAudioDevice(int samplingRate, boolean isMono) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AudioRecorder newAudioRecorder(int samplingRate, boolean isMono) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public Music newMusic(FileHandle file) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Sound newSound(FileHandle fileHandle) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
