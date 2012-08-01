@@ -33,7 +33,7 @@ public class FPS {
 		     fps = frames;
 		     frames = 0;
 		  }
-		  font.setColor(Color.BLACK);
+		  font.setColor(Color.WHITE);
 		  font.draw(spriteBatch, fps + " fps", Assets.TIMELINE_WIDTH  + Assets.TIMELINE_WIDTH_OFFSET +10, Assets.RANKING_HEIGHT / 5);
 	}
 }

@@ -25,7 +25,6 @@ public class Rain extends AbstractCloud {
 		this.type = AbstractCloud.RAIN;
 		emitter = shower.getEmitters().get(0);
 		this.lifeTime = Settings.rainLifeTime;
-		lastUsed = System.currentTimeMillis();
 		this.onPosition = false;
 	}
 	
@@ -66,5 +65,11 @@ public class Rain extends AbstractCloud {
 	public boolean isOnPosition() {
 		return onPosition;
 	}
+	
+	public static long getLastUsed(){
+		return lastUsed;
+	}
+	
+	
 
 }

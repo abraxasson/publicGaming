@@ -20,7 +20,6 @@ public class Lightning extends AbstractCloud {
 		this.type = AbstractCloud.LIGHTNING;
 		this.lifeTime = Settings.lightningLifeTime;
 		hotSpot = null;
-		lastUsed = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -28,6 +27,7 @@ public class Lightning extends AbstractCloud {
 		this.lifeTime -= Gdx.graphics.getDeltaTime();
 		if(this.lifeTime < 0){
 			this.alive = false;
+			lastUsed = System.currentTimeMillis();
 		}
 		else{
 			spriteBatch.draw(flash, hotSpot.getX(), hotSpot.getY(), 150, 900);
@@ -41,6 +41,14 @@ public class Lightning extends AbstractCloud {
 	
 	public Pixel getHotSpot(){
 		return this.hotSpot;
+	}
+	
+	public static long getLastUsed(){
+		return lastUsed;
+	}
+	
+	public static void setLastUsed(long newLastUsed){
+		lastUsed = newLastUsed;
 	}
 	
 	public static boolean isReady() {

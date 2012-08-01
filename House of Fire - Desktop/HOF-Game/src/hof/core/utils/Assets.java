@@ -9,15 +9,20 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioDevice;
+import com.badlogic.gdx.audio.AudioRecorder;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Assets {
+public class Assets implements Audio{
 
 	public static final int FRAME_WIDTH = Gdx.graphics.getWidth();
 	public static final int FRAME_HEIGHT = Gdx.graphics.getHeight();
@@ -61,6 +66,7 @@ public class Assets {
 	
 	public static Texture cloudTexture;
 	public static Texture lightningTexture;
+	public static Texture statusBar;
 	
 	public static Sound buttonSound;
 	public static Sound loser;
@@ -82,8 +88,9 @@ public class Assets {
 		loadTextures();
 		loadHouses();
 		createAnimations();
-		loadSounds();
 		loadFonts();
+		Assets asset = new Assets();
+		loser = asset.newSound(Gdx.files.internal("sounds/loser.ogg"));
 	}
 
 	public static ParticleEffect loadSmokeParticles(){
@@ -208,6 +215,7 @@ public class Assets {
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
 		gameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
+		statusBar = new Texture(Gdx.files.internal("textures/statusBar.png"));
 		try {
 			smokingArea = ImageIO.read(new File("assets/textures/GameOver_SmokingArea.png"));
 		} catch (IOException e) {
@@ -242,10 +250,6 @@ public class Assets {
 			System.out.println("Haus konnte nicht vollständig geladen werden. Fehler!!");
 			Gdx.app.exit();
 		}		
-	}
-	
-	private static void loadSounds() {
-		
 	}
 	
 	private static void loadFonts() {
@@ -295,5 +299,30 @@ public class Assets {
 		highscore40Font.dispose();
 		highscore50Font.dispose();
 		
+	}
+
+	@Override
+	public AudioDevice newAudioDevice(int samplingRate, boolean isMono) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AudioRecorder newAudioRecorder(int samplingRate, boolean isMono) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Music newMusic(FileHandle file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Sound newSound(FileHandle fileHandle) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
