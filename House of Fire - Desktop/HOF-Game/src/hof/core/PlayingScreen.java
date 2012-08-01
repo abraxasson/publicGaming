@@ -93,7 +93,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
-		this.gags.get(0).draw(spriteBatch);
+		this.gags.get(0).drawAnimation(spriteBatch);
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
@@ -178,7 +178,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 	
 	private void initGag(){
-		this.gags.add(new NonPlayable(Assets.cat,100,100,200,100,500));
+		this.gags.add(new NonPlayable(100,100,500,Assets.runningCatAnimation));
 	}
 	
 	private void updateWaterJet() {

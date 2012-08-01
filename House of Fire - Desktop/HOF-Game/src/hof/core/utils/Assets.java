@@ -50,6 +50,8 @@ public class Assets {
 	public static Texture gameFinishedScreen;
 	public static Animation runningAnimation;
 	public static Animation runningAnimation2;
+	public static Animation runningAnimation3;
+	public static Animation runningCatAnimation;
 	public static Animation fireWorksAnimation;
 	
 	public static Map<Texture, BufferedImage> houseMap;
@@ -147,6 +149,34 @@ public class Assets {
 			}
 		}
 		runningAnimation2 = new Animation(0.05f, frames);
+		
+		colums = 11;
+		rows = 1;
+		sheet = new Texture (Gdx.files.internal("textures/animations/runningMan2.png"));
+		tmp = TextureRegion.split(sheet, 
+				sheet.getWidth() / colums, sheet.getHeight() / rows);
+		frames = new TextureRegion[rows * colums];
+		index = 0;
+		for (int i = 0; i < rows; i++  ) {
+			for (int j = 0; j < colums; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+		runningAnimation3 = new Animation(0.05f, frames);
+		
+		colums = 5;
+		rows = 4;
+		sheet = new Texture (Gdx.files.internal("textures/animations/runningCat.png"));
+		tmp = TextureRegion.split(sheet, 
+				sheet.getWidth() / colums, sheet.getHeight() / rows);
+		frames = new TextureRegion[rows * colums];
+		index = 0;
+		for (int i = 0; i < rows; i++  ) {
+			for (int j = 0; j < colums; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+		runningCatAnimation = new Animation(0.08f, frames);
 		
 		colums = 5;
 		rows = 5;
