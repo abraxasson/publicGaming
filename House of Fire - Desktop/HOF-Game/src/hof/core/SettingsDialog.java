@@ -211,6 +211,7 @@ public class SettingsDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				saveChanges();
+				Settings.load();
 				closeDialog();
 			}
 		});
@@ -255,7 +256,7 @@ public class SettingsDialog {
 		prefs.putInt(Settings.waterPressureIncID, getSliderValue(waterPressureIcrease));		
 		prefs.putFloat(Settings.waterAimSizeID, getSliderValue(waterAimSize));
 		
-		prefs.putLong(Settings.playerTimeoutID, getSliderValue(playerTimeout));
+		prefs.putLong(Settings.playerTimeoutID, getSliderValue(playerTimeout) * 1000);
 		prefs.putLong(Settings.maxPlayersID, getSliderValue(maxPlayers));
 		prefs.putInt(Settings.highScoreSizeID, getSliderValue(highscoreSize));
 		
