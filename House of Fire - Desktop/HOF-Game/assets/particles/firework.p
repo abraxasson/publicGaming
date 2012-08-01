@@ -1,9 +1,11 @@
 Untitled
 - Delay -
-active: false
+active: true
+lowMin: 100.0
+lowMax: 100.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 5000.0
+lowMax: 5000.0
 - Count - 
 min: 0
 max: 10
@@ -58,13 +60,17 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 25.0
+highMax: 25.0
 relative: false
-scalingCount: 1
+scalingCount: 3
 scaling0: 1.0
-timelineCount: 1
+scaling1: 0.83146065
+scaling2: 0.47058824
+timelineCount: 3
 timeline0: 0.0
+timeline1: 0.7829787
+timeline2: 1.0
 - Velocity - 
 active: true
 lowMin: 550.0
@@ -80,8 +86,8 @@ timeline0: 0.0
 active: true
 lowMin: 90.0
 lowMax: 90.0
-highMin: 75.0
-highMax: 105.0
+highMin: 85.0
+highMax: 95.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -117,6 +123,6 @@ attached: false
 continuous: true
 aligned: false
 additive: true
-behind: false
+behind: true
 - Image Path -
 particle.png

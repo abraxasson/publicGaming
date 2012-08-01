@@ -22,23 +22,34 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private HallOfFame fame;
 	private ParticleEffect fireworkParticles;
 	private TextureRegion[] currentFireworks;
+	
 	private float stateTime;
 	private boolean started;
 	private float height;
+	
 	private Random rand;
+	
+	private float delay;
+	private ParticleEmitter pm;
 	
 	public GameFinishedScreen(HouseOfFireGame game) {
 		super(game);
 		processing = MessageProcessing.getInstance();
 		fame = HallOfFame.getInstance();
 		fireworkParticles = Assets.loadFireWorksParticles();
-		ParticleEmitter pm = fireworkParticles.getEmitters().get(0);
+		pm = fireworkParticles.getEmitters().get(0);
 		pm.setPosition(Assets.FRAME_WIDTH / 2, 0);
+//		System.out.println(Assets.FRAME_HEIGHT);
+//		System.out.println(pm.getLife().getHighMin());
+//		System.out.println(pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000);
+//		System.out.println(Assets.FRAME_HEIGHT * pm.getVelocity().getLowMin() / 1000);  
+//		System.out.println(Assets.FRAME_HEIGHT * pm.getLife().getHighMin() / 1000); 
 		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
+		delay = height / pm.getVelocity().getLowMin() + (pm.getDelay().getLowMax() / 1000);
 		rand = new Random();
-		currentFireworks = new TextureRegion[10];
+		currentFireworks = new TextureRegion[15];
 	}
-	
+
 	@Override
 	public void show() {
 		startTime = System.currentTimeMillis();
@@ -61,7 +72,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 		stateTime += delta;
-		if (stateTime >= 1.5f && !started) {
+		if (stateTime >= delay && !started) {
 			started = true;
 			stateTime = 0;
 		}
@@ -74,23 +85,21 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.begin();
 		fireworkParticles.draw(spriteBatch, delta);
 		if (started) {
-			float x = rand.nextInt(400) + (Assets.FRAME_WIDTH / 2 - 200);
-			float y = rand.nextInt(30) + height;
-			int i = 1;
+			float x = rand.nextInt(200) + (Assets.FRAME_WIDTH / 2 - 200);
+			float y = rand.nextInt(50) + height;
 			for (TextureRegion region: currentFireworks) {
-				spriteBatch.draw(region, x, y, 300,300);
-				System.out.println(i + ". x: " + x + " y: " + y);
-				i++;
-				x = rand.nextInt(400) + (Assets.FRAME_WIDTH / 2 - 200);
-				y = rand.nextInt(30) + height;
+				spriteBatch.draw(region, x, y);
+
+				x = rand.nextInt(200) + (Assets.FRAME_WIDTH / 2 - 200);
+				y = rand.nextInt(50) + height;
 			}
-//			spriteBatch.draw(currentFirework, rand.nextInt(10) + Assets.FRAME_WIDTH / 2 - 10, rand.nextInt(10) + height);
 		}
+		
 		spriteBatch.draw(Assets.gameFinishedScreen, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 		Assets.text50Font.draw(spriteBatch, "Game finished", Assets.CANVAS_WIDTH / 2, Assets.CANVAS_HEIGHT / 2);
 		spriteBatch.end();
 		
-		if (System.currentTimeMillis() - startTime >= 4000l) {
+		if (System.currentTimeMillis() - startTime >= (pm.getDuration().getLowMax() + pm.getDelay().getLowMax()) * 2) {
 			game.houseIndex = 0;
 			game.setScreen(game.waitingForPlayersScreen);
 		}
