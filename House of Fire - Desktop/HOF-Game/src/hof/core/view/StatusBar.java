@@ -86,7 +86,7 @@ public class StatusBar {
 		}
 
 		public void updateText() {
-			players = processing.getPlayerList().size() + "/6";
+			players = processing.getPlayerList().size() + "/6 Players";
 		}
 	}
 
@@ -180,7 +180,7 @@ public class StatusBar {
 			y -= 10;
 			font2.draw(spriteBatch, pressureEffect, x, y);
 
-			y -= Assets.SMSBAR_HEIGHT/5;
+			y -= Assets.SMSBAR_HEIGHT/8;
 			font2.draw(spriteBatch, "Text to...", x, y);
 			y -= font2.getBounds("l").height+10;
 			font2.draw(spriteBatch, telephoneNumber, x, y);

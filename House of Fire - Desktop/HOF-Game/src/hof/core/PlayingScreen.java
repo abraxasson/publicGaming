@@ -60,7 +60,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
-
 		try {
 			ia = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
@@ -84,6 +83,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		WaterPressure.setLastUsed(System.currentTimeMillis());
 		Assets.backgroundMusic.play();
 		Assets.backgroundMusic.setLooping(true);
+		Assets.sirene.play();
 	}
 
 	@Override
