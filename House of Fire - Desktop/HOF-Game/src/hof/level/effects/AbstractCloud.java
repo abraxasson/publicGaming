@@ -40,6 +40,7 @@ public abstract class AbstractCloud {
 		}
 		else{
 			if(this.lifeTime < 0){
+				Assets.rain.stop();
 				spriteBatch.draw(texture, startPos, y, width, height);
 				startPos -= 200*Gdx.graphics.getDeltaTime();
 				if(startPos+width <= 0){
