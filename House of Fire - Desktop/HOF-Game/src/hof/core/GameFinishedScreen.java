@@ -23,7 +23,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private MessageProcessing processing;
 	private HallOfFame fame;
 	private ParticleEffect fireworkParticles;
-	private TextureRegion[] currentFireworks;
+	private TextureRegion currentFirework;
 	
 	private float stateTime;
 	private boolean started;
@@ -43,14 +43,13 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		pm = fireworkParticles.getEmitters().get(0);
 		pm.setPosition(Assets.FRAME_WIDTH / 2, 0);
 		
-		float var = 250;
+		float var = 200;
 		pm.getLife().setHigh(Assets.FRAME_HEIGHT + var);
 		pm.getLife().setLow(Assets.FRAME_HEIGHT - var);
 
 		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
 		delay = height / pm.getVelocity().getHighMin() + (pm.getDelay().getLowMax() / 1000);
 		rand = new Random();
-		currentFireworks = new TextureRegion[1];
 		
 		trophy = new Sprite(Assets.trophyTexture);
 		trophy.setX(Assets.FRAME_WIDTH/2 - trophy.getWidth()/2);
@@ -84,9 +83,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 			stateTime = 0;
 		}
 		if (started) {
-			for (int i = 0; i < currentFireworks.length; i++) {
-				currentFireworks[i] = Assets.fireWorksAnimation.getKeyFrame(stateTime, true);
-			}
+			currentFirework = Assets.fireWorksAnimation.getKeyFrame(stateTime, true);
 		}
 		
 		spriteBatch.begin();
@@ -95,26 +92,8 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		pm.setPosition(Assets.FRAME_WIDTH * 0.75f, 0);
 		fireworkParticles.draw(spriteBatch, delta);
 		if (started) {
-			float x;
-			float y;
-			float size = 200;
+			drawFireworkAnimation();
 			
-			for (TextureRegion region: currentFireworks) {
-				x = 0;//rand.nextInt(200);
-				y = rand.nextInt(50) + height;
-				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 - 100), y, size, size);
-				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 - 200), y, size, size);
-//				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 - 300), y, size, size);
-//				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 + 100), y, size, size);
-				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 + 25), y, size, size);
-//				spriteBatch.draw(region, x + (Assets.FRAME_WIDTH / 4 + 200), y, size, size);
-				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 - 100), y, size, size);
-				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 - 200), y, size, size);
-//				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 - 300), y, size, size);
-//				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 + 100), y, size, size);
-				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 + 25), y, size, size);
-//				spriteBatch.draw(region, x + (int)(Assets.FRAME_WIDTH * 0.75 + 200), y, size, size);
-			}
 		}
 		
 		spriteBatch.draw(Assets.gameFinishedScreen, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
@@ -125,12 +104,25 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.setColor(oldColor);
 		
 		trophy.draw(spriteBatch);
-		spriteBatch.draw(Assets.gameFinishedText, (Assets.FRAME_WIDTH - Assets.gameFinishedText.getWidth())/2, Assets.FRAME_HEIGHT * 9/10 - Assets.gameFinishedText.getHeight());
+		spriteBatch.draw(Assets.gameFinishedText, (Assets.FRAME_WIDTH - Assets.gameFinishedText.getWidth())/2, Assets.FRAME_HEIGHT * 9/10 - Assets.gameFinishedText.getHeight()/2);
 		spriteBatch.end();
 		
 		if (System.currentTimeMillis() - startTime >= (pm.getDuration().getLowMax() + pm.getDelay().getLowMax()) * 2) {
 			game.houseIndex = 0;
 			game.setScreen(game.waitingForPlayersScreen);
 		}
+	}
+
+	private void drawFireworkAnimation() {
+		float size = 200;
+		float x = 0;
+		float y = rand.nextInt(50) + height;
+		
+		spriteBatch.draw(currentFirework, x + (Assets.FRAME_WIDTH / 4 - 100), y, size, size);
+		spriteBatch.draw(currentFirework, x + (Assets.FRAME_WIDTH / 4 - 200), y, size, size);
+		spriteBatch.draw(currentFirework, x + (Assets.FRAME_WIDTH / 4 + 25), y, size, size);
+		spriteBatch.draw(currentFirework, x + (int)(Assets.FRAME_WIDTH * 0.75 - 100), y, size, size);
+		spriteBatch.draw(currentFirework, x + (int)(Assets.FRAME_WIDTH * 0.75 - 200), y, size, size);
+		spriteBatch.draw(currentFirework, x + (int)(Assets.FRAME_WIDTH * 0.75 + 25), y, size, size);
 	}
 }
