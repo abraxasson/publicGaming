@@ -5,26 +5,26 @@ import java.util.prefs.Preferences;
 
 
 public class Settings {
-	private static final String TELEPHONE_NUMBER_ID = "TELEPHONE_NUMBER";
-	private static final String houseHealthpointsID = "houseHealthpoints";
-	private static final String fireDamageID = "fireDamage";
-	private static final String waterDamageID = "waterDamage";
-	private static final String waterPressureIncID = "waterPressureInc";
-	private static final String rainLifeTimeID = "rainLifeTime";
-	private static final String lightningLifeTimeID = "lightningLifeTime";
-	private static final String waterPressureLifeTimeID = "waterPressureLifeTime";
-	private static final String rainDamageID = "rainDamage";
-	private static final String waterAimSizeID = "waterAimSize";
-	private static final String playerTimeoutID = "playerTimeout";
-	private static final String maxPlayersID = "maxPlayers";
-	private static final String highScoreSizeID = "highScoreSize";
-	private static final String fireIncreaseID = "fireIncrease";
-	private static final String rainKeyWordID = "rainKeyWord";
-	private static final String lightningKeyWordID = "lightningKeyWord";
-	private static final String pressureKeyWordID = "pressureKeyWord";
-	private static final String rainCooledownID = "rainCooledown";
-	private static final String lightningCooldownID = "lightningCooldown";
-	private static final String pressureCooldownID = "pressureCooldown";
+	public static final String TELEPHONE_NUMBER_ID = "Telephone Number";
+	public static final String houseHealthpointsID = "House Healthpoints";
+	public static final String fireDamageID = "Fire Damage";
+	public static final String waterDamageID = "Water Damage";
+	public static final String waterPressureIncID = "Water Pressure Increase";
+	public static final String rainLifeTimeID = "Rain Life Time";
+	public static final String lightningLifeTimeID = "Lightning Lifetime";
+	public static final String waterPressureLifeTimeID = "Water Pressure Lifetime";
+	public static final String rainDamageID = "Rain Damage";
+	public static final String waterAimSizeID = "Wateraim-Size";
+	public static final String playerTimeoutID = "Playertimeout";
+	public static final String maxPlayersID = "Max Players";
+	public static final String highScoreSizeID = "Highscore Size";
+	public static final String fireIncreaseID = "Fire-Increase";
+	public static final String rainKeyWordID = "Rain-KeyWord";
+	public static final String lightningKeyWordID = "Lightning-KeyWord";
+	public static final String pressureKeyWordID = "Pressure-KeyWord";
+	public static final String rainCooldownID = "Rain Cooldown";
+	public static final String lightningCooldownID = "Lightning Cooldown";
+	public static final String pressureCooldownID = "Pressure Cooldown";
 
 	
 	private static final String settingsPath = "settings";
@@ -68,7 +68,7 @@ public class Settings {
 	
 	public static void load() {
 		prefs = Preferences.userRoot().node(settingsPath);
-
+		
 		houseHealthpoints = prefs.getFloat(houseHealthpointsID, 1000);
 		fireDamage = prefs.getFloat(fireDamageID, 1);
 		waterDamage = prefs.getFloat(waterDamageID, 3);
@@ -84,7 +84,7 @@ public class Settings {
 		lightningKeyWord = prefs.get(lightningKeyWordID, "LIGHTNING");
 		pressureKeyWord = prefs.get(pressureKeyWordID, "PRESSURE");
 		fireIncrease = prefs.getInt(fireIncreaseID, 5);
-		rainCooldown = prefs.getFloat(rainCooledownID, 10000);
+		rainCooldown = prefs.getFloat(rainCooldownID, 10000);
 		lightningCooldown = prefs.getFloat(lightningCooldownID, 15000);
 		pressureCooldown = prefs.getFloat(pressureCooldownID, 10000);
 
@@ -107,7 +107,7 @@ public class Settings {
 		prefs.putFloat(waterPressureLifeTimeID, waterPressureLifeTime);			
 		prefs.putFloat(rainDamageID, rainDamage);		
 		prefs.putFloat(rainLifeTimeID, rainLifeTime);
-		prefs.putFloat(rainCooledownID, rainCooldown);
+		prefs.putFloat(rainCooldownID, rainCooldown);
 		prefs.putFloat(lightningCooldownID, lightningCooldown);
 		prefs.putFloat(pressureCooldownID, pressureCooldown);
 		

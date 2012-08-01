@@ -78,7 +78,7 @@ public class MainMenuScreen extends GameScreen<HouseOfFireGame> {
 		if (settingsButton.wasPressed()) {
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-//					new SettingsDialog();
+					new SettingsDialog();
 				}
 			});
 		}
