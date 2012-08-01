@@ -49,7 +49,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		UdpClientThread udpClient = UdpClientThread.getInstance();
 		for (Player player : processing.getPlayerList()) {
 			fame.addPlayer(player);
-			udpClient.sendObject(new GameOverInfoMessage(), player.getIp());
+			udpClient.sendMessage(new GameOverInfoMessage(), player.getIp());
 		}
 		startTime = System.currentTimeMillis();
 	}

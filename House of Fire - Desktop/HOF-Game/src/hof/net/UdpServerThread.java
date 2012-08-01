@@ -3,8 +3,8 @@ package hof.net;
 import hof.net.userMessages.AbstractMessage;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -17,8 +17,7 @@ public class UdpServerThread extends Thread {
 	private DatagramSocket socket;
 	private DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
 	
-	private ObjectInputStream ois;
-	private AbstractMessage message;
+	private DataInputStream ois;
 	private boolean isActive;
 	
 	private MessageProcessing processing;
@@ -55,10 +54,10 @@ public class UdpServerThread extends Thread {
 				InetAddress address = packet.getAddress();
 				byte[] data = packet.getData();
 				
-				ois = new ObjectInputStream(new ByteArrayInputStream(data));
-				
-				message =  (AbstractMessage) ois.readObject();
+				ois = new DataInputStream(new ByteArrayInputStream(data));
+				AbstractMessage message = AbstractMessage.deserialize(ois); 
 				message.setIa(address);
+				
 				ois.close();
 				
 				processing.addMessage(message); 
@@ -68,10 +67,7 @@ public class UdpServerThread extends Thread {
 			} catch (IOException e) {
 				System.out.println("Fehler beim Empfang");
 				System.out.println(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
 			} 
-
 		}
 	}	
 	

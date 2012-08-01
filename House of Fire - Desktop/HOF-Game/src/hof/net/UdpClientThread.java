@@ -3,8 +3,8 @@ package hof.net;
 import hof.net.userMessages.AbstractMessage;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -67,11 +67,11 @@ public class UdpClientThread extends Thread {
 		notify();
 	}
 
-	public synchronized void sendObject(AbstractMessage e, InetAddress ineta) {
+	public synchronized void sendMessage(AbstractMessage e, InetAddress ineta) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
-			ObjectOutputStream stream = new ObjectOutputStream(baos);
-			stream.writeObject(e);
+			DataOutputStream stream = new DataOutputStream(baos);
+			e.serialize(stream);
 			byte[] data = baos.toByteArray();
 			packet = new DatagramPacket(data, data.length, ineta, port);
 			list.add(packet);

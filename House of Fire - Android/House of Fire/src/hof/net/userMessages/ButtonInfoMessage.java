@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class ButtonInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 37295872L;
 	public static final int NORMAL = 1;
@@ -24,4 +27,11 @@ public class ButtonInfoMessage extends AbstractMessage {
 	public String toString() {
 		return super.toString() + " -Button pressed!";
 	}
+
+	@Override
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeInt(getState());
+	}
+	
 }
