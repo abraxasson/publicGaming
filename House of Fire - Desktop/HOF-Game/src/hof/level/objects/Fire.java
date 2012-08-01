@@ -66,7 +66,7 @@ public class Fire {
 		//y,emitter.getLife().getLowMin()/6,emitter.getLife().getLowMin()/6);
 	}
 
-	public void update() {
+	private void update() {
 		fireRectangle.setX(x - 20);
 		fireRectangle.setY(y);
 		fireRectangle.setWidth(emitter.getLife().getLowMin() / 6);

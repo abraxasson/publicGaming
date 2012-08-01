@@ -46,10 +46,10 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			lastLevel = true;
 		}
 		int medal = getMedal();
-		LevelInfoMessage message = new LevelInfoMessage(LevelInfoMessage.FINISHED, 
-				game.houseIndex, lastLevel,	medal);
+		LevelInfoMessage message = new LevelInfoMessage(
+				LevelInfoMessage.FINISHED, game.houseIndex, lastLevel, medal);
 		for (Player player : processing.getPlayerList()) {
-			udpClient.sendObject(message , player.getIp());
+			udpClient.sendObject(message, player.getIp());
 		}
 
 	}
@@ -88,10 +88,11 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
 		TextBounds bounds = infoFont.getBounds("Test");
-		spriteBatch.draw(Assets.pureWhiteTexture,
+		spriteBatch
+				.draw(Assets.pureWhiteTexture,
 						this.collumnWidth,
-						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5.1 * bounds.height)),
-						(this.collumnWidth-30) * 6, 10);
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (6.5 * bounds.height)),
+						(this.collumnWidth - 30) * 6, 10);
 		spriteBatch.setColor(oldColor);
 		showScore();
 		spriteBatch.end();
@@ -113,6 +114,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			this.nameFont.setColor(player.getColor());
 			String oldScore = "" + player.getScore() + " ";
 			String bonuspoints = "" + player.getBonuspoints() + " ";
+			String minuspoints = "" + player.getMinuspoints() + " ";
 			TextBounds bounds = infoFont.getBounds(player.getName());
 			nameFont.draw(spriteBatch, player.getName(), i * this.collumnWidth,
 					(float) (Gdx.graphics.getHeight() * 0.6));
@@ -124,26 +126,36 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					bonuspoints,
 					i * this.collumnWidth,
 					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (3.5 * bounds.height)));
-			int newPoints = player.getScore() + player.getBonuspoints();
+
+			infoFont.draw(
+					spriteBatch,
+					minuspoints,
+					i * this.collumnWidth,
+					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5 * bounds.height)));
+
+			int newPoints = player.getScore() + player.getBonuspoints()
+					+ player.getMinuspoints();
 			String newScore = "" + newPoints + " ";
+
 			infoFont.draw(
 					spriteBatch,
 					newScore,
 					i * this.collumnWidth,
-					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5.5 * bounds.height)));
+					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
 		}
 	}
 
 	@Override
 	public void hide() {
 		if (!lastLevel) {
-			LevelInfoMessage message = new LevelInfoMessage(LevelInfoMessage.STARTED, game.houseIndex + 1);
+			LevelInfoMessage message = new LevelInfoMessage(
+					LevelInfoMessage.STARTED, game.houseIndex + 1);
 			for (Player player : processing.getPlayerList()) {
 				udpClient.sendObject(message, player.getIp());
 				player.setLastInput(System.currentTimeMillis());
 			}
 		}
-		
+
 		processing.emptyInputQueues();
 	}
 

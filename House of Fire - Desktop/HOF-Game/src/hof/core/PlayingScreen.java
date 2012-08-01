@@ -42,7 +42,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private StatusBar statusBar;
 	private House currentHouse;
 	private ArrayList<NonPlayable> gags;
-	
+
 	private MessageProcessing processing;
 
 	private FPS fps;
@@ -56,7 +56,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		firefighters = new ArrayList<>();
 		gags = new ArrayList<NonPlayable>();
 		currentHouse = game.houseList.get(game.houseIndex);
-		initGag();
 
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
@@ -74,8 +73,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
 		for (Player player : processing.getPlayerList()) {
-			player.setScore(player.getScore() + player.getBonuspoints());
+			player.setScore(player.getScore() + player.getBonuspoints() + player.getMinuspoints());
 			player.setBonuspoints(0);
+			player.setMinuspoints(0);
 		}
 		finishedTime = 0;
 	}
@@ -93,7 +93,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
-		this.gags.get(0).drawAnimation(spriteBatch);
+		removeDeadGags();
+		drawGag();
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
@@ -125,7 +126,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			for (Player player : this.processing.getPlayerList()) {
 				player.setBonuspoints((int) (currentHouse.getHealthpoints()) * 10);
 			}
-			
+
 			if (finishedTime == 0) {
 				finishedTime = System.currentTimeMillis();
 			} else if (System.currentTimeMillis() - finishedTime > 3000l) {
@@ -137,6 +138,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			game.setScreen(game.waitingForPlayersScreen);
 			game.houseIndex = 0;
 		}
+		
+		if (Gdx.input.isKeyPressed(Keys.G)){
+			if(gags.isEmpty()){
+				initGag(new NonPlayable(100,150,200,Assets.runningCatAnimation));
+			}
+		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
@@ -146,12 +153,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			Gdx.app.exit();
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.W)){
+
+		if (Gdx.input.isKeyPressed(Keys.W)) {
 			currentHouse.getFireList().clear();
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.L)){
+
+		if (Gdx.input.isKeyPressed(Keys.L)) {
 			currentHouse.destroy();
 		}
 
@@ -160,34 +167,42 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		processWaterPressure();
 	}
 
-	private void processWaterPressure(){
-		if(processing.hasWaterPressureMessage()){
-			WaterPressureInfoMessage waterInfoMessage = processing.getWaterPressureMessage();
-			for(Firefighter firefighter : this.firefighters){
-				if(firefighter.getPlayer().getIp().equals(waterInfoMessage.getIa())){
+	private void drawGag() {
+		if (!this.gags.isEmpty()) {
+			this.gags.get(0).drawAnimation(spriteBatch);
+		}
+	}
+
+	private void processWaterPressure() {
+		if (processing.hasWaterPressureMessage()) {
+			WaterPressureInfoMessage waterInfoMessage = processing
+					.getWaterPressureMessage();
+			for (Firefighter firefighter : this.firefighters) {
+				if (firefighter.getPlayer().getIp()
+						.equals(waterInfoMessage.getIa())) {
 					if (waterInfoMessage.getPressure() <= 0) {
 						firefighter.getWaterJet().setActive(false);
 					} else {
 						firefighter.getWaterJet().setActive(true);
 					}
-//					WaterJet waterJet = firefighter.getWaterJet();					
-//					waterJet.setSize(waterJet.getSize()*waterInfoMessage.getPressure()/100);
+					// WaterJet waterJet = firefighter.getWaterJet();
+					// waterJet.setSize(waterJet.getSize()*waterInfoMessage.getPressure()/100);
 				}
 			}
 		}
 	}
-	
-	private void initGag(){
-		this.gags.add(new NonPlayable(100,100,500,Assets.runningCatAnimation));
+
+	private void initGag(NonPlayable gag) {
+		this.gags.add(gag);
 	}
-	
+
 	private void updateWaterJet() {
 		if (processing.hasSensorInput()) {
 			checkWaterJetState();
 		}
 		moveWaterJet();
 	}
-	
+
 	private void checkWaterJetState() {
 		SensorInput input = processing.getSensorInput();
 		for (Firefighter fighter : firefighters) {
@@ -284,7 +299,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 								rain.setBurningSpot(pixel);
 							}
 						}
-						if (rain.getBurningSpot() != null && rain.isOnPosition()) {
+						if (rain.getBurningSpot() != null
+								&& rain.isOnPosition()) {
 							for (Fire fire : currentHouse.getFireList()) {
 								if (fire.getX() < rain.getBurningSpot().getX() + 10
 										&& fire.getX() > rain.getBurningSpot()
@@ -315,12 +331,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					break;
 				}
 			}
-			
+
 			Iterator<AbstractCloud> iter = processing.getSmsQueue().iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				AbstractCloud currentEffect = iter.next();
-				if(!currentEffect.getActive()){
-					if(currentEffect.getType() == AbstractCloud.WATERPRESSURE){
+				if (!currentEffect.getActive()) {
+					if (currentEffect.getType() == AbstractCloud.WATERPRESSURE) {
 						for (Firefighter firefighter : this.firefighters) {
 							WaterJet waterJet = firefighter.getWaterJet();
 							waterJet.changeDiameter(Settings.waterAimSize);
@@ -396,6 +412,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
+	private void removeDeadGags() {
+		Iterator<NonPlayable> iter = this.gags.iterator();
+		NonPlayable gag;
+		while (iter.hasNext()) {
+			gag = iter.next();
+			if (gag.getHealthpoints() < 0) {
+				iter.remove();
+			}
+		}
+	}
+
 	private void checkCollision() {
 		for (Fire fire : currentHouse.getFireList()) {
 			for (Firefighter firefighter : firefighters) {
@@ -404,6 +431,21 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					fire.setHealthpoints(fire.getHealthpoints()
 							- Settings.waterDamage);
 					firefighter.getPlayer().incScore();
+				}
+			}
+		}
+
+		for (NonPlayable gag : this.gags) {
+			for (Firefighter firefighter : this.firefighters) {
+				if (firefighter.getWaterJet().getStreamArea()
+						.overlaps(gag.getPosition())) {
+					gag.setHealthpoints(gag.getHealthpoints()
+							- Settings.waterDamage);
+					firefighter.getPlayer()
+							.setMinuspoints(
+									(int) (firefighter.getPlayer()
+											.getMinuspoints() - gag
+											.getHealthpoints()*Gdx.graphics.getDeltaTime()));
 				}
 			}
 		}

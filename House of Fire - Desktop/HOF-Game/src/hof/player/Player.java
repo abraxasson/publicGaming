@@ -12,6 +12,7 @@ public class Player implements Comparable<Player> {
 	private boolean isPumping;
 	private long lastInput;
 	private int bonuspoints;
+	private int minuspoints;
 	
 	public Player(String name, InetAddress ip) {
 		this(name, ip, Color.WHITE);
@@ -92,5 +93,16 @@ public class Player implements Comparable<Player> {
 	@Override
 	public int compareTo(Player p) {
 		return p.score - score;
+	}
+
+	public int getMinuspoints() {
+		return minuspoints;
+	}
+
+	public void setMinuspoints(int minuspoints) {
+		this.minuspoints = minuspoints;
+		if(this.minuspoints > 0){
+			this.minuspoints = 0;
+		}
 	}
 }
