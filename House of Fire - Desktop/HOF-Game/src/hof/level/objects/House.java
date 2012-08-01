@@ -29,7 +29,7 @@ public class House {
 		fireCount = fire;
 		isAlive = true;
 		maxHealth = healthpoints;
-		
+		resetHouse();
 	}
 	
 	public void resetHouse() {
@@ -112,6 +112,10 @@ public class House {
 		else{
 			isAlive = false;
 		}
+	}
+	
+	public void drawFullscreen(SpriteBatch spriteBatch) {
+		spriteBatch.draw(image, 0,0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 	}
 	
 	public boolean getAlive() {

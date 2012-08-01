@@ -25,9 +25,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	private HallOfFame fame;
 
 	private boolean isWaiting;
-
+	private float helpTime;
 	private float stateTime;
-
 	private Status status;
 
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
@@ -42,6 +41,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		isWaiting = true;
 		stateTime = 0;
+		helpTime = 0;
 		status = Status.Title;
 	}
 
@@ -49,6 +49,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	public void render(float delta) {
 		if (isWaiting) {
 			stateTime += delta;
+			
 			checkStatus();
 		} else {
 			game.setScreen(game.playingScreen);
@@ -83,18 +84,22 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			break;
 			
 		case Help:
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			helpTime += delta;
+			int helps = 2;
+//			float t = stateTime / 1;
+			if (helpTime > 0.5) {
+				for (int i = 0; i < helps; i++) {
+					spriteBatch.draw(Assets.waitingForPlayerHelp, (float) (Math.random() * Assets.FRAME_WIDTH), (float) (Math.random() * Assets.FRAME_HEIGHT));
+				}
+			}
 			break;
 			
 		case Main:
-			Gdx.gl.glClearColor(1, 0, 0, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 			break;
 		
 		case House:
-			Gdx.gl.glClearColor(1, 1, 0, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			game.houseList.get(0).drawFullscreen(spriteBatch);
 			break;
 			
 		case Highscore:
