@@ -32,20 +32,7 @@ public class NonPlayable extends AbstractPerson{
 	public void draw(SpriteBatch spriteBatch){
 		if(this.startPos + this.getWidth() > 0){
 			spriteBatch.draw(this.getBody(), startPos, this.getY(), this.getWidth(), this.getHeight());
-			startPos -= 150*Gdx.graphics.getDeltaTime()*((int)(Math.random()*5));
-			int zz = (int)(Math.random()*10);
-			if(zz>8){
-				this.setY(this.getY()+5);
-			}
-			else if(zz<2){
-				this.setY(this.getY()-5);
-			}
-			if(this.getY()<= 100){
-				this.setY(100);
-			}
-			if(this.getY()>=200){
-				this.setY(200);
-			}
+			startPos -= 150*Gdx.graphics.getDeltaTime();
 		}
 		else{
 			this.startPos = Assets.CANVAS_WIDTH;

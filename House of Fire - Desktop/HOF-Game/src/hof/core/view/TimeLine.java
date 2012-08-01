@@ -37,7 +37,7 @@ public class TimeLine {
 		width = (int) (maxWidth * percentage);
 
 		stateTime += Gdx.graphics.getDeltaTime();
-		running = Assets.runningAnimation.getKeyFrame(stateTime, true);
+		running = Assets.runningAnimation2.getKeyFrame(stateTime, true);
 		
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.BLACK);
