@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
 
@@ -39,5 +42,36 @@ public abstract class AbstractMessage implements Serializable {
 	@Override
 	public String toString() {
 		return "Type: " + type;
+	}
+	
+	public void serialize(DataOutputStream stream) throws IOException {
+		stream.writeInt(getType());
+		
+	}
+	
+	public static AbstractMessage deserialize(DataInputStream stream) throws IOException {
+		int type = stream.readInt();
+		switch (type) {
+		case ButtonInfo:
+			return new ButtonInfoMessage(stream.readInt());
+		case GameOver:
+			return new GameOverInfoMessage();
+		case LevelInfo:
+			return new LevelInfoMessage(stream.readInt(), stream.readInt(), stream.readBoolean(), stream.readInt());
+		case LogoutInfo:
+			return new LogoutInfoMessage();
+		case PlayerInfo:
+			return new PlayerInfoMessage(stream.readUTF());
+		case SensorInfo:
+			return new SensorInfoMessage(stream.readFloat(), stream.readFloat(), stream.readFloat());
+		case SMSInfo:
+			return new SMSInfoMessage(stream.readInt());
+		case ValidationInfo:
+			return new ValidationInfoMessage(stream.readFloat(), stream.readFloat(), stream.readFloat());
+		case WaterPressure:
+			return new WaterPressureInfoMessage(stream.readFloat());
+				
+		}
+		return null;
 	}
 }

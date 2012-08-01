@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class WaterPressureInfoMessage extends AbstractMessage {
 	private static final long serialVersionUID = 37295872L;
 	private float pressure;			//Wasserdruck in Prozent
@@ -27,6 +30,8 @@ public class WaterPressureInfoMessage extends AbstractMessage {
 		this.pressure = pressure;
 	}
 	
-	
-
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeFloat(pressure);
+	}
 }

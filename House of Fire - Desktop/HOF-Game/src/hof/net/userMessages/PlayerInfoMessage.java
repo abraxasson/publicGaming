@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class PlayerInfoMessage extends AbstractMessage {
 
 	private static final long serialVersionUID = 37295872L;
@@ -21,5 +24,10 @@ public class PlayerInfoMessage extends AbstractMessage {
 	@Override
 	public String toString() {
 		return super.toString() + " " + name;
+	}
+	
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeUTF(name);
 	}
 }

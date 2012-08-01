@@ -48,6 +48,8 @@ public class Assets{
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
 	public static Texture gameFinishedScreen;
+	public static Texture trophyTexture;
+	public static Texture gameFinishedText;
 	public static Animation runningAnimation;
 	public static Animation runningAnimation2;
 	public static Animation runningAnimation3;
@@ -195,7 +197,7 @@ public class Assets{
 				frames[index++] = tmp[i][j];
 			}
 		}
-		fireWorksAnimation = new Animation(1/22f, frames);
+		fireWorksAnimation = new Animation(1/25f, frames);
 	}
 
 	private static void loadTextures() {
@@ -218,6 +220,8 @@ public class Assets{
 			e.printStackTrace();
 		}
 		gameFinishedScreen = new Texture(Gdx.files.internal("textures/GameFinished.png"));
+		trophyTexture = new Texture(Gdx.files.internal("textures/trophy.png"));
+		gameFinishedText = new Texture(Gdx.files.internal("textures/gameFinishedText.png"));
 	}
 	
 	private static void loadHouses() {
@@ -281,6 +285,7 @@ public class Assets{
 		timeLineTexture.dispose();
 		cloudTexture.dispose();
 		lightningTexture.dispose();
+		trophyTexture.dispose();
 		
 		for (Texture texture: houseList) {
 			texture.dispose();

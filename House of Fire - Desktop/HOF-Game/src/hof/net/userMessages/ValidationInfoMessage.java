@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class ValidationInfoMessage extends AbstractMessage {
 
 	private static final long serialVersionUID = 37295872L;
@@ -25,5 +28,12 @@ public class ValidationInfoMessage extends AbstractMessage {
 
 	public float getB() {
 		return b;
+	}
+	
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeFloat(r);
+		stream.writeFloat(g);
+		stream.writeFloat(b);
 	}
 }

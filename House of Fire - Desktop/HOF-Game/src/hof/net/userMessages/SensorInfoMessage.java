@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class SensorInfoMessage extends AbstractMessage {
 	private float x;
 	private float y;
@@ -28,5 +31,12 @@ public class SensorInfoMessage extends AbstractMessage {
 	@Override
 	public String toString() {
 		return super.toString() + " X: " + x + " Y: " + y + " Z: " + z;
+	}
+	
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeFloat(x);
+		stream.writeFloat(y);
+		stream.writeFloat(z);
 	}
 }

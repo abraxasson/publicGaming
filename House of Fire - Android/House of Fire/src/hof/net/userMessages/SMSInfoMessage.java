@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 
 public class SMSInfoMessage extends AbstractMessage {
 
@@ -38,4 +41,11 @@ public class SMSInfoMessage extends AbstractMessage {
 		}
 		return super.toString() + " " + typ;
 	}
+	
+	@Override
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeInt(getEffectType());
+	}
+
 }

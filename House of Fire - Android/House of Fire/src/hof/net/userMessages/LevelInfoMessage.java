@@ -1,5 +1,8 @@
 package hof.net.userMessages;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class LevelInfoMessage extends AbstractMessage {
 	public static final int STARTED = 1;
 	public static final int FINISHED = 2;
@@ -48,4 +51,16 @@ public class LevelInfoMessage extends AbstractMessage {
 		return level;
 	}	
 	
+	@Override
+	public String toString() {
+		return super.toString() + " " + level + " " + medal + " " + lastLevel;
+	}
+	
+	public void serialize(DataOutputStream stream) throws IOException {
+		super.serialize(stream);
+		stream.writeInt(eventType);
+		stream.writeInt(level);
+		stream.writeBoolean(lastLevel);
+		stream.writeInt(medal);
+	}
 }

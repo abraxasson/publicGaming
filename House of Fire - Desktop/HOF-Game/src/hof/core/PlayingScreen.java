@@ -466,7 +466,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(
+				UdpClientThread.getInstance().sendMessage(
 						new ButtonInfoMessage(ButtonInfoMessage.NORMAL), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -478,7 +478,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(
+				UdpClientThread.getInstance().sendMessage(
 						new ButtonInfoMessage(ButtonInfoMessage.LEFT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -490,7 +490,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			try {
 				ia = InetAddress.getLocalHost();
 
-				UdpClientThread.getInstance().sendObject(
+				UdpClientThread.getInstance().sendMessage(
 						new ButtonInfoMessage(ButtonInfoMessage.RIGHT), ia);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -498,17 +498,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Y)) {
-			UdpClientThread.getInstance().sendObject(
+			UdpClientThread.getInstance().sendMessage(
 					new SMSInfoMessage(SMSInfoMessage.LIGHTNING), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.X)) {
-			UdpClientThread.getInstance().sendObject(
+			UdpClientThread.getInstance().sendMessage(
 					new SMSInfoMessage(SMSInfoMessage.RAIN), ia);
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			UdpClientThread.getInstance().sendObject(
+			UdpClientThread.getInstance().sendMessage(
 					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}
 	}

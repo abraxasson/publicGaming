@@ -9,7 +9,7 @@ import house.of.fire.LevelActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.DataInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -40,8 +40,7 @@ public class AndroidServer extends Thread {
 	
 	private DatagramSocket socket;
 	private DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
-	private ObjectInputStream ois;
-	private AbstractMessage message;
+	private DataInputStream ois;
 	private boolean isActive;
 	private static InetAddress ia;
 	
@@ -80,8 +79,8 @@ public class AndroidServer extends Thread {
 			try {
 				socket.receive(packet);
 				byte[] data = packet.getData();
-				ois = new ObjectInputStream(new ByteArrayInputStream(data));
-				message = (AbstractMessage) ois.readObject();
+				ois = new DataInputStream(new ByteArrayInputStream(data));
+				AbstractMessage message = AbstractMessage.deserialize(ois);
 				ia = packet.getAddress();
 				
 				Log.w("Android Server", "Message received");
