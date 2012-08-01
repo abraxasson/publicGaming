@@ -2,42 +2,34 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:background="@drawable/background_instructions"
         android:padding="12dp" >
-
+
         <TextView
             android:id="@+id/output_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:fontFamily="Times"
             android:text="@string/instructions"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:id="@+id/button_next"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_default"
-            android:text="@string/weiter" />
-
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/medal_text_color"
+            android:textStyle="bold" />
+
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/button_next"
-            android:layout_below="@id/output_text" >
-
+            android:layout_below="@id/output_text"
+            android:padding="8dp" >
+
             <TextView
                 android:id="@+id/output_instructions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:text="@string/help_text"
+                android:textColor="@color/instructions_color" />
 
-        </ScrollView> 
-            
-	</RelativeLayout>
+        </ScrollView>
 
-    
+    </RelativeLayout>    

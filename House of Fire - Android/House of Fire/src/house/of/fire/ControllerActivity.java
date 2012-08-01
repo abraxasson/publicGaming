@@ -44,7 +44,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 	public static final int SOUND_WATER_EMPTY = 1;
 
-	private final static int SENSOR_TIME = 500; // in ms
+	private final static int SENSOR_TIME = 250; // in ms
 
 	private int state = ButtonInfoMessage.NORMAL;
 	private SensorManager mSensorManager;
@@ -171,9 +171,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(LogInActivity.PREF_PLAYER_NAME, "");
 		outputName.setText(playerName);
-		findViewById(R.id.player_name_background).requestLayout();
-		findViewById(R.id.player_name_background).invalidate();
-		
+
 		findViewById(R.id.player_name_background).setBackgroundColor(
 				Color.rgb(AndroidServer.r, AndroidServer.g, AndroidServer.b));
 
@@ -194,7 +192,8 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 
 		timerWaterRating = new Timer();
 		timerWaterRating.scheduleAtFixedRate(new WaterTankTimerTask(
-				water_rating), 500, 200);
+				water_rating), 500, 240);
+
 
 		timerWaterPressure = new Timer();
 		timerWaterPressure.scheduleAtFixedRate(new WaterPressureTimerTask(), 0,

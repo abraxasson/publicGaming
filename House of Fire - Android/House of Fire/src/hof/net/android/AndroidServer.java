@@ -175,17 +175,17 @@ public class AndroidServer extends Thread {
 				//Intent gameIntent = new Intent("house.of.fire.startgame");
 				Intent gameIntent = new Intent(context, ControllerActivity.class);
 				gameIntent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
+				gameIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
 				
 				context.startActivity(gameIntent);
 			}
 			else if (event == LevelInfoMessage.FINISHED){
 				//Intent levelIntent = new Intent("house.of.fire.level");
 				Intent levelIntent = new Intent(context, LevelActivity.class);
-				levelIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				levelIntent.putExtra(LevelActivity.EXTRA_LEVEL, level);
 				levelIntent.putExtra(LevelActivity.EXTRA_MEDAL, medal);
 				levelIntent.putExtra(LevelActivity.EXTRA_LASTLEVEL, lastLevel);
-				
+				levelIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
 				context.startActivity(levelIntent);
 			}
 

@@ -115,10 +115,10 @@ public class WaterActivity extends Activity {
 
 			if (state == ButtonInfoMessage.NORMAL) {
 				state = ButtonInfoMessage.LEFT;
-				fillWater(20);
+				fillWater(9);
 			} else if (state == ButtonInfoMessage.RIGHT) {
 				state = ButtonInfoMessage.LEFT;
-				fillWater(20);
+				fillWater(9);
 			} else if (state == ButtonInfoMessage.LEFT) {
 
 			}
@@ -136,10 +136,10 @@ public class WaterActivity extends Activity {
 
 			if (state == ButtonInfoMessage.NORMAL) {
 				state = ButtonInfoMessage.RIGHT;
-				fillWater(20);
+				fillWater(9);
 			} else if (state == ButtonInfoMessage.LEFT) {
 				state = ButtonInfoMessage.RIGHT;
-				fillWater(20);
+				fillWater(9);
 			} else if (state == ButtonInfoMessage.RIGHT) {
 
 			}

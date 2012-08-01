@@ -35,5 +35,21 @@
     <string name="gold_text">%1$d X</string>
     <string name="retry_button">Nochmal?</string>
     <string name="type_in_your_name">Type in your name</string>
+    <string name="help_text">Bei diesem Spiel geht es darum, so viele Feuer wie möglich zu löschen!\n\n\n
+        -Mit den Steuerungstasten kann man den Feuerwehrmann nach links oder\n
+         rechts bewegen.\n\n
+        -Durch Kippen des Smartphones nach vorne bzw. nach hinten wird die\n
+          Länge das Wasserstrahls beeinflusst.\n\n
+        -Durch Kippen des Smartphones nach links bzw. nach rechts lässt sich\n
+          die Richtung des Wasserstrahls beeinflussen.\n\n
+        -Bei leerem Wasserfüllstand(Füllstandsanzeige in der Mitte) wird man\n
+          direkt zu einem Minispiel weitergeleitet, durch welches man das Wasser\n 
+          auffüllen kann, indem man abwechselnd auf die linke und rechte Wasserpumpe drückt.\n 
+          Man kann aber auch manuell zum Minispiel wechseln, indem man unten rechts auf\n
+          die Wasserpumpe drückt. Durch Drücken der züruck-Taste oder bei vollständig gefüllter\n
+          Füllstandsanzeige kommt man wieder in das Hauptspiel zurück.\n\n\n
+        
+		Viel Spass beim Spielen!
+        </string>
 
 </resources>

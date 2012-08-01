@@ -110,8 +110,8 @@ public class LogInActivity extends Activity {
 	public void onLogInButtonClicked(View view) {
 
 		playerName = nameEditText.getText().toString();
-		if (playerName.length() > 15){
-			playerName = playerName.substring(0, 15);
+		if (playerName.length() > 8){
+			playerName = playerName.substring(0, 8);
 		}
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
