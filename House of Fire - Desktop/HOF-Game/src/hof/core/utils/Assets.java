@@ -94,6 +94,9 @@ public class Assets{
 	public static BitmapFont standardFont30;
 	public static BitmapFont standardFont40;
 	public static BitmapFont standardFont50;
+	public static BitmapFont statusBarFont30;
+	public static BitmapFont statusBarFont35;
+	public static BitmapFont statusBarFont40;
 	
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
@@ -216,7 +219,7 @@ public class Assets{
 
 	private static void loadTextures() {
 		pureWhiteTexture = new Texture(Gdx.files.internal("textures/8x8.png"));
-		borderTexture = new Texture(Gdx.files.internal("textures/border.png"));
+		borderTexture = new Texture(Gdx.files.internal("textures/border2.png"));
 		timeLineTexture = new Texture(Gdx.files.internal("textures/timeline.png"));;
 		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
@@ -281,6 +284,9 @@ public class Assets{
 		standardFont30 = new BitmapFont(Gdx.files.internal("fonts/standardFont30.fnt"),Gdx.files.internal("fonts/standardFont30.png"),false);
 		standardFont40 = new BitmapFont(Gdx.files.internal("fonts/standardFont40.fnt"),Gdx.files.internal("fonts/standardFont40.png"),false);
 		standardFont50 = new BitmapFont(Gdx.files.internal("fonts/standardFont50.fnt"),Gdx.files.internal("fonts/standardFont50.png"),false);
+		statusBarFont30 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont30.fnt"),Gdx.files.internal("fonts/statusBarFont30.png"),false);
+		statusBarFont35 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont35.fnt"),Gdx.files.internal("fonts/statusBarFont35.png"),false);
+		statusBarFont40 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont40.fnt"),Gdx.files.internal("fonts/statusBarFont40.png"),false);
 	}
 	
 	public static void loadSounds(){

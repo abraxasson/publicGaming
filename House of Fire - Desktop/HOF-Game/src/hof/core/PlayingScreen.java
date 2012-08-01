@@ -60,7 +60,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline = new TimeLine();
 		statusBar = new StatusBar();
 		fps = new FPS();
-
 		try {
 			ia = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
@@ -84,6 +83,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		WaterPressure.setLastUsed(System.currentTimeMillis());
 		Assets.backgroundMusic.play();
 		Assets.backgroundMusic.setLooping(true);
+		Assets.sirene.play();
 	}
 
 	@Override
@@ -100,8 +100,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
-		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH,
-				Gdx.graphics.getHeight());
+
 		removeDeadGags();
 		drawGag();
 		drawFirefighters();
@@ -111,6 +110,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline.draw(spriteBatch, currentHouse);
 
 		drawSpecialEffects();
+		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH,
+				Gdx.graphics.getHeight());
 		spriteBatch.end();
 
 		// checks if new players are available
