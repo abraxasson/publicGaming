@@ -109,7 +109,7 @@ public class StatusBar {
 
 		public SMS() {
 			font = Assets.statusBarFont40;
-			TextBounds bounds = font.getBounds("SMS-Effects");
+			TextBounds bounds = font.getBounds("SMS-Effects: ");
 			if(bounds.width > Assets.STATUS_BAR_WIDTH){
 				font = Assets.statusBarFont35;
 			}
@@ -181,6 +181,8 @@ public class StatusBar {
 			font2.draw(spriteBatch, pressureEffect, x, y);
 
 			y -= Assets.SMSBAR_HEIGHT/5;
+			font2.draw(spriteBatch, "Text to...", x, y);
+			y -= font2.getBounds("l").height+10;
 			font2.draw(spriteBatch, telephoneNumber, x, y);
 		}
 

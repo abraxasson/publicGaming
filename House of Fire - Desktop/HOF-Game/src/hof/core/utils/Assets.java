@@ -219,7 +219,7 @@ public class Assets{
 
 	private static void loadTextures() {
 		pureWhiteTexture = new Texture(Gdx.files.internal("textures/8x8.png"));
-		borderTexture = new Texture(Gdx.files.internal("textures/border.png"));
+		borderTexture = new Texture(Gdx.files.internal("textures/border2.png"));
 		timeLineTexture = new Texture(Gdx.files.internal("textures/timeline.png"));;
 		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));

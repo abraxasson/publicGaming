@@ -100,8 +100,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
-		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH,
-				Gdx.graphics.getHeight());
+
 		removeDeadGags();
 		drawGag();
 		drawFirefighters();
@@ -111,6 +110,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		timeline.draw(spriteBatch, currentHouse);
 
 		drawSpecialEffects();
+		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH,
+				Gdx.graphics.getHeight());
 		spriteBatch.end();
 
 		// checks if new players are available
