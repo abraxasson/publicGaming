@@ -143,7 +143,7 @@ public class StatusBar {
 			y -= 10;
 			font2.draw(spriteBatch, lightningEffect, x, y);
 
-			y -= 100;
+			y -= Assets.SMSBAR_HEIGHT/5;
 			
 			oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.BLACK);
@@ -159,7 +159,7 @@ public class StatusBar {
 			y -= 10;
 			font2.draw(spriteBatch, rainEffect, x, y);
 
-			y -= 100;
+			y -= Assets.SMSBAR_HEIGHT/5;
 			
 			oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.BLACK);
@@ -175,7 +175,7 @@ public class StatusBar {
 			y -= 10;
 			font2.draw(spriteBatch, pressureEffect, x, y);
 
-			y -= 100;
+			y -= Assets.SMSBAR_HEIGHT/5;
 			font2.draw(spriteBatch, telephoneNumber, x, y);
 		}
 

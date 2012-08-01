@@ -9,15 +9,20 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioDevice;
+import com.badlogic.gdx.audio.AudioRecorder;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Assets {
+public class Assets implements Audio{
 
 	public static final int FRAME_WIDTH = Gdx.graphics.getWidth();
 	public static final int FRAME_HEIGHT = Gdx.graphics.getHeight();
@@ -81,8 +86,9 @@ public class Assets {
 		loadTextures();
 		loadHouses();
 		createAnimations();
-		loadSounds();
 		loadFonts();
+		Assets asset = new Assets();
+		loser = asset.newSound(Gdx.files.internal("sounds/loser.ogg"));
 	}
 
 	public static ParticleEffect loadSmokeParticles(){
@@ -242,10 +248,6 @@ public class Assets {
 		}		
 	}
 	
-	private static void loadSounds() {
-		
-	}
-	
 	private static void loadFonts() {
 		defaultFont = new BitmapFont();
 		
@@ -292,5 +294,30 @@ public class Assets {
 		highscore40Font.dispose();
 		highscore50Font.dispose();
 		
+	}
+
+	@Override
+	public AudioDevice newAudioDevice(int samplingRate, boolean isMono) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AudioRecorder newAudioRecorder(int samplingRate, boolean isMono) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Music newMusic(FileHandle file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Sound newSound(FileHandle fileHandle) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
