@@ -2,14 +2,22 @@ package house.of.fire;
 
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.LevelInfoMessage;
+import house.of.fire.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class LevelActivity extends Activity {
@@ -18,6 +26,7 @@ public class LevelActivity extends Activity {
 	public static final String EXTRA_MEDAL= "medal";
 	public static final String EXTRA_LASTLEVEL= "lastlevel";
 	public static boolean isActive;
+	public static boolean level_isActive;
 	
 	TextView outputText;
 	boolean lastLevel = false;
@@ -32,6 +41,7 @@ public class LevelActivity extends Activity {
         setContentView(R.layout.activity_level);
         
         outputText = (TextView) findViewById(R.id.outputText_level);
+        
     }
 
 
@@ -44,6 +54,7 @@ public class LevelActivity extends Activity {
 		Intent intent = getIntent();
 		
 		isActive = true;
+		level_isActive = false;
 		
 		if (intent != null){
 			int level = intent.getIntExtra(EXTRA_LEVEL, 1);
@@ -58,14 +69,25 @@ public class LevelActivity extends Activity {
 				
 				// if there is a medal -> show it (load the proper medal image)
 				ImageView medalView = (ImageView) findViewById(R.id.medal_imageview);
+				RelativeLayout rLayout = (RelativeLayout) findViewById (R.id.RelativeLayoutLevel);
+
+
 				
 				if (medalType == LevelInfoMessage.GOLD_MEDAL){
+//					findViewById(R.layout.activity_level).setBackgroundResource(R.drawable.background_fire);
+					rLayout.setBackgroundResource(R.drawable.house3);
 					medalView.setImageResource(R.drawable.gold);
 					outputText.setText("Goldmedaille erhalten!");
+
+
 				}
 				else if (medalType == LevelInfoMessage.SILVER_MEDAL){
+//					findViewById(R.layout.activity_level).setBackgroundResource(R.drawable.background_water);
+					rLayout.setBackgroundResource(R.drawable.house2);
 					medalView.setImageResource(R.drawable.silber);
+//					rLayout.setBackground(drawable2);
 					outputText.setText("Silbermedaille erhalten!");
+
 				}
 				else if (medalType == LevelInfoMessage.BRONZE_MEDAL){
 					medalView.setImageResource(R.drawable.bronze);
@@ -128,8 +150,9 @@ public class LevelActivity extends Activity {
 			this.startActivity(intent);
 		}
 		else {
+			level_isActive = true;
 			Intent intent = new Intent(LevelActivity.this, ControllerActivity.class);
-			intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
+//			intent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			this.startActivity(intent);
 		}
