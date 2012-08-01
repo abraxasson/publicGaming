@@ -116,6 +116,9 @@ public class House {
 	
 	public void drawFullscreen(SpriteBatch spriteBatch) {
 		spriteBatch.draw(image, 0,0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
+		for(Fire fire : fireList){
+			fire.draw(spriteBatch);
+		}
 	}
 	
 	public boolean getAlive() {

@@ -25,7 +25,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	private HallOfFame fame;
 
 	private boolean isWaiting;
-	private float helpTime;
 	private float stateTime;
 	private Status status;
 
@@ -41,7 +40,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		isWaiting = true;
 		stateTime = 0;
-		helpTime = 0;
 		status = Status.Title;
 	}
 
@@ -84,20 +82,32 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			break;
 			
 		case Help:
-			helpTime += delta;
-			int helps = 2;
-//			float t = stateTime / 1;
-			if (helpTime > 0.5) {
-				for (int i = 0; i < helps; i++) {
-					spriteBatch.draw(Assets.waitingForPlayerHelp, (float) (Math.random() * Assets.FRAME_WIDTH), (float) (Math.random() * Assets.FRAME_HEIGHT));
-				}
+			float width = Assets.FRAME_WIDTH;
+			float height = Assets.FRAME_HEIGHT;
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 10, height / 3);
+			if (stateTime > 2.5) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width / 2, height * 0.9f);
 			}
-			break;
+			if (stateTime > 3) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f, height / 6f);
+			}
+			if (stateTime > 3.5) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width / 5, height * 0.7f);
+			}
+			if (stateTime > 4) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width / 3, height / 4f);
+			}
+			if (stateTime > 4.5) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f , height / 2);
+			}
+			if (stateTime > 5) {
+				spriteBatch.draw(Assets.waitingForPlayerHelp, width / 2, height / 2);
+			}
 			
+			break;
 		case Main:
 			spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 			break;
-		
 		case House:
 			game.houseList.get(0).drawFullscreen(spriteBatch);
 			break;
@@ -125,16 +135,16 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (stateTime > 2) {
 			status = Status.Help;
 		} 
-		if (stateTime > 4) {
+		if (stateTime > 6) {
 			status = Status.House;
 		} 
-		if (stateTime > 6) {
+		if (stateTime > 8) {
 			status = Status.Main;
 		}  
-		if (stateTime > 8) {
+		if (stateTime > 14) {
 			status = Status.Highscore;
 		}
-		if (stateTime > 10) {
+		if (stateTime > 18) {
 			status = Status.Title;
 			stateTime = 0;
 		}
