@@ -45,6 +45,11 @@ public class Assets{
 	public static Texture firefighter_right;
 	public static Texture cat;
 	
+	public static Texture waitingForPlayerTitle;
+	public static Texture waitingForPlayerHelp;
+	public static Texture waitingForPlayerMain;
+	
+	
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
@@ -231,6 +236,10 @@ public class Assets{
 		gameFinishedScreen = new Texture(Gdx.files.internal("textures/GameFinished.png"));
 		trophyTexture = new Texture(Gdx.files.internal("textures/trophy.png"));
 		gameFinishedText = new Texture(Gdx.files.internal("textures/gameFinishedText.png"));
+		
+		waitingForPlayerTitle = new Texture(Gdx.files.internal("textures/waitingForPlayers/view1.png"));
+		waitingForPlayerHelp = new Texture(Gdx.files.internal("textures/waitingForPlayers/view2.png"));
+		waitingForPlayerMain = new Texture(Gdx.files.internal("textures/waitingForPlayers/view4.png"));
 	}
 	
 	private static void loadHouses() {
