@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class SettingsDialog {
 
@@ -72,10 +74,18 @@ public class SettingsDialog {
 		} catch (IOException e) {
 			// Ignore
 		}
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = (JPanel) frame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		tabs = new JTabbedPane();
+		tabs.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				frame.pack();
+				frame.repaint();				
+			}
+		});
 		
 		contentPane.add(tabs, BorderLayout.NORTH);
 		addSettings();
@@ -219,8 +229,7 @@ public class SettingsDialog {
 	}
 
 	private void closeDialog() {
-		// Gdx.app.exit();
-		System.exit(0);
+		frame.dispose();
 	}
 
 	private void saveChanges() {
