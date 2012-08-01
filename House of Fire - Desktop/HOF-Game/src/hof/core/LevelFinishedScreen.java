@@ -30,8 +30,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		udpClient = UdpClientThread.getInstance();
 		lastLevel = false;
 		collumnWidth = Gdx.graphics.getWidth() / 8 + 30;
-		infoFont = Assets.text45Font;
-		nameFont = Assets.menu45Font;
+		infoFont = Assets.standardFont30;
+		nameFont = Assets.standardFont40;
 	}
 
 	@Override

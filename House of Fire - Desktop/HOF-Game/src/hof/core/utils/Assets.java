@@ -86,6 +86,9 @@ public class Assets{
 	public static BitmapFont highscore30Font;
 	public static BitmapFont highscore40Font;
 	public static BitmapFont highscore50Font;
+	public static BitmapFont standardFont30;
+	public static BitmapFont standardFont40;
+	public static BitmapFont standardFont50;
 	
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
@@ -265,7 +268,10 @@ public class Assets{
 		text50Font = new BitmapFont(Gdx.files.internal("fonts/text50.fnt"), Gdx.files.internal("fonts/text50.png"), false);
 		highscore30Font = new BitmapFont(Gdx.files.internal("fonts/Highscore30.fnt"),Gdx.files.internal("fonts/Highscore30.png"),false);
 		highscore40Font = new BitmapFont(Gdx.files.internal("fonts/Highscore40.fnt"),Gdx.files.internal("fonts/Highscore40.png"),false);
-		highscore50Font = new BitmapFont(Gdx.files.internal("fonts/highscore50.fnt"),Gdx.files.internal("fonts/highscore50.png"),false);;
+		highscore50Font = new BitmapFont(Gdx.files.internal("fonts/highscore50.fnt"),Gdx.files.internal("fonts/highscore50.png"),false);
+		standardFont30 = new BitmapFont(Gdx.files.internal("fonts/standardFont30.fnt"),Gdx.files.internal("fonts/standardFont30.png"),false);
+		standardFont40 = new BitmapFont(Gdx.files.internal("fonts/standardFont40.fnt"),Gdx.files.internal("fonts/standardFont40.png"),false);
+		standardFont50 = new BitmapFont(Gdx.files.internal("fonts/standardFont50.fnt"),Gdx.files.internal("fonts/standardFont50.png"),false);
 	}
 	
 	public static void loadSounds(){
