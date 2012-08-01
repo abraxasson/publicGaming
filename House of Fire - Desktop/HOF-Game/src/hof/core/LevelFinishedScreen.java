@@ -110,39 +110,64 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private void showScore() {
 		int i = 0;
 		for (Player player : processing.getPlayerList()) {
-			i++;
-			this.infoFont.setColor(player.getColor());
-			this.nameFont.setColor(player.getColor());
-			String oldScore = "" + player.getScore() + " ";
-			String bonuspoints = "" + player.getBonuspoints() + " ";
-			String minuspoints = "" + player.getMinuspoints() + " ";
 			TextBounds bounds = infoFont.getBounds(player.getName());
-			nameFont.draw(spriteBatch, player.getName(), i * this.collumnWidth,
-					(float) (Gdx.graphics.getHeight() * 0.6));
-			infoFont.draw(spriteBatch, oldScore, i * this.collumnWidth,
-					(float) (Gdx.graphics.getHeight() * 0.6)
-							- (2 * bounds.height));
-			infoFont.draw(
-					spriteBatch,
-					bonuspoints,
-					i * this.collumnWidth,
-					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (3.5 * bounds.height)));
+			i++;
+			if(i==1){
+				infoFont.draw(spriteBatch, "Score", i * this.collumnWidth,
+						(float) (Gdx.graphics.getHeight() * 0.6)
+								- (2 * bounds.height));
+				infoFont.draw(
+						spriteBatch,
+						"Bonuspoints",
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (3.5 * bounds.height)));
 
-			infoFont.draw(
-					spriteBatch,
-					minuspoints,
-					i * this.collumnWidth,
-					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5 * bounds.height)));
+				infoFont.draw(
+						spriteBatch,
+						"Minuspoints",
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5 * bounds.height)));
+				infoFont.draw(
+						spriteBatch,
+						"Total",
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
 
-			int newPoints = player.getScore() + player.getBonuspoints()
-					+ player.getMinuspoints();
-			String newScore = "" + newPoints + " ";
+			}
+			else{
+				this.infoFont.setColor(player.getColor());
+				this.nameFont.setColor(player.getColor());
+				String oldScore = "" + player.getScore() + " ";
+				String bonuspoints = "" + player.getBonuspoints() + " ";
+				String minuspoints = "" + player.getMinuspoints() + " ";
+				nameFont.draw(spriteBatch, player.getName(), i * this.collumnWidth,
+						(float) (Gdx.graphics.getHeight() * 0.6));
+				infoFont.draw(spriteBatch, oldScore, i * this.collumnWidth,
+						(float) (Gdx.graphics.getHeight() * 0.6)
+								- (2 * bounds.height));
+				infoFont.draw(
+						spriteBatch,
+						bonuspoints,
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (3.5 * bounds.height)));
 
-			infoFont.draw(
-					spriteBatch,
-					newScore,
-					i * this.collumnWidth,
-					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
+				infoFont.draw(
+						spriteBatch,
+						minuspoints,
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5 * bounds.height)));
+
+				int newPoints = player.getScore() + player.getBonuspoints()
+						+ player.getMinuspoints();
+				String newScore = "" + newPoints + " ";
+
+				infoFont.draw(
+						spriteBatch,
+						newScore,
+						i * this.collumnWidth,
+						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
+			}
+			
 		}
 	}
 
