@@ -11,6 +11,7 @@ import hof.player.Player;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class StatusBar {
@@ -52,8 +53,8 @@ public class StatusBar {
 
 		public Ranking() {
 			processing = MessageProcessing.getInstance();
-			font = Assets.text45Font;
-			font2 = Assets.text30Font;
+			font = Assets.standardFont40;
+			font2 = Assets.standardFont30;
 			heading = "Active Players: ";
 			players = "0/" + Settings.maxPlayers;
 			x = Assets.TIMELINE_WIDTH + Assets.TIMELINE_WIDTH_OFFSET + 10;
@@ -107,8 +108,12 @@ public class StatusBar {
 		private double pressureCooldown;
 
 		public SMS() {
-			font = Assets.text45Font;
-			font2 = Assets.text30Font;
+			font = Assets.statusBarFont40;
+			TextBounds bounds = font.getBounds("SMS-Effects");
+			if(bounds.width > Assets.STATUS_BAR_WIDTH){
+				font = Assets.statusBarFont35;
+			}
+			font2 = Assets.statusBarFont30;
 			heading = "SMS-Effects: ";
 			cooldownWidth = (float) (Assets.STATUS_BAR_WIDTH * 0.75);
 			cooldownHeight = Assets.SMSBAR_HEIGHT / 20;
