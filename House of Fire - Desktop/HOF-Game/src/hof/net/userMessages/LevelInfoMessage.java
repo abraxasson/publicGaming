@@ -53,7 +53,7 @@ public class LevelInfoMessage extends AbstractMessage {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " " + level + " " + medal + " " + lastLevel;
+		return super.toString() + " " + level + " " + lastLevel + " " + medal;
 	}
 	
 	public void serialize(DataOutputStream stream) throws IOException {
