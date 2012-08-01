@@ -73,11 +73,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
 		for (Player player : processing.getPlayerList()) {
-			player.setScore(player.getScore() + player.getBonuspoints() + player.getMinuspoints());
+			player.setScore(player.getScore() + player.getBonuspoints()
+					+ player.getMinuspoints());
 			player.setBonuspoints(0);
 			player.setMinuspoints(0);
 		}
 		finishedTime = 0;
+		Lightning.setLastUsed(System.currentTimeMillis());
+		Rain.setLastUsed(System.currentTimeMillis());
+		WaterPressure.setLastUsed(System.currentTimeMillis());
 	}
 
 	@Override
@@ -138,10 +142,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			game.setScreen(game.waitingForPlayersScreen);
 			game.houseIndex = 0;
 		}
-		
-		if (Gdx.input.isKeyPressed(Keys.G)){
-			if(gags.isEmpty()){
-				initGag(new NonPlayable(100,150,200,Assets.runningCatAnimation));
+
+		if (Gdx.input.isKeyPressed(Keys.G)) {
+			if (gags.isEmpty()) {
+				initGag(new NonPlayable(100, 150, 200,
+						Assets.runningCatAnimation));
 			}
 		}
 
@@ -274,16 +279,18 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				switch (effect.getType()) {
 				case AbstractCloud.LIGHTNING:
 					Lightning lightning = (Lightning) effect;
-					if (lightning.getActive()) {
-						if (lightning.getHotSpot() == null) {
-							lightning.setHotSpot(currentHouse
-									.getRandomBurningArea());
+					if (Lightning.isReady()) {
+						if (lightning.getActive()) {
+							if (lightning.getHotSpot() == null) {
+								lightning.setHotSpot(currentHouse
+										.getRandomBurningArea());
+							}
+							if (lightning.getLifeTime() == Settings.lightningLifeTime) {
+								currentHouse.getFireList().add(
+										new Fire(lightning.getHotSpot()));
+							}
+							lightning.draw(spriteBatch);
 						}
-						if (lightning.getLifeTime() == Settings.lightningLifeTime) {
-							currentHouse.getFireList().add(
-									new Fire(lightning.getHotSpot()));
-						}
-						lightning.draw(spriteBatch);
 					}
 					break;
 				case AbstractCloud.RAIN:
@@ -445,7 +452,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 							.setMinuspoints(
 									(int) (firefighter.getPlayer()
 											.getMinuspoints() - gag
-											.getHealthpoints()*Gdx.graphics.getDeltaTime()));
+											.getHealthpoints()
+											* Gdx.graphics.getDeltaTime()));
 				}
 			}
 		}

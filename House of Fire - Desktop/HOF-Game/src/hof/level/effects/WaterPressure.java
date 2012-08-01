@@ -42,4 +42,12 @@ public class WaterPressure extends AbstractCloud {
 			return false;
 		}
 	}
+	
+	public static void setLastUsed(long newLastUsed){
+		lastUsed = newLastUsed;
+	}
+	
+	public static long getLastUsed(){
+		return lastUsed;
+	}
 }

@@ -59,6 +59,7 @@ public class Assets {
 	
 	public static Texture cloudTexture;
 	public static Texture lightningTexture;
+	public static Texture statusBar;
 	
 	public static Sound buttonSound;
 	public static Sound loser;
@@ -206,6 +207,7 @@ public class Assets {
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
 		levelFinishedScreen = new Texture(Gdx.files.internal("textures/LevelFinished.png"));
 		gameOverScreen = new Texture(Gdx.files.internal("textures/GameOver.png"));
+		statusBar = new Texture(Gdx.files.internal("textures/statusBar.png"));
 		try {
 			smokingArea = ImageIO.read(new File("assets/textures/GameOver_SmokingArea.png"));
 		} catch (IOException e) {

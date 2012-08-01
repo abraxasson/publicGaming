@@ -66,5 +66,11 @@ public class Rain extends AbstractCloud {
 	public boolean isOnPosition() {
 		return onPosition;
 	}
+	
+	public static long getLastUsed(){
+		return lastUsed;
+	}
+	
+	
 
 }
