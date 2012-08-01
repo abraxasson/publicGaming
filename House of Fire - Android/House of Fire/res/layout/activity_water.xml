@@ -3,25 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_water" >
-
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="65dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="65dp"
             android:orientation="horizontal" >
-
+
             <ImageButton
                 android:id="@+id/pfeil_links"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/pfeil_links" />
+                android:background="@android:color/transparent"
+                android:src="@drawable/water_pucket_left" />
             
             <house.of.fire.VerticalProgressBar
                 android:id="@+id/water_rating"
@@ -30,15 +31,18 @@
                 android:layout_height="fill_parent"
                 android:max="100"
                 android:progress="50" />
-
+
             <ImageButton
                 android:id="@+id/pfeil_rechts"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/pfeil_rechts" />
+                android:background="@android:color/transparent"
+                android:scaleType="center"
+                android:src="@drawable/water_pucket_right" />
+
         </LinearLayout>
 
         <TextView

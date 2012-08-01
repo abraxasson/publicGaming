@@ -30,7 +30,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -54,7 +53,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 	ImageButton pfeil_rechts;
 	TextView outputName;
 	// Button logOut;
-	Button button_pump;
+	ImageButton button_pump;
 	VerticalProgressBar water_rating;
 	// SeekBar water_bar;
 
@@ -86,7 +85,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		pfeil_links = (ImageButton) findViewById(R.id.pfeil_links);
 		pfeil_rechts = (ImageButton) findViewById(R.id.pfeil_rechts);
 		outputName = (TextView) findViewById(R.id.output_name);
-		button_pump = (Button) findViewById(R.id.button_pump);
+		button_pump = (ImageButton) findViewById(R.id.button_pump);
 		water_rating = (VerticalProgressBar) findViewById(R.id.water_rating);
 		water_rating.setEnabled(false);
 		water_rating.setMax(100);
@@ -172,7 +171,9 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(LogInActivity.PREF_PLAYER_NAME, "");
 		outputName.setText(playerName);
-
+		findViewById(R.id.player_name_background).requestLayout();
+		findViewById(R.id.player_name_background).invalidate();
+		
 		findViewById(R.id.player_name_background).setBackgroundColor(
 				Color.rgb(AndroidServer.r, AndroidServer.g, AndroidServer.b));
 
@@ -180,8 +181,11 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 		// Color.RED);
 
 		Intent receivedIntent = getIntent();
-
-		if (receivedIntent != null
+		
+		if (LevelActivity.level_isActive == true){
+			waterLevel = 100;
+		}
+		else if (receivedIntent != null
 				&& receivedIntent.hasExtra(EXTRA_WATER_LEVEL)) {
 			waterLevel = receivedIntent.getIntExtra(EXTRA_WATER_LEVEL,
 					MAX_WATER_LEVEL);

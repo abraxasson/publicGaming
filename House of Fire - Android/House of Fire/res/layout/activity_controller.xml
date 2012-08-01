@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_fire" >
-
+
     <FrameLayout
         android:id="@+id/player_name_background"
         android:layout_width="wrap_content"
@@ -11,8 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="#afff"
+        android:measureAllChildren="true"
         android:padding="4dp" >
-
+
         <TextView
             android:id="@+id/output_name"
             android:layout_width="wrap_content"
@@ -34,7 +35,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="80dp"
             android:orientation="horizontal" >
-
+
             <ImageButton
                 android:id="@+id/pfeil_links"
                 android:layout_width="150dp"
@@ -42,7 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn1_default"
+                android:background="@drawable/btn_default"
                 android:src="@drawable/pfeil_links" />
             
             <house.of.fire.VerticalProgressBar
@@ -52,7 +53,7 @@
                 android:layout_height="fill_parent"
                 android:max="100"
                 android:progress="50" />
-
+
             <ImageButton
                 android:id="@+id/pfeil_rechts"
                 android:layout_width="150dp"
@@ -60,20 +61,22 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn1_default"
+                android:background="@drawable/btn_default"
                 android:src="@drawable/pfeil_rechts" />
 
         </LinearLayout>
-
-        <Button
+
+        <ImageButton
             android:id="@+id/button_pump"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="@string/pump"
-            android:textSize="@dimen/header_login_textsize" />
-
+            android:layout_gravity="center"
+            android:background="@drawable/btn1_default"
+            android:scaleType="fitCenter"
+            android:src="@drawable/water_pucket" />
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"

@@ -93,11 +93,7 @@ public class AndroidServer extends Thread {
 				Log.d(TAG, "Fehler beim Empfang");
 				Log.d(TAG, e.getMessage());
 				isActive = false;
-			} catch (ClassNotFoundException e) {
-				e.getCause();
-				e.getMessage();
-				e.printStackTrace();
-			}
+			} 
 			catch (NullPointerException e) {
 				isActive = false;
 				e.printStackTrace();
