@@ -126,35 +126,56 @@ public class StatusBar {
 			font.setColor(Color.WHITE);
 			font.draw(spriteBatch, heading, x, y);
 			y -= 80;
+			
 			font2.setColor(Color.WHITE);
-
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, cooldownWidth,
-					cooldownHeight);
+			
 			Color oldColor = spriteBatch.getColor();
-			spriteBatch.setColor(Color.GREEN);
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, (float) (cooldownWidth*this.lightningCooldown), cooldownHeight);
+			spriteBatch.setColor(Color.BLACK);
+			spriteBatch.draw(Assets.timeLineTexture, x-2, y-2, cooldownWidth+4, cooldownHeight+4);
 			spriteBatch.setColor(oldColor);
+			
+			spriteBatch.draw(Assets.timeLineTexture, x, y, cooldownWidth,
+					cooldownHeight);
+			oldColor = spriteBatch.getColor();
+			spriteBatch.setColor(Color.GREEN);
+			spriteBatch.draw(Assets.timeLineTexture, x, y, (float) (cooldownWidth*this.lightningCooldown), cooldownHeight);
+			spriteBatch.setColor(oldColor);
+			y -= 10;
 			font2.draw(spriteBatch, lightningEffect, x, y);
 
-			y -= 80;
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, cooldownWidth,
+			y -= 100;
+			
+			oldColor = spriteBatch.getColor();
+			spriteBatch.setColor(Color.BLACK);
+			spriteBatch.draw(Assets.timeLineTexture, x-2, y-2, cooldownWidth+4, cooldownHeight+4);
+			spriteBatch.setColor(oldColor);
+			
+			spriteBatch.draw(Assets.timeLineTexture, x, y, cooldownWidth,
 					cooldownHeight);
 			oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.GREEN);
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, (float) (cooldownWidth*this.rainCooldown), cooldownHeight);
+			spriteBatch.draw(Assets.timeLineTexture, x, y, (float) (cooldownWidth*this.rainCooldown), cooldownHeight);
 			spriteBatch.setColor(oldColor);
+			y -= 10;
 			font2.draw(spriteBatch, rainEffect, x, y);
 
-			y -= 80;
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, cooldownWidth,
+			y -= 100;
+			
+			oldColor = spriteBatch.getColor();
+			spriteBatch.setColor(Color.BLACK);
+			spriteBatch.draw(Assets.timeLineTexture, x-2, y-2, cooldownWidth+4, cooldownHeight+4);
+			spriteBatch.setColor(oldColor);
+			
+			spriteBatch.draw(Assets.timeLineTexture, x, y, cooldownWidth,
 					cooldownHeight);
 			oldColor = spriteBatch.getColor();
 			spriteBatch.setColor(Color.GREEN);
-			spriteBatch.draw(Assets.pureWhiteTexture, x, y, (float) (cooldownWidth*this.pressureCooldown), cooldownHeight);
+			spriteBatch.draw(Assets.timeLineTexture, x, y, (float) (cooldownWidth*this.pressureCooldown), cooldownHeight);
 			spriteBatch.setColor(oldColor);
+			y -= 10;
 			font2.draw(spriteBatch, pressureEffect, x, y);
 
-			y -= 80;
+			y -= 100;
 			font2.draw(spriteBatch, telephoneNumber, x, y);
 		}
 
