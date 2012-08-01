@@ -68,7 +68,7 @@ public class Settings {
 	
 	public static void load() {
 		prefs = Preferences.userRoot().node(settingsPath);
-		
+
 		houseHealthpoints = prefs.getFloat(houseHealthpointsID, 1000);
 		fireDamage = prefs.getFloat(fireDamageID, 1);
 		waterDamage = prefs.getFloat(waterDamageID, 3);
