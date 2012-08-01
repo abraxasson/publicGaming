@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 
 public class UdpServerThread extends Thread {
@@ -39,8 +40,8 @@ public class UdpServerThread extends Thread {
 		try {
 			this.socket = new DatagramSocket(PORT);
 		} catch (IOException e) {
-			System.out.println("Server funktioniert nicht!");
-			System.out.println(e.getMessage());
+//			System.out.println("Server funktioniert nicht!");
+			getAlternativePort();
 		}
 
 	}
@@ -62,15 +63,28 @@ public class UdpServerThread extends Thread {
 				
 				processing.addMessage(message); 
 				
+			} catch (NullPointerException e) {
+				getAlternativePort();
 			} catch (IOException e) {
 				System.out.println("Fehler beim Empfang");
 				System.out.println(e.getMessage());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-			}
+			} 
 
 		}
 	}	
+	
+	private void getAlternativePort() {
+		try {
+			int port =(int) (Math.random() * 8000) + 4000;
+			socket = new DatagramSocket(port);
+		} catch (SocketException e1) {
+			System.out.println("Ersatzport nicht gefunden.");
+			e1.printStackTrace();
+			getAlternativePort();
+		}
+	}
 
 	public boolean isActive() {
 		return isActive;
