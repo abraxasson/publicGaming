@@ -39,11 +39,11 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		fireworkParticles = Assets.loadFireWorksParticles();
 		pm = fireworkParticles.getEmitters().get(0);
 		pm.setPosition(Assets.FRAME_WIDTH / 2, 0);
-//		System.out.println(Assets.FRAME_HEIGHT);
-//		System.out.println(pm.getLife().getHighMin());
-//		System.out.println(pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000);
-//		System.out.println(Assets.FRAME_HEIGHT * pm.getVelocity().getLowMin() / 1000);  
-//		System.out.println(Assets.FRAME_HEIGHT * pm.getLife().getHighMin() / 1000); 
+		
+		float var = 250;
+		pm.getLife().setHigh(Assets.FRAME_HEIGHT + var);
+		pm.getLife().setLow(Assets.FRAME_HEIGHT - var);
+
 		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
 		delay = height / pm.getVelocity().getLowMin() + (pm.getDelay().getLowMax() / 1000);
 		rand = new Random();
