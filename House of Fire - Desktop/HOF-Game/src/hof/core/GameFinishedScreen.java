@@ -45,9 +45,9 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		pm.getLife().setLow(Assets.FRAME_HEIGHT - var);
 
 		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
-		delay = height / pm.getVelocity().getLowMin() + (pm.getDelay().getLowMax() / 1000);
+		delay = height / pm.getVelocity().getHighMin() + (pm.getDelay().getLowMax() / 1000);
 		rand = new Random();
-		currentFireworks = new TextureRegion[15];
+		currentFireworks = new TextureRegion[4];
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
-		//Gdx.gl.glClearColor(0.11f, 0.48f, 0.98f, 1);
+		Gdx.gl.glClearColor(0.11f, 0.48f, 0.98f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -88,7 +88,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 			float x = rand.nextInt(200) + (Assets.FRAME_WIDTH / 2 - 200);
 			float y = rand.nextInt(50) + height;
 			for (TextureRegion region: currentFireworks) {
-				spriteBatch.draw(region, x, y);
+				spriteBatch.draw(region, x, y, 200, 200);
 
 				x = rand.nextInt(200) + (Assets.FRAME_WIDTH / 2 - 200);
 				y = rand.nextInt(50) + height;

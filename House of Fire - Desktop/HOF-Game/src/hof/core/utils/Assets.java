@@ -190,7 +190,7 @@ public class Assets {
 				frames[index++] = tmp[i][j];
 			}
 		}
-		fireWorksAnimation = new Animation(0.025f, frames);
+		fireWorksAnimation = new Animation(1/22f, frames);
 	}
 
 	private static void loadTextures() {
