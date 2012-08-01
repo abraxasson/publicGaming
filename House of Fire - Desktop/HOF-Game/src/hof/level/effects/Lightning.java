@@ -27,6 +27,7 @@ public class Lightning extends AbstractCloud {
 		this.lifeTime -= Gdx.graphics.getDeltaTime();
 		if(this.lifeTime < 0){
 			this.alive = false;
+			Assets.thunder.stop();
 			lastUsed = System.currentTimeMillis();
 		}
 		else{

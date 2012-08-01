@@ -37,7 +37,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void show() {
 		startTime = System.currentTimeMillis();
-
+		Assets.applause.play();
+		Assets.applause2.play();
 		game.houseIndex++;
 
 		if (game.houseIndex < game.houseList.size()) {
@@ -155,7 +156,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 				player.setLastInput(System.currentTimeMillis());
 			}
 		}
-
+		Assets.applause.stop();
+		Assets.applause2.stop();
 		processing.emptyInputQueues();
 	}
 

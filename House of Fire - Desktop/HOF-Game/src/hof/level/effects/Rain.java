@@ -33,6 +33,7 @@ public class Rain extends AbstractCloud {
 		if(this.startPos <= super.x && this.lifeTime > 0){
 			if(count == 0){
 				this.lifeTime = Settings.rainLifeTime;
+				Assets.rain.play();
 				count++;
 			}
 			emitter.setPosition(this.x, this.y);

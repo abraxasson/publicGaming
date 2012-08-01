@@ -82,11 +82,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Lightning.setLastUsed(System.currentTimeMillis());
 		Rain.setLastUsed(System.currentTimeMillis());
 		WaterPressure.setLastUsed(System.currentTimeMillis());
+		Assets.backgroundMusic.play();
+		Assets.backgroundMusic.setLooping(true);
 	}
 
 	@Override
 	public void hide() {
 		processing.getSmsQueue().clear();
+		Assets.backgroundMusic.stop();
 	}
 
 	@Override
@@ -97,7 +100,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// draws everything
 		spriteBatch.begin();
 		currentHouse.draw(spriteBatch);
-		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH, Gdx.graphics.getHeight());
+		spriteBatch.draw(Assets.borderTexture, 0, 0, Assets.CANVAS_WIDTH,
+				Gdx.graphics.getHeight());
 		removeDeadGags();
 		drawGag();
 		drawFirefighters();
@@ -259,12 +263,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			switch (waterJet.getStrengthState()) {
 			case UP:
 				if (waterJet.getStrength() < (Assets.CANVAS_HEIGHT) * 1.3) {
-					waterJet.setStrength(96);
+					waterJet.setStrength(150);
 				}
 				break;
 			case DOWN:
 				if (waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 5)) {
-					waterJet.setStrength(-96);
+					waterJet.setStrength(-150);
 				}
 				break;
 			case NORMAL:
@@ -289,6 +293,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 							if (lightning.getLifeTime() == Settings.lightningLifeTime) {
 								currentHouse.getFireList().add(
 										new Fire(lightning.getHotSpot()));
+								Assets.thunder.play();
 							}
 							lightning.draw(spriteBatch);
 						}

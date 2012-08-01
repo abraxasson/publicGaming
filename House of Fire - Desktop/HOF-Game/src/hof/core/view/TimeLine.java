@@ -46,7 +46,9 @@ public class TimeLine {
 		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, maxWidth, height);
 		spriteBatch.setColor(Color.BLACK);
 		spriteBatch.draw(texture, offset - borderOff,Gdx.graphics.getHeight() - height - offset - borderOff, width + (borderOff*2), height +  (borderOff*2));
-		spriteBatch.draw(running, width + 20, Gdx.graphics.getHeight() - height - offset);
+		if(width+40 < maxWidth){
+			spriteBatch.draw(running, width + 20, Gdx.graphics.getHeight() - height - offset);
+		}
 		spriteBatch.setColor(Color.RED);
 		spriteBatch.draw(texture, offset,Gdx.graphics.getHeight() - height - offset, width , height);
 		spriteBatch.setColor(oldColor);
