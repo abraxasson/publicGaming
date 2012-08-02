@@ -47,16 +47,16 @@
                 android:src="@drawable/water_pucket_right" />
 
         </LinearLayout>
-
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="26dp"
             android:text="@string/water_rating"
             android:textColor="@color/my_color"
-            android:textSize="@dimen/padding_mega"
+            android:textSize="@dimen/padding_giga"
             android:textStyle="bold" />
 
 </RelativeLayout>
