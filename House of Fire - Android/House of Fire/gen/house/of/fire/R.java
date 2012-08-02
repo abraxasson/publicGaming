@@ -18,8 +18,10 @@ public final class R {
     }
     public static final class dimen {
         public static final int header_login_textsize=0x7f060007;
-        public static final int medal_text_margin=0x7f060008;
-        public static final int medal_text_padding=0x7f060009;
+        public static final int medal_margin_left=0x7f06000a;
+        public static final int medal_text_margin=0x7f060009;
+        public static final int medal_text_padding=0x7f06000b;
+        public static final int medal_text_size=0x7f060008;
         public static final int padding_giga=0x7f060005;
         public static final int padding_large=0x7f060003;
         public static final int padding_medium=0x7f060001;
@@ -30,9 +32,9 @@ public final class R {
     }
     public static final class drawable {
         public static final int background=0x7f020000;
-        public static final int background_fire=0x7f020001;
-        public static final int background_fire1=0x7f020002;
-        public static final int background_instructions=0x7f020003;
+        public static final int background_fire1=0x7f020001;
+        public static final int background_instructions=0x7f020002;
+        public static final int background_start=0x7f020003;
         public static final int background_water=0x7f020004;
         public static final int bronze=0x7f020005;
         public static final int btn1_default=0x7f020006;
