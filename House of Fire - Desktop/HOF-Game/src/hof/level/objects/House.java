@@ -16,8 +16,9 @@ public class House {
 	private Texture image;
 	private float healthpoints;
 	private float maxHealth;
-	private ArrayList<Pixel> burningArea = new ArrayList<Pixel>();
-	private ArrayList<Fire> fireList = new ArrayList<Fire>();
+	private ArrayList<Pixel> burningArea;
+	private ArrayList<Pixel> fullscreenBurningArea; 
+	private ArrayList<Fire> fireList;
 	private int fireCount;
 	
 	private boolean isAlive;
@@ -29,18 +30,32 @@ public class House {
 		fireCount = fire;
 		isAlive = true;
 		maxHealth = healthpoints;
+		
+		burningArea = new ArrayList<Pixel>();
+		fullscreenBurningArea = new ArrayList<Pixel>();
+		fireList = new ArrayList<Fire>();
+		
 		resetHouse();
 	}
 	
 	public void resetHouse() {
 		this.fireList.clear();
-		this.setBurningArea(Assets.houseMap.get(image));
+		setBurningArea(Assets.houseMap.get(image));
 		for(int i = 0 ; i < fireCount; i++){
 			Pixel spawnPos = this.getRandomBurningArea();
 			this.fireList.add(new Fire(spawnPos));
 		}
 		healthpoints = maxHealth;
 		isAlive = true;
+	}
+	
+	public void prepareFullscreen() {
+		this.fireList.clear();
+		setRandomBurningArea(Assets.houseMap.get(image));
+		for(int i = 0 ; i < fireCount; i++){
+			Pixel spawnPos = this.getRandomFullscreenBurningArea();
+			this.fireList.add(new Fire(spawnPos));
+		}
 	}
 
 	public Texture getImage() {
@@ -69,6 +84,16 @@ public class House {
 		return null;
 	}
 	
+	public Pixel getRandomFullscreenBurningArea(){
+		if(!this.burningArea.isEmpty()){
+			int length = this.burningArea.size();
+			int index = (int)(Math.random()*length);
+			Pixel r = (Pixel) burningArea.toArray()[index];
+			return r;
+		}
+		return null;
+	} 
+	
 	
 	public void setBurningArea(BufferedImage img) {
 		Color c = Color.BLACK;
@@ -82,10 +107,25 @@ public class House {
 					int x1 = (int) (x*verhaeltnisX);
 					int y1 = (int) ((img.getHeight()-y)*verhaeltnisY);
 					Pixel pixel = new Pixel(x1, y1, color);
-					if (burningArea.add(pixel)) {
-						//System.out.println("Pixel added-- X:"+x1+" Y:"+y1);
-						//System.out.println(color.toString());
-					}
+					burningArea.add(pixel);
+				}
+			}
+		}
+	}
+	
+	public void setRandomBurningArea(BufferedImage img) {
+		Color c = Color.BLACK;
+		double verhaeltnisX = ((double)Assets.FRAME_WIDTH)/((double)img.getWidth());
+		double verhaeltnisY = ((double)Assets.FRAME_HEIGHT)/((double)img.getHeight());
+		for (int x = 0; x < img.getWidth(); x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				int rgb = img.getRGB(x, y);
+				Color color = new Color(rgb);
+				if (color.toString().equals(c.toString())) {
+					int x1 = (int) (x*verhaeltnisX);
+					int y1 = (int) ((img.getHeight()-y)*verhaeltnisY);
+					Pixel pixel = new Pixel(x1, y1, color);
+					fullscreenBurningArea.add(pixel);
 				}
 			}
 		}

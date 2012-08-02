@@ -247,14 +247,14 @@ public class Assets{
 		borderTexture = new Texture(Gdx.files.internal("textures/border2.png"));
 		timeLineTexture = new Texture(Gdx.files.internal("textures/timeline.png"));;
 		
-		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
-		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
-		firefighter_blue = new Texture(Gdx.files.internal("textures/firefighter_blue.png"));
-		firefighter_red = new Texture(Gdx.files.internal("textures/firefighter_red.png"));
-		firefighter_orange = new Texture(Gdx.files.internal("textures/firefighter_orange.png"));
-		firefighter_green = new Texture(Gdx.files.internal("textures/firefighter_green.png"));
-		firefighter_cyan = new Texture(Gdx.files.internal("textures/firefighter_cyan.png"));
-		firefighter_magenta = new Texture(Gdx.files.internal("textures/firefighter_magenta.png"));
+		firefighter_left = new Texture(Gdx.files.internal("textures/firefighters/firefighter_left.png"));
+		firefighter_right = new Texture(Gdx.files.internal("textures/firefighters/firefighter_right.png"));
+		firefighter_blue = new Texture(Gdx.files.internal("textures/firefighters/firefighter_blue.png"));
+		firefighter_red = new Texture(Gdx.files.internal("textures/firefighters/firefighter_red.png"));
+		firefighter_orange = new Texture(Gdx.files.internal("textures/firefighters/firefighter_orange.png"));
+		firefighter_green = new Texture(Gdx.files.internal("textures/firefighters/firefighter_green.png"));
+		firefighter_cyan = new Texture(Gdx.files.internal("textures/firefighters/firefighter_cyan.png"));
+		firefighter_magenta = new Texture(Gdx.files.internal("textures/firefighters/firefighter_magenta.png"));
 		
 		cat = new Texture(Gdx.files.internal("textures/cat.png"));
 		

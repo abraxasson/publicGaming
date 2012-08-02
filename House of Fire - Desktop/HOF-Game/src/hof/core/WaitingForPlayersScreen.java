@@ -3,6 +3,7 @@ package hof.core;
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
+import hof.level.objects.House;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.UdpServerThread;
@@ -45,6 +46,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		stateTime = 0;
 		houseTime = 0;
 		status = Status.Title;
+		for (House house: game.houseList) {
+//			house.prepareFullscreen();
+		}
 	}
 
 	@Override
@@ -52,11 +56,11 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (isWaiting) {
 			stateTime += delta;
 			
-			checkStatus();
 			processing.processMessageQueue();
 			if (!processing.getPlayerList().isEmpty()) {
 				isWaiting = false;
 			}
+			checkStatus();
 			
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -65,9 +69,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				game.setScreen(game.mainMenuScreen);
 			}
 
-			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				Gdx.app.exit();
-			}
+			
 
 			Color oldColor = spriteBatch.getColor();
 			spriteBatch.begin();
@@ -110,6 +112,10 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
+			}
+			
+			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+				Gdx.app.exit();
 			}
 		} else {
 			game.setScreen(game.playingScreen);
