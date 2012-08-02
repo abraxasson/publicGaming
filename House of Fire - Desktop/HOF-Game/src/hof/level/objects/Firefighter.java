@@ -26,7 +26,7 @@ public class Firefighter extends AbstractPerson {
 		this.negativeWidth = -width;
 		this.player = player;
 		waterJet = new WaterJet();
-		this.lastState = ButtonInfoMessage.NORMAL;
+		this.lastState = ButtonInfoMessage.RIGHT;
 		Color playerColor = player.getColor();
 		if(playerColor.equals(Color.RED)){
 			this.setBody(Assets.firefighter_red);
