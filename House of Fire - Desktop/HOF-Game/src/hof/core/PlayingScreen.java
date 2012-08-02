@@ -114,9 +114,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		
 		if(System.currentTimeMillis() >= startTime + randomTime){
 			double random = Math.random();
-			if(random > 0.5){
+			if(random < 0.3){
 				initGag(new NonPlayable(100, (int) (Gdx.graphics.getHeight()*0.75)/5, 100,
 						Assets.runningCatAnimation));
+			}
+			else if(random < 0.6){
+				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.6),100, Assets.flyingBirdAnimation));
 			}
 			else{
 				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),100, Assets.flyingBirdAnimation));
