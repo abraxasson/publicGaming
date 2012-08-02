@@ -54,10 +54,9 @@ public final class R {
         public static final int pfeil_links=0x7f020016;
         public static final int pfeil_rechts=0x7f020017;
         public static final int silber=0x7f020018;
-        public static final int water_background=0x7f020019;
-        public static final int water_pucket=0x7f02001a;
-        public static final int water_pucket_left=0x7f02001b;
-        public static final int water_pucket_right=0x7f02001c;
+        public static final int water_pucket=0x7f020019;
+        public static final int water_pucket_left=0x7f02001a;
+        public static final int water_pucket_right=0x7f02001b;
     }
     public static final class id {
         public static final int RelativeLayoutLevel=0x7f0a000b;
