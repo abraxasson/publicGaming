@@ -80,7 +80,7 @@ public class Firefighter extends AbstractPerson {
 		case ButtonInfoMessage.NORMAL:
 			break;
 		default:
-			waterJet.setPosition(getX()+20, getY()+125);
+			waterJet.setPosition(getX()+105, getY()+125);
 			break;
 		}
 	}

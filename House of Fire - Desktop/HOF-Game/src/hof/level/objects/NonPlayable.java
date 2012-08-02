@@ -1,5 +1,6 @@
 package hof.level.objects;
 
+import hof.core.PlayingScreen;
 import hof.core.utils.Assets;
 
 import com.badlogic.gdx.Gdx;
@@ -61,6 +62,8 @@ public class NonPlayable extends AbstractPerson{
 			}
 			else{
 				this.healthpoints = -100;
+				PlayingScreen.setRandomTime();
+				System.out.println("gesetzt");
 			}
 		}
 		

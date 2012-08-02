@@ -48,8 +48,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private FPS fps;
 	private InetAddress ia;
 	private long finishedTime;
-	private long startTime;
-	private long randomTime;
+	private static long startTime;
+	private static long randomTime;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
@@ -80,8 +80,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			player.setMinuspoints(0);
 		}
 		finishedTime = 0;
-		this.startTime = System.currentTimeMillis();
-		this.randomTime = (long) (System.currentTimeMillis()/(Math.random()*100000000)/1.5);
+		startTime = System.currentTimeMillis();
+		randomTime = (long)(10000+(Math.random()*20000));
 		Lightning.setLastUsed(System.currentTimeMillis());
 		Rain.setLastUsed(System.currentTimeMillis());
 		WaterPressure.setLastUsed(System.currentTimeMillis());
@@ -110,18 +110,18 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		removeDeadGags();
 		drawGag();
 		
-		if(System.currentTimeMillis() >= this.startTime + this.randomTime){
+		if(System.currentTimeMillis() >= startTime + randomTime){
 			double random = Math.random();
 			if(random > 0.5){
-				initGag(new NonPlayable(100, 150, 200,
+				initGag(new NonPlayable(100, (int) (Gdx.graphics.getHeight()*0.75)/5, 200,
 						Assets.runningCatAnimation));
 			}
 			else{
 				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),200, Assets.flyingBirdAnimation));
 			}
 			
-			this.startTime = System.currentTimeMillis();
-			this.randomTime = (long) (System.currentTimeMillis()/(Math.random()*100000000)/1.5);
+			startTime = System.currentTimeMillis();
+			randomTime = startTime;
 		}
 		
 		drawFirefighters();
@@ -294,6 +294,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
+	public static void setRandomTime(){
+		randomTime = (long)(10000+(Math.random()*20000));
+		startTime = System.currentTimeMillis();
+	}
+	
 	private void drawSpecialEffects() {
 		if (processing.hasSMS()) {
 			for (AbstractCloud effect : processing.getSmsQueue()) {
