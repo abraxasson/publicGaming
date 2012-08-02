@@ -1,6 +1,5 @@
 package hof.core.utils;
 
-import hof.core.GameOverScreen;
 import hof.player.Player;
 
 import java.io.BufferedReader;
@@ -133,7 +132,7 @@ public class HallOfFame {
 		font.setColor(oldColor);
 	}
 
-	public void draw(SpriteBatch spriteBatch, int x, int y,BitmapFont font, Color color) {
+	public void draw(SpriteBatch spriteBatch, int x, int y, int limit ,BitmapFont font, Color color) {
 		int i = 1;
 		int height = y;
 		Color oldColor = font.getColor();
@@ -144,7 +143,7 @@ public class HallOfFame {
 			String text = "" + i + ":  " + item.toString();
 			bounds = font.getBounds(text);
 			height -= bounds.height * 1.35;
-			if(height -bounds.height > GameOverScreen.getMinRankingHeight()){
+			if(height -bounds.height > limit){
 				font.draw(spriteBatch, text, x - bounds.width / 2, height);
 				i++;
 			}
