@@ -158,10 +158,10 @@ public class SettingsDialog {
 		waterPressureIcrease = addSlider(Settings.waterPressureIncID, 3, 7, 1, prefs.getInt(Settings.waterPressureIncID, 5));
 		page2.add(waterPressureIcrease);
 			
-		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 10, 1, (int)prefs.getLong(Settings.playerTimeoutID, 5000l));
+		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 30, 5, (int)prefs.getLong(Settings.playerTimeoutID, 5000l));
 		page3.add(playerTimeout);
 		
-		maxPlayers = addSlider(Settings.maxPlayersID, 5, 10, 1, prefs.getInt(Settings.maxPlayersID, 6));
+		maxPlayers = addSlider(Settings.maxPlayersID, 3, 9, 1, prefs.getInt(Settings.maxPlayersID, 6));
 		page3.add(maxPlayers);
 		
 		highscoreSize = addSlider(Settings.highScoreSizeID, 5, 20, 1, prefs.getInt(Settings.highScoreSizeID, 10));
