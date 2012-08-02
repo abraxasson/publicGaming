@@ -94,7 +94,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 				.draw(Assets.pureWhiteTexture,
 						this.collumnWidth,
 						(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (6.5 * bounds.height)),
-						(this.collumnWidth - 30) * 6, 10);
+						(this.collumnWidth) * 6, 10);
 		spriteBatch.setColor(oldColor);
 		showScore();
 		spriteBatch.end();
