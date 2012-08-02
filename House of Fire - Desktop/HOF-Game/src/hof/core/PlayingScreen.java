@@ -94,6 +94,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void hide() {
 		processing.getSmsQueue().clear();
+		this.gags.clear();
 		Assets.backgroundMusic.stop();
 	}
 
@@ -110,8 +111,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		drawGag();
 		
 		if(System.currentTimeMillis() >= this.startTime + this.randomTime){
-			initGag(new NonPlayable(100, 150, 200,
-					Assets.runningCatAnimation));
+			double random = Math.random();
+			if(random > 0.5){
+				initGag(new NonPlayable(100, 150, 200,
+						Assets.runningCatAnimation));
+			}
+			else{
+				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),200, Assets.flyingBirdAnimation));
+			}
+			
 			this.startTime = System.currentTimeMillis();
 			this.randomTime = (long) (System.currentTimeMillis()/(Math.random()*100000000)/1.5);
 		}

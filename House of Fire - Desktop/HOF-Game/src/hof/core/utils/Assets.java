@@ -211,7 +211,7 @@ public class Assets{
 				frames[index++] = tmp[i][j];
 			}
 		}
-		runningCatAnimation = new Animation(0.08f, frames);
+		runningCatAnimation = new Animation(0.05f, frames);
 		
 		colums = 4;
 		rows = 1;
@@ -225,7 +225,7 @@ public class Assets{
 				frames[index++] = tmp[i][j];
 			}
 		}
-		flyingBirdAnimation = new Animation(0.08f, frames);
+		flyingBirdAnimation = new Animation(0.1f, frames);
 		
 		colums = 5;
 		rows = 5;
