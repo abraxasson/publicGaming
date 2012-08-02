@@ -36,6 +36,7 @@ public class Settings {
 	public static float houseHealthpoints;	
 	public static float fireDamage;	
 	public static int fireIncrease;
+	public static int healthpointsIncrease;
 	
 	public static float waterDamage;	
 	public static int waterPressureInc;	
@@ -87,6 +88,7 @@ public class Settings {
 		rainCooldown = prefs.getFloat(rainCooldownID, 10000);
 		lightningCooldown = prefs.getFloat(lightningCooldownID, 15000);
 		pressureCooldown = prefs.getFloat(pressureCooldownID, 10000);
+		healthpointsIncrease = 200;
 
 		loadHighScoreSettings();
 		loadWordFilterSettings();

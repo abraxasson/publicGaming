@@ -47,7 +47,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		houseTime = 0;
 		status = Status.Title;
 		Assets.fire.loop(0.2f);
-		System.out.println("Java Heap: " + Gdx.app.getJavaHeap()/1024f/1024f + " MB");
+		Assets.backgroundMusicMenu.play();
+		Assets.backgroundMusicMenu.setVolume(0.3f);
+		Assets.backgroundMusicMenu.setLooping(true);
 	}
 
 	@Override
@@ -130,7 +132,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private void drawBackgroundHouse(float delta) {
 		houseTime += delta;
-		if (houseTime >= 3) {
+		if (houseTime >= 4) {
 			index++;
 			houseTime = 0;
 		}
@@ -138,8 +140,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			index = 0;
 		}
 
-		spriteBatch.setColor(Color.LIGHT_GRAY);
-		// game.houseList.get(index).resetHouse();
+		spriteBatch.setColor(Color.DARK_GRAY);
 		game.houseList.get(index).drawFullscreen(spriteBatch);
 	}
 
@@ -191,7 +192,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (stateTime > 14) {
 			status = Status.Highscore;
 		}
-		if (stateTime > 18) {
+		if (stateTime > 20) {
 			status = Status.Title;
 			stateTime = 0;
 		}
@@ -203,6 +204,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		Assets.fire.stop();
 		Assets.help.stop();
 		this.helpIsLooping = false;
+		Assets.backgroundMusicMenu.stop();
 	}
 
 	private enum Status {
