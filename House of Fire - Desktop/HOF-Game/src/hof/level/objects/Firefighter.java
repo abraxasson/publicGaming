@@ -17,7 +17,7 @@ public class Firefighter extends AbstractPerson {
 	private int negativeWidth;
 	
 	public Firefighter(Player player, int state) {
-		this(Assets.firefighter_left, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
+		this(Assets.firefighter_blue, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
 	}
 	
 	private Firefighter(Texture body, int x, int y, int width, int height, Player player) {
