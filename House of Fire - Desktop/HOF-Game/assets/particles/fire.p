@@ -6,7 +6,7 @@ lowMin: 0.0
 lowMax: 0.0
 - Count - 
 min: 0
-max: 300
+max: 250
 - Emission - 
 lowMin: 200.0
 lowMax: 200.0
@@ -62,8 +62,8 @@ timeline0: 0.0
 - Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 30.0
+highMax: 30.0
 relative: false
 scalingCount: 3
 scaling0: 0.47058824
@@ -108,8 +108,8 @@ active: false
 - Tint - 
 colorsCount: 3
 colors0: 1.0
-colors1: 0.12156863
-colors2: 0.047058824
+colors1: 0.078431375
+colors2: 0.0
 timelineCount: 1
 timeline0: 0.0
 - Transparency - 
