@@ -12,6 +12,8 @@ public class Firefighter extends AbstractPerson {
 	private Player player;
 	private WaterJet waterJet;
 	private int state;
+	private int width;
+	private int negativeWidth;
 	
 	public Firefighter(Player player, int state) {
 		this(Assets.firefighter_left, (int)(Math.random() * Assets.CANVAS_WIDTH),-80, 150, 200, player);
@@ -19,8 +21,29 @@ public class Firefighter extends AbstractPerson {
 	
 	private Firefighter(Texture body, int x, int y, int width, int height, Player player) {
 		super(body, x, y, width, height);
+		this.width = width;
+		this.negativeWidth = -width;
 		this.player = player;
 		waterJet = new WaterJet();
+		Color playerColor = player.getColor();
+		if(playerColor.equals(Color.RED)){
+			this.setBody(Assets.firefighter_red);
+		}
+		else if(playerColor.equals(Color.GREEN)){
+			this.setBody(Assets.firefighter_green);
+		}
+		else if(playerColor.equals(Color.ORANGE)){
+			this.setBody(Assets.firefighter_orange);
+		}
+		else if(playerColor.equals(Color.MAGENTA)){
+			this.setBody(Assets.firefighter_magenta);
+		}
+		else if(playerColor.equals(Color.BLUE)){
+			this.setBody(Assets.firefighter_blue);
+		}
+		else if(playerColor.equals(Color.CYAN)){
+			this.setBody(Assets.firefighter_cyan);
+		}
 	}
 
 	public Player getPlayer() {
@@ -30,25 +53,17 @@ public class Firefighter extends AbstractPerson {
 	public void draw(SpriteBatch spriteBatch) {
 		updateFighter();
 		waterJet.draw(spriteBatch);
-		Color oldColor = spriteBatch.getColor();
-		if (player != null) {
-			spriteBatch.setColor(getPlayer().getColor());
-		}
-		else
-		spriteBatch.setColor(Color.BLACK);
-		
 		spriteBatch.draw(getBody(), getX(), getY(), getWidth(), getHeight());
-		spriteBatch.setColor(oldColor);
 	}
 	
 	private void updateFighter() {
 		switch(state) {
 		case ButtonInfoMessage.LEFT:
-			setBody(Assets.firefighter_left);
-			waterJet.setPosition(getX()+20, getY()+125);
+			this.setWidth(this.negativeWidth);
+			waterJet.setPosition(getX()+20+this.negativeWidth, getY()+125);
 			break;
 		case ButtonInfoMessage.RIGHT:
-			setBody(Assets.firefighter_right);
+			this.setWidth(this.width);
 			waterJet.setPosition(getX()+105, getY()+125);
 			break;
 		case ButtonInfoMessage.NORMAL:

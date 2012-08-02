@@ -21,9 +21,9 @@ public class ColorList {
 	private void fillList() {
 		colorList.add(Color.RED);
 		colorList.add(Color.BLUE);
-		colorList.add(Color.YELLOW);
-		colorList.add(Color.GREEN);
 		colorList.add(Color.ORANGE);
+		colorList.add(Color.GREEN);
+		colorList.add(Color.CYAN);
 		colorList.add(Color.MAGENTA);
 	}
 	

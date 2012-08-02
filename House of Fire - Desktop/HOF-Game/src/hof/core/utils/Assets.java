@@ -43,6 +43,12 @@ public class Assets{
 	
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
+	public static Texture firefighter_red;
+	public static Texture firefighter_blue;
+	public static Texture firefighter_orange;
+	public static Texture firefighter_green;
+	public static Texture firefighter_magenta;
+	public static Texture firefighter_cyan;
 	public static Texture cat;
 	
 	public static Texture waitingForPlayerTitle;
@@ -226,7 +232,16 @@ public class Assets{
 		
 		firefighter_left = new Texture(Gdx.files.internal("textures/firefighter_left.png"));
 		firefighter_right = new Texture(Gdx.files.internal("textures/firefighter_right.png"));
+		firefighter_blue = new Texture(Gdx.files.internal("textures/firefighter_blue.png"));
+		firefighter_red = new Texture(Gdx.files.internal("textures/firefighter_red.png"));
+		firefighter_orange = new Texture(Gdx.files.internal("textures/firefighter_orange.png"));
+		firefighter_green = new Texture(Gdx.files.internal("textures/firefighter_green.png"));
+		firefighter_cyan = new Texture(Gdx.files.internal("textures/firefighter_cyan.png"));
+		firefighter_magenta = new Texture(Gdx.files.internal("textures/firefighter_magenta.png"));
+		
 		cat = new Texture(Gdx.files.internal("textures/cat.png"));
+		
+		
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));
 		lightningTexture = new Texture(Gdx.files.internal("textures/lightning.png"));
