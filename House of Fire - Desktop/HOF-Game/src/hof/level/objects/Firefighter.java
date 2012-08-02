@@ -85,10 +85,14 @@ public class Firefighter extends AbstractPerson {
 	}
 
 	public void stayInBounds() {
-		if (getX() < 0) 
-			setX(0);
-		if (getX() > Assets.CANVAS_WIDTH - getWidth())
+		if (getX() - this.width < 0 && this.state==ButtonInfoMessage.LEFT) {
+			setX(this.width);
+			this.setState(ButtonInfoMessage.NORMAL);
+		}
+		if (getX() > Assets.CANVAS_WIDTH - getWidth() && this.state == ButtonInfoMessage.RIGHT){
 			setX(Assets.CANVAS_WIDTH  - getWidth());
+			this.setState(ButtonInfoMessage.NORMAL);
+		}
 	}
 
 	public WaterJet getWaterJet() {

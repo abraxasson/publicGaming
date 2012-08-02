@@ -120,9 +120,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Collections.sort(processing.getPlayerList());
 
 		// checks that the players stay inside the screen
-		keepInBounds();
+		
 		moveFireFighter();
-
+		keepInBounds();
 		checkCollision();
 
 		processing.processMessageQueue();
