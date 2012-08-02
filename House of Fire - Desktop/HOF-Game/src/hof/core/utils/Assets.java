@@ -20,27 +20,28 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets{
 
+	
 	public static final int FRAME_WIDTH = Gdx.graphics.getWidth();
 	public static final int FRAME_HEIGHT = Gdx.graphics.getHeight();
 	public static final int STATUS_BAR_HEIGHT = FRAME_HEIGHT;
 	public static final int STATUS_BAR_WIDTH = FRAME_WIDTH / 6;
-	
 	public static final int TIMELINE_OFFSET = 10;
 	public static final int TIMELINE_WIDTH_OFFSET = TIMELINE_OFFSET * 2;
 	public static final int TIMELINE_WIDTH = (int) (FRAME_WIDTH - STATUS_BAR_WIDTH) - (TIMELINE_WIDTH_OFFSET);
 	public static final int TIMELINE_HEIGHT = (int) (FRAME_HEIGHT / 15);
-	
 	public static final int CANVAS_HEIGHT = (int) (FRAME_HEIGHT - TIMELINE_HEIGHT);
 	public static final int CANVAS_WIDTH = FRAME_WIDTH - STATUS_BAR_WIDTH;
-	
 	public static final int RANKING_HEIGHT = STATUS_BAR_HEIGHT / 2;
-	
 	public static final int SMSBAR_HEIGHT = STATUS_BAR_HEIGHT / 2;
+	
+	
+	public static Map<Texture, BufferedImage> houseMap;
+	public static ArrayList<Texture> houseList;
+	
 	
 	public static Texture pureWhiteTexture;
 	public static Texture borderTexture;
 	public static Texture timeLineTexture;
-	
 	public static Texture firefighter_left;
 	public static Texture firefighter_right;
 	public static Texture firefighter_red;
@@ -50,30 +51,27 @@ public class Assets{
 	public static Texture firefighter_magenta;
 	public static Texture firefighter_cyan;
 	public static Texture cat;
-	
 	public static Texture waitingForPlayerTitle;
 	public static Texture waitingForPlayerHelp;
 	public static Texture waitingForPlayerMain;
-	
-	
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
 	public static Texture gameFinishedScreen;
 	public static Texture trophyTexture;
 	public static Texture gameFinishedText;
+	public static Texture cloudTexture;
+	public static Texture lightningTexture;
+	public static Texture statusBar;
+	
+	
 	public static Animation runningAnimation;
 	public static Animation runningAnimation2;
 	public static Animation runningAnimation3;
 	public static Animation runningCatAnimation;
 	public static Animation fireWorksAnimation;
+	public static Animation flyingBirdAnimation;
 	
-	public static Map<Texture, BufferedImage> houseMap;
-	public static ArrayList<Texture> houseList;
-	
-	public static Texture cloudTexture;
-	public static Texture lightningTexture;
-	public static Texture statusBar;
 	
 	public static Sound loser;
 	public static Sound applause;
@@ -86,10 +84,14 @@ public class Assets{
 	public static Sound firework2;
 	public static Sound fire;
 	public static Sound evilLaugh;
+	
+	
 	public static Music backgroundMusic;
 	public static Music backgroundMusicMenu;
 	
+	
 	public static BufferedImage smokingArea;
+	
 	
 	public static BitmapFont defaultFont;
 	public static BitmapFont text30Font;
@@ -105,6 +107,7 @@ public class Assets{
 	public static BitmapFont statusBarFont30;
 	public static BitmapFont statusBarFont35;
 	public static BitmapFont statusBarFont40;
+	
 	
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
@@ -209,6 +212,20 @@ public class Assets{
 			}
 		}
 		runningCatAnimation = new Animation(0.08f, frames);
+		
+		colums = 4;
+		rows = 1;
+		sheet = new Texture (Gdx.files.internal("textures/animations/flyingBird.png"));
+		tmp = TextureRegion.split(sheet, 
+				sheet.getWidth() / colums, sheet.getHeight() / rows);
+		frames = new TextureRegion[rows * colums];
+		index = 0;
+		for (int i = 0; i < rows; i++  ) {
+			for (int j = 0; j < colums; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+		flyingBirdAnimation = new Animation(0.08f, frames);
 		
 		colums = 5;
 		rows = 5;

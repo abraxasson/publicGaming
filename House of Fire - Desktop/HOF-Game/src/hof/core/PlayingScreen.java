@@ -187,7 +187,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void drawGag() {
 		if (!this.gags.isEmpty()) {
-			this.gags.get(0).drawAnimation(spriteBatch);
+			this.gags.get((int)(Math.random()*gags.size())).drawAnimation(spriteBatch);
 		}
 	}
 
