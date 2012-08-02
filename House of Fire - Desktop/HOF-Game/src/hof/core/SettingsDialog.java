@@ -116,7 +116,7 @@ public class SettingsDialog {
 		fireIncrease = addSlider(Settings.fireIncreaseID, 3, 10, 1, prefs.getInt(Settings.fireIncreaseID, 5));
 		page1.add(fireIncrease);
 		
-		waterAimSize = addSlider(Settings.waterAimSizeID, 5, 15 , 1, (int) prefs.getFloat(Settings.waterAimSizeID, 10));
+		waterAimSize = addSlider(Settings.waterAimSizeID, 10, 20 , 1, (int) prefs.getFloat(Settings.waterAimSizeID, 10));
 		page1.add(waterAimSize);
 		
 		waterDamage = addSlider(Settings.waterDamageID, 2, 5, 1, (int)prefs.getFloat(Settings.waterDamageID, 3));
