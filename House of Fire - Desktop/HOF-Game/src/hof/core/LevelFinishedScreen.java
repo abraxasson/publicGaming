@@ -29,8 +29,9 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		processing = MessageProcessing.getInstance();
 		udpClient = UdpClientThread.getInstance();
 		lastLevel = false;
-		collumnWidth = Gdx.graphics.getWidth() / 8;
-		infoFont = Assets.standardFont30;
+
+		collumnWidth = Gdx.graphics.getWidth() / 8 ;
+		infoFont = Assets.hobo30;
 		nameFont = Assets.standardFont40;
 		infoFont.setColor(Color.BLACK);
 	}

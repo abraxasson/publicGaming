@@ -45,6 +45,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		stateTime = 0;
 		houseTime = 0;
 		status = Status.Title;
+		Assets.fire.loop(0.2f);
+		System.out.println("Java Heap: " + Gdx.app.getJavaHeap()/1024f/1024f + " MB");
 	}
 
 	@Override
@@ -95,9 +97,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				int xPos = (Assets.FRAME_WIDTH - Assets.waitingForPlayerHighscore
 						.getWidth()) / 2;
 				int yPos = Assets.FRAME_HEIGHT - Assets.waitingForPlayerHighscore.getHeight();
-//				spriteBatch.draw(Assets.waitingForPlayerHighscore, xPos, yPos);
+				spriteBatch.draw(Assets.waitingForPlayerHighscore, xPos, yPos);
 //				fame.draw(spriteBatch, Assets.menu45Font, Color.WHITE);
-				fame.draw(spriteBatch, Assets.FRAME_WIDTH/2, Assets.FRAME_HEIGHT - 10, 0, Assets.menu45Font, Color.WHITE);
+				fame.draw(spriteBatch, Assets.FRAME_WIDTH/2, yPos, Assets.standardFont50, Color.WHITE);
 				break;
 			}
 			spriteBatch.end();
@@ -124,7 +126,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private void drawBackgroundHouse(float delta) {
 		houseTime += delta;
-		if (houseTime >= 2) {
+		if (houseTime >= 3) {
 			index++;
 			houseTime = 0;
 		}
@@ -185,6 +187,11 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			stateTime = 0;
 		}
 
+	}
+	
+	@Override
+	public void hide() {
+		Assets.fire.stop();
 	}
 
 	private enum Status {
