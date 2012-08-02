@@ -52,6 +52,7 @@ public class Assets{
 	public static Texture waitingForPlayerTitle;
 	public static Texture waitingForPlayerHelp;
 	public static Texture waitingForPlayerMain;
+	public static Texture waitingForPlayerHighscore;
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
@@ -273,6 +274,7 @@ public class Assets{
 		waitingForPlayerTitle = new Texture(Gdx.files.internal("textures/waitingForPlayers/view1.png"));
 		waitingForPlayerHelp = new Texture(Gdx.files.internal("textures/waitingForPlayers/view2.png"));
 		waitingForPlayerMain = new Texture(Gdx.files.internal("textures/waitingForPlayers/view4.png"));
+		waitingForPlayerHighscore = new Texture(Gdx.files.internal("textures/waitingForPlayers/view5.png"));
 	}
 	
 	private static void loadHouses() {
@@ -350,6 +352,7 @@ public class Assets{
 		waitingForPlayerMain.dispose();
 		waitingForPlayerHelp.dispose();
 		waitingForPlayerTitle.dispose();
+		waitingForPlayerHighscore.dispose();
 		
 		pureWhiteTexture.dispose();
 		borderTexture.dispose();
