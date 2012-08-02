@@ -84,6 +84,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Assets.backgroundMusic.play();
 		Assets.backgroundMusic.setLooping(true);
 		Assets.sirene.play();
+		Assets.fire.loop();
 	}
 
 	@Override
@@ -133,6 +134,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 
 		if (currentHouse.getFireList().size() == 0) {
+			Assets.fire.stop();
 			for (Player player : this.processing.getPlayerList()) {
 				player.setBonuspoints((int) (currentHouse.getHealthpoints()) * 10);
 			}

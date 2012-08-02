@@ -78,6 +78,8 @@ public class Assets{
 	public static Sound thunder;
 	public static Sound firework;
 	public static Sound firework2;
+	public static Sound fire;
+	public static Sound evilLaugh;
 	public static Music backgroundMusic;
 	public static Music backgroundMusicMenu;
 	
@@ -299,6 +301,8 @@ public class Assets{
 		thunder = Gdx.audio.newSound(Gdx.files.internal("sounds/thunder.ogg"));
 		firework = Gdx.audio.newSound(Gdx.files.internal("sounds/firework.ogg"));
 		firework2 = Gdx.audio.newSound(Gdx.files.internal("sounds/firework2.mp3"));
+		fire = Gdx.audio.newSound(Gdx.files.internal("sounds/forest_fire.ogg"));
+		evilLaugh = Gdx.audio.newSound(Gdx.files.internal("sounds/laugh.ogg"));
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
 		backgroundMusicMenu = Gdx.audio.newMusic(Gdx.files.internal("sounds/background2.mp3"));
 	}

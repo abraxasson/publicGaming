@@ -52,7 +52,8 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 			udpClient.sendMessage(new GameOverInfoMessage(), player.getIp());
 		}
 		startTime = System.currentTimeMillis();
-		Assets.loser.play();
+		Assets.loser.play(0.5f);
+		Assets.evilLaugh.play();
 	}
 
 	@Override
