@@ -29,6 +29,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	private float houseTime;
 	private int index;
 	private Status status;
+	private boolean helpIsLooping;
 
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
 		super(game);
@@ -46,7 +47,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		houseTime = 0;
 		status = Status.Title;
 		Assets.fire.loop(0.2f);
-		System.out.println("Java Heap: " + Gdx.app.getJavaHeap()/1024f/1024f + " MB");
+		Assets.backgroundMusicMenu.play();
+		Assets.backgroundMusicMenu.setVolume(0.3f);
+		Assets.backgroundMusicMenu.setLooping(true);
 	}
 
 	@Override
@@ -84,12 +87,16 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				drawHelpView();
 				break;
 			case Main:
+				Assets.help.stop();
+				this.helpIsLooping = false;
 				drawBackgroundHouse(delta);
 				spriteBatch.setColor(oldColor);
 				spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0,
 						Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 				break;
 			case House:
+				Assets.help.stop();
+				this.helpIsLooping = false;
 				drawBackgroundHouse(delta);
 				break;
 
@@ -98,7 +105,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 						.getWidth()) / 2;
 				int yPos = Assets.FRAME_HEIGHT - Assets.waitingForPlayerHighscore.getHeight();
 				spriteBatch.draw(Assets.waitingForPlayerHighscore, xPos, yPos);
-//				fame.draw(spriteBatch, Assets.menu45Font, Color.WHITE);
 				fame.draw(spriteBatch, Assets.FRAME_WIDTH/2, yPos, Assets.standardFont50, Color.WHITE);
 				break;
 			}
@@ -126,7 +132,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private void drawBackgroundHouse(float delta) {
 		houseTime += delta;
-		if (houseTime >= 3) {
+		if (houseTime >= 4) {
 			index++;
 			houseTime = 0;
 		}
@@ -134,12 +140,16 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			index = 0;
 		}
 
-		spriteBatch.setColor(Color.LIGHT_GRAY);
-		// game.houseList.get(index).resetHouse();
+		spriteBatch.setColor(Color.DARK_GRAY);
 		game.houseList.get(index).drawFullscreen(spriteBatch);
 	}
 
 	private void drawHelpView() {
+		if(!helpIsLooping){
+			Assets.help.loop();
+			helpIsLooping = true;
+			
+		}
 		float width = Assets.FRAME_WIDTH;
 		float height = Assets.FRAME_HEIGHT;
 		spriteBatch.draw(Assets.waitingForPlayerHelp, width / 10, height / 3);
@@ -182,7 +192,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (stateTime > 14) {
 			status = Status.Highscore;
 		}
-		if (stateTime > 18) {
+		if (stateTime > 20) {
 			status = Status.Title;
 			stateTime = 0;
 		}
@@ -192,6 +202,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	@Override
 	public void hide() {
 		Assets.fire.stop();
+		Assets.help.stop();
+		this.helpIsLooping = false;
+		Assets.backgroundMusicMenu.stop();
 	}
 
 	private enum Status {

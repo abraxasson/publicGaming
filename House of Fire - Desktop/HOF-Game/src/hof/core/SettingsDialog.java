@@ -116,7 +116,7 @@ public class SettingsDialog {
 		fireIncrease = addSlider(Settings.fireIncreaseID, 3, 10, 1, prefs.getInt(Settings.fireIncreaseID, 5));
 		page1.add(fireIncrease);
 		
-		waterAimSize = addSlider(Settings.waterAimSizeID, 10, 20 , 1, (int) prefs.getFloat(Settings.waterAimSizeID, 10));
+		waterAimSize = addSlider(Settings.waterAimSizeID, 15, 25 , 1, (int) prefs.getFloat(Settings.waterAimSizeID, 20));
 		page1.add(waterAimSize);
 		
 		waterDamage = addSlider(Settings.waterDamageID, 2, 5, 1, (int)prefs.getFloat(Settings.waterDamageID, 3));
@@ -158,7 +158,7 @@ public class SettingsDialog {
 		waterPressureIcrease = addSlider(Settings.waterPressureIncID, 3, 7, 1, prefs.getInt(Settings.waterPressureIncID, 5));
 		page2.add(waterPressureIcrease);
 			
-		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 30, 5, (int)prefs.getLong(Settings.playerTimeoutID, 5000l));
+		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 30, 5, (int)prefs.getLong(Settings.playerTimeoutID, 10000l));
 		page3.add(playerTimeout);
 		
 		maxPlayers = addSlider(Settings.maxPlayersID, 3, 9, 1, prefs.getInt(Settings.maxPlayersID, 6));

@@ -32,9 +32,11 @@ public class HouseOfFireGame extends Game {
 		Settings.load();
 		houseList = new ArrayList<>();
 		int flames = 10;
+		int count = 0;
 		for (Texture texture: Assets.houseList) {
-			houseList.add(new House(texture, flames));
+			houseList.add(new House(texture, flames,Settings.houseHealthpoints+(Settings.healthpointsIncrease*count)));
 			flames += Settings.fireIncrease;
+			count++;
 		}
 		
 		houseIndex = 0;
