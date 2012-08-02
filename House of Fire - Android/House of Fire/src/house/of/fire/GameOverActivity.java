@@ -51,7 +51,7 @@ public class GameOverActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		timerSound.schedule(new SoundTimerTask(), 250);
+		timerSound.schedule(new SoundTimerTask(), 350);
 	}
 
 	

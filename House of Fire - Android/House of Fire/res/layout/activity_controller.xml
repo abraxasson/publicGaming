@@ -78,15 +78,16 @@
             android:background="@drawable/btn1_default"
             android:scaleType="fitCenter"
             android:src="@drawable/water_pucket" />
-
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="35dp"
-            android:background="#ffd700"
+            android:layout_marginTop="30dp"
             android:text="@string/water"
-            android:textSize="@dimen/padding_mega" />
+            android:textColor="@color/my_color"
+            android:textSize="@dimen/padding_mega"
+            android:textStyle="bold" />
 
 </RelativeLayout>

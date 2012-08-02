@@ -172,9 +172,10 @@ public class AndroidServer extends Thread {
 			Log.d(TAG, message.toString());
 			
 			if (event == LevelInfoMessage.STARTED && LevelActivity.isActive){
+				LevelActivity.level_isActive = true;
 				//Intent gameIntent = new Intent("house.of.fire.startgame");
 				Intent gameIntent = new Intent(context, ControllerActivity.class);
-				gameIntent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
+//				gameIntent.putExtra(ControllerActivity.EXTRA_WATER_LEVEL, ControllerActivity.MAX_WATER_LEVEL);
 				gameIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
 				
 				context.startActivity(gameIntent);

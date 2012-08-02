@@ -122,7 +122,7 @@ public class LogInActivity extends Activity {
 		Log.d(TAG, "Player: " + playerName + " meldet sich an");
 
 		progressDialog = new ProgressDialog(this);
-		progressDialog.setMessage("Bitte warten...");
+		progressDialog.setMessage(getString(R.string.wait));
 		progressDialog.setCancelable(true);
 
 		progressDialog.setOnCancelListener(new OnCancelListener() {

@@ -70,7 +70,7 @@ public class LevelActivity extends Activity {
 //					findViewById(R.layout.activity_level).setBackgroundResource(R.drawable.background_fire);
 					rLayout.setBackgroundResource(R.drawable.house3);
 					medalView.setImageResource(R.drawable.gold);
-					outputText.setText("Goldmedaille erhalten!");
+					outputText.setText(getString(R.string.gold_outputText));
 
 
 				}
@@ -79,12 +79,12 @@ public class LevelActivity extends Activity {
 					rLayout.setBackgroundResource(R.drawable.house2);
 					medalView.setImageResource(R.drawable.silber);
 //					rLayout.setBackground(drawable2);
-					outputText.setText("Silbermedaille erhalten!");
+					outputText.setText(getString(R.string.silver_outputText));
 
 				}
 				else if (medalType == LevelInfoMessage.BRONZE_MEDAL){
 					medalView.setImageResource(R.drawable.bronze);
-					outputText.setText("Bronzemedaille erhalten!");
+					outputText.setText(getString(R.string.bronze_outputText));
 				}
 				
 			}
