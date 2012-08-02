@@ -52,11 +52,11 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (isWaiting) {
 			stateTime += delta;
 			
-			checkStatus();
 			processing.processMessageQueue();
 			if (!processing.getPlayerList().isEmpty()) {
 				isWaiting = false;
 			}
+			checkStatus();
 			
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -65,9 +65,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				game.setScreen(game.mainMenuScreen);
 			}
 
-			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				Gdx.app.exit();
-			}
+			
 
 			Color oldColor = spriteBatch.getColor();
 			spriteBatch.begin();
@@ -111,6 +109,10 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 					e.printStackTrace();
 				}
 			}
+			
+			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+				Gdx.app.exit();
+			}
 		} else {
 			game.setScreen(game.playingScreen);
 		}
@@ -127,7 +129,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.setColor(Color.GRAY);
-		game.houseList.get(index).resetHouse();
+//		game.houseList.get(index).resetHouse();
 		game.houseList.get(index).drawFullscreen(spriteBatch);
 	}
 	

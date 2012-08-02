@@ -67,17 +67,17 @@
                 android:src="@drawable/pfeil_rechts" />
 
         </LinearLayout>
-
+
         <ImageButton
             android:id="@+id/button_pump"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
             android:background="@drawable/btn1_default"
             android:scaleType="fitCenter"
-            android:src="@drawable/water_pucket" />
+            android:src="@drawable/water_pucket_right" />
 
         <TextView
             android:id="@+id/output_water"

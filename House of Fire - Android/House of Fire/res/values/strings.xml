@@ -8,10 +8,10 @@
     <string name="wait">Please wait ...</string>
     <string name="test">Please try it again!</string>
     <string name="back">Back</string>
-    <string name="water">Water level</string>
+    <string name="water">Water Level</string>
     <string name="play">Play</string>
     <string name="pump">Pump</string>
-    <string name="water_rating">Fill In Water!</string>
+    <string name="water_rating">Water Level</string>
     <string name="lost">Sorry! You have lost the game!</string>
     <string name="level_completed">"Level %1$d finished!"</string>
     
