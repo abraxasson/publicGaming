@@ -106,6 +106,8 @@ public class Assets{
 	public static BitmapFont statusBarFont30;
 	public static BitmapFont statusBarFont35;
 	public static BitmapFont statusBarFont40;
+	public static BitmapFont hobo25;
+	public static BitmapFont hobo30;
 	
 	
 	public static void load() {
@@ -319,6 +321,8 @@ public class Assets{
 		statusBarFont30 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont30.fnt"),Gdx.files.internal("fonts/statusBarFont30.png"),false);
 		statusBarFont35 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont35.fnt"),Gdx.files.internal("fonts/statusBarFont35.png"),false);
 		statusBarFont40 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont40.fnt"),Gdx.files.internal("fonts/statusBarFont40.png"),false);
+		hobo25 = new BitmapFont(Gdx.files.internal("fonts/hobo25.fnt"),Gdx.files.internal("fonts/hobo25.png"),false);
+		hobo30 = new BitmapFont(Gdx.files.internal("fonts/hobo30.fnt"),Gdx.files.internal("fonts/hobo30.png"),false);
 	}
 	
 	public static void loadSounds(){
@@ -398,5 +402,7 @@ public class Assets{
 		statusBarFont30.dispose();
 		statusBarFont35.dispose();
 		statusBarFont40.dispose();
+		hobo25.dispose();
+		hobo30.dispose();
 	}
 }
