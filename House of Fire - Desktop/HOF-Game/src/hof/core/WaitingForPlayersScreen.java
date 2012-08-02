@@ -3,7 +3,6 @@ package hof.core;
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
 import hof.core.utils.HallOfFame;
-import hof.level.objects.House;
 import hof.net.MessageProcessing;
 import hof.net.UdpClientThread;
 import hof.net.UdpServerThread;
@@ -46,9 +45,6 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		stateTime = 0;
 		houseTime = 0;
 		status = Status.Title;
-		for (House house: game.houseList) {
-//			house.prepareFullscreen();
-		}
 	}
 
 	@Override
@@ -133,7 +129,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.setColor(Color.GRAY);
-		game.houseList.get(index).resetHouse();
+//		game.houseList.get(index).resetHouse();
 		game.houseList.get(index).drawFullscreen(spriteBatch);
 	}
 	

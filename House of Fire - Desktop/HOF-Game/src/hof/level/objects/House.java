@@ -19,6 +19,7 @@ public class House {
 	private ArrayList<Pixel> burningArea;
 	private ArrayList<Pixel> fullscreenBurningArea; 
 	private ArrayList<Fire> fireList;
+	private ArrayList<Fire> fullscreenFirelist;
 	private int fireCount;
 	
 	private boolean isAlive;
@@ -34,7 +35,9 @@ public class House {
 		burningArea = new ArrayList<Pixel>();
 		fullscreenBurningArea = new ArrayList<Pixel>();
 		fireList = new ArrayList<Fire>();
+		fullscreenFirelist = new ArrayList<>();
 		
+		prepareFullscreen();
 		resetHouse();
 	}
 	
@@ -49,12 +52,12 @@ public class House {
 		isAlive = true;
 	}
 	
-	public void prepareFullscreen() {
+	private void prepareFullscreen() {
 		this.fireList.clear();
 		setRandomBurningArea(Assets.houseMap.get(image));
 		for(int i = 0 ; i < fireCount; i++){
 			Pixel spawnPos = this.getRandomFullscreenBurningArea();
-			this.fireList.add(new Fire(spawnPos));
+			this.fullscreenFirelist.add(new Fire(spawnPos));
 		}
 	}
 
@@ -78,17 +81,17 @@ public class House {
 		if(!this.burningArea.isEmpty()){
 			int length = this.burningArea.size();
 			int index = (int)(Math.random()*length);
-			Pixel r = (Pixel) burningArea.toArray()[index];
+			Pixel r = (Pixel) burningArea.get(index);
 			return r;
 		}
 		return null;
 	}
 	
 	public Pixel getRandomFullscreenBurningArea(){
-		if(!this.burningArea.isEmpty()){
-			int length = this.burningArea.size();
+		if(!this.fullscreenBurningArea.isEmpty()){
+			int length = this.fullscreenBurningArea.size();
 			int index = (int)(Math.random()*length);
-			Pixel r = (Pixel) burningArea.toArray()[index];
+			Pixel r = (Pixel) fullscreenBurningArea.get(index);
 			return r;
 		}
 		return null;
@@ -156,7 +159,7 @@ public class House {
 	
 	public void drawFullscreen(SpriteBatch spriteBatch) {
 		spriteBatch.draw(image, 0,0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
-		for(Fire fire : fireList){
+		for(Fire fire : fullscreenFirelist){
 			fire.drawFullscreen(spriteBatch);
 		}
 	}
