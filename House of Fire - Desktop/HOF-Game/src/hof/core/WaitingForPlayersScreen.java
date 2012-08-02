@@ -26,6 +26,8 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 
 	private boolean isWaiting;
 	private float stateTime;
+	private float houseTime;
+	private int index;
 	private Status status;
 
 	public WaitingForPlayersScreen(HouseOfFireGame game) {
@@ -34,12 +36,14 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		processing = MessageProcessing.getInstance();
 
 		fame = HallOfFame.getInstance();
+		index = 0;
 	}
 
 	@Override
 	public void show() {
 		isWaiting = true;
 		stateTime = 0;
+		houseTime = 0;
 		status = Status.Title;
 	}
 
@@ -69,7 +73,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 
-		
+		Color oldColor = spriteBatch.getColor();
 		spriteBatch.begin();
 		switch(status) {
 		case Title:
@@ -106,18 +110,39 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 			
 			break;
 		case Main:
+			houseTime += delta;
+			if (houseTime >= 2) {
+				index++;
+				houseTime = 0;
+			}
+			if (index >= game.houseList.size()) {
+				index = 0;
+			}
+			
+			spriteBatch.setColor(Color.GRAY);
+			game.houseList.get(index).drawFullscreen(spriteBatch);
+			spriteBatch.setColor(oldColor);
 			spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 			break;
 		case House:
-			game.houseList.get(0).drawFullscreen(spriteBatch);
+			houseTime += delta;
+			if (houseTime >= 2) {
+				index++;
+				houseTime = 0;
+			}
+			if (index >= game.houseList.size()) {
+				index = 0;
+			}
+			spriteBatch.setColor(Color.GRAY);
+			game.houseList.get(index).drawFullscreen(spriteBatch);
 			break;
 			
 		case Highscore:
-			fame.draw(spriteBatch, Assets.text50Font, Color.WHITE);
+			fame.draw(spriteBatch, Assets.menu45Font, Color.WHITE);
 			break;
 		}
 		spriteBatch.end();
-
+		spriteBatch.setColor(oldColor);
 		
 		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
 			InetAddress ia;
