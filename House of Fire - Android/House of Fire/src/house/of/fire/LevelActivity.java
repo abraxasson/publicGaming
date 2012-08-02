@@ -46,12 +46,25 @@ public class LevelActivity extends Activity {
 		server = AndroidServer.getInstance(this, AndroidServer.PORT);
 		Intent intent = getIntent();
 		
+		ImageView medalView = (ImageView) findViewById(R.id.medal_imageview);
+		RelativeLayout rLayout = (RelativeLayout) findViewById (R.id.RelativeLayoutLevel);
+
 		isActive = true;
 		level_isActive = false;
 		
 		if (intent != null){
 			int level = intent.getIntExtra(EXTRA_LEVEL, 1);
 			outputText.setText(getString(R.string.level_completed, level));
+			
+			if(level == 1){
+				rLayout.setBackgroundResource(R.drawable.house1);
+			}
+			else if(level == 3){
+				rLayout.setBackgroundResource(R.drawable.house3);
+			}
+			else if(level ==5){
+				rLayout.setBackgroundResource(R.drawable.house5);
+			}
 			
 			lastLevel = intent.getBooleanExtra(EXTRA_LASTLEVEL, false);
 			
@@ -61,14 +74,10 @@ public class LevelActivity extends Activity {
 				saveNewMedalState(medalType);
 				
 				// if there is a medal -> show it (load the proper medal image)
-				ImageView medalView = (ImageView) findViewById(R.id.medal_imageview);
-				RelativeLayout rLayout = (RelativeLayout) findViewById (R.id.RelativeLayoutLevel);
-
-
 				
 				if (medalType == LevelInfoMessage.GOLD_MEDAL){
 //					findViewById(R.layout.activity_level).setBackgroundResource(R.drawable.background_fire);
-					rLayout.setBackgroundResource(R.drawable.house3);
+					rLayout.setBackgroundResource(R.drawable.house6);
 					medalView.setImageResource(R.drawable.gold);
 					outputText.setText(getString(R.string.gold_outputText));
 
@@ -76,13 +85,14 @@ public class LevelActivity extends Activity {
 				}
 				else if (medalType == LevelInfoMessage.SILVER_MEDAL){
 //					findViewById(R.layout.activity_level).setBackgroundResource(R.drawable.background_water);
-					rLayout.setBackgroundResource(R.drawable.house2);
+					rLayout.setBackgroundResource(R.drawable.house4);
 					medalView.setImageResource(R.drawable.silber);
 //					rLayout.setBackground(drawable2);
 					outputText.setText(getString(R.string.silver_outputText));
 
 				}
 				else if (medalType == LevelInfoMessage.BRONZE_MEDAL){
+					rLayout.setBackgroundResource(R.drawable.house2);
 					medalView.setImageResource(R.drawable.bronze);
 					outputText.setText(getString(R.string.bronze_outputText));
 				}

@@ -26,7 +26,6 @@
         </activity>
         <activity
             android:name=".ControllerActivity"
-            android:label="@string/title_activity_controller"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:launchMode="singleTop">
             <intent-filter>
@@ -35,13 +34,11 @@
         </activity>
         <activity
             android:name=".LogInActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".InstructionsActivity"
-            android:screenOrientation="landscape" 
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".WaterActivity"

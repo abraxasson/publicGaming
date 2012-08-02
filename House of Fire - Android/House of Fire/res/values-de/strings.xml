@@ -1,8 +1,4 @@
 <resources>
-
-    <string name="app_name">House of Fire</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_start">StartActivity</string>
     <string name="name">Geben Sie bitte ihren Namen ein!</string>
     <string name="startButton">Spiel beitreten</string>
     <string name="instructions">Anleitung</string>
@@ -14,15 +10,8 @@
     <string name="water">Wasserfüllstand</string>
     <string name="play">Spielen</string>
     <string name="pump">Pumpen</string>
-    <string name="title_activity_controller">ControllerActivity</string>
-    <string name="title_activity_log_in">LogInActivity</string>
-    <string name="title_activity_instructions">InstructionsActivity</string>
-    <string name="title_activity_water">WaterActivity</string>
-    <string name="game">Zum Hauptspiel</string>
     <string name="water_rating">Wasser auffüllen!</string>
-    <string name="title_activity_achievement">AchievementActivity</string>
-    <string name="title_activity_win_game">WinGameActivity</string>
-    <string name="title_activity_lost_game">LostGameActivity</string>
+
     <string name="lost">Sie haben leider verloren!</string>
     <string name="level_completed">"Level %1$d geschafft!"</string>
     
@@ -39,20 +28,21 @@
     <string name="retry_button">Nochmal?</string>
     <string name="type_in_your_name">Type in your name</string>
     <string name="help_text">Bei diesem Spiel geht es darum, so viele Feuer wie möglich zu löschen!\n\n\n
-        -Mit den Steuerungstasten kann man den Feuerwehrmann nach links oder\n
-         rechts bewegen.\n\n
-        -Durch Kippen des Smartphones nach vorne bzw. nach hinten wird die\n
-          Länge das Wasserstrahls beeinflusst.\n\n
-        -Durch Kippen des Smartphones nach links bzw. nach rechts lässt sich\n
-          die Richtung des Wasserstrahls beeinflussen.\n\n
-        -Bei leerem Wasserfüllstand(Füllstandsanzeige in der Mitte) wird man\n
-          direkt zu einem Minispiel weitergeleitet, durch welches man das Wasser\n 
+        STEUERUNG\n
+        Mit den Pfeiltasten kann man den Feuerwehrmann nach links oder rechts bewegen.\n\n
+        Durch Kippen des Smartphones nach vorne bzw. nach hinten wird die Länge das Wasserstrahls beeinflusst.\n\n
+        Durch Kippen des Smartphones nach links bzw. nach rechts lässt sich die Richtung des Wasserstrahls beeinflussen.\n\n
+        
+        WASSERDRUCK\n
+        Bei leerem Wasserfüllstand (Füllstandsanzeige in der Mitte) wird man
+          direkt zu einem Minispiel weitergeleitet, durch welches man das Wasser 
           auffüllen kann, indem man abwechselnd auf die linke und rechte Wasserpumpe drückt.\n 
-          Man kann aber auch manuell zum Minispiel wechseln, indem man unten rechts auf\n
-          die Wasserpumpe drückt. Durch Drücken der züruck-Taste oder bei vollständig gefüllter\n
+          Man kann aber auch manuell zum Minispiel wechseln, indem man unten rechts auf
+          die Wasserpumpe drückt. Durch Drücken der züruck-Taste oder bei vollständig gefüllter
           Füllstandsanzeige kommt man wieder in das Hauptspiel zurück.\n\n\n
         
 		Viel Spass beim Spielen!
         </string>
 
+    <string name="water_pump_instruction">Pumpen abwechselnd drücken um Wasser aufzufüllen!</string>
 </resources>

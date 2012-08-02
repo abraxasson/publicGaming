@@ -29,6 +29,7 @@ public class GameOverActivity extends Activity {
 		setContentView(R.layout.activity_lostgame);
 
 		initSounds();
+		timerSound = new Timer();
 
 	}
 	
@@ -45,7 +46,6 @@ public class GameOverActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		timerSound = new Timer();
 	}
 	
 	@Override

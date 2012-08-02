@@ -39,14 +39,14 @@ public final class R {
         public static final int bronze=0x7f020005;
         public static final int btn1_default=0x7f020006;
         public static final int btn1_default_normal=0x7f020007;
-        public static final int btn1_default_normal_disable=0x7f020008;
-        public static final int btn1_default_pressed=0x7f020009;
-        public static final int btn1_default_selected=0x7f02000a;
-        public static final int btn_default=0x7f02000b;
-        public static final int btn_default_normal=0x7f02000c;
-        public static final int btn_default_normal_disable=0x7f02000d;
-        public static final int btn_default_pressed=0x7f02000e;
-        public static final int btn_default_selected=0x7f02000f;
+        public static final int btn1_default_pressed=0x7f020008;
+        public static final int btn_default=0x7f020009;
+        public static final int btn_default_normal=0x7f02000a;
+        public static final int btn_default_normal_disable=0x7f02000b;
+        public static final int btn_default_pressed=0x7f02000c;
+        public static final int btn_default_selected=0x7f02000d;
+        public static final int btn_game=0x7f02000e;
+        public static final int btn_game_normal=0x7f02000f;
         public static final int game_over=0x7f020010;
         public static final int gold=0x7f020011;
         public static final int house2=0x7f020012;
@@ -56,37 +56,35 @@ public final class R {
         public static final int pfeil_links=0x7f020016;
         public static final int pfeil_rechts=0x7f020017;
         public static final int silber=0x7f020018;
-        public static final int water_pucket=0x7f020019;
-        public static final int water_pucket_left=0x7f02001a;
-        public static final int water_pucket_right=0x7f02001b;
+        public static final int water_pucket_left=0x7f020019;
+        public static final int water_pucket_right=0x7f02001a;
     }
     public static final class id {
-        public static final int RelativeLayoutLevel=0x7f0a000b;
-        public static final int bronze_text=0x7f0a0016;
-        public static final int button_instructions=0x7f0a0018;
-        public static final int button_play=0x7f0a0010;
-        public static final int button_pump=0x7f0a0006;
-        public static final int gold_text=0x7f0a0012;
-        public static final int imageView1=0x7f0a0017;
-        public static final int imageView2=0x7f0a0015;
-        public static final int imageView3=0x7f0a0013;
-        public static final int linearLayout1=0x7f0a0002;
-        public static final int medal_imageview=0x7f0a000e;
-        public static final int menu_settings=0x7f0a0019;
-        public static final int nameEditText=0x7f0a000f;
-        public static final int outputText_congratulation=0x7f0a000c;
-        public static final int outputText_level=0x7f0a000d;
-        public static final int output_instructions=0x7f0a000a;
-        public static final int output_name=0x7f0a0001;
-        public static final int output_text=0x7f0a0008;
-        public static final int output_water=0x7f0a0007;
-        public static final int pfeil_links=0x7f0a0003;
-        public static final int pfeil_rechts=0x7f0a0005;
-        public static final int player_name_background=0x7f0a0000;
-        public static final int retry_button=0x7f0a0011;
-        public static final int scrollView1=0x7f0a0009;
-        public static final int silver_text=0x7f0a0014;
-        public static final int water_rating=0x7f0a0004;
+        public static final int RelativeLayoutLevel=0x7f09000a;
+        public static final int bronze_text=0x7f090015;
+        public static final int button_instructions=0x7f090017;
+        public static final int button_play=0x7f09000f;
+        public static final int button_pump=0x7f090005;
+        public static final int gold_text=0x7f090011;
+        public static final int imageView1=0x7f090016;
+        public static final int imageView2=0x7f090014;
+        public static final int imageView3=0x7f090012;
+        public static final int instruction_textview=0x7f090018;
+        public static final int linearLayout1=0x7f090001;
+        public static final int medal_imageview=0x7f09000d;
+        public static final int nameEditText=0x7f09000e;
+        public static final int outputText_congratulation=0x7f09000b;
+        public static final int outputText_level=0x7f09000c;
+        public static final int output_instructions=0x7f090009;
+        public static final int output_name=0x7f090000;
+        public static final int output_text=0x7f090007;
+        public static final int output_water=0x7f090006;
+        public static final int pfeil_links=0x7f090002;
+        public static final int pfeil_rechts=0x7f090004;
+        public static final int retry_button=0x7f090010;
+        public static final int scrollView1=0x7f090008;
+        public static final int silver_text=0x7f090013;
+        public static final int water_rating=0x7f090003;
     }
     public static final class layout {
         public static final int activity_controller=0x7f030000;
@@ -96,17 +94,6 @@ public final class R {
         public static final int activity_lostgame=0x7f030004;
         public static final int activity_start=0x7f030005;
         public static final int activity_water=0x7f030006;
-    }
-    public static final class menu {
-        public static final int activity_achievement=0x7f090000;
-        public static final int activity_controller=0x7f090001;
-        public static final int activity_instructions=0x7f090002;
-        public static final int activity_level=0x7f090003;
-        public static final int activity_login=0x7f090004;
-        public static final int activity_lostgame=0x7f090005;
-        public static final int activity_start=0x7f090006;
-        public static final int activity_water=0x7f090007;
-        public static final int activity_wingame=0x7f090008;
     }
     public static final class raw {
         public static final int loser=0x7f040000;
@@ -118,15 +105,13 @@ public final class R {
         public static final int bronze_outputText=0x7f070013;
         public static final int bronze_text=0x7f070010;
         public static final int congratulation=0x7f07000e;
-        public static final int error=0x7f07001b;
-        public static final int game=0x7f070020;
+        public static final int error=0x7f07001a;
         public static final int gold_outputText=0x7f070015;
         public static final int gold_text=0x7f070012;
         public static final int help_text=0x7f070018;
         public static final int instructions=0x7f070003;
         public static final int level_completed=0x7f07000d;
         public static final int lost=0x7f07000c;
-        public static final int menu_settings=0x7f070019;
         public static final int name=0x7f070001;
         public static final int play=0x7f070009;
         public static final int pump=0x7f07000a;
@@ -135,22 +120,15 @@ public final class R {
         public static final int silver_text=0x7f070011;
         public static final int startButton=0x7f070002;
         public static final int test=0x7f070006;
-        public static final int title_activity_achievement=0x7f070021;
-        public static final int title_activity_controller=0x7f07001c;
-        public static final int title_activity_instructions=0x7f07001e;
-        public static final int title_activity_level=0x7f070025;
-        public static final int title_activity_log_in=0x7f07001d;
-        public static final int title_activity_lost_game=0x7f070023;
-        public static final int title_activity_start=0x7f07001a;
-        public static final int title_activity_water=0x7f07001f;
-        public static final int title_activity_win_game=0x7f070022;
+        public static final int title_activity_level=0x7f07001c;
         public static final int type_in_your_name=0x7f070017;
         public static final int wait=0x7f070005;
         public static final int water=0x7f070008;
+        public static final int water_pump_instruction=0x7f070019;
         public static final int water_rating=0x7f07000b;
         public static final int weiter=0x7f070004;
         public static final int win=0x7f07000f;
-        public static final int winGold=0x7f070024;
+        public static final int winGold=0x7f07001b;
     }
     public static final class style {
         public static final int AppTheme=0x7f080000;
