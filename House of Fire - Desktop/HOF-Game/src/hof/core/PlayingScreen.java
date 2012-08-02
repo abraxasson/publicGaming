@@ -279,12 +279,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			switch (waterJet.getStrengthState()) {
 			case UP:
 				if (waterJet.getStrength() < (Assets.CANVAS_HEIGHT) * 1.3) {
-					waterJet.setStrength(150);
+					waterJet.setStrength(200);
 				}
 				break;
 			case DOWN:
 				if (waterJet.getStrength() > (Assets.CANVAS_HEIGHT / 5)) {
-					waterJet.setStrength(-150);
+					waterJet.setStrength(-200);
 				}
 				break;
 			case NORMAL:
