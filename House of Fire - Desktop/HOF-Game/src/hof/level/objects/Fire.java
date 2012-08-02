@@ -65,6 +65,10 @@ public class Fire {
 		//spriteBatch.draw(Assets.pureWhiteTextureRegion, x-20,
 		//y,emitter.getLife().getLowMin()/6,emitter.getLife().getLowMin()/6);
 	}
+	
+	public void drawFullscreen(SpriteBatch spriteBatch) {
+		flame.draw(spriteBatch, Gdx.graphics.getDeltaTime());
+	}
 
 	private void update() {
 		fireRectangle.setX(x - 20);
