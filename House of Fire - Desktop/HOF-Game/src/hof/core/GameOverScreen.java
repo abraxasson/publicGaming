@@ -74,7 +74,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.draw(Assets.gameOverScreen, 0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		fame.draw(spriteBatch, (int) (Gdx.graphics.getWidth() * 0.8),
-				(int) (Gdx.graphics.getHeight() * 0.60),
+				(int) (Gdx.graphics.getHeight() * 0.60), getMinRankingHeight(),
 				Assets.highscore40Font, com.badlogic.gdx.graphics.Color.WHITE);
 		for(ParticleEffect smoke : smokeArray){
 			smoke.draw(spriteBatch,Gdx.graphics.getDeltaTime());

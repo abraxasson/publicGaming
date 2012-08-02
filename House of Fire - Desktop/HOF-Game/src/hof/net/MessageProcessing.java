@@ -387,7 +387,7 @@ public class MessageProcessing {
 			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout && !player.isPumping()){
 				player.setAlive(false);
 			}
-			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout * 2){
+			if(System.currentTimeMillis() - player.getLastInput() > Settings.playerTimeout * 6){
 				player.setAlive(false);
 			}
 		}

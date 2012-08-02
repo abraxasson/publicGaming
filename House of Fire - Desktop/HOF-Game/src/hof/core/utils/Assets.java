@@ -42,8 +42,6 @@ public class Assets{
 	public static Texture pureWhiteTexture;
 	public static Texture borderTexture;
 	public static Texture timeLineTexture;
-	public static Texture firefighter_left;
-	public static Texture firefighter_right;
 	public static Texture firefighter_red;
 	public static Texture firefighter_blue;
 	public static Texture firefighter_orange;
@@ -54,6 +52,7 @@ public class Assets{
 	public static Texture waitingForPlayerTitle;
 	public static Texture waitingForPlayerHelp;
 	public static Texture waitingForPlayerMain;
+	public static Texture waitingForPlayerHighscore;
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
@@ -247,8 +246,6 @@ public class Assets{
 		borderTexture = new Texture(Gdx.files.internal("textures/border2.png"));
 		timeLineTexture = new Texture(Gdx.files.internal("textures/timeline.png"));;
 		
-		firefighter_left = new Texture(Gdx.files.internal("textures/firefighters/firefighter_left.png"));
-		firefighter_right = new Texture(Gdx.files.internal("textures/firefighters/firefighter_right.png"));
 		firefighter_blue = new Texture(Gdx.files.internal("textures/firefighters/firefighter_blue.png"));
 		firefighter_red = new Texture(Gdx.files.internal("textures/firefighters/firefighter_red.png"));
 		firefighter_orange = new Texture(Gdx.files.internal("textures/firefighters/firefighter_orange.png"));
@@ -277,6 +274,7 @@ public class Assets{
 		waitingForPlayerTitle = new Texture(Gdx.files.internal("textures/waitingForPlayers/view1.png"));
 		waitingForPlayerHelp = new Texture(Gdx.files.internal("textures/waitingForPlayers/view2.png"));
 		waitingForPlayerMain = new Texture(Gdx.files.internal("textures/waitingForPlayers/view4.png"));
+		waitingForPlayerHighscore = new Texture(Gdx.files.internal("textures/waitingForPlayers/view5.png"));
 	}
 	
 	private static void loadHouses() {
@@ -340,13 +338,21 @@ public class Assets{
 	}
 	
 	public static void dispose() {
-		firefighter_left.dispose();
-		firefighter_right.dispose();
+		firefighter_red.dispose();
+		firefighter_blue.dispose();
+		firefighter_orange.dispose();
+		firefighter_green.dispose();
+		firefighter_magenta.dispose();
+		firefighter_cyan.dispose();
 		cat.dispose();
 		mainMenu.dispose();
 		levelFinishedScreen.dispose();
 		gameOverScreen.dispose();
 		gameFinishedScreen.dispose();
+		waitingForPlayerMain.dispose();
+		waitingForPlayerHelp.dispose();
+		waitingForPlayerTitle.dispose();
+		waitingForPlayerHighscore.dispose();
 		
 		pureWhiteTexture.dispose();
 		borderTexture.dispose();
@@ -354,12 +360,29 @@ public class Assets{
 		cloudTexture.dispose();
 		lightningTexture.dispose();
 		trophyTexture.dispose();
+		statusBar.dispose();
+		gameFinishedText.dispose();
+		trophyTexture.dispose();
 		
 		for (Texture texture: houseList) {
 			texture.dispose();
 		}
 		
+		
 //		buttonSound.dispose();
+		loser.dispose();
+		applause.dispose();
+		applause2.dispose();
+		sirene.dispose();
+		rain.dispose();
+		fanfare.dispose();
+		thunder.dispose();
+		firework.dispose();
+		firework2.dispose();
+		fire.dispose();
+		evilLaugh.dispose();
+		backgroundMusic.dispose();
+		backgroundMusicMenu.dispose();
 		
 		defaultFont.dispose();
 		text30Font.dispose();
@@ -369,6 +392,11 @@ public class Assets{
 		highscore30Font.dispose();
 		highscore40Font.dispose();
 		highscore50Font.dispose();
-		
+		standardFont30.dispose();
+		standardFont40.dispose();
+		standardFont50.dispose();
+		statusBarFont30.dispose();
+		statusBarFont35.dispose();
+		statusBarFont40.dispose();
 	}
 }
