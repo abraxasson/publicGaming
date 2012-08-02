@@ -48,6 +48,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	private FPS fps;
 	private InetAddress ia;
 	private long finishedTime;
+	private long startTime;
+	private long randomTime;
 
 	public PlayingScreen(HouseOfFireGame game) {
 		super(game);
@@ -78,6 +80,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			player.setMinuspoints(0);
 		}
 		finishedTime = 0;
+		this.startTime = System.currentTimeMillis();
+		this.randomTime = (long) (System.currentTimeMillis()/(Math.random()*100000000)/1.5);
 		Lightning.setLastUsed(System.currentTimeMillis());
 		Rain.setLastUsed(System.currentTimeMillis());
 		WaterPressure.setLastUsed(System.currentTimeMillis());
@@ -104,6 +108,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		removeDeadGags();
 		drawGag();
+		
+		if(System.currentTimeMillis() >= this.startTime + this.randomTime){
+			initGag(new NonPlayable(100, 150, 200,
+					Assets.runningCatAnimation));
+			this.startTime = System.currentTimeMillis();
+			this.randomTime = (long) (System.currentTimeMillis()/(Math.random()*100000000)/1.5);
+		}
+		
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
@@ -149,13 +161,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (processing.getPlayerList().isEmpty()) {
 			game.setScreen(game.waitingForPlayersScreen);
 			game.houseIndex = 0;
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.G)) {
-			if (gags.isEmpty()) {
-				initGag(new NonPlayable(100, 150, 200,
-						Assets.runningCatAnimation));
-			}
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
