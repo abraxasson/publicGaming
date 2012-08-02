@@ -40,10 +40,7 @@ public class SettingsDialog {
 	private JPanel rainKeyWord;
 	private JPanel lightningKeyWord;
 	private JPanel pressureKeyword;
-	private JPanel lightningLifetime;
-	private JPanel waterPressureLifetime;
 	private JPanel rainDamage;
-	private JPanel rainLifeTime;
 	private JPanel rainCooldown;
 	private JPanel pressureCooldown;
 	private JPanel lightningCooldown;
@@ -107,64 +104,55 @@ public class SettingsDialog {
 		tabs.addTab("Allgemein", page3);
 		
 		
-		fireDamage = addSlider(Settings.fireDamageID, 0, 3 , 1, (int)prefs.getFloat(Settings.fireDamageID, 1));
+		fireDamage = addSlider(Settings.fireDamageID, 0, 3 , 1, (int)Settings.fireDamage);
 		page1.add(fireDamage);
 		
-		houseHealthpoints = addSlider(Settings.houseHealthpointsID, 5, 15, 1,(int) prefs.getFloat(Settings.houseHealthpointsID, 1000) / 100);
+		houseHealthpoints = addSlider(Settings.houseHealthpointsID, 5, 15, 1,(int)Settings.houseHealthpoints / 100);
 		page1.add(houseHealthpoints);
 		
-		fireIncrease = addSlider(Settings.fireIncreaseID, 3, 10, 1, prefs.getInt(Settings.fireIncreaseID, 5));
+		fireIncrease = addSlider(Settings.fireIncreaseID, 3, 10, 1, Settings.fireIncrease);
 		page1.add(fireIncrease);
 		
-		waterAimSize = addSlider(Settings.waterAimSizeID, 15, 25 , 1, (int) prefs.getFloat(Settings.waterAimSizeID, 20));
+		waterAimSize = addSlider(Settings.waterAimSizeID, 15, 25 , 1, (int) Settings.waterAimSize);
 		page1.add(waterAimSize);
 		
-		waterDamage = addSlider(Settings.waterDamageID, 2, 5, 1, (int)prefs.getFloat(Settings.waterDamageID, 3));
+		waterDamage = addSlider(Settings.waterDamageID, 2, 5, 1, (int)Settings.waterDamage);
 		page1.add(waterDamage);
 		
-		telephoneNumber = addTextField(Settings.TELEPHONE_NUMBER_ID,prefs.get(Settings.TELEPHONE_NUMBER_ID, "0666/666666"));
+		telephoneNumber = addTextField(Settings.TELEPHONE_NUMBER_ID,Settings.TELEPHONE_NUMBER);
 		page2.add(telephoneNumber);
 		
-		rainKeyWord = addTextField(Settings.rainKeyWordID,prefs.get(Settings.rainKeyWordID, "RAIN"));
+		rainKeyWord = addTextField(Settings.rainKeyWordID,Settings.rainKeyWord);
 		page2.add(rainKeyWord);
 		
-		lightningKeyWord = addTextField(Settings.lightningKeyWordID,prefs.get(Settings.lightningKeyWordID, "LIGHTNING"));
+		lightningKeyWord = addTextField(Settings.lightningKeyWordID,Settings.lightningKeyWord);
 		page2.add(lightningKeyWord);
 		
-		pressureKeyword = addTextField(Settings.pressureKeyWordID,prefs.get(Settings.pressureKeyWordID, "PRESSURE"));
+		pressureKeyword = addTextField(Settings.pressureKeyWordID,Settings.pressureKeyWord);
 		page2.add(pressureKeyword);
 		
-		lightningLifetime = addSlider(Settings.lightningLifeTimeID, 1,1,0, (int)prefs.getFloat(Settings.lightningLifeTimeID, 1));
-		page2.add(lightningLifetime);
-		
-		waterPressureLifetime = addSlider(Settings.waterPressureLifeTimeID, 5,5,0, (int) prefs.getFloat(Settings.waterPressureLifeTimeID, 1));
-		page2.add(waterPressureLifetime);
-		
-		rainLifeTime = addSlider(Settings.rainLifeTimeID, 5,5,0, prefs.getInt(Settings.rainLifeTimeID, 5));
-		page2.add(rainLifeTime);
-		
-		rainDamage = addSlider(Settings.rainDamageID, 10, 30, 2, (int) prefs.getFloat(Settings.rainDamageID, 20));
+		rainDamage = addSlider(Settings.rainDamageID, 10, 30, 2, (int) Settings.rainDamage);
 		page2.add(rainDamage);
 		
-		rainCooldown = addSlider(Settings.rainCooldownID, 5, 15, 1, (int) prefs.getFloat(Settings.rainCooldownID, 10000) / 1000);
+		rainCooldown = addSlider(Settings.rainCooldownID, 5, 15, 1, (int) Settings.rainCooldown / 1000);
 		page2.add(rainCooldown);
 		
-		pressureCooldown = addSlider(Settings.pressureCooldownID, 5, 15, 1, (int) prefs.getFloat(Settings.pressureCooldownID, 10000) / 1000);
+		pressureCooldown = addSlider(Settings.pressureCooldownID, 5, 15, 1, (int) Settings.pressureCooldown / 1000);
 		page2.add(pressureCooldown);
 		
-		lightningCooldown = addSlider(Settings.lightningCooldownID, 10, 20, 2,(int) prefs.getFloat(Settings.lightningCooldownID, 10000) / 1000);
+		lightningCooldown = addSlider(Settings.lightningCooldownID, 10, 20, 2,(int) Settings.lightningCooldown / 1000);
 		page2.add(lightningCooldown);
 		
-		waterPressureIcrease = addSlider(Settings.waterPressureIncID, 3, 7, 1, prefs.getInt(Settings.waterPressureIncID, 5));
+		waterPressureIcrease = addSlider(Settings.waterPressureIncID, 3, 7, 1, Settings.waterPressureInc);
 		page2.add(waterPressureIcrease);
 			
-		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 30, 5, (int)prefs.getLong(Settings.playerTimeoutID, 10000l));
+		playerTimeout = addSlider(Settings.playerTimeoutID, 5, 30, 5, (int)Settings.playerTimeout / 1000);
 		page3.add(playerTimeout);
 		
-		maxPlayers = addSlider(Settings.maxPlayersID, 3, 9, 1, prefs.getInt(Settings.maxPlayersID, 6));
+		maxPlayers = addSlider(Settings.maxPlayersID, 3, 9, 1, Settings.maxPlayers);
 		page3.add(maxPlayers);
 		
-		highscoreSize = addSlider(Settings.highScoreSizeID, 5, 20, 1, prefs.getInt(Settings.highScoreSizeID, 10));
+		highscoreSize = addSlider(Settings.highScoreSizeID, 5, 20, 1, Settings.highScoreSize);
 		page3.add(highscoreSize);
 		
 	}
@@ -216,8 +204,38 @@ public class SettingsDialog {
 			}
 		});
 		panel.add(button);
+		
+		button = new JButton("Apply");
+		button.addActionListener(new ActionListener() {
 
-		button = new JButton("Abbruch");
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				tabs.repaint();
+				saveChanges();
+				Settings.load();
+				
+			}
+		});
+		panel.add(button);
+
+		button = new JButton("Default");
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					prefs.clear();
+					Settings.load();
+					saveChanges();
+					frame.repaint();
+				} catch (BackingStoreException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		panel.add(button);
+		
+		button = new JButton("Cancel");
 		button.addActionListener(new ActionListener() {
 
 			@Override
@@ -244,10 +262,7 @@ public class SettingsDialog {
 		prefs.put(Settings.lightningKeyWordID, getFieldText(lightningKeyWord));
 		prefs.put(Settings.pressureKeyWordID, getFieldText(pressureKeyword));
 		
-		prefs.putFloat(Settings.lightningLifeTimeID, getSliderValue(lightningLifetime));	
-		prefs.putFloat(Settings.waterPressureLifeTimeID, getSliderValue(waterPressureLifetime));			
 		prefs.putFloat(Settings.rainDamageID, getSliderValue(rainDamage));		
-		prefs.putFloat(Settings.rainLifeTimeID, getSliderValue(rainLifeTime));
 		prefs.putFloat(Settings.rainCooldownID, getSliderValue(rainCooldown) * 1000);
 		prefs.putFloat(Settings.lightningCooldownID, getSliderValue(lightningCooldown) * 1000);
 		prefs.putFloat(Settings.pressureCooldownID, getSliderValue(pressureCooldown) * 1000);
@@ -275,10 +290,10 @@ public class SettingsDialog {
 	}
 
 	public static void main(String[] args) {
-//		Settings.load();
+		Settings.load();
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-//				new SettingsDialog();
+				new SettingsDialog();
 			}
 		});
 	}
