@@ -46,7 +46,7 @@ public class Firefighter extends AbstractPerson {
 		else if(playerColor.equals(Color.CYAN)){
 			this.setBody(Assets.firefighter_cyan);
 		}
-		if(this.getX()-this.getWidth()>Assets.CANVAS_WIDTH){
+		if(this.getX()+this.getWidth()>Assets.CANVAS_WIDTH){
 			this.setX(Assets.CANVAS_WIDTH/2);
 		}
 		stayInBounds();

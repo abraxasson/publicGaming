@@ -96,6 +96,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		processing.getSmsQueue().clear();
 		this.gags.clear();
 		Assets.backgroundMusic.stop();
+		Assets.fire.stop();
 	}
 
 	@Override
