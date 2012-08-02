@@ -51,13 +51,13 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 	public void render(float delta) {
 		if (isWaiting) {
 			stateTime += delta;
-			
+
 			processing.processMessageQueue();
 			if (!processing.getPlayerList().isEmpty()) {
 				isWaiting = false;
 			}
 			checkStatus();
-			
+
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -65,11 +65,9 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				game.setScreen(game.mainMenuScreen);
 			}
 
-			
-
 			Color oldColor = spriteBatch.getColor();
 			spriteBatch.begin();
-			switch(status) {
+			switch (status) {
 			case Title:
 				spriteBatch.draw(
 						Assets.waitingForPlayerTitle,
@@ -77,28 +75,34 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 								- Assets.waitingForPlayerTitle.getWidth() / 2,
 						Assets.FRAME_HEIGHT / 2
 								- Assets.waitingForPlayerTitle.getHeight() / 2);
-				
+
 				break;
-				
+
 			case Help:
 				drawHelpView();
 				break;
 			case Main:
 				drawBackgroundHouse(delta);
 				spriteBatch.setColor(oldColor);
-				spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0, Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
+				spriteBatch.draw(Assets.waitingForPlayerMain, 0, 0,
+						Assets.FRAME_WIDTH, Assets.FRAME_HEIGHT);
 				break;
 			case House:
 				drawBackgroundHouse(delta);
 				break;
-				
+
 			case Highscore:
-				fame.draw(spriteBatch, Assets.menu45Font, Color.WHITE);
+				int xPos = (Assets.FRAME_WIDTH - Assets.waitingForPlayerHighscore
+						.getWidth()) / 2;
+				int yPos = Assets.FRAME_HEIGHT - Assets.waitingForPlayerHighscore.getHeight();
+//				spriteBatch.draw(Assets.waitingForPlayerHighscore, xPos, yPos);
+//				fame.draw(spriteBatch, Assets.menu45Font, Color.WHITE);
+				fame.draw(spriteBatch, Assets.FRAME_WIDTH/2, Assets.FRAME_HEIGHT - 10, 0, Assets.menu45Font, Color.WHITE);
 				break;
 			}
 			spriteBatch.end();
 			spriteBatch.setColor(oldColor);
-			
+
 			if (Gdx.input.isKeyPressed(Keys.SPACE)) {
 				InetAddress ia;
 				try {
@@ -109,7 +113,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 				Gdx.app.exit();
 			}
@@ -127,46 +131,52 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 		if (index >= game.houseList.size()) {
 			index = 0;
 		}
-		
-		spriteBatch.setColor(Color.GRAY);
-//		game.houseList.get(index).resetHouse();
+
+		spriteBatch.setColor(Color.LIGHT_GRAY);
+		// game.houseList.get(index).resetHouse();
 		game.houseList.get(index).drawFullscreen(spriteBatch);
 	}
-	
+
 	private void drawHelpView() {
 		float width = Assets.FRAME_WIDTH;
 		float height = Assets.FRAME_HEIGHT;
 		spriteBatch.draw(Assets.waitingForPlayerHelp, width / 10, height / 3);
 		if (stateTime > 2.5) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 2, height * 0.9f);
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 2,
+					height * 0.9f);
 		}
 		if (stateTime > 3) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f, height / 6f);
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f,
+					height / 6f);
 		}
 		if (stateTime > 3.5) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 5, height * 0.7f);
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 5,
+					height * 0.7f);
 		}
 		if (stateTime > 4) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 3, height / 4f);
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 3,
+					height / 4f);
 		}
 		if (stateTime > 4.5) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f , height / 2);
+			spriteBatch.draw(Assets.waitingForPlayerHelp, width * 0.75f,
+					height / 2);
 		}
 		if (stateTime > 5) {
-			spriteBatch.draw(Assets.waitingForPlayerHelp, width / 2, height / 2);
+			spriteBatch
+					.draw(Assets.waitingForPlayerHelp, width / 2, height / 2);
 		}
 	}
 
 	private void checkStatus() {
 		if (stateTime > 2) {
 			status = Status.Help;
-		} 
+		}
 		if (stateTime > 6) {
 			status = Status.House;
-		} 
+		}
 		if (stateTime > 8) {
 			status = Status.Main;
-		}  
+		}
 		if (stateTime > 14) {
 			status = Status.Highscore;
 		}
