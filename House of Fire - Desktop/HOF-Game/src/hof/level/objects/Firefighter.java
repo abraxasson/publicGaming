@@ -12,6 +12,7 @@ public class Firefighter extends AbstractPerson {
 	private Player player;
 	private WaterJet waterJet;
 	private int state;
+	private int lastState;
 	private int width;
 	private int negativeWidth;
 	
@@ -25,6 +26,7 @@ public class Firefighter extends AbstractPerson {
 		this.negativeWidth = -width;
 		this.player = player;
 		waterJet = new WaterJet();
+		this.lastState = ButtonInfoMessage.NORMAL;
 		Color playerColor = player.getColor();
 		if(playerColor.equals(Color.RED)){
 			this.setBody(Assets.firefighter_red);
@@ -59,10 +61,18 @@ public class Firefighter extends AbstractPerson {
 	private void updateFighter() {
 		switch(state) {
 		case ButtonInfoMessage.LEFT:
+			if(this.lastState != this.state){
+				this.setX(this.getX()+this.width);
+			}
+			this.lastState = ButtonInfoMessage.LEFT;
 			this.setWidth(this.negativeWidth);
 			waterJet.setPosition(getX()+20+this.negativeWidth, getY()+125);
 			break;
 		case ButtonInfoMessage.RIGHT:
+			if(this.lastState != this.state){
+				this.setX(this.getX()-this.width);
+			}
+			this.lastState = ButtonInfoMessage.RIGHT;
 			this.setWidth(this.width);
 			waterJet.setPosition(getX()+105, getY()+125);
 			break;
@@ -75,10 +85,14 @@ public class Firefighter extends AbstractPerson {
 	}
 
 	public void stayInBounds() {
-		if (getX() < 0) 
-			setX(0);
-		if (getX() > Assets.CANVAS_WIDTH - getWidth())
+		if (getX() - this.width < 0 && this.state==ButtonInfoMessage.LEFT) {
+			setX(this.width);
+			this.setState(ButtonInfoMessage.NORMAL);
+		}
+		if (getX() > Assets.CANVAS_WIDTH - getWidth() && this.state == ButtonInfoMessage.RIGHT){
 			setX(Assets.CANVAS_WIDTH  - getWidth());
+			this.setState(ButtonInfoMessage.NORMAL);
+		}
 	}
 
 	public WaterJet getWaterJet() {
