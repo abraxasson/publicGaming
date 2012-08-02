@@ -63,7 +63,6 @@ public class NonPlayable extends AbstractPerson{
 			else{
 				this.healthpoints = -100;
 				PlayingScreen.setRandomTime();
-				System.out.println("gesetzt");
 			}
 		}
 		
