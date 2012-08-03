@@ -114,8 +114,8 @@ public class Assets{
 	public static void load() {
 		houseMap = new HashMap<Texture, BufferedImage>();
 		houseList = new ArrayList<>();
-		loadTextures();
 		loadHouses();
+		loadTextures();
 		createAnimations();
 		loadFonts();
 		loadSounds();
@@ -290,6 +290,9 @@ public class Assets{
 				dirs = directory.listFiles();
 				
 			} 
+			else{
+				System.out.println(directory.getAbsolutePath());
+			}
 			for (File dir : dirs) {
 				if (dir.isDirectory()) {
 					File [] file = dir.listFiles();
