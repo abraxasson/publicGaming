@@ -185,13 +185,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.W)) {
-			currentHouse.getFireList().clear();
-		}
 
-		if (Gdx.input.isKeyPressed(Keys.L)) {
-			currentHouse.destroy();
-		}
 
 		checkComputerInput();
 		this.processing.removeInactivePlayers();
@@ -541,6 +535,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			UdpClientThread.getInstance().sendMessage(
 					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.W)) {
+			currentHouse.getFireList().clear();
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.L)) {
+			currentHouse.destroy();
 		}
 	}
 }
