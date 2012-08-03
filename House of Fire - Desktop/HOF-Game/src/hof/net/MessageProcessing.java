@@ -195,6 +195,7 @@ public class MessageProcessing {
 			Player player = iter.next();
 			if (logOutMessage.getIa().equals(player.getIp())) {
 				player.setAlive(false);
+				this.colorList.reuseColor(player.getColor());
 				iter.remove();
 			}
 		}
@@ -397,6 +398,7 @@ public class MessageProcessing {
 			Player player = iter.next();
 			if(!player.getAlive()){
 				iter.remove();
+				this.colorList.reuseColor(player.getColor());
 			}
 		}
 	}
