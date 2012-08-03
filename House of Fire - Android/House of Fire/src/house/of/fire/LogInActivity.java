@@ -159,6 +159,10 @@ public class LogInActivity extends Activity {
 		});
 		progressDialog.show();
 		
+		//Intent gameIntent = new Intent(this, ControllerActivity.class);
+		//gameIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//startActivity(gameIntent);
+		
 		udpClient.sendObject(new PlayerInfoMessage(playerName));
 		
 		timer = new Timer();

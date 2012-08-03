@@ -3,7 +3,7 @@
 	<color name="medal_text_color">#EEE</color>
 	<color name="medal_layout_background">#77555555</color>
 	<color name="instructions_color">#dcdcdc</color>
-	<color name="progress_start">#aa3333ff</color>
-	<color name="progress_middle">#aa000086</color>
-	<color name="progress_end">#aa0000a0</color>
+	<color name="progress_start">#4343f0</color>
+	<color name="progress_middle">#4343b0</color>
+	<color name="progress_end">#4343d0</color>
 </resources>
