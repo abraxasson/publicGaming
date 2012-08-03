@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -169,22 +170,7 @@ public class LogInActivity extends Activity {
 					
 					public void run() {
 						progressDialog.dismiss();
-						new AlertDialog.Builder(LogInActivity.this)
-							.setTitle(R.string.server_not_found_title)
-							.setMessage(R.string.server_not_found_msg)
-							.setPositiveButton("OK", null)
-							.setNegativeButton(R.string.wlan_settings, new OnClickListener() {
-								
-								public void onClick(DialogInterface dialog, int which) {
-									try {
-										startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-									} catch (ActivityNotFoundException e) {
-										e.printStackTrace();
-									}
-								}
-							})
-							.create()
-						.show();
+						createServerNotFoundDialog().show();
 					}
 				});
 				
@@ -193,5 +179,23 @@ public class LogInActivity extends Activity {
 		
 	}
 	
+	public Dialog createServerNotFoundDialog(){
+		return new AlertDialog.Builder(LogInActivity.this)
+			.setTitle(R.string.server_not_found_title)
+			.setMessage(R.string.server_not_found_msg)
+			.setPositiveButton("OK", null)
+			.setNegativeButton(R.string.wlan_settings, new OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					try {
+						startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+					} catch (ActivityNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+			})
+		.create();
+	}
+
 	
 }

@@ -45,5 +45,8 @@
     <string name="server_not_found_title">Game-Server not found!</string>
     <string name="server_not_found_msg">Please check if you are on the same WiFi network as the game-server.</string>
     <string name="wlan_settings">WiFi Settings</string>
+    <string name="first_time_msg">To play House of Fire, you have to be on the same WiFi network as the game-server.
+        \n\nPlease go to your WiFi Settings and change your network to the game-server network.</string>
+    <string name="again_check_box">Do not show again</string>
 
 </resources>

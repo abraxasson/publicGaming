@@ -46,4 +46,7 @@
     <string name="server_not_found_title">Spiele-Server nicht gefunden!</string>
     <string name="server_not_found_msg">Bitte prüfe ob du am selben WLAN Netzwerk wie der Spiele-Server angemeldet bist.</string>
     <string name="wlan_settings">WLAN Einst.</string>
+    <string name="first_time_msg">Um House of Fire spielen zu können ist es notwendig, dass dein Handy im selben WLAN Netzwerk wie der Spiele-Server
+        eingeloggt ist.\n\nBitte gehe bevor du das Spiel startest zu deinen WLAN Einstellungen und melde dich am Spiele-Server Netzwerk an.\n\n</string>
+    <string name="again_check_box">Nicht nochmal anzeigen</string>
 </resources>
