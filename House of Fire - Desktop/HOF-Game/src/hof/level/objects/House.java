@@ -82,6 +82,7 @@ public class House {
 			int length = this.burningArea.size();
 			int index = (int)(Math.random()*length);
 			Pixel r = (Pixel) burningArea.get(index);
+			burningArea.remove(index);
 			return r;
 		}
 		return null;
