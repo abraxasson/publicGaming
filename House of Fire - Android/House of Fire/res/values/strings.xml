@@ -27,7 +27,7 @@
     <string name="type_in_your_name">Type in your name!</string>
     <string name="help_text">
 	This game is about slacking as many flames as possible. For every fire you
-	slack you gain points, but hint: if your waterjet hits a bird or a cat your 
+	slack you gain points, but note: if your waterjet hits a bird or a cat your 
 	points will decrease.
 
 	\n\nCONTROLLER
@@ -40,19 +40,19 @@
 	of your waterjet.
 
 	\n\nWATER PRESSURE
-	\n-As soon as your water tank is empty your smartphones switches to the pumping-minigame.
+	\n-As soon as your water tank is empty, your smartphones switches to the pumping-minigame.
 	In this game you have to alternately push the left- and right-buttons until your water
 	tank is full again. Then your smartphones automatically switches back to the normal 
-	playingscreen.
+	playing screen.
 
 	\n\n-It is also possible to switch manually in the pumping-minigame and back. Therefore 
 	you can press the pumping-button on the bottom right of your playingscreen. To go back
-	to the playingscreen you can push the same button or the back button of your smartphone.
+	to the playin gscreen you can push the same button or the back button of your smartphone.
  	
  	\n\nNOTE:
- 	\nTo play this game it is necessary to install the Pc-version on your Computer. 
- 	Your smartphone and the Game-Server have to be in the same wifi-network.
-	The IP adress of the Game-Server should be "192.168.1.105".
+ 	\nTo play this game it is necessary to install the PC-version on your computer. 
+ 	Your smartphone and the Game-Server have to be in the same WiFi-network.
+	The IP adress of the Game-Server must be "192.168.1.105".
 
 	\n\n\nGood luck and have fun!
 
