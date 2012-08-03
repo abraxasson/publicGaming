@@ -75,7 +75,7 @@ public class Settings {
 		waterDamage = prefs.getFloat(waterDamageID, 3);
 		waterPressureInc = prefs.getInt(waterPressureIncID, 5);
 		rainDamage = prefs.getFloat(rainDamageID, 20);
-		waterAimSize = prefs.getFloat(waterAimSizeID, 20);
+		waterAimSize = prefs.getFloat(waterAimSizeID, 25);
 		playerTimeout = prefs.getLong(playerTimeoutID, 10000l);
 		maxPlayers = prefs.getInt(maxPlayersID, 6);
 		rainKeyWord = prefs.get(rainKeyWordID, "RAIN");

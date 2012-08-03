@@ -35,7 +35,7 @@ public class WaterJet {
 		streamArea.setY(calcY());
 		
 		streamArea.setWidth(size);
-		streamArea.setHeight(size);
+		streamArea.setHeight(2*size);
 		
 		isActive = true;
 		directionState = State.NORMAL;
@@ -109,7 +109,7 @@ public class WaterJet {
 		streamArea.setX(calcX());
 		streamArea.setY(calcY());
 		streamArea.setWidth(size);
-		streamArea.setHeight(size);
+		streamArea.setHeight(2*size);
 	}
 	
 	public Rectangle getStreamArea() {

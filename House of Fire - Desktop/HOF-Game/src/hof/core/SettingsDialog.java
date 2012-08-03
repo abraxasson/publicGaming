@@ -110,7 +110,7 @@ public class SettingsDialog {
 		page1.add(houseHealthpointsIncrease);
 		fireIncrease = addSlider(Settings.fireIncreaseID, 3, 10, 1, Settings.fireIncrease);
 		page1.add(fireIncrease);
-		waterAimSize = addSlider(Settings.waterAimSizeID, 15, 25 , 1, (int) Settings.waterAimSize);
+		waterAimSize = addSlider(Settings.waterAimSizeID, 20, 30 , 1, (int) Settings.waterAimSize);
 		page1.add(waterAimSize);
 		waterDamage = addSlider(Settings.waterDamageID, 2, 5, 1, (int)Settings.waterDamage);
 		page1.add(waterDamage);
