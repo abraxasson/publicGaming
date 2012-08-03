@@ -48,7 +48,15 @@ public class SMSService extends Service {
 		else if (msg.contains("wasserdruck") && msg.length()==11){
 			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
 		}
-
+		else if (msg.contains("rain") && msg.length()==5){
+			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN));
+		}
+		else if (msg.contains("lightning") && msg.length()==9){
+			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
+		}
+		else if (msg.contains("pressure") && msg.length()==8){
+			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
+		}
 		Log.d(TAG, "Send effect: " + msg);
 		
 		
