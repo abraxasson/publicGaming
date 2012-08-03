@@ -26,26 +26,35 @@
     <string name="retry_button">Try again?</string>
     <string name="type_in_your_name">Type in your name!</string>
     <string name="help_text">
-	NOTE: To play this game it is necessary to install the Pc-version on your Computer. Your smartphone and the computer have to be in the same wifi-network.
-	The IP of the Computer should be "192.168.1.106".
-
-
-	This game is about slacking as many flames as possible. For every fire you slack you gain points, but hint: if your waterjet hits a bird or a cat your 
+	This game is about slacking as many flames as possible. For every fire you
+	slack you gain points, but hint: if your waterjet hits a bird or a cat your 
 	points will decrease.
 
-	-Using the direction-buttons you can move your firefighter left or right
+	\n\nCONTROLLER
+	\n-Using the direction-buttons you can move your firefighter left or right\n\n
 
-	-Tilting your smartphone forward or backwards will change the length of your waterjet
+	\n\n-Tilting your smartphone forward or backwards will change the length of your 
+	waterjet
 
-	-Tilting your smartphone to the left or to the right will change the direction of your waterjet
+	\n\n-Tilting your smartphone to the left or to the right will change the direction
+	of your waterjet
 
-	-As soon as your water tank is empty your smartphones switches to the pumping-minigame. In this game you have to alternately push the left- and right-buttons
- 	until your water tank is full again. Then your smartphones automatically switches back to the normal playingscreen.
+	\n\nWATER PRESSURE
+	\n-As soon as your water tank is empty your smartphones switches to the pumping-minigame.
+	In this game you have to alternately push the left- and right-buttons until your water
+	tank is full again. Then your smartphones automatically switches back to the normal 
+	playingscreen.
 
-	-It is also possible to switch manually in the pumping-minigame and back. Therefore you can press the pumping-button on the bottom right of your playingscreen.
- 	To go back to the playingscreen you can push the same button or the back button of your smartphone.
+	\n\n-It is also possible to switch manually in the pumping-minigame and back. Therefore 
+	you can press the pumping-button on the bottom right of your playingscreen. To go back
+	to the playingscreen you can push the same button or the back button of your smartphone.
+ 	
+ 	\n\nNOTE:
+ 	\nTo play this game it is necessary to install the Pc-version on your Computer. 
+ 	Your smartphone and the Game-Server have to be in the same wifi-network.
+	The IP adress of the Game-Server should be "192.168.1.105".
 
-	Good luck and have fun!
+	\n\nGood luck and have fun!
 
         </string>
     <string name="water_pump_instruction">Press pumps alternately to refill water!</string>
