@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/padding_large" >
-
+
          <EditText
              android:id="@+id/nameEditText"
              android:layout_width="match_parent"
@@ -15,7 +15,7 @@
              android:ems="10"
              android:hint="@string/name"
              android:inputType="textPersonName"
-             android:textColor="#fff"
+             android:textColor="#000"
              android:textColorHint="#999" >
 
              <requestFocus />

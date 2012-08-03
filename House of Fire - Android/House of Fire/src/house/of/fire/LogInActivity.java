@@ -3,14 +3,24 @@ package house.of.fire;
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.LogoutInfoMessage;
 import hof.net.userMessages.PlayerInfoMessage;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -35,7 +45,10 @@ public class LogInActivity extends Activity {
 
 	UdpClientThread udpClient;
 	AndroidServer server;
-
+	
+	Timer timer;
+	Handler handler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,6 +82,8 @@ public class LogInActivity extends Activity {
 			}
 		});
 		
+		handler = new Handler();
+		
 		
 	}
 
@@ -92,12 +107,17 @@ public class LogInActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		
+		if (timer != null){
+			timer.cancel();
+		}
+		
 		if (progressDialog != null){
 			progressDialog.dismiss();
 		}
 		udpClient.setActive(false);
 		
 
+		
 		server.close();
 	}
 	
@@ -128,13 +148,49 @@ public class LogInActivity extends Activity {
 		progressDialog.setOnCancelListener(new OnCancelListener() {
 
 			public void onCancel(DialogInterface dialog) {
+				if (timer != null){
+					timer.cancel();
+				}
 				Log.d(TAG, "Abbruch");
 				udpClient.sendObject(new LogoutInfoMessage());
+				
 			}
 		});
 		progressDialog.show();
 		
 		udpClient.sendObject(new PlayerInfoMessage(playerName));
+		
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				handler.post(new Runnable() {
+					
+					public void run() {
+						progressDialog.dismiss();
+						new AlertDialog.Builder(LogInActivity.this)
+							.setTitle(R.string.server_not_found_title)
+							.setMessage(R.string.server_not_found_msg)
+							.setPositiveButton("OK", null)
+							.setNegativeButton(R.string.wlan_settings, new OnClickListener() {
+								
+								public void onClick(DialogInterface dialog, int which) {
+									try {
+										startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+									} catch (ActivityNotFoundException e) {
+										e.printStackTrace();
+									}
+								}
+							})
+							.create()
+						.show();
+					}
+				});
+				
+			}
+		}, 5000);
+		
 	}
 	
 	

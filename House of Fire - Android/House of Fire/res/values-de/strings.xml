@@ -3,7 +3,7 @@
     <string name="startButton">Spiel beitreten</string>
     <string name="instructions">Anleitung</string>
     <string name="weiter">weiter</string>
-    <string name="wait">Bitte warten ...</string>
+    <string name="wait">Verbindung zum Spiele-Server wird aufgebaut.\n\nBitte warten &#8230;</string>
     <string name="error">Es ist ein Fehler aufgetreten!</string>
     <string name="test">Bitte versuchen Sie es erneut!</string>
     <string name="back">zurück</string>
@@ -27,22 +27,23 @@
     <string name="gold_outputText">Goldmedaille erhalten!</string>
     <string name="retry_button">Nochmal?</string>
     <string name="type_in_your_name">Type in your name</string>
-    <string name="help_text">Bei diesem Spiel geht es darum, so viele Feuer wie möglich zu löschen!\n\n\n
-        STEUERUNG\n
-        Mit den Pfeiltasten kann man den Feuerwehrmann nach links oder rechts bewegen.\n\n
-        Durch Kippen des Smartphones nach vorne bzw. nach hinten wird die Länge das Wasserstrahls beeinflusst.\n\n
-        Durch Kippen des Smartphones nach links bzw. nach rechts lässt sich die Richtung des Wasserstrahls beeinflussen.\n\n
-        
-        WASSERDRUCK\n
-        Bei leerem Wasserfüllstand (Füllstandsanzeige in der Mitte) wird man
+    <string name="help_text">Bei diesem Spiel geht es darum, so Häuser vor dem Abbrennen zu bewahren!
+        \n\n\nSTEUERUNG
+        \nMit den Pfeiltasten kann man den Feuerwehrmann nach links oder rechts bewegen.
+        \n\nDurch Kippen des Smartphones nach vorne bzw. nach hinten wird die Länge das Wasserstrahls beeinflusst.
+        \n\nDurch Kippen des Smartphones nach links bzw. nach rechts lässt sich die Richtung des Wasserstrahls beeinflussen.
+        \n\nWASSERDRUCK
+        \nBei leerem Wasserfüllstand (blaue Füllstandsanzeige in der Mitte) wird man
           direkt zu einem Minispiel weitergeleitet, durch welches man das Wasser 
-          auffüllen kann, indem man abwechselnd auf die linke und rechte Wasserpumpe drückt.\n 
-          Man kann aber auch manuell zum Minispiel wechseln, indem man unten rechts auf
+          auffüllen kann, indem man abwechselnd auf die linke und rechte Wasserpumpe drückt.
+          \nMan kann aber auch manuell zum Minispiel wechseln, indem man unten rechts auf
           die Wasserpumpe drückt. Durch Drücken der züruck-Taste oder bei vollständig gefüllter
-          Füllstandsanzeige kommt man wieder in das Hauptspiel zurück.\n\n\n
-        
-		Viel Spass beim Spielen!
+          Füllstandsanzeige kommt man wieder in das Hauptspiel zurück.
+		\n\n\nViel Spass beim Spielen!
         </string>
 
     <string name="water_pump_instruction">Pumpen abwechselnd drücken um Wasser aufzufüllen!</string>
+    <string name="server_not_found_title">Spiele-Server nicht gefunden!</string>
+    <string name="server_not_found_msg">Bitte prüfe ob du am selben WLAN Netzwerk wie der Spiele-Server angemeldet bist.</string>
+    <string name="wlan_settings">WLAN Einst.</string>
 </resources>
