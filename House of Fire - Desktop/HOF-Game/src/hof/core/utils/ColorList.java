@@ -32,9 +32,16 @@ public class ColorList {
 	}
 	
 	public Color getNextColor() {
-		Color color = availableColors.remove(index % availableColors.size());
+		Color color = colorList.get(index % colorList.size());
 		index++;
 		return color;
+		
+//		if (availableColors.size() > 0) {
+//		Color color = availableColors.remove(index % availableColors.size());
+//		index++;
+//		return color;
+//		} else 
+//		return Color.PINK;
 	}
 	
 	public void reuseColor(Color color){

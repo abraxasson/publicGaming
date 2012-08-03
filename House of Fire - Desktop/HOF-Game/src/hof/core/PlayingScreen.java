@@ -132,7 +132,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
-		fps.draw(spriteBatch);
+//		fps.draw(spriteBatch);
 		timeline.draw(spriteBatch, currentHouse);
 
 		drawSpecialEffects();
@@ -187,7 +187,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 
 
-		checkComputerInput();
+//		checkComputerInput();
 		this.processing.removeInactivePlayers();
 		processWaterPressure();
 	}

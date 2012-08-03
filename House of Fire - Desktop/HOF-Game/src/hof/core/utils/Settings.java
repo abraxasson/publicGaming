@@ -28,7 +28,7 @@ public class Settings {
 	private static Preferences prefs;
 	
 	
-	public static String TELEPHONE_NUMBER = "0666/666666";
+	public static String TELEPHONE_NUMBER = "0681/20675089";
 	
 	public static final float houseHealthpoints = 1000;
 	public static int healthpointsIncrease;
