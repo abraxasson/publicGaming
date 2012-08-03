@@ -2,9 +2,14 @@ package house.of.fire;
 
 import hof.net.android.AndroidServer;
 import hof.net.userMessages.ButtonInfoMessage;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -19,6 +24,7 @@ public class WaterActivity extends Activity {
 	ImageButton pfeil_links;
 	ImageButton pfeil_rechts;
 	TextView outputName;
+	TextView instruction;
 	// Button logOut;
 	// SeekBar water_bar;
 	VerticalProgressBar water_rating;
@@ -27,6 +33,9 @@ public class WaterActivity extends Activity {
 	int waterLevel;
 
 	public static boolean isActive = true;
+	private Timer timer;
+	
+	private Handler handler;
 
 	String name;
 	int color;
@@ -44,6 +53,8 @@ public class WaterActivity extends Activity {
 		// water_bar = (SeekBar) findViewById(R.id.waterstatus);
 		water_rating = (VerticalProgressBar) findViewById(R.id.water_rating);
 		water_rating.setEnabled(false);
+		
+		instruction = (TextView)findViewById(R.id.instruction_textview);
 
 		pfeil_links.setOnClickListener(pfeil_linksListener);
 		pfeil_rechts.setOnClickListener(pfeil_rechtsListener);
@@ -57,6 +68,8 @@ public class WaterActivity extends Activity {
 		// intent.getStringExtra(ControllerActivity.EXTRA_PLAYER_NAME1);
 
 		// setFullscreen();
+		
+		handler = new Handler();
 
 	}
 
@@ -73,12 +86,34 @@ public class WaterActivity extends Activity {
 		water_rating.postInvalidate();
 		state = ButtonInfoMessage.NORMAL;
 		isActive = true;
+		
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				handler.post(new Runnable() {
+					
+					public void run() {
+						if (instruction.getVisibility() == View.VISIBLE){
+							instruction.setVisibility(View.INVISIBLE);
+						}
+						else {
+							instruction.setVisibility(View.VISIBLE);
+						}
+						
+					}
+				});
+				
+			}
+		}, 500, 500);
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
 		server.close();
+		timer.cancel();
 	}
 
 	@Override

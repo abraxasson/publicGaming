@@ -96,6 +96,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		processing.getSmsQueue().clear();
 		this.gags.clear();
 		Assets.backgroundMusic.stop();
+		Assets.fire.stop();
+		Assets.sirene.stop();
 	}
 
 	@Override
@@ -112,12 +114,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		
 		if(System.currentTimeMillis() >= startTime + randomTime){
 			double random = Math.random();
-			if(random > 0.5){
-				initGag(new NonPlayable(100, (int) (Gdx.graphics.getHeight()*0.75)/5, 200,
+			if(random < 0.3){
+				initGag(new NonPlayable(100, (int) (Gdx.graphics.getHeight()*0.75)/5, 100,
 						Assets.runningCatAnimation));
 			}
+			else if(random < 0.6){
+				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.6),100, Assets.flyingBirdAnimation));
+			}
 			else{
-				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),200, Assets.flyingBirdAnimation));
+				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),100, Assets.flyingBirdAnimation));
 			}
 			
 			startTime = System.currentTimeMillis();
@@ -478,9 +483,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					firefighter.getPlayer()
 							.setMinuspoints(
 									(int) (firefighter.getPlayer()
-											.getMinuspoints() - gag
+											.getMinuspoints() - (gag
 											.getHealthpoints()
-											* Gdx.graphics.getDeltaTime()));
+											* Gdx.graphics.getDeltaTime())*1000));
 				}
 			}
 		}

@@ -52,6 +52,7 @@ public class Assets{
 	public static Texture waitingForPlayerTitle;
 	public static Texture waitingForPlayerHelp;
 	public static Texture waitingForPlayerMain;
+	public static Texture waitingForPlayerHighscore;
 	public static Texture mainMenu;
 	public static Texture levelFinishedScreen;
 	public static Texture gameOverScreen;
@@ -82,6 +83,7 @@ public class Assets{
 	public static Sound firework2;
 	public static Sound fire;
 	public static Sound evilLaugh;
+	public static Sound help;
 	
 	
 	public static Music backgroundMusic;
@@ -105,6 +107,8 @@ public class Assets{
 	public static BitmapFont statusBarFont30;
 	public static BitmapFont statusBarFont35;
 	public static BitmapFont statusBarFont40;
+	public static BitmapFont hobo25;
+	public static BitmapFont hobo30;
 	
 	
 	public static void load() {
@@ -273,6 +277,7 @@ public class Assets{
 		waitingForPlayerTitle = new Texture(Gdx.files.internal("textures/waitingForPlayers/view1.png"));
 		waitingForPlayerHelp = new Texture(Gdx.files.internal("textures/waitingForPlayers/view2.png"));
 		waitingForPlayerMain = new Texture(Gdx.files.internal("textures/waitingForPlayers/view4.png"));
+		waitingForPlayerHighscore = new Texture(Gdx.files.internal("textures/waitingForPlayers/view5.png"));
 	}
 	
 	private static void loadHouses() {
@@ -317,6 +322,8 @@ public class Assets{
 		statusBarFont30 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont30.fnt"),Gdx.files.internal("fonts/statusBarFont30.png"),false);
 		statusBarFont35 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont35.fnt"),Gdx.files.internal("fonts/statusBarFont35.png"),false);
 		statusBarFont40 = new BitmapFont(Gdx.files.internal("fonts/statusBarFont40.fnt"),Gdx.files.internal("fonts/statusBarFont40.png"),false);
+		hobo25 = new BitmapFont(Gdx.files.internal("fonts/hobo25.fnt"),Gdx.files.internal("fonts/hobo25.png"),false);
+		hobo30 = new BitmapFont(Gdx.files.internal("fonts/hobo30.fnt"),Gdx.files.internal("fonts/hobo30.png"),false);
 	}
 	
 	public static void loadSounds(){
@@ -331,6 +338,7 @@ public class Assets{
 		firework2 = Gdx.audio.newSound(Gdx.files.internal("sounds/firework2.mp3"));
 		fire = Gdx.audio.newSound(Gdx.files.internal("sounds/forest_fire.ogg"));
 		evilLaugh = Gdx.audio.newSound(Gdx.files.internal("sounds/laugh.ogg"));
+		help = Gdx.audio.newSound(Gdx.files.internal("sounds/help.mp3"));
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
 		backgroundMusicMenu = Gdx.audio.newMusic(Gdx.files.internal("sounds/background2.mp3"));
 	}
@@ -350,6 +358,7 @@ public class Assets{
 		waitingForPlayerMain.dispose();
 		waitingForPlayerHelp.dispose();
 		waitingForPlayerTitle.dispose();
+		waitingForPlayerHighscore.dispose();
 		
 		pureWhiteTexture.dispose();
 		borderTexture.dispose();
@@ -378,6 +387,7 @@ public class Assets{
 		firework2.dispose();
 		fire.dispose();
 		evilLaugh.dispose();
+		help.dispose();
 		backgroundMusic.dispose();
 		backgroundMusicMenu.dispose();
 		
@@ -395,5 +405,7 @@ public class Assets{
 		statusBarFont30.dispose();
 		statusBarFont35.dispose();
 		statusBarFont40.dispose();
+		hobo25.dispose();
+		hobo30.dispose();
 	}
 }

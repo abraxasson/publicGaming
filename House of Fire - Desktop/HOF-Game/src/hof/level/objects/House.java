@@ -24,10 +24,10 @@ public class House {
 	
 	private boolean isAlive;
 
-	public House(Texture image, int fire) {
+	public House(Texture image, int fire,float healthpoints) {
 		super();
 		this.image = image;
-		this.healthpoints = Settings.houseHealthpoints;
+		this.healthpoints = healthpoints;
 		fireCount = fire;
 		isAlive = true;
 		maxHealth = healthpoints;

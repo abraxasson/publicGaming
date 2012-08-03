@@ -24,9 +24,9 @@ public class AndroidServer extends Thread {
 	
 	public static final int PORT = 4711;
 	
-	public static int r;
-	public static int g;
-	public static int b;
+	public static int r = 230;
+	public static int g = 230;
+	public static int b = 230;
 	
 	private int level;
 	private int event;

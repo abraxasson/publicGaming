@@ -39,7 +39,6 @@ public class UdpServerThread extends Thread {
 		try {
 			this.socket = new DatagramSocket(PORT);
 		} catch (IOException e) {
-//			System.out.println("Server funktioniert nicht!");
 			getAlternativePort();
 		}
 

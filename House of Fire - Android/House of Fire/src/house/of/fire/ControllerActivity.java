@@ -171,9 +171,7 @@ public class ControllerActivity extends Activity implements SensorEventListener 
 				.getDefaultSharedPreferences(this);
 		playerName = prefs.getString(LogInActivity.PREF_PLAYER_NAME, "");
 		outputName.setText(playerName);
-
-		findViewById(R.id.player_name_background).setBackgroundColor(
-				Color.rgb(AndroidServer.r, AndroidServer.g, AndroidServer.b));
+		outputName.setBackgroundColor(Color.rgb(AndroidServer.r, AndroidServer.g, AndroidServer.b));
 
 		// playerColor = prefs.getInt(LogInActivity.PREF_PLAYER_COLOR,
 		// Color.RED);

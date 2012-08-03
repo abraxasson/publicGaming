@@ -2,28 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
+    android:background="@drawable/background_start"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="@dimen/padding_large" >
-
-         <TextView
-             android:id="@+id/output_text"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="10dp"
-             android:gravity="center"
-             android:text="@string/name"
-             android:textColor="#fff"
-             android:textSize="@dimen/header_login_textsize" />
-
+
          <EditText
              android:id="@+id/nameEditText"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_margin="10dp"
-             android:textColor="#fff" />
+             android:ems="10"
+             android:hint="@string/name"
+             android:inputType="textPersonName"
+             android:textColor="#000"
+             android:textColorHint="#999" >
 
+             <requestFocus />
+         </EditText>
+         
          <Button
              android:id="@+id/button_play"
              android:layout_width="wrap_content"
