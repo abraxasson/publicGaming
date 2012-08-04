@@ -58,7 +58,7 @@ public class GameOverScreen extends GameScreen<HouseOfFireGame> {
 
 	@Override
 	public void hide() {
-		processing.getPlayerList().clear();
+		processing.clearPlayerList();
 	}
 
 	@Override

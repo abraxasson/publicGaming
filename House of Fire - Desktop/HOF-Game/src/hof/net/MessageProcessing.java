@@ -256,6 +256,11 @@ public class MessageProcessing {
 	public ArrayList<Player> getPlayerList() {
 		return activePlayers;
 	}
+	
+	public void clearPlayerList() {
+		activePlayers.clear();
+		colorList.reuseColors();
+	}
 
 	/**
 	 * Returns the next Player to add to the game
@@ -397,8 +402,8 @@ public class MessageProcessing {
 		while(iter.hasNext()){
 			Player player = iter.next();
 			if(!player.getAlive()){
-				iter.remove();
 				this.colorList.reuseColor(player.getColor());
+				iter.remove();
 			}
 		}
 	}

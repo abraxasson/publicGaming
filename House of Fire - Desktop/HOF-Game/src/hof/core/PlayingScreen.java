@@ -73,12 +73,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	public void show() {
 		currentHouse = game.houseList.get(game.houseIndex);
 		currentHouse.resetHouse();
-		for (Player player : processing.getPlayerList()) {
-			player.setScore(player.getScore() + player.getBonuspoints()
-					+ player.getMinuspoints());
-			player.setBonuspoints(0);
-			player.setMinuspoints(0);
-		}
 		finishedTime = 0;
 		startTime = System.currentTimeMillis();
 		randomTime = (long)(10000+(Math.random()*20000));
@@ -178,7 +172,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE)) {
 			game.setScreen(game.mainMenuScreen);
-			processing.getPlayerList().clear();
+			processing.clearPlayerList();
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {

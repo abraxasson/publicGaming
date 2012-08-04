@@ -65,7 +65,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		for (Player player: processing.getPlayerList()) {
 			fame.addPlayer(player);
 		}
-		processing.getPlayerList().clear();
+		processing.clearPlayerList();
 		stateTime = 0;
 		started = false;
 	}

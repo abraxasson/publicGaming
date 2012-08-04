@@ -167,6 +167,9 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					count * this.collumnWidth,
 					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
 			infoFont.setColor(Color.BLACK);
+			player.setScore(newPoints);
+			player.setBonuspoints(0);
+			player.setMinuspoints(0);
 		}
 	}
 

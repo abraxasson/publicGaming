@@ -3,7 +3,7 @@
 #### Vorraussetzungen für die Sound- und Musikdateien:
 
 ##### 1. Format:
-+ wav
++ wav (nicht empfohlen)
 + ogg 
 + mp3
 
@@ -16,8 +16,5 @@ Sounddateien können bis zu 1MB groß sein.
 Musikdateien können eine beliebige Größe haben.
 
 
-##### 3. Laden
-Verwendung eines Singleton AssetManagers
-
-##### 4. Sampling
+##### 3. Sampling
 WAV files müssen 16-bit signed PCM sein.
