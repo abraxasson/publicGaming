@@ -293,6 +293,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
+	//TODO better solution
 	public static void setRandomTime(){
 		randomTime = (long)(10000+(Math.random()*20000));
 		startTime = System.currentTimeMillis();
@@ -478,7 +479,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 									(int) (firefighter.getPlayer()
 											.getMinuspoints() - (gag
 											.getHealthpoints()
-											* Gdx.graphics.getDeltaTime())*1000));
+											* Gdx.graphics.getDeltaTime())*100));
+					//FIXME better points calculation
 				}
 			}
 		}

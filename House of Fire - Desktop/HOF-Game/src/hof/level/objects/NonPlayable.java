@@ -18,6 +18,8 @@ public class NonPlayable extends AbstractPerson{
 	private Rectangle position;
 	private float stateTime;
 	
+	//FIXME Gag as own class
+	
 	public NonPlayable(int x, int y, int healthpoints, Animation animation) {
 		this(Assets.pureWhiteTexture, x, y, 20, 20, healthpoints);
 		this.startPos = Assets.CANVAS_WIDTH;
