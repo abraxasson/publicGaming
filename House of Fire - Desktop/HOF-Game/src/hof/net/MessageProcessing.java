@@ -185,7 +185,7 @@ public class MessageProcessing {
 		if (!checkPlayer(address) && activePlayers.size() <= Settings.maxPlayers) {
 			activePlayers.add(player);
 			playerQueue.add(player);
-			player.setLastInput(System.currentTimeMillis());
+			player.setLastInput();
 			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 		}
 	}
@@ -201,7 +201,7 @@ public class MessageProcessing {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
-			player.setLastInput(System.currentTimeMillis());
+			player.setLastInput();
 			buttonQueue.add(new ButtonInput(player, inputMessage));
 		}
 	}
@@ -217,7 +217,7 @@ public class MessageProcessing {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
-			player.setLastInput(System.currentTimeMillis());
+			player.setLastInput();
 			sensorQueue.add(new SensorInput(player, sensorMessage));
 		}
 	}
@@ -235,7 +235,7 @@ public class MessageProcessing {
 		if (checkPlayer(address)) {
 			Player player = getPlayer(address);
 			player.setAlive(true);
-			player.setLastInput(System.currentTimeMillis());
+			player.setLastInput();
 			if (pressureMessage.getPressure() <= 0) {
 				player.setPumping(true);
 			} else {

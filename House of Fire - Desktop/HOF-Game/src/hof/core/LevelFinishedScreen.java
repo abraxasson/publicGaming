@@ -180,7 +180,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					LevelInfoMessage.STARTED, game.houseIndex + 1);
 			for (Player player : processing.getPlayerList()) {
 				udpClient.prepareMessage(message, player.getIp());
-				player.setLastInput(System.currentTimeMillis());
+				player.setLastInput();
 			}
 		}
 		Assets.applause.stop();
