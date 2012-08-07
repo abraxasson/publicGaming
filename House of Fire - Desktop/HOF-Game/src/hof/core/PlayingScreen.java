@@ -45,6 +45,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private MessageProcessing processing;
 
+	@SuppressWarnings("unused")
 	private FPS fps;
 	private InetAddress ia;
 	private long finishedTime;
@@ -87,7 +88,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	@Override
 	public void hide() {
-		processing.getSmsQueue().clear();
+		processing.emptySmsInput();
 		this.gags.clear();
 		Assets.backgroundMusic.stop();
 		Assets.fire.stop();
@@ -244,6 +245,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					waterJet.setStrengthState(State.NORMAL);
 				} else if (input.getMessage().getX() > 8.5) {
 					waterJet.setStrengthState(State.UP);
+				}
+				
+				if (fighter.getPlayer().isPumping()) {
+					waterJet.setStrengthState(State.NORMAL);
+					waterJet.setDirectionState(State.NORMAL);
 				}
 
 			}
@@ -420,8 +426,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void checkPlayers() {
 		if (processing.hasPlayers()) {
-			firefighters.add(new Firefighter(processing.getPlayer(),
-					ButtonInfoMessage.NORMAL));
+			firefighters.add(new Firefighter(processing.getPlayer()));
 		}
 
 		Iterator<Firefighter> iter = firefighters.iterator();
@@ -479,6 +484,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void checkComputerInput() {
 		if (Gdx.input.isKeyPressed(Keys.V)) {
 			InetAddress ia;
