@@ -43,7 +43,10 @@ public class UdpClientThread extends Thread {
 	 */
 	private LinkedList<DatagramPacket> queue;
 	
-
+	/**
+	 * Constructor
+	 * Creates the queue for the packets and the socket.
+	 */
 	private UdpClientThread() {
 		queue = new LinkedList<DatagramPacket>();
 
