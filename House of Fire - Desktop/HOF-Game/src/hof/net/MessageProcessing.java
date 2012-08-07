@@ -25,22 +25,68 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * This class is an important part of the network communication of this game.
+ * All received AbstractMessages are processed here.  
+ * This class is designed as a Singleton so you cannot instantiate it, but get the instance over the given static method.
+ *
+ */
 public class MessageProcessing {
 
+	/**
+	 * the only instance of this class is stored here
+	 */
+	private static MessageProcessing instance;
+	
+	/**
+	 * Stores all received Messages and holds them until they ae processed
+	 */
 	private LinkedList<AbstractMessage> messageQueue;
+	/**
+	 * Holds the active players
+	 */
 	private ArrayList<Player> activePlayers;
+	/**
+	 * Stores new players who have just joined the game.
+	 */
 	private LinkedList<Player> playerQueue;
+	/**
+	 * Holds the received ButtonInput until they are used.
+	 */
 	private LinkedList<ButtonInput> buttonQueue;
+	/**
+	 * Holds the received SensorInput until they are used.
+	 */
 	private LinkedList<SensorInput> sensorQueue; 
+	/**
+	 * Holds the received SMS-SpecialEffects until they become active.
+	 */
 	private LinkedList<AbstractCloud> smsQueue;
+	/**
+	 * Holds the received WaterPressureMessages until they are processed.
+	 */
 	private LinkedList<WaterPressureInfoMessage> waterPressureQueue;
 
-	private static MessageProcessing instance;
+	
+	/**
+	 * Is used to store Colors for the players
+	 */
 	private ColorList colorList;
+	/**
+	 * Filters bad words.
+	 */
 	private WordFilter filter;
 	
+	/**
+	 * Client is used to send Messages over the UDP-Network.
+	 */
 	private UdpClientThread udpClient;
 
+	/**
+	 * Used to get the Singleton instance of this class.
+	 * If there is not already an instance a new one is created.
+	 * @return the instance of this class
+	 */
 	public static MessageProcessing getInstance() {
 		if (instance == null) {
 			instance = new MessageProcessing();
@@ -48,6 +94,10 @@ public class MessageProcessing {
 		return instance;
 	}
 
+	/**
+	 * Private constructor.
+	 * Creates all the queues and lists for the later use. 
+	 */
 	private MessageProcessing() {
 		messageQueue = new LinkedList<>();
 		activePlayers = new ArrayList<Player>();
@@ -61,6 +111,11 @@ public class MessageProcessing {
 		udpClient = UdpClientThread.getInstance();
 	}
 	
+	/**
+	 * Gets the first element of the MessageQueue and processes it.
+	 * This method <b>has to be called</b> in the render method to guarantee network communication.
+	 * 
+	 */
 	public void processMessageQueue() {
 		if (!messageQueue.isEmpty()) {
 			processMessage(messageQueue.poll());
@@ -68,7 +123,7 @@ public class MessageProcessing {
 	}
 
 	/**
-	 * Processeses the received Message. Checks what type it is and calls the
+	 * Processes the received Message. Checks what type it is and calls the
 	 * right handling method for this type
 	 * 
 	 * @param message
@@ -167,6 +222,14 @@ public class MessageProcessing {
 		}
 	}
 	
+	/**
+	 * Processes an incoming WaterPressureMessage. <br>
+	 * If the player who sent the Message is active, this message is added to the Queue. <br>
+	 * If the water level reaches 0 the player's pumping flag is set to true, else the flag is set to false. <br|
+	 * As long he is "pumping" the time until he is kicked out when he does not send any data is increased.
+	 * 
+	 * @param pressureMessage
+	 */
 	private void processWaterPressureMessage(WaterPressureInfoMessage pressureMessage) {
 		InetAddress address = pressureMessage.getIa();
 		if (checkPlayer(address)) {
@@ -257,15 +320,19 @@ public class MessageProcessing {
 		return activePlayers;
 	}
 	
+	/**
+	 * Removes all players from the list of active Players.
+	 * In addition to this all colors become available again.
+	 */
 	public void clearPlayerList() {
 		activePlayers.clear();
 		colorList.reuseColors();
 	}
 
 	/**
-	 * Returns the next Player to add to the game
+	 * Returns and removes the next Player to add to the game
 	 * 
-	 * @return
+	 * @return the first new Player
 	 */
 	public Player getPlayer() {
 		return playerQueue.poll();
@@ -281,26 +348,34 @@ public class MessageProcessing {
 	}
 	
 	/**
-	 * Returns the next PlayerInput
+	 * Returns and removes the first ButtonInput
 	 * 
-	 * @return
+	 * @return the first ButtonInput in the Queue
 	 */
 	public ButtonInput getInput() {
 		return buttonQueue.poll();
 	}
 	
+	/**
+	 * Check if the WaterPressurequeue has any WaterPressureInfoMessages in it
+	 * @return false if queue is empty, else true
+	 */
 	public boolean hasWaterPressureMessage(){
 		return !this.waterPressureQueue.isEmpty();
 	}
 	
+	/**
+	 * Returns and removes the first WaterPressureMessage from the Queue
+	 * @return the first WatterPressureMessage
+	 */
 	public WaterPressureInfoMessage getWaterPressureMessage(){
 		return this.waterPressureQueue.poll();
 	}
 	
 	/**
-	 * Returns the next SensorInput
+	 * Returns and removes the first SensorInput
 	 * 
-	 * @return
+	 * @return the first SensorInput in the Queue
 	 */
 	public SensorInput getSensorInput(){
 		return this.sensorQueue.poll();
@@ -339,6 +414,13 @@ public class MessageProcessing {
 	 */
 	public boolean hasSensorInput(){
 		return !this.sensorQueue.isEmpty();
+	}
+	
+	/** 
+	* 	Clears the smsQueue
+	 */
+	public void emptySmsInput() {
+		smsQueue.clear();
 	}
 	
 	/**
@@ -381,6 +463,11 @@ public class MessageProcessing {
 		return check;
 	}
 	
+	/**
+	 * Adds a new AbstractMessage to the Queue.
+	 * 
+	 * @param message -  the message to add
+	 */
 	public void addMessage(AbstractMessage message) {
 		messageQueue.add(message);
 	}
