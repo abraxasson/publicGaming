@@ -28,7 +28,7 @@ public class Settings {
 	private static Preferences prefs;
 	
 	
-	public static String TELEPHONE_NUMBER = "0681/20675089";
+	public static String TELEPHONE_NUMBER; 
 	
 	public static final float houseHealthpoints = 1000;
 	public static int healthpointsIncrease;
@@ -70,6 +70,7 @@ public class Settings {
 	public static void load() {
 		prefs = Preferences.userRoot().node(settingsPath);
 
+		TELEPHONE_NUMBER = prefs.get(TELEPHONE_NUMBER_ID, "0681/20675089");
 		healthpointsIncrease = prefs.getInt(houseHealthpointsIncreaseID, 200);
 		fireDamage = prefs.getFloat(fireDamageID, 1);
 		waterDamage = prefs.getFloat(waterDamageID, 3);
