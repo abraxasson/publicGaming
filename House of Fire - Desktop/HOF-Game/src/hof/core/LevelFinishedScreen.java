@@ -52,7 +52,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 		LevelInfoMessage message = new LevelInfoMessage(
 				LevelInfoMessage.FINISHED, game.houseIndex, lastLevel, medal);
 		for (Player player : processing.getPlayerList()) {
-			udpClient.sendMessage(message, player.getIp());
+			udpClient.prepareMessage(message, player.getIp());
 		}
 
 	}
@@ -179,7 +179,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			LevelInfoMessage message = new LevelInfoMessage(
 					LevelInfoMessage.STARTED, game.houseIndex + 1);
 			for (Player player : processing.getPlayerList()) {
-				udpClient.sendMessage(message, player.getIp());
+				udpClient.prepareMessage(message, player.getIp());
 				player.setLastInput(System.currentTimeMillis());
 			}
 		}

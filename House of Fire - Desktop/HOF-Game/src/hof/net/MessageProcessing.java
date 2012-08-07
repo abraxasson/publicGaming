@@ -177,7 +177,7 @@ public class MessageProcessing {
 		InetAddress address = message.getIa();
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
-			udpClient.sendMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
+			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 		} else {
 			player = new Player(filter.checkName(message.getName()), address, colorList.getNextColor());
 		}
@@ -186,7 +186,7 @@ public class MessageProcessing {
 			activePlayers.add(player);
 			playerQueue.add(player);
 			player.setLastInput(System.currentTimeMillis());
-			udpClient.sendMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
+			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 		}
 	}
 

@@ -115,7 +115,7 @@ public class WaitingForPlayersScreen extends GameScreen<HouseOfFireGame> {
 				InetAddress ia;
 				try {
 					ia = InetAddress.getLocalHost();
-					UdpClientThread.getInstance().sendMessage(
+					UdpClientThread.getInstance().prepareMessage(
 							new PlayerInfoMessage("Florian"), ia);
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
