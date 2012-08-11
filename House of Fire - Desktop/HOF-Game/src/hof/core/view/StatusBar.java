@@ -34,7 +34,7 @@ public class StatusBar {
 		Color oldColor = spriteBatch.getColor();
 		spriteBatch.setColor(Color.WHITE);
 		spriteBatch.draw(texture, x, y, Assets.STATUS_BAR_WIDTH,
-				Assets.STATUS_BAR_HEIGHT);
+				Assets.FRAME_HEIGHT);
 		spriteBatch.setColor(oldColor);
 		sms.draw(spriteBatch);
 		ranking.draw(spriteBatch);
@@ -122,12 +122,12 @@ public class StatusBar {
 			pressureEffect = Settings.pressureKeyWord;
 			telephoneNumber = Settings.TELEPHONE_NUMBER;
 			x = Assets.TIMELINE_WIDTH + Assets.TIMELINE_WIDTH_OFFSET + 10;
-			y = Assets.STATUS_BAR_HEIGHT;
+			y = Assets.FRAME_HEIGHT;
 		}
 
 		public void draw(SpriteBatch spriteBatch) {
 			updateCooldown();
-			y = Assets.STATUS_BAR_HEIGHT;
+			y = Assets.FRAME_HEIGHT;
 			font.setColor(Color.WHITE);
 			font.draw(spriteBatch, heading, x, y);
 			y -= 80;
