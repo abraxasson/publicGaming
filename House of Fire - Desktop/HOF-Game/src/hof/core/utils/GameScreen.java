@@ -6,13 +6,35 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
-public class GameScreen<HouseOfFire> implements Screen {
+/**
+ * This class is the basis for all Screens.
+ * By inheriting from this class the other Screen do not have to implement all methods from the Screen-Interface. <br>
+ * This class also manages the SpriteBatch, the Vector3 and the OrthographicCamera (for the SimpleButton).
+ *
+ * @param <HouseOfFire>
+ */
+public abstract class GameScreen<HouseOfFire> implements Screen {
 
+	/**
+	 * The main game.
+	 */
 	protected HouseOfFire game;
+	/**
+	 * The camera for the screen.
+	 */
 	protected OrthographicCamera  menuCam;
+	/**
+	 * Vector for the SimpleButton.
+	 */
 	protected Vector3 touchPoint;
+	/**
+	 * The SpriteBatch to draw all things.
+	 */
 	protected SpriteBatch spriteBatch;
 	
+	/**
+	 * @param the current game
+	 */
 	public GameScreen(HouseOfFire game) {
 		this.game = game;
 		menuCam = new OrthographicCamera();
@@ -27,24 +49,47 @@ public class GameScreen<HouseOfFire> implements Screen {
         return touchPoint;
 	}
 
+	
+	/**
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {	}
 
+	/**
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {	}
 
+	/**
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
-	public void show() {	}
+	public void show() { }
 
+	/**
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
-	public void hide() {	}
+	public void hide() { }
 
+	/**
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
-	public void pause() {	}
+	public void pause() { }
 
+	/**
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
 	@Override
-	public void resume() {	}
+	public void resume() { }
 
+	/** 
+	 * Disposes the SpriteBatch.
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 		spriteBatch.dispose();
