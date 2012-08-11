@@ -76,7 +76,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		currentHouse.resetHouse();
 		finishedTime = 0;
 		startTime = System.currentTimeMillis();
-		randomTime = (long)(10000+(Math.random()*20000));
+		randomTime = (long) (10000 + (Math.random() * 20000));
 		Lightning.setLastUsed(System.currentTimeMillis());
 		Rain.setLastUsed(System.currentTimeMillis());
 		WaterPressure.setLastUsed(System.currentTimeMillis());
@@ -106,28 +106,31 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 		removeDeadGags();
 		drawGag();
-		
-		if(System.currentTimeMillis() >= startTime + randomTime){
+
+		if (System.currentTimeMillis() >= startTime + randomTime) {
 			double random = Math.random();
-			if(random < 0.3){
-				initGag(new NonPlayable(100, (int) (Gdx.graphics.getHeight()*0.75)/5, 100,
+			if (random < 0.3) {
+				initGag(new NonPlayable(100,
+						(int) (Gdx.graphics.getHeight() * 0.75) / 5, 100,
 						Assets.runningCatAnimation));
+			} else if (random < 0.6) {
+				initGag(new NonPlayable(100,
+						(int) (Gdx.graphics.getHeight() * 0.6), 100,
+						Assets.flyingBirdAnimation));
+			} else {
+				initGag(new NonPlayable(100,
+						(int) (Gdx.graphics.getHeight() * 0.75), 100,
+						Assets.flyingBirdAnimation));
 			}
-			else if(random < 0.6){
-				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.6),100, Assets.flyingBirdAnimation));
-			}
-			else{
-				initGag(new NonPlayable(100,(int) (Gdx.graphics.getHeight()*0.75),100, Assets.flyingBirdAnimation));
-			}
-			
+
 			startTime = System.currentTimeMillis();
 			randomTime = startTime;
 		}
-		
+
 		drawFirefighters();
 
 		statusBar.draw(spriteBatch);
-//		fps.draw(spriteBatch);
+		// fps.draw(spriteBatch);
 		timeline.draw(spriteBatch, currentHouse);
 
 		drawSpecialEffects();
@@ -140,7 +143,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		Collections.sort(processing.getPlayerList());
 
 		// checks that the players stay inside the screen
-		
+
 		moveFireFighter();
 		keepInBounds();
 		checkCollision();
@@ -180,16 +183,15 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			Gdx.app.exit();
 		}
 
-
-
-//		checkComputerInput();
+		// checkComputerInput();
 		this.processing.removeInactivePlayers();
 		processWaterPressure();
 	}
 
 	private void drawGag() {
 		if (!this.gags.isEmpty()) {
-			this.gags.get((int)(Math.random()*gags.size())).drawAnimation(spriteBatch);
+			this.gags.get((int) (Math.random() * gags.size())).drawAnimation(
+					spriteBatch);
 		}
 	}
 
@@ -229,24 +231,24 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
 
 				WaterJet waterJet = fighter.getWaterJet();
-				if (input.getMessage().getY() > 1.5) {
+				if (input.getY() > 1.5) {
 					waterJet.setDirectionState(State.RIGHT);
-				} else if (input.getMessage().getY() < 1.5
-						&& input.getMessage().getY() > -1.5) {
+				} else if (input.getY() < 1.5
+						&& input.getY() > -1.5) {
 					waterJet.setDirectionState(State.NORMAL);
-				} else if (input.getMessage().getY() < -1.5) {
+				} else if (input.getY() < -1.5) {
 					waterJet.setDirectionState(State.LEFT);
 				}
 
-				if (input.getMessage().getX() < 1.5) {
+				if (input.getX() < 1.5) {
 					waterJet.setStrengthState(State.DOWN);
-				} else if (input.getMessage().getX() > 1.5
-						&& input.getMessage().getX() < 8.5) {
+				} else if (input.getX() > 1.5
+						&& input.getX() < 8.5) {
 					waterJet.setStrengthState(State.NORMAL);
-				} else if (input.getMessage().getX() > 8.5) {
+				} else if (input.getX() > 8.5) {
 					waterJet.setStrengthState(State.UP);
 				}
-				
+
 				if (fighter.getPlayer().isPumping()) {
 					waterJet.setStrengthState(State.NORMAL);
 					waterJet.setDirectionState(State.NORMAL);
@@ -293,12 +295,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
-	//TODO better solution
-	public static void setRandomTime(){
-		randomTime = (long)(10000+(Math.random()*20000));
+	// TODO better solution
+	public static void setRandomTime() {
+		randomTime = (long) (10000 + (Math.random() * 20000));
 		startTime = System.currentTimeMillis();
 	}
-	
+
 	private void drawSpecialEffects() {
 		if (processing.hasSMS()) {
 			for (AbstractCloud effect : processing.getSmsQueue()) {
@@ -382,18 +384,22 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		}
 	}
 
-	private void moveFireFighter() {
-		ButtonInput input = null;
-		if (processing.hasInput()) {
-			input = processing.getInput();
-		}
+	private void updateFirefighter() {
+		if (processing.hasButtonInput()) {
+			ButtonInput input = processing.getButtonInput();
 
-		for (Firefighter fighter : firefighters) {
-			if (input != null
-					&& fighter.getPlayer().getIp()
-							.equals(input.getPlayer().getIp())) {
-				fighter.setState(input.getMessage().getState());
+			for (Firefighter fighter : firefighters) {
+				if (fighter.getPlayer().getIp().equals(input.getPlayer().getIp())) {
+					fighter.setState(input.getButtonState());
+				}
 			}
+		}
+	}
+
+	private void moveFireFighter() {
+		updateFirefighter();
+		
+		for (Firefighter fighter : firefighters) {
 			int d;
 			int x;
 			switch (fighter.getState()) {
@@ -426,10 +432,12 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 	}
 
 	private void checkPlayers() {
+		//adds new fire fighter
 		if (processing.hasPlayers()) {
 			firefighters.add(new Firefighter(processing.getPlayer()));
 		}
 
+		//Removes fire fighter who are not in the active Players list
 		Iterator<Firefighter> iter = firefighters.iterator();
 		while (iter.hasNext()) {
 			Firefighter firefighter = iter.next();
@@ -468,8 +476,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			}
 		}
 
-		for (NonPlayable gag : this.gags) {
-			for (Firefighter firefighter : this.firefighters) {
+		for (NonPlayable gag : gags) {
+			for (Firefighter firefighter : firefighters) {
 				if (firefighter.getWaterJet().getStreamArea()
 						.overlaps(gag.getPosition())) {
 					gag.setHealthpoints(gag.getHealthpoints()
@@ -478,9 +486,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 							.setMinuspoints(
 									(int) (firefighter.getPlayer()
 											.getMinuspoints() - (gag
-											.getHealthpoints()
-											* Gdx.graphics.getDeltaTime())*100));
-					//FIXME better points calculation
+											.getHealthpoints() * Gdx.graphics
+											.getDeltaTime()) * 100));
+					// FIXME better points calculation
 				}
 			}
 		}
@@ -538,7 +546,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			UdpClientThread.getInstance().prepareMessage(
 					new SMSInfoMessage(SMSInfoMessage.PRESSURE), ia);
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Keys.W)) {
 			currentHouse.getFireList().clear();
 		}

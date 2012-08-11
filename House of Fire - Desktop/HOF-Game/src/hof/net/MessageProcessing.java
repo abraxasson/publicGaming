@@ -202,7 +202,7 @@ public class MessageProcessing {
 			Player player = getPlayer(address);
 			player.setAlive(true);
 			player.setLastInput();
-			buttonQueue.add(new ButtonInput(player, inputMessage));
+			buttonQueue.add(new ButtonInput(player, inputMessage.getState()));
 		}
 	}
 
@@ -352,7 +352,7 @@ public class MessageProcessing {
 	 * 
 	 * @return the first ButtonInput in the Queue
 	 */
-	public ButtonInput getInput() {
+	public ButtonInput getButtonInput() {
 		return buttonQueue.poll();
 	}
 	
@@ -399,11 +399,11 @@ public class MessageProcessing {
 	}
 
 	/**
-	 * Checks if LinkedList has any PlayerInput
+	 * Checks if LinkedList has any ButtonInput
 	 * 
-	 * @return true if PlayerInput is available
+	 * @return true if ButtonrInput is available
 	 */
-	public boolean hasInput() {
+	public boolean hasButtonInput() {
 		return !this.buttonQueue.isEmpty();
 	}
 	

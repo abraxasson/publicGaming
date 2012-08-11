@@ -4,10 +4,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class SensorInfoMessage extends AbstractMessage {
+	private static final long serialVersionUID = 37295872L;
+	
 	private float x;
 	private float y;
 	private float z;
-	private static final long serialVersionUID = 37295872L;
+	
 	
 	public SensorInfoMessage(float x, float y, float z){
 		super(AbstractMessage.SensorInfo);

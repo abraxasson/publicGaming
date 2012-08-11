@@ -19,13 +19,9 @@ public class ButtonInfoMessage extends AbstractMessage {
 		return state;
 	}
 	
-	public void setState(int state){
-		this.state = state;
-	}
-
 	@Override
 	public String toString() {
-		return super.toString() + " -Button pressed!";
+		return super.toString() + " -Button pressed! " + state;
 	}
 
 	@Override
