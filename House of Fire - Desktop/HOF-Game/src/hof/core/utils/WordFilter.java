@@ -11,22 +11,38 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
+/**
+ * This class is used to check if the used name is okay. <br>
+ * Bad words are listed in a txt-file and that file can easily be extended.
+ */
 public class WordFilter {
 
+	/**
+	 * The file where the bad words are stored.
+	 */
 	private File wordFile;
+	/**
+	 * The bad words list.
+	 */
 	private HashSet<String> wordSet;
 	
+	/**
+	 * Loads the bad words list. 
+	 */
 	public WordFilter() {
-		Settings.load();
 		String dirPath = Settings.filterListPath.substring(0, Settings.filterListPath.indexOf(File.separatorChar));
 		File dir = new File(dirPath);
 		dir.mkdir();
 		wordFile = new File(Settings.filterListPath);
 		
 		wordSet = loadWords();
-		
 	}
 	
+	/**
+	 * Splits the given String in single words and checks the words if they are contained in the bad words list.
+	 * @param word - the word to check
+	 * @return true if the word is okay, else false
+	 */
 	private boolean checkWord(String word) {
 		String testWord = word.toLowerCase().trim();
 		ArrayList<String> words = new ArrayList<>();
@@ -47,8 +63,11 @@ public class WordFilter {
 		return ok;
 	}
 	
-	
-	
+	/**
+	 * Checks the given name if it is okay.
+	 * @param name - the name to check
+	 * @return the name if it is okay, otherwise return a random name
+	 */
 	public String checkName(String name) {
 		if (checkWord(name)) {
 			return name;
@@ -57,6 +76,10 @@ public class WordFilter {
 		}
 	}
 	
+	/**
+	 * Loads the bad words from the txt-file and saves them in a set.
+	 * @return
+	 */
 	private HashSet<String> loadWords() {
 		HashSet<String> set = new HashSet<String>();
 		try {
@@ -77,9 +100,14 @@ public class WordFilter {
 		} catch (NoSuchElementException e) {
 			//ignore
 		}
+		rewriteList();
 		return set;
 	}
 	
+	/**
+	 * Generates a random name.
+	 * @return a random name
+	 */
 	private String generateName() {
 		String [] wordList = { "Adam Baum", "Al Bino", "Armand Hammer",
 				"Barb E. Dahl", "Barry Cade", "Bill Foldes", "Brighton Early",
@@ -131,7 +159,9 @@ public class WordFilter {
 		return wordList[rand.nextInt(wordList.length)];
 	}
 	
-	@SuppressWarnings("unused")
+	/**
+	 * Writes the Set to the txt-file.
+	 */
 	private void rewriteList() {
 		try {
 			FileWriter fw = new FileWriter(wordFile, false);
