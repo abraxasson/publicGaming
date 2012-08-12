@@ -138,7 +138,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 			this.nameFont.setColor(player.getColor());
 			String oldScore = "" + player.getScore() + " ";
 			String bonuspoints = "" + player.getBonuspoints() + " ";
-			String minuspoints = "" + player.getMinuspoints() + " ";
+			String minuspoints = "-" + player.getMinuspoints() + " ";
 			nameFont.draw(spriteBatch, player.getName(), count
 					* this.collumnWidth,
 					(float) (Gdx.graphics.getHeight() * 0.6));
@@ -158,7 +158,7 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (5 * bounds.height)));
 
 			int newPoints = player.getScore() + player.getBonuspoints()
-					+ player.getMinuspoints();
+					- player.getMinuspoints();
 			String newScore = "" + newPoints + " ";
 
 			infoFont.draw(
@@ -168,8 +168,8 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 					(float) ((float) (Gdx.graphics.getHeight() * 0.6) - (7 * bounds.height)));
 			infoFont.setColor(Color.BLACK);
 			player.setScore(newPoints);
-			player.setBonuspoints(0);
-			player.setMinuspoints(0);
+			player.resetBonuspoints();
+			player.resetMinuspoints();
 		}
 	}
 

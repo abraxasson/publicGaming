@@ -159,7 +159,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		if (currentHouse.getFireList().size() == 0) {
 			Assets.fire.stop();
 			for (Player player : this.processing.getPlayerList()) {
-				player.setBonuspoints((int) (currentHouse.getHealthpoints()) * 10);
+				player.increaseBonuspoints((int) (currentHouse.getHealthpoints()) * 10);
 			}
 
 			if (finishedTime == 0) {
@@ -483,10 +483,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					gag.setHealthpoints(gag.getHealthpoints()
 							- Settings.waterDamage);
 					firefighter.getPlayer()
-							.setMinuspoints(
-									(int) (firefighter.getPlayer()
-											.getMinuspoints() - (gag
-											.getHealthpoints() * Gdx.graphics
+							.increaseMinuspoints(
+									(int) ((gag.getHealthpoints() * Gdx.graphics
 											.getDeltaTime()) * 100));
 					// FIXME better points calculation
 				}
