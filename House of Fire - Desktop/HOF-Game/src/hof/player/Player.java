@@ -48,19 +48,6 @@ public class Player implements Comparable<Player> {
 	private int minuspoints;
 
 	/**
-	 * Test-Constructor <br>
-	 * Just calls the second Constructor with its parameters and the Color
-	 * White.
-	 * 
-	 * @param name
-	 * @param ip
-	 */
-	@Deprecated
-	public Player(String name, InetAddress ip) {
-		this(name, ip, Color.WHITE);
-	}
-
-	/**
 	 * Main-Constructor <br>
 	 * Creates a new Player with the given name, the InetAddress and assigns him
 	 * the given color
