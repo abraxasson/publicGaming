@@ -1,9 +1,13 @@
 package hof.net.userMessages;
 
-
+/**
+ * This message shows that the game is over and the players have lost.
+ */
 public class GameOverInfoMessage extends AbstractMessage{
-	private static final long serialVersionUID = 37295872L;
 	
+	/**
+	 * Creates a new GameOvrInfoMessage.
+	 */
 	public GameOverInfoMessage() {
 		super(AbstractMessage.GameOver);
 	}

@@ -1,16 +1,25 @@
 package hof.net.userMessages;
 
-
+/**
+ * This messages is send when a player logs himself out of the game.
+ *
+ */
 public class LogoutInfoMessage extends AbstractMessage {
 
-	private static final long serialVersionUID = 37295872L;
 
+	/**
+	 * Creates new LogoutInfoMessage.
+	 */
 	public LogoutInfoMessage() {
 		super(AbstractMessage.LogoutInfo);
 	}
 
+	/**
+	 * Returns the InetAddres of the player who logs out.
+	 * @return the InetAddress in a String
+	 */
 	@Override
 	public String toString() {
-		return super.toString() + " -Logout pressed!";
+		return " " + getIa() +" -Logout!";
 	}
 }
