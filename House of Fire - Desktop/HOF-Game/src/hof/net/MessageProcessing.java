@@ -39,7 +39,7 @@ public class MessageProcessing {
 	private static MessageProcessing instance;
 	
 	/**
-	 * Stores all received Messages and holds them until they ae processed
+	 * Stores all received Messages and holds them until they are processed
 	 */
 	private LinkedList<AbstractMessage> messageQueue;
 	/**
@@ -469,6 +469,9 @@ public class MessageProcessing {
 	 * @param message -  the message to add
 	 */
 	public void addMessage(AbstractMessage message) {
+		if (messageQueue.size() >= 250) {
+			messageQueue.clear();
+		}
 		messageQueue.add(message);
 	}
 	
