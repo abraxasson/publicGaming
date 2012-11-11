@@ -36,6 +36,7 @@ public class WordFilter {
 		wordFile = new File(Settings.filterListPath);
 		
 		wordSet = loadWords();
+		rewriteList();
 	}
 	
 	/**
@@ -100,7 +101,6 @@ public class WordFilter {
 		} catch (NoSuchElementException e) {
 			//ignore
 		}
-		rewriteList();
 		return set;
 	}
 	
