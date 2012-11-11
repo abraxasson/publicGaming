@@ -108,10 +108,11 @@ public class Player implements Comparable<Player> {
 	}
 
 	/**
-	 * Increases the player score by 10.
+	 * Increases the player score by the given value.
+	 * @param inc
 	 */
-	public void incScore() {
-		score += 10;
+	public void incScore(int inc) {
+		score += inc;
 	}
 
 	/**

@@ -471,7 +471,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						.overlaps(fire.getFireRectangle())) {
 					fire.setHealthpoints(fire.getHealthpoints()
 							- Settings.waterDamage);
-					firefighter.getPlayer().incScore();
+					firefighter.getPlayer().incScore(10);
 				}
 			}
 		}
@@ -485,8 +485,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 					firefighter.getPlayer()
 							.increaseMinuspoints(
 									(int) ((gag.getHealthpoints() * Gdx.graphics
-											.getDeltaTime()) * 100));
-					// FIXME better points calculation
+											.getDeltaTime())));
 				}
 			}
 		}

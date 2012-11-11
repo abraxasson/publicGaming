@@ -117,7 +117,7 @@ public class HallOfFame {
 				int score = tokenizer.nextInt();
 
 				Player player = new Player(name, null, null);
-				player.setScore(score);
+				player.incScore(score);
 				set.add(new Item(player));
 
 				tokenizer.close();
