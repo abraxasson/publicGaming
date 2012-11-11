@@ -59,9 +59,10 @@ public class LevelFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private int getMedal() {
 		int medal;
 		int diff = game.houseList.size() / 3;
-		int bronze = diff;
-		int silver = 2 * diff;
-		int gold = 3 * diff;
+		int korrektur = game.houseList.size() % 3;
+		int bronze = diff + korrektur;
+		int silver = 2 * diff + korrektur;
+		int gold = 3 * diff + korrektur;
 
 		if (game.houseIndex == bronze) {
 			medal = LevelInfoMessage.BRONZE_MEDAL;
