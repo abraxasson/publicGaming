@@ -38,23 +38,15 @@ public class SMSService extends Service {
 		
 		
 		String msg = intent.getStringExtra(SMSReceiver.EXTRA_SMS_MESSAGE);
+		msg = msg.toLowerCase();
 		
-		if(msg.contains("blitz") && msg.length()==5){
+		if(msg.contains("blitz") || msg.contains("light")){
 			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.LIGHTNING));
 		}
-		else if (msg.contains("regen") && msg.length()==5){
+		else if (msg.contains("regen") || msg.contains("rain") || msg.contains("wolke") || msg.contains("cloud")){
 			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN));
 		}
-		else if (msg.contains("wasserdruck") && msg.length()==11){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
-		}
-		else if (msg.contains("rain") && msg.length()==5){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.RAIN));
-		}
-		else if (msg.contains("lightning") && msg.length()==9){
-			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
-		}
-		else if (msg.contains("pressure") && msg.length()==8){
+		else if (msg.contains("druck") || msg.contains("pressure") || msg.contains("wasser") || msg.contains("water") || msg.contains("strahl")){
 			udpClient.sendObject(new SMSInfoMessage(SMSInfoMessage.PRESSURE));
 		}
 		Log.d(TAG, "Send effect: " + msg);
