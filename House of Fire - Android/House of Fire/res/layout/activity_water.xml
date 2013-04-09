@@ -3,7 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_water" >
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
@@ -13,7 +36,25 @@
             android:layout_marginRight="20dp"
             android:gravity="center"
             android:orientation="horizontal" >
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <ImageButton
                 android:id="@+id/pfeil_links"
                 android:layout_width="150dp"
@@ -24,7 +65,26 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
                 android:src="@drawable/water_pucket_left" />
-            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <house.of.fire.VerticalProgressBar
                 android:id="@+id/water_rating"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -33,7 +93,37 @@
                 android:max="100"
                 android:progress="50"
                 android:progressDrawable="@drawable/water_level_progress" />
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <ImageButton
                 android:id="@+id/pfeil_rechts"
                 android:layout_width="150dp"
@@ -46,7 +136,30 @@
                 android:src="@drawable/water_pucket_right" />
 
         </LinearLayout>
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <TextView
             android:id="@+id/output_water"
             android:layout_width="wrap_content"
@@ -57,7 +170,31 @@
             android:textColor="@color/my_color"
             android:textSize="@dimen/padding_giga"
             android:textStyle="bold" />
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <TextView
             android:id="@+id/instruction_textview"
             android:layout_width="wrap_content"

@@ -64,5 +64,8 @@
     <string name="first_time_msg">To play House of Fire, you have to be on the same WiFi network as the game-server.
         \n\nPlease go to your WiFi Settings and change your network to the game-server network.</string>
     <string name="again_check_box">Do not show again</string>
+    <string name="bronze">bronze</string>
+    <string name="silver">silver</string>
+    <string name="gold">gold</string>
 
 </resources>

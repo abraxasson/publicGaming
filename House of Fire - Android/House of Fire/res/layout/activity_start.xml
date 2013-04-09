@@ -4,13 +4,12 @@
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
     android:background="@drawable/background_start" >
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_weight="20"
         android:gravity="right|center_vertical"
         android:orientation="vertical" >
 
@@ -20,7 +19,7 @@
             android:layout_margin="@dimen/medal_text_margin"
             android:background="@color/medal_layout_background"
             android:padding="@dimen/medal_text_padding" >
-
+
             <TextView
                 android:id="@+id/gold_text"
                 android:layout_width="wrap_content"
@@ -29,12 +28,13 @@
                 android:text="@string/gold_text"
                 android:textColor="@color/medal_text_color"
                 android:textSize="@dimen/medal_text_size" />
-
+
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/medal_margin_left"
+                android:contentDescription="@string/gold"
                 android:src="@drawable/gold" />
 
         </LinearLayout>
@@ -45,7 +45,7 @@
             android:layout_margin="@dimen/medal_text_margin"
             android:background="@color/medal_layout_background"
             android:padding="@dimen/medal_text_padding" >
-
+
             <TextView
                 android:id="@+id/silver_text"
                 android:layout_width="wrap_content"
@@ -54,12 +54,13 @@
                 android:text="@string/silver_text"
                 android:textColor="@color/medal_text_color"
                 android:textSize="@dimen/medal_text_size" />
-
+
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/medal_margin_left"
+                android:contentDescription="@string/silver"
                 android:scaleType="fitXY"
                 android:src="@drawable/silber" />
 
@@ -72,7 +73,7 @@
             android:background="@color/medal_layout_background"
             android:orientation="horizontal"
             android:padding="@dimen/medal_text_padding" >
-
+
             <TextView
                 android:id="@+id/bronze_text"
                 android:layout_width="wrap_content"
@@ -81,26 +82,26 @@
                 android:text="@string/bronze_text"
                 android:textColor="@color/medal_text_color"
                 android:textSize="@dimen/medal_text_size" />
-
+
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/medal_margin_left"
+                android:contentDescription="@string/bronze"
                 android:scaleType="fitXY"
                 android:src="@drawable/bronze" />
 
         </LinearLayout>
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="80"
         android:baselineAligned="false"
         android:gravity="center"
         android:orientation="vertical" >
-
+
         <Button
             android:id="@+id/button_play"
             android:layout_width="200dp"
@@ -112,7 +113,7 @@
             android:text="@string/play"
             android:textColor="#FFF"
             android:textSize="@dimen/startButtonTextSize" />
-
+
         <Button
             android:id="@+id/button_instructions"
             android:layout_width="200dp"
@@ -124,7 +125,6 @@
             android:text="@string/instructions"
             android:textColor="#FFF"
             android:textSize="@dimen/startButtonTextSize" />
-
     </LinearLayout>
 
 </FrameLayout>

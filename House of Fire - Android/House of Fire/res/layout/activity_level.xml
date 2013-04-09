@@ -4,13 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/medal_layout_background" >
-
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical" >
-
+
+
+
         <TextView
             android:id="@+id/outputText_congratulation"
             android:layout_width="wrap_content"
@@ -20,7 +24,8 @@
             android:text="@string/congratulation"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
-
+
+
         <TextView
             android:id="@+id/outputText_level"
             android:layout_width="wrap_content"
@@ -28,7 +33,10 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
+
+
+
         <ImageView
             android:id="@+id/medal_imageview"
             android:layout_width="100dp"

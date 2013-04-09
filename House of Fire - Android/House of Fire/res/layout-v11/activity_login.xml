@@ -6,33 +6,33 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/padding_large" >
-
-         <EditText
-             android:id="@+id/nameEditText"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="10dp"
-             android:ems="10"
-             android:hint="@string/name"
-             android:inputType="textPersonName"
-             android:textColor="#000"
-             android:textColorHint="#999" >
 
-             <requestFocus />
-         </EditText>
-         
-         <Button
-             android:id="@+id/button_play"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
-             android:layout_margin="10dp"
-             android:background="@drawable/btn_default"
-             android:onClick="onLogInButtonClicked"
-             android:paddingLeft="36dp"
-             android:paddingRight="36dp"
-             android:text="@string/startButton"
-             android:textColor="#fff"
-             android:textSize="@dimen/startButtonTextSize" />
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:textColor="#000"
+        android:textColorHint="#999" >
 
-    </LinearLayout>
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_default"
+        android:onClick="onLogInButtonClicked"
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp"
+        android:text="@string/startButton"
+        android:textColor="#fff"
+        android:textSize="@dimen/startButtonTextSize" />
+
+</LinearLayout>
