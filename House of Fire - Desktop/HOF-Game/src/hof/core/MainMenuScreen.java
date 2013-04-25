@@ -2,6 +2,7 @@ package hof.core;
 
 import hof.core.utils.Assets;
 import hof.core.utils.GameScreen;
+import hof.start.SettingsDialog;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
