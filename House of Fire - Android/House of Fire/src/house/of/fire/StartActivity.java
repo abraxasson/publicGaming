@@ -103,4 +103,9 @@ public class StartActivity extends Activity{
 		.create();
 	}
 
+
+	public static String getTag() {
+		return TAG;
+	}
+
 }
