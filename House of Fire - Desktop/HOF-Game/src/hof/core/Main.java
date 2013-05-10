@@ -3,6 +3,7 @@ package hof.core;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -24,6 +25,7 @@ public class Main {
 		cfg.height = d.height;
 		cfg.fullscreen = true;
 		cfg.resizable = false;
+		cfg.addIcon("textures/icon_32x32.png", FileType.Internal);
 		new LwjglApplication(new HouseOfFireGame(), cfg);	
 	}
 }

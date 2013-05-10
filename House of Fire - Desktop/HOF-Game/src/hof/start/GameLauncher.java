@@ -2,14 +2,19 @@ package hof.start;
 
 import hof.core.HouseOfFireGame;
 import hof.core.utils.Settings;
-import hof.start.InstructionsDialog;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -101,6 +106,7 @@ public class GameLauncher {
 		cfg.height = d.height;
 		cfg.fullscreen = true;
 		cfg.resizable = false;
+		cfg.addIcon("textures/icon_32x32.png", FileType.Internal);
 		new LwjglApplication(new HouseOfFireGame(), cfg);	
 	}
 

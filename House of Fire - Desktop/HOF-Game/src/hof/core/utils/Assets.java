@@ -170,7 +170,10 @@ public class Assets{
 	 * The texture for the StatusBar.
 	 */
 	public static Texture statusBar;
-	
+	/**
+	 * The icon of the application 
+	 */
+	public static Texture icon_32x32;
 	/**
 	 * An animated running man for the timeline.
 	 */
@@ -440,7 +443,7 @@ public class Assets{
 		firefighter_cyan = new Texture(Gdx.files.internal("textures/firefighters/firefighter_cyan.png"));
 		firefighter_magenta = new Texture(Gdx.files.internal("textures/firefighters/firefighter_magenta.png"));
 		
-		
+		icon_32x32 = new Texture(Gdx.files.internal("textures/icon_32x32.png"));
 		
 		mainMenu = new Texture(Gdx.files.internal("textures/mainMenu.png"));
 		cloudTexture = new Texture(Gdx.files.internal("textures/cloud.png"));

@@ -38,7 +38,6 @@ public class HouseOfFireGame extends Game {
 			flames += Settings.fireIncrease;
 			life += Settings.healthpointsIncrease;
 		}
-		
 		houseIndex = 0;
 		
 		mainMenuScreen = new MainMenuScreen(this);
