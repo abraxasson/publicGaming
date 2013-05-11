@@ -20,9 +20,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 
 	private long startTime;
-	private MessageProcessing processing;
+	private MessageProcessing messageProcessing;
 	private HallOfFame fame;
 	private ParticleEffect fireworkParticles;
+	private ParticleEmitter particleEmitter;
+	
 	private TextureRegion currentFirework;
 	
 	private float stateTime;
@@ -33,22 +35,21 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 	private Random rand;
 	
 	private float delay;
-	private ParticleEmitter pm;
 	
 	public GameFinishedScreen(HouseOfFireGame game) {
 		super(game);
-		processing = MessageProcessing.getInstance();
+		messageProcessing = MessageProcessing.getInstance();
 		fame = HallOfFame.getInstance();
 		fireworkParticles = Assets.loadFireWorksParticles();
-		pm = fireworkParticles.getEmitters().get(0);
-		pm.setPosition(Assets.FRAME_WIDTH / 2, 0);
+		particleEmitter = fireworkParticles.getEmitters().get(0);
+		particleEmitter.setPosition(Assets.FRAME_WIDTH / 2, 0);
 		
 		float var = 200;
-		pm.getLife().setHigh(Assets.FRAME_HEIGHT + var);
-		pm.getLife().setLow(Assets.FRAME_HEIGHT - var);
+		particleEmitter.getLife().setHigh(Assets.FRAME_HEIGHT + var);
+		particleEmitter.getLife().setLow(Assets.FRAME_HEIGHT - var);
 
-		height = pm.getVelocity().getLowMin() * pm.getLife().getHighMin() / 1000;
-		delay = height / pm.getVelocity().getHighMin() + (pm.getDelay().getLowMax() / 1000);
+		height = particleEmitter.getVelocity().getLowMin() * particleEmitter.getLife().getHighMin() / 1000;
+		delay = height / particleEmitter.getVelocity().getHighMin() + (particleEmitter.getDelay().getLowMax() / 1000);
 		rand = new Random();
 		
 		trophy = new Sprite(Assets.trophyTexture);
@@ -62,10 +63,10 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		Assets.fanfare.play();
 		Assets.firework.loop();
 		
-		for (Player player: processing.getPlayerList()) {
+		for (Player player: messageProcessing.getPlayerList()) {
 			fame.addPlayer(player);
 		}
-		processing.clearPlayerList();
+		messageProcessing.clearPlayerList();
 		stateTime = 0;
 		started = false;
 	}
@@ -96,9 +97,9 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		}
 		
 		spriteBatch.begin();
-		pm.setPosition(Assets.FRAME_WIDTH / 4, 0);
+		particleEmitter.setPosition(Assets.FRAME_WIDTH / 4, 0);
 		fireworkParticles.draw(spriteBatch, delta);
-		pm.setPosition(Assets.FRAME_WIDTH * 0.75f, 0);
+		particleEmitter.setPosition(Assets.FRAME_WIDTH * 0.75f, 0);
 		fireworkParticles.draw(spriteBatch, delta);
 		if (started) {
 			drawFireworkAnimation();
@@ -116,7 +117,7 @@ public class GameFinishedScreen extends GameScreen<HouseOfFireGame> {
 		spriteBatch.draw(Assets.gameFinishedText, (Assets.FRAME_WIDTH - Assets.gameFinishedText.getWidth())/2, Assets.FRAME_HEIGHT * 9/10 - Assets.gameFinishedText.getHeight()/2);
 		spriteBatch.end();
 		
-		if (System.currentTimeMillis() - startTime >= (pm.getDuration().getLowMax() + pm.getDelay().getLowMax()) * 2) {
+		if (System.currentTimeMillis() - startTime >= (particleEmitter.getDuration().getLowMax() + particleEmitter.getDelay().getLowMax()) * 2) {
 			game.houseIndex = 0;
 			game.setScreen(game.waitingForPlayersScreen);
 		}

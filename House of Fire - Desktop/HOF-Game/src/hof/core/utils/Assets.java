@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -190,51 +189,51 @@ public class Assets{
 	/**
 	 * A typical loser sound.
 	 */
-	public static Sound loser;
+	public static Soundplayer loser;
 	/**
 	 * Sound of applause.
 	 */
-	public static Sound applause;
+	public static Soundplayer applause;
 	/**
 	 * Another applause.
 	 */
-	public static Sound applause2;
+	public static Soundplayer applause2;
 	/**
 	 * The sound of rain played when the SMS-Effect rain is activated.
 	 */
-	public static Sound rain;
+	public static Soundplayer rain;
 	/**
 	 * A siren played when the level starts.
 	 */
-	public static Sound sirene;
+	public static Soundplayer sirene;
 	/**
 	 * A fanfare.
 	 */
-	public static Sound fanfare;
+	public static Soundplayer fanfare;
 	/**
 	 * Sound of thunder played when the SMS-Effect lightning is activated.
 	 */
-	public static Sound thunder;
+	public static Soundplayer thunder;
 	/**
 	 * The sound of fireworks.
 	 */
-	public static Sound firework;
+	public static Soundplayer firework;
 	/**
 	 * Another sound of fireworks.
 	 */
-	public static Sound firework2;
+	public static Soundplayer firework2;
 	/**
 	 * The sound of burning fire during the game.
 	 */
-	public static Sound fire;
+	public static Soundplayer fire;
 	/**
 	 * The laugh at the GameOverScreen.
 	 */
-	public static Sound evilLaugh;
+	public static Soundplayer evilLaugh;
 	/**
 	 * The help scream for the WaitingForPlayerScreen.
 	 */
-	public static Sound help;
+	public static Soundplayer help;
 	
 	/**
 	 * The background-music played during the game.
@@ -514,18 +513,18 @@ public class Assets{
 	 * Loads all the sounds and music.
 	 */
 	private static void loadSounds(){
-		loser = Gdx.audio.newSound(Gdx.files.internal("sounds/loser.ogg")); 
-		applause = Gdx.audio.newSound(Gdx.files.internal("sounds/applause.mp3"));
-		applause2 = Gdx.audio.newSound(Gdx.files.internal("sounds/applause2.ogg"));
-		sirene = Gdx.audio.newSound(Gdx.files.internal("sounds/emergency.mp3"));
-		fanfare = Gdx.audio.newSound(Gdx.files.internal("sounds/fanfare2.ogg"));
-		rain = Gdx.audio.newSound(Gdx.files.internal("sounds/rain.mp3"));
-		thunder = Gdx.audio.newSound(Gdx.files.internal("sounds/thunder.ogg"));
-		firework = Gdx.audio.newSound(Gdx.files.internal("sounds/firework.ogg"));
-		firework2 = Gdx.audio.newSound(Gdx.files.internal("sounds/firework2.mp3"));
-		fire = Gdx.audio.newSound(Gdx.files.internal("sounds/forest_fire.ogg"));
-		evilLaugh = Gdx.audio.newSound(Gdx.files.internal("sounds/laugh.ogg"));
-		help = Gdx.audio.newSound(Gdx.files.internal("sounds/help.mp3"));
+		loser = Soundplayer.load("sounds/loser.ogg"); 
+		applause = Soundplayer.load("sounds/applause.mp3");
+		applause2 =Soundplayer.load("sounds/applause2.ogg");
+		sirene = Soundplayer.load("sounds/emergency.mp3");
+		fanfare = Soundplayer.load("sounds/fanfare2.ogg");
+		rain = Soundplayer.load("sounds/rain.mp3");
+		thunder = Soundplayer.load("sounds/thunder.ogg");
+		firework = Soundplayer.load("sounds/firework.ogg");
+		firework2 = Soundplayer.load("sounds/firework2.mp3");
+		fire = Soundplayer.load("sounds/forest_fire.ogg");
+		evilLaugh = Soundplayer.load("sounds/laugh.ogg");
+		help = Soundplayer.load("sounds/help.mp3");
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
 		backgroundMusicMenu = Gdx.audio.newMusic(Gdx.files.internal("sounds/background2.mp3"));
 	}
