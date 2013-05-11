@@ -14,7 +14,7 @@ import java.net.SocketException;
  * This Server is required to receive AbstractMessages via the UDP-Network.
  * 
  */
-public class UdpServerThread extends Thread {
+public final class UdpServerThread extends Thread {
 	/**
 	 * This is the port used to send the Messages.
 	 */
@@ -115,7 +115,7 @@ public class UdpServerThread extends Thread {
 	 */
 	private void getAlternativePort() {
 		try {
-			int port =(int) (Math.random() * 4000) + 4000;
+			final int port =(int) (Math.random() * 4000) + 4000;
 			socket = new DatagramSocket(port);
 		} catch (SocketException e1) {
 			System.out.println("Ersatzport nicht gefunden.");
@@ -128,7 +128,7 @@ public class UdpServerThread extends Thread {
 	 * 
 	 * @param isActive - active or inactive
 	 */
-	public void setActive(boolean isActive) {
+	public void setActive(final boolean isActive) {
 		this.isActive = isActive;
 	}
 }

@@ -17,7 +17,7 @@ import java.util.LinkedList;
  * 
  * To use this class you have to call the prepareMessage-Method and then the Thread will automatically send the Message to the given InetAddress.
  */
-public class UdpClientThread extends Thread {
+public final class UdpClientThread extends Thread {
 	/**
 	 * This is the port used to send the Messages.
 	 */

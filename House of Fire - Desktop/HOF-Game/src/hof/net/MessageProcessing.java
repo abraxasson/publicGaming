@@ -30,7 +30,7 @@ import java.util.LinkedList;
  * This class is designed as a Singleton so you cannot instantiate it, but get the instance over the given static method.
  *
  */
-public class MessageProcessing {
+public final class MessageProcessing {
 
 	/**
 	 * the only instance of this class is stored here

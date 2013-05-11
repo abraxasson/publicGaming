@@ -17,14 +17,9 @@ public class WaterPressureInfoMessage extends AbstractMessage {
 	 * Creates a new WaterPressureInfoMessage with the given water level.
 	 * @param pressure the water level
 	 */
-	public WaterPressureInfoMessage(float pressure) {
+	public WaterPressureInfoMessage(final float pressure) {
 		super(AbstractMessage.WaterPressure);
-		if (pressure > 1) {
-			pressure = 1;
-		} else if (pressure < 0) {
-			pressure = 0;
-		}
-		this.pressure = pressure;
+		this.pressure = pressure <  0 ? 0 : (pressure > 1 ? 1: pressure); 
 	}
 
 	/**

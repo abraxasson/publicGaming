@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class FrameUtils {
+public final class FrameUtils {
 
 	private FrameUtils() {}
 	
-	public static void setIcon(Window frame) {
+	public static void setIcon(final Window frame) {
 		try {
 			frame.setIconImage(ImageIO.read(new File(
 					"assets/textures/ic_launcher.png")));
