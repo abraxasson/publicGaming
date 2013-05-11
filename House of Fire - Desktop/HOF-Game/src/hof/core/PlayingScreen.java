@@ -146,7 +146,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		// checks that the players stay inside the screen
 
 		moveFireFighter();
-		keepInBounds();
 		checkCollision();
 
 		processing.processMessageQueue();
@@ -401,22 +400,17 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		updateFirefighter();
 		
 		for (Firefighter fighter : firefighters) {
-			int d;
 			int x;
 			switch (fighter.getState()) {
 			case ButtonInfoMessage.NORMAL:
 				break;
 			case ButtonInfoMessage.LEFT:
-				d = fighter.getX();
-				x = d - (int) (300 * Gdx.graphics.getDeltaTime());
-				fighter.setX(x);
-				fighter.setState(ButtonInfoMessage.LEFT);
+				x = - (int) (300 * Gdx.graphics.getDeltaTime());
+				fighter.moveHorizontal(x);
 				break;
 			case ButtonInfoMessage.RIGHT:
-				d = fighter.getX();
-				x = d + (int) (300 * Gdx.graphics.getDeltaTime());
-				fighter.setX(x);
-				fighter.setState(ButtonInfoMessage.RIGHT);
+				x = (int) (300 * Gdx.graphics.getDeltaTime());
+				fighter.moveHorizontal(x);
 				break;
 			default:
 				break;
@@ -445,12 +439,6 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 			if (!processing.getPlayerList().contains(firefighter.getPlayer())) {
 				iter.remove();
 			}
-		}
-	}
-
-	private void keepInBounds() {
-		for (Firefighter fighter : firefighters) {
-			fighter.stayInBounds();
 		}
 	}
 

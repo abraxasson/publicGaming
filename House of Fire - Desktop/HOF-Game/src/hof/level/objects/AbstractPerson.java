@@ -6,16 +6,18 @@ public abstract class AbstractPerson {
 	private Texture body;
 	private int x;
 	private int y;
-	private int width;
-	private int height;
+	private final int width;
+	private final int height;
+	private int currentWith;
 
-	public AbstractPerson(Texture body, int x, int y, int width, int height) {
+	public AbstractPerson(final Texture body, final int x, final int y, final int width, final int height) {
 		super();
 		this.body = body;
 		this.x = x;
 		this.y = y;
-		this.setWidth(width);
-		this.setHeight(height);
+		this.width = width;
+		this.height = height;
+		this.currentWith = width;
 	}
 
 	public Texture getBody() {
@@ -26,11 +28,24 @@ public abstract class AbstractPerson {
 		this.body = body;
 	}
 
+	public void move(final int x, final int y) {
+		this.x += x;
+		this.y += y;
+	}
+	
+	public void moveHorizontal(final int x) {
+		move(x, 0);
+	}
+	
+	public void moveVertical(final int y) {
+		move(0, y);
+	}
+	
 	public int getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	protected void setX(int x) {
 		this.x = x;
 	}
 
@@ -38,24 +53,23 @@ public abstract class AbstractPerson {
 		return y;
 	}
 
-	public void setY(int y) {
+	protected void setY(int y) {
 		this.y = y;
 	}
 
 	public int getWidth() {
-		return width;
+		return currentWith;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
+	protected void setWidthNegative() {
+		this.currentWith =  -width;
 	}
 
+	protected void setWidthPositive() {
+		this.currentWith = width;
+	}
+	
 	public int getHeight() {
 		return height;
 	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
 }
