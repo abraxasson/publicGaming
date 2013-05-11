@@ -434,8 +434,8 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void checkPlayers() {
 		//adds new fire fighter
-		if (processing.hasPlayers()) {
-			firefighters.add(new Firefighter(processing.getPlayer()));
+		if (processing.hasNewPlayers()) {
+			firefighters.add(new Firefighter(processing.pollNewPlayer()));
 		}
 
 		//Removes fire fighter who are not in the active Players list

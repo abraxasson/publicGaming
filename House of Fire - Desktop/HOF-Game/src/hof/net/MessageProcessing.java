@@ -48,7 +48,7 @@ public final class MessageProcessing {
 	/**
 	 * Stores new players who have just joined the game.
 	 */
-	private LinkedList<Player> playerQueue;
+	private LinkedList<Player> newPlayerQueue;
 	/**
 	 * Holds the received ButtonInput until they are used.
 	 */
@@ -100,7 +100,7 @@ public final class MessageProcessing {
 	private MessageProcessing() {
 		messageQueue = new LinkedList<>();
 		activePlayers = new ArrayList<Player>();
-		playerQueue = new LinkedList<>();
+		newPlayerQueue = new LinkedList<>();
 		buttonQueue = new LinkedList<ButtonInput>();
 		sensorQueue = new LinkedList<SensorInput>();
 		smsQueue = new LinkedList<>();
@@ -183,7 +183,7 @@ public final class MessageProcessing {
 		
 		if (!checkPlayer(address) && activePlayers.size() <= Settings.maxPlayers) {
 			activePlayers.add(player);
-			playerQueue.add(player);
+			newPlayerQueue.add(player);
 			player.setLastInput();
 			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
 		}
@@ -333,8 +333,8 @@ public final class MessageProcessing {
 	 * 
 	 * @return the first new Player
 	 */
-	public Player getPlayer() {
-		return playerQueue.poll();
+	public Player pollNewPlayer() {
+		return newPlayerQueue.poll();
 	}
 	
 	/**
@@ -342,8 +342,8 @@ public final class MessageProcessing {
 	 * 
 	 * @return true if Players are available
 	 */
-	public boolean hasPlayers() {
-		return !this.playerQueue.isEmpty();
+	public boolean hasNewPlayers() {
+		return !this.newPlayerQueue.isEmpty();
 	}
 	
 	/**
