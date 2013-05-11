@@ -8,15 +8,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class WaterPressure extends AbstractCloud {
+public class WaterPressure extends AbstractEffect {
 	public static final int WATERPRESSUREINC = Settings.waterPressureInc;
 	public static long lastUsed;
 	
 	public WaterPressure(){
-		super(Settings.pressureCooldown);
-		this.type = AbstractCloud.WATERPRESSURE;
+		super(SpecialEffectType.WATERPRESSURE, Settings.pressureCooldown);
 		this.lifeTime = Settings.waterPressureLifeTime;
-		this.alive = true;
+		this.active = true;
 		lastUsed = System.currentTimeMillis();
 	}
 	
@@ -24,14 +23,14 @@ public class WaterPressure extends AbstractCloud {
 	public void draw(SpriteBatch spriteBatch){
 		this.lifeTime -= Gdx.graphics.getDeltaTime();
 		if(this.lifeTime < 0){
-			this.alive = false;
+			this.active = false;
 		}
 		else{
 			BitmapFont font = Assets.menu45Font;
 			font.setColor(0, 0, 255, 1);
 			TextBounds bounds = font.getBounds("Wasserdruck erhöht!");
 			font.draw(spriteBatch, "Wasserdruck erhöht!", Gdx.graphics.getWidth()/2-bounds.width/2, Gdx.graphics.getHeight()/2-bounds.height/2);
-			this.alive = true;
+			this.active = true;
 		}
 	}
 	
@@ -43,8 +42,8 @@ public class WaterPressure extends AbstractCloud {
 		}
 	}
 	
-	public static void setLastUsed(long newLastUsed){
-		lastUsed = newLastUsed;
+	public static void updateLastUsed(){
+		lastUsed = System.currentTimeMillis();
 	}
 	
 	public static long getLastUsed(){

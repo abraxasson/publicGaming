@@ -6,45 +6,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class AbstractCloud {
-	public static final int LIGHTNING = 1;
-	public static final int RAIN = 2;
-	public static final int WATERPRESSURE = 4;
-	protected static float cooldown;
-	
-	protected int type;
+public abstract class AbstractCloud extends AbstractEffect {
 	protected Texture texture;
 	protected int x;
 	protected int y;
-	protected float lifeTime;
-	protected boolean alive;
 	protected int width;
 	protected int height;
-	protected int startPos;
+	protected int texturePosition;
 	
-	protected AbstractCloud(float cooldown){
+	protected AbstractCloud(final SpecialEffectType type, final float cooldown) {
+		super(type, cooldown);
 		this.texture = Assets.cloudTexture;
-		this.alive = true;
-		this.width = 300;
-		this.height = 150;
 		this.x = (int)(Math.random()*(Assets.CANVAS_WIDTH-texture.getWidth())-width/2);
 		this.y = (int)(Assets.CANVAS_HEIGHT*0.9);
-		this.startPos = Assets.CANVAS_WIDTH;
-		AbstractCloud.cooldown = cooldown;
+		this.width = 300;
+		this.height = 150;
+		this.texturePosition = Assets.CANVAS_WIDTH;
 	}
-
-	public void draw(SpriteBatch spriteBatch){
-		if(this.alive && this.startPos> this.x){
-			spriteBatch.draw(texture, startPos, y, width, height);
-			startPos -= 200*Gdx.graphics.getDeltaTime();
+	
+	@Override
+	public void draw(final SpriteBatch spriteBatch){
+		if(this.active && this.texturePosition > this.x){
+			spriteBatch.draw(texture, texturePosition, y, width, height);
+			texturePosition -= 200 * Gdx.graphics.getDeltaTime();
 		}
 		else{
-			if(this.lifeTime < 0){
+			if(this.lifeTime <= 0){
 				Assets.rain.stop();
-				spriteBatch.draw(texture, startPos, y, width, height);
-				startPos -= 200*Gdx.graphics.getDeltaTime();
-				if(startPos+width <= 0){
-					this.alive = false;
+				spriteBatch.draw(texture, texturePosition, y, width, height);
+				texturePosition -= 200*Gdx.graphics.getDeltaTime();
+				if(texturePosition + width <= 0){
+					this.active = false;
 				}
 			}
 			else{
@@ -52,21 +44,5 @@ public abstract class AbstractCloud {
 				this.lifeTime -= Gdx.graphics.getDeltaTime();
 			}
 		}
-	}
-	
-	public static float getCooldown() {
-		return cooldown;
-	}
-	
-	public int getType(){
-		return this.type;
-	}
-	
-	public boolean getActive(){
-		return this.alive;
-	}
-	
-	public float getLifeTime(){
-		return this.lifeTime;
 	}
 }

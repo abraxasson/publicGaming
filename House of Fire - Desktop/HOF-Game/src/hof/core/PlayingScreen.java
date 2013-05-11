@@ -5,9 +5,10 @@ import hof.core.utils.GameScreen;
 import hof.core.utils.Settings;
 import hof.core.view.StatusBar;
 import hof.core.view.TimeLine;
-import hof.level.effects.AbstractCloud;
+import hof.level.effects.AbstractEffect;
 import hof.level.effects.Lightning;
 import hof.level.effects.Rain;
+import hof.level.effects.SpecialEffectType;
 import hof.level.effects.WaterPressure;
 import hof.level.objects.Fire;
 import hof.level.objects.Firefighter;
@@ -77,9 +78,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 		finishedTime = 0;
 		startTime = System.currentTimeMillis();
 		randomTime = (long) (10000 + (Math.random() * 20000));
-		Lightning.setLastUsed(System.currentTimeMillis());
-		Rain.setLastUsed(System.currentTimeMillis());
-		WaterPressure.setLastUsed(System.currentTimeMillis());
+		Lightning.updateLastUsed();
+		Rain.updateLastUsed();
+		WaterPressure.updateLastUsed();
 		Assets.backgroundMusic.play();
 		Assets.backgroundMusic.setLooping(true);
 		Assets.sirene.play();
@@ -303,9 +304,9 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 
 	private void drawSpecialEffects() {
 		if (processing.hasSMS()) {
-			for (AbstractCloud effect : processing.getSmsQueue()) {
+			for (AbstractEffect effect : processing.getSmsQueue()) {
 				switch (effect.getType()) {
-				case AbstractCloud.LIGHTNING:
+				case LIGHTNING:
 					Lightning lightning = (Lightning) effect;
 					if (Lightning.isReady()) {
 						if (lightning.getActive()) {
@@ -322,7 +323,7 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 						}
 					}
 					break;
-				case AbstractCloud.RAIN:
+				case RAIN:
 					Rain rain = (Rain) effect;
 					if (rain.getActive()) {
 						if (rain.getBurningSpot() == null) {
@@ -343,14 +344,14 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 												.getX() - 10) {
 									fire.setHealthpoints(fire.getHealthpoints()
 											- Settings.rainDamage);
-									Rain.setLastUsed(System.currentTimeMillis());
+									Rain.updateLastUsed();
 								}
 							}
 						}
 						rain.draw(spriteBatch);
 					}
 					break;
-				case AbstractCloud.WATERPRESSURE:
+				case WATERPRESSURE:
 					WaterPressure waterPressure = (WaterPressure) effect;
 					if (waterPressure.getActive()) {
 						if (waterPressure.getLifeTime() == Settings.waterPressureLifeTime) {
@@ -368,11 +369,11 @@ public class PlayingScreen extends GameScreen<HouseOfFireGame> {
 				}
 			}
 
-			Iterator<AbstractCloud> iter = processing.getSmsQueue().iterator();
+			Iterator<AbstractEffect> iter = processing.getSmsQueue().iterator();
 			while (iter.hasNext()) {
-				AbstractCloud currentEffect = iter.next();
+				AbstractEffect currentEffect = iter.next();
 				if (!currentEffect.getActive()) {
-					if (currentEffect.getType() == AbstractCloud.WATERPRESSURE) {
+					if (currentEffect.getType() == SpecialEffectType.WATERPRESSURE) {
 						for (Firefighter firefighter : this.firefighters) {
 							WaterJet waterJet = firefighter.getWaterJet();
 							waterJet.changeDiameter(Settings.waterAimSize);

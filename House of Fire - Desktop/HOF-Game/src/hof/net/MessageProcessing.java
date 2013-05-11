@@ -3,8 +3,7 @@ package hof.net;
 import hof.core.utils.ColorList;
 import hof.core.utils.Settings;
 import hof.core.utils.WordFilter;
-
-import hof.level.effects.AbstractCloud;
+import hof.level.effects.AbstractEffect;
 import hof.level.effects.Lightning;
 import hof.level.effects.Rain;
 import hof.level.effects.WaterPressure;
@@ -61,7 +60,7 @@ public class MessageProcessing {
 	/**
 	 * Holds the received SMS-SpecialEffects until they become active.
 	 */
-	private LinkedList<AbstractCloud> smsQueue;
+	private LinkedList<AbstractEffect> smsQueue;
 	/**
 	 * Holds the received WaterPressureMessages until they are processed.
 	 */
@@ -269,8 +268,8 @@ public class MessageProcessing {
 	 * @param smsMessage to process
 	 * @param address - the address from where the message came
 	 */
-	private void processSmsMessage(SMSInfoMessage smsMessage) {		
-		AbstractCloud effect = null;
+	private void processSmsMessage(final SMSInfoMessage smsMessage) {		
+		AbstractEffect effect = null;
 		switch (smsMessage.getEffectType()) {
 		case SMSInfoMessage.LIGHTNING: 
 			if (Lightning.isReady()) effect = new Lightning();
@@ -385,7 +384,7 @@ public class MessageProcessing {
 	 * Return the Queue of the received text messages
 	 * @return LinkedList with AbstractCloud
 	 */
-	public LinkedList<AbstractCloud> getSmsQueue() {
+	public LinkedList<AbstractEffect> getSmsQueue() {
 		return smsQueue;
 	}
 	
