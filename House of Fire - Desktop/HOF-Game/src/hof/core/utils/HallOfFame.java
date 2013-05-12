@@ -75,7 +75,8 @@ public class HallOfFame {
 	 * @param player - the player to add
 	 */
 	public void addPlayer(Player player) {
-		highscoreSet.add(new Item(player));
+		final Item item = new Item(player.getName(), player.getScore());
+		highscoreSet.add(item);
 		while (highscoreSet.size() > Settings.highScoreSize) {
 			highscoreSet.pollLast();
 		}
@@ -116,9 +117,7 @@ public class HallOfFame {
 				String name = tokenizer.next();
 				int score = tokenizer.nextInt();
 
-				Player player = new Player(name, null, null);
-				player.incScore(score);
-				set.add(new Item(player));
+				set.add(new Item(name, score));
 
 				tokenizer.close();
 				line = reader.readLine();
@@ -241,10 +240,10 @@ public class HallOfFame {
 			playerName = "default";
 			playerScore = 0;
 		}
-
-		public Item(Player player) {
-			playerName = player.getName();
-			playerScore = player.getScore();
+		
+		public Item(final String playerName, final int playerScore) {
+			this.playerName = playerName;
+			this.playerScore = playerScore;
 		}
 
 		@Override
