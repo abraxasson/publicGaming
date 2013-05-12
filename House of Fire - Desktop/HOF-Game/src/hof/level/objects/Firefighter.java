@@ -1,10 +1,10 @@
 package hof.level.objects;
 
 import hof.core.utils.Assets;
+import hof.core.utils.ColorList.PlayerColor;
 import hof.net.userMessages.ButtonInfoMessage;
 import hof.player.Player;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -27,26 +27,32 @@ public class Firefighter extends AbstractPerson {
 		this.player = player;
 		waterJet = new WaterJet();
 		this.lastState = ButtonInfoMessage.RIGHT;
-		Color playerColor = player.getColor();
-		if(playerColor.equals(Color.RED)){
-			this.setBody(Assets.firefighter_red);
-		}
-		else if(playerColor.equals(Color.GREEN)){
-			this.setBody(Assets.firefighter_green);
-		}
-		else if(playerColor.equals(Color.ORANGE)){
-			this.setBody(Assets.firefighter_orange);
-		}
-		else if(playerColor.equals(Color.MAGENTA)){
-			this.setBody(Assets.firefighter_magenta);
-		}
-		else if(playerColor.equals(Color.BLUE)){
-			this.setBody(Assets.firefighter_blue);
-		}
-		else if(playerColor.equals(Color.CYAN)){
-			this.setBody(Assets.firefighter_cyan);
-		}
+		chooseBody(player);
 		stayInBounds();
+	}
+
+	private void chooseBody(Player player) {
+		PlayerColor playerColor = player.getPlayerColor();
+		final Texture body;
+		switch(playerColor) {
+		case BLUE: 
+			body = Assets.firefighter_red; break;
+		case GREEN:
+			body = Assets.firefighter_red; break;
+		case MAGENTA:
+			body = Assets.firefighter_red; break;
+		case ORANGE:
+			body = Assets.firefighter_red; break;
+		case PINK:
+			body = Assets.firefighter_red; break;
+		case RED:
+			body = Assets.firefighter_red; break;
+		case YELLOW:
+			body = Assets.firefighter_red; break;
+		default:
+			body = Assets.firefighter_blue;	break;
+		}
+		this.setBody(body);
 	}
 
 	public Player getPlayer() {

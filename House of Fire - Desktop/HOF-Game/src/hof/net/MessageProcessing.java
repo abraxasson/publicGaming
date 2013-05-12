@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * This class is an important part of the network communication of this game.
  * All received AbstractMessages are processed here.  
@@ -176,7 +178,8 @@ public final class MessageProcessing {
 		InetAddress address = message.getIa();
 		if (checkPlayer(address)) {
 			player = getPlayer(address);
-			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
+			final Color color = player.getColor();
+			udpClient.prepareMessage(new ValidationInfoMessage(color.r, color.g, color.b), address);
 		} else {
 			player = new Player(filter.checkName(message.getName()), address, colorList.getNextColor());
 		}
@@ -185,7 +188,8 @@ public final class MessageProcessing {
 			activePlayers.add(player);
 			newPlayerQueue.add(player);
 			player.setLastInput();
-			udpClient.prepareMessage(new ValidationInfoMessage(player.getColor().r,player.getColor().g,player.getColor().b), address);
+			final Color color = player.getColor();
+			udpClient.prepareMessage(new ValidationInfoMessage(color.r, color.g, color.b), address);
 		}
 	}
 
@@ -257,7 +261,7 @@ public final class MessageProcessing {
 			Player player = iter.next();
 			if (logOutMessage.getIa().equals(player.getIp())) {
 				player.setAlive(false);
-				this.colorList.reuseColor(player.getColor());
+				this.colorList.reuseColor(player.getPlayerColor());
 				iter.remove();
 			}
 		}
@@ -491,7 +495,7 @@ public final class MessageProcessing {
 		while(iter.hasNext()){
 			Player player = iter.next();
 			if(!player.getAlive()){
-				this.colorList.reuseColor(player.getColor());
+				this.colorList.reuseColor(player.getPlayerColor());
 				iter.remove();
 			}
 		}

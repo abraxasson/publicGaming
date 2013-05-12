@@ -1,5 +1,7 @@
 package hof.player;
 
+import hof.core.utils.ColorList.PlayerColor;
+
 import java.net.InetAddress;
 
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +24,10 @@ public class Player implements Comparable<Player> {
 	 * The score of the player
 	 */
 	private int score;
+	/**
+	 * Information about the players color
+	 */
+	private PlayerColor playerColor;
 	/**
 	 * His representing color
 	 */
@@ -59,11 +65,14 @@ public class Player implements Comparable<Player> {
 	 * @param color
 	 *            - his color
 	 */
-	public Player(String name, InetAddress ip, Color color) {
+	public Player(final String name, final InetAddress ip, final PlayerColor playerColor) {
 		this.name = name;
 		this.ip = ip;
 		this.score = 0;
-		this.color = color;
+		this.playerColor = playerColor;
+		final String hex = playerColor.getRGBHex();
+		color = Color.valueOf(hex);
+		
 		bonuspoints = 0;
 		minuspoints = 0;
 		isAlive = true;
@@ -103,7 +112,7 @@ public class Player implements Comparable<Player> {
 	 * @param score
 	 *            - the new score
 	 */
-	public void setScore(int score) {
+	public void setScore(final int score) {
 		this.score = score;
 	}
 
@@ -111,10 +120,19 @@ public class Player implements Comparable<Player> {
 	 * Increases the player score by the given value.
 	 * @param inc
 	 */
-	public void incScore(int inc) {
+	public void incScore(final int inc) {
 		score += inc;
 	}
 
+	/**
+	 * Returns the information of the color of the player
+	 * 
+	 * @return the color
+	 */
+	public PlayerColor getPlayerColor() {
+		return playerColor;
+	}
+	
 	/**
 	 * Returns the color of the player
 	 * 
@@ -139,7 +157,7 @@ public class Player implements Comparable<Player> {
 	 * @param isAlive
 	 *            - active or inactive
 	 */
-	public void setAlive(boolean isAlive) {
+	public void setAlive(final boolean isAlive) {
 		this.isAlive = isAlive;
 	}
 
@@ -174,7 +192,7 @@ public class Player implements Comparable<Player> {
 	 * @param bonuspoints
 	 *            - the value to add
 	 */
-	public void increaseBonuspoints(int bonuspoints) {
+	public void increaseBonuspoints(final int bonuspoints) {
 		if (bonuspoints > 0) {
 			this.bonuspoints += bonuspoints;
 		}
@@ -201,7 +219,7 @@ public class Player implements Comparable<Player> {
 	 * 
 	 * @param minuspoints
 	 */
-	public void increaseMinuspoints(int minuspoints) {
+	public void increaseMinuspoints(final int minuspoints) {
 		if (this.minuspoints < 0) {
 			this.minuspoints += minuspoints;
 		}
@@ -228,7 +246,7 @@ public class Player implements Comparable<Player> {
 	 * 
 	 * @param isPumping
 	 */
-	public void setPumping(boolean isPumping) {
+	public void setPumping(final boolean isPumping) {
 		this.isPumping = isPumping;
 	}
 
@@ -238,7 +256,7 @@ public class Player implements Comparable<Player> {
 	 * @return difference between the score
 	 */
 	@Override
-	public int compareTo(Player p) {
+	public int compareTo(final Player p) {
 		return p.score - score;
 	}
 
