@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class ColorList {
 
+	private static final PlayerColor DEFAULT_COLOR = PlayerColor.PINK;
+	
 	/**
 	 * List of all colors which are used.
 	 */
@@ -26,8 +28,9 @@ public class ColorList {
 	 */
 	private int index;
 	
+	
 	/**
-	 * Creates, fills and shuffles all lists.
+	 * Creates a new instance of the color list.
 	 */
 	public ColorList() {
 		colorList = new ArrayList<>();
@@ -58,7 +61,7 @@ public class ColorList {
 			index++;
 			return color;
 		} else {
-			return PlayerColor.PINK;
+			return DEFAULT_COLOR;
 		}
 	}
 	
